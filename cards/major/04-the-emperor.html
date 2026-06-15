@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>皇帝 · THE EMPEROR — 塔罗牌深度专题</title>
+<style>
+:root{
+  --bg:oklch(95.5% 0.015 35);
+  --paper:oklch(97.5% 0.01 40);
+  --surface:oklch(93.5% 0.02 30);
+  --fg:oklch(24% 0.035 25);
+  --muted:oklch(45% 0.04 28);
+  --faint:oklch(62% 0.03 30);
+  --border:oklch(80% 0.035 45);
+  --rule:oklch(70% 0.05 40);
+  --gold:oklch(58% 0.12 70);
+  --gold-deep:oklch(48% 0.11 65);
+  --wine:oklch(40% 0.13 25);
+  --wine-soft:oklch(52% 0.12 26);
+  --ink-blue:oklch(38% 0.06 250);
+  --serif:'Iowan Old Style','Palatino Linotype',Palatino,'Songti SC','Source Han Serif SC',Georgia,'Times New Roman',serif;
+  --song:'Songti SC','STSong','Source Han Serif SC',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+  --mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  background-image:
+    radial-gradient(oklch(55% .04 70 / .04) 1px,transparent 1px),
+    radial-gradient(oklch(55% .04 70 / .03) 1px,transparent 1px);
+  background-size:34px 34px,34px 34px;
+  background-position:0 0,17px 17px;
+  color:var(--fg);
+  font-family:var(--serif);
+  font-size:18px;
+  line-height:1.78;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+::selection{background:oklch(58% .12 70 / .28)}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--gold)}
+
+/* ============ 装帧通用 ============ */
+.wrap{max-width:1180px;margin:0 auto;padding:0 48px}
+.eyebrow{
+  font-family:var(--mono);
+  font-size:11.5px;
+  letter-spacing:.42em;
+  text-transform:uppercase;
+  color:var(--gold-deep);
+  font-weight:600;
+}
+.rule-gold{height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);border:0;margin:30px 0}
+.rule-thin{height:1px;background:var(--border);border:0}
+.ornament{
+  text-align:center;color:var(--gold);font-size:22px;letter-spacing:1.4em;
+  margin:20px 0;padding-left:1.4em;user-select:none;
+}
+
+/* ============ 滚动显现动画 ============ */
+.reveal{
+  opacity:0;
+  transform:translateY(30px);
+  transition:opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ============ 顶栏目录 ============ */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:oklch(95% .018 85 / .86);
+  backdrop-filter:blur(12px) saturate(1.2);
+  -webkit-backdrop-filter:blur(12px) saturate(1.2);
+  border-bottom:1px solid var(--border);
+  transition:transform 0.3s;
+}
+.topbar-inner{
+  max-width:1180px;margin:0 auto;padding:0 48px;
+  height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px;
+}
+.topbar .mark{font-family:var(--mono);font-size:12px;letter-spacing:.34em;color:var(--fg);text-transform:uppercase;white-space:nowrap}
+.topbar .mark b{color:var(--wine);font-weight:700}
+.tnav{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.tnav a{
+  font-family:var(--sans);font-size:12.5px;letter-spacing:.04em;
+  color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:2px;
+  transition:.25s;white-space:nowrap;
+}
+.tnav a:hover{color:var(--wine);background:oklch(40% .13 25 / .07)}
+.tnav a.active{color:var(--wine);font-weight:600;background:oklch(40% .13 25 / .04)}
+
+/* ============ 卷首 ============ */
+.hero{
+  padding:100px 0 80px;
+  border-bottom:2px solid var(--fg);
+  position:relative;
+  overflow:hidden;
+}
+.hero-grid{
+  display:grid;grid-template-columns:1fr 1.15fr;gap:64px;align-items:center;
+}
+.hero-figure{
+  position:relative;
+  animation: heroImageIn 1.2s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+@keyframes heroImageIn {
+  0% { opacity:0; transform:scale(0.96) translateY(20px); }
+  100% { opacity:1; transform:scale(1) translateY(0); }
+}
+
+.hero-figure .plate{
+  position:relative;border:1px solid var(--rule);
+  padding:20px;background:var(--paper);
+  box-shadow:0 4px 12px oklch(24% 0.03 55 / .05), 0 24px 68px oklch(24% 0.03 55 / .15);
+  transition:transform 0.4s ease, box-shadow 0.4s ease;
+}
+.hero-figure .plate::before{
+  content:"";position:absolute;inset:8px;border:1px solid var(--gold);opacity:.5;pointer-events:none;
+}
+.hero-figure img{display:block;width:100%;height:auto;filter:saturate(.94) contrast(1.02);transition:filter 0.3s;}
+.hero-figure:hover .plate{
+  transform:translateY(-4px);
+  box-shadow:0 6px 16px oklch(24% 0.03 55 / .08), 0 30px 80px oklch(24% 0.03 55 / .18);
+}
+.hero-figure:hover img{filter:saturate(1) contrast(1.03)}
+
+.hero-figure .imgfallback{
+  aspect-ratio:3/5;display:flex;align-items:center;justify-content:center;
+  background:repeating-linear-gradient(45deg,oklch(90% .02 80),oklch(90% .02 80) 12px,oklch(88% .024 80) 12px,oklch(88% .024 80) 24px);
+  color:var(--faint);font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-align:center;padding:24px;line-height:2;
+}
+.plate-cap{
+  margin-top:16px;font-family:var(--mono);font-size:11.5px;letter-spacing:.22em;
+  color:var(--faint);text-transform:uppercase;text-align:center;
+}
+.hero-text{
+  animation: heroTextIn 1s cubic-bezier(0.215, 0.61, 0.355, 1) 0.2s forwards;
+  opacity:0;
+}
+@keyframes heroTextIn {
+  0% { opacity:0; transform:translateY(15px); }
+  100% { opacity:1; transform:translateY(0); }
+}
+.hero-num{
+  font-family:var(--serif);font-size:clamp(60px,9vw,128px);line-height:.8;
+  color:var(--wine);font-weight:400;letter-spacing:-.02em;
+}
+.hero-num small{display:block;font-family:var(--mono);font-size:13px;letter-spacing:.4em;color:var(--gold-deep);margin-top:18px;text-transform:uppercase}
+.hero h1{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(48px,6.4vw,84px);line-height:.98;letter-spacing:-.01em;
+  margin:22px 0 6px;color:var(--fg);
+}
+.hero h1 .en{display:block;font-family:var(--mono);font-size:clamp(13px,1.4vw,17px);letter-spacing:.46em;color:var(--muted);font-weight:500;margin-top:18px;text-transform:uppercase}
+.hero-keywords{
+  display:flex;gap:0;margin-top:34px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.hero-keywords div{
+  flex:1;padding:18px 8px;text-align:center;font-family:var(--song);
+  font-size:19px;color:var(--fg);position:relative;
+}
+.hero-keywords div+div::before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:1px;background:var(--border)}
+.hero-keywords span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--gold-deep);margin-top:6px}
+.hero-lede{margin-top:30px;font-size:18px;line-height:1.85;color:var(--muted);max-width:46ch}
+
+.back-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--sans);font-size:13.5px;color:var(--muted);
+  text-decoration:none;transition:.2s;margin-top:28px;
+  border-bottom:1px dashed var(--border);padding-bottom:2px;
+}
+.back-btn:hover{color:var(--wine);border-color:var(--wine)}
+
+/* ============ 章节通用 ============ */
+section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
+.chapter-head{margin-bottom:50px;position:relative}
+.chapter-head .idx{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--gold-deep)}
+.chapter-head h2{
+  font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,46px);
+  line-height:1.08;letter-spacing:-.01em;margin:10px 0 0;color:var(--fg);
+}
+.chapter-head h2 .en{font-family:var(--mono);font-size:13px;letter-spacing:.34em;color:var(--faint);text-transform:uppercase;margin-left:14px;vertical-align:middle}
+
+/* 叙事正文 */
+.prose{max-width:65ch;font-size:19px;line-height:1.95;color:var(--fg)}
+.prose.drop::first-letter{
+  font-family:var(--serif);float:left;font-size:84px;line-height:.72;
+  padding:8px 14px 0 0;color:var(--wine);font-weight:400;
+}
+.prose p{margin-bottom:24px;text-align:justify}
+.pullquote{
+  margin:52px 0;padding:12px 0 12px 34px;border-left:3px solid var(--gold);
+  font-family:var(--song);font-size:25px;line-height:1.6;color:var(--wine);font-style:normal;
+  background:oklch(58% .12 70 / .03);
+}
+
+/* ============ 牌面要素 标签 ============ */
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--rule);background:var(--paper)}
+.facts dl{padding:30px 26px;border-right:1px solid var(--border);position:relative}
+.facts dl:last-child{border-right:0}
+.facts dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:14px}
+.facts dd{font-family:var(--serif);font-size:30px;line-height:1.1;color:var(--fg)}
+.facts dd small{display:block;font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:10px;line-height:1.6;letter-spacing:0}
+@media(max-width:860px){.facts{grid-template-columns:repeat(2,1fr)}.facts dl:nth-child(2){border-right:0}.facts dl:nth-child(-n+2){border-bottom:1px solid var(--border)}}
+
+/* ============ 象征要素图谱 ============ */
+.symbol-layout{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:start}
+.symbol-figure{position:sticky;top:100px}
+.symbol-figure .plate{position:relative;border:1px solid var(--rule);padding:16px;background:var(--paper);box-shadow:0 18px 44px oklch(24% 0.03 55 / .12)}
+.symbol-figure .plate::before{content:"";position:absolute;inset:8px;border:1px solid var(--gold);opacity:.4;pointer-events:none}
+.symbol-figure img{display:block;width:100%;height:auto}
+.symbol-figure .imgfallback{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,oklch(90% .02 80),oklch(90% .02 80) 12px,oklch(88% .024 80) 12px,oklch(88% .024 80) 24px);color:var(--faint);font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-align:center;padding:20px;line-height:2}
+
+.symbol-list{display:flex;flex-direction:column;gap:2px}
+.symbol-item{display:grid;grid-template-columns:42px 1fr;gap:18px;padding:18px 16px;border-bottom:1px solid var(--border);transition:all .25s ease;align-items:start;cursor:pointer}
+.symbol-item:hover, .symbol-item.highlight{background:var(--paper);transform:translateX(6px);border-bottom-color:var(--gold)}
+.symbol-item:hover .sym-no, .symbol-item.highlight .sym-no{background:var(--wine);color:var(--paper);border-color:var(--wine)}
+.sym-no{width:42px;height:42px;border:1px solid var(--rule);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;color:var(--gold-deep);transition:all .25s ease}
+.sym-body h4{font-family:var(--song);font-size:18.5px;font-weight:600;color:var(--fg);margin-bottom:6px;letter-spacing:.01em}
+.sym-body p{font-family:var(--sans);font-size:15px;line-height:1.75;color:var(--muted)}
+.swatch{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:7px;vertical-align:baseline;border:1px solid oklch(40% .05 60 / .3)}
+
+/* ============ 塔罗灵数 ============ */
+.numero{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:center}
+.bignum{font-family:var(--serif);font-size:clamp(180px,26vw,340px);line-height:.74;color:var(--wine);text-align:center;position:relative}
+.bignum::after{content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);width:60%;height:1px;background:var(--gold)}
+.bignum small{display:block;font-family:var(--mono);font-size:13px;letter-spacing:.4em;color:var(--gold-deep);margin-top:30px;text-transform:uppercase}
+.numero-keys{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}
+.numero-keys span{font-family:var(--sans);font-size:13.5px;padding:6px 14px;border:1px solid var(--border);border-radius:999px;color:var(--muted);background:var(--paper)}
+.numero p{margin-bottom:18px;font-size:17.5px;line-height:1.85;color:var(--fg)}
+.numero .lesson{margin-top:22px;padding:22px 26px;background:var(--paper);border-left:3px solid var(--gold);box-shadow:0 4px 12px oklch(24% 0.03 55 / .02)}
+.numero .lesson b{color:var(--wine);font-family:var(--song)}
+
+/* ============ 正逆位切换 ============ */
+.pos-switch-wrapper{
+  display:flex;justify-content:center;margin-bottom:50px;
+}
+.pos-switch{display:inline-flex;border:1px solid var(--fg);background:var(--paper);border-radius:3px;overflow:hidden;padding:3px;box-shadow:0 4px 12px oklch(24% 0.03 55 / .04)}
+.pos-switch button{font-family:var(--song);font-size:17px;padding:12px 38px;background:transparent;border:0;cursor:pointer;color:var(--muted);position:relative;transition:all .3s ease;letter-spacing:.06em;border-radius:2px}
+.pos-switch button.on{background:var(--fg);color:var(--paper)}
+.pos-switch button .en{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.24em;margin-top:4px;text-transform:uppercase;opacity:.7}
+
+/* 正逆位内容面板 */
+.pos-panel-container{
+  position:relative;
+  min-height:500px;
+}
+.pos-panel{
+  position:absolute;top:0;left:0;width:100%;
+  opacity:0;visibility:hidden;
+  transform:translateY(15px);
+  transition:opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
+}
+.pos-panel.show{
+  position:relative;
+  opacity:1;visibility:visible;
+  transform:translateY(0);
+}
+.pos-summary{display:grid;grid-template-columns:1fr 1fr;gap:0 56px;margin-bottom:48px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.pos-summary .kw{padding:26px 0;border-bottom:1px solid var(--border)}
+.pos-summary .kw:nth-last-child(-n+2){border-bottom:0}
+.pos-summary .kw .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.26em;color:var(--gold-deep);text-transform:uppercase;display:block;margin-bottom:10px}
+.pos-summary .kw p{font-family:var(--song);font-size:16.5px;line-height:1.75;color:var(--fg)}
+
+.dim-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);box-shadow:0 8px 24px oklch(24% 0.03 55 / .04)}
+.dim{background:var(--bg);padding:36px 32px;transition:background-color 0.3s;}
+.dim:hover{background:var(--paper)}
+.dim-head{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}
+.dim-head .ic{font-family:var(--serif);font-size:24px;color:var(--gold-deep)}
+.dim-head h4{font-family:var(--song);font-size:21px;font-weight:600;color:var(--fg)}
+.dim-head .en{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;margin-left:auto}
+.dim .kw-line{font-family:var(--sans);font-size:13.5px;color:var(--wine-soft);line-height:1.7;margin-bottom:16px;padding-bottom:16px;border-bottom:1px dashed var(--border)}
+.dim>p{font-size:15.8px;line-height:1.82;color:var(--muted);margin-bottom:18px}
+.dim ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.dim li{font-size:14.5px;line-height:1.65;color:var(--fg);display:grid;grid-template-columns:auto 1fr;gap:11px;align-items:baseline}
+.dim li b{font-family:var(--song);font-size:12.5px;color:var(--paper);background:var(--gold-deep);padding:3px 9px;border-radius:2px;white-space:nowrap;font-weight:500;letter-spacing:.04em}
+.dim.reversed li b{background:var(--wine)}
+.dim-extra{margin-top:30px;padding:26px 30px;background:var(--paper);border:1px solid var(--border)}
+.dim-extra .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;color:var(--gold-deep);text-transform:uppercase;display:block;margin-bottom:12px}
+.dim-extra p{font-size:15.5px;line-height:1.8;color:var(--muted)}
+
+/* ============ 新增图版通用 ============ */
+.element-figure, .pos-figure, .spread-figure{margin:40px 0}
+.element-figure .plate, .pos-figure .plate, .spread-figure .plate{
+  position:relative;border:1px solid var(--rule);padding:16px;background:var(--paper);
+  box-shadow:0 10px 30px oklch(24% 0.03 55 / .08);
+  transition:all 0.3s ease;
+}
+.element-figure .plate::before, .pos-figure .plate::before, .spread-figure .plate::before{content:"";position:absolute;inset:8px;border:1px solid var(--gold);opacity:.4;pointer-events:none}
+.element-figure img, .pos-figure img, .spread-figure img{display:block;width:100%;height:auto}
+.element-figure:hover .plate, .pos-figure:hover .plate, .spread-figure:hover .plate{
+  transform:translateY(-4px);
+  box-shadow:0 14px 40px oklch(24% 0.03 55 / .14);
+}
+
+/* ============ 牌阵 3D 卡牌翻牌动效 ============ */
+.spread{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:28px;
+  perspective:1000px;
+}
+.spread-card-wrapper{
+  position:relative;
+  height:380px;
+  cursor:pointer;
+  transform-style:preserve-3d;
+  transition:transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.spread-card-wrapper.flipped{
+  transform:rotateY(180deg);
+}
+.spread-card-front, .spread-card-back{
+  position:absolute;inset:0;
+  backface-visibility:hidden;
+  border:1px solid var(--rule);
+  padding:36px 30px;
+  border-radius:2px;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 10px 25px oklch(24% 0.03 55 / .08);
+  transition:all 0.3s ease;
+}
+.spread-card-front{
+  background:var(--paper);
+  transform:rotateY(180deg);
+}
+.spread-card-back{
+  background:var(--surface);
+  align-items:center;
+  justify-content:center;
+  border:2px solid var(--gold);
+}
+.spread-card-back::before{
+  content:"";
+  position:absolute;inset:8px;
+  border:1px dashed var(--gold);
+  opacity:.6;
+}
+.spread-card-back .back-pattern{
+  font-family:var(--serif);
+  font-size:48px;
+  color:var(--gold-deep);
+  text-align:center;
+  opacity:.7;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+}
+.spread-card-back .back-pattern::before{
+  content:"✦";
+  font-size:24px;
+  animation: pulseGold 2s infinite ease-in-out;
+}
+@keyframes pulseGold {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+.spread-card-back .click-to-reveal{
+  font-family:var(--mono);
+  font-size:11px;
+  color:var(--muted);
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  margin-top:20px;
+  border:1px solid var(--border);
+  padding:6px 12px;
+  border-radius:2px;
+  background:var(--paper);
+}
+
+.spread-card-front .pos-no{
+  font-family:var(--serif);font-size:54px;line-height:1;color:var(--wine);opacity:.85;
+}
+.spread-card-front h4{
+  font-family:var(--song);font-size:20px;font-weight:600;color:var(--fg);margin:14px 0 10px;
+}
+.spread-card-front .en{
+  font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;display:block;margin-bottom:14px;
+}
+.spread-card-front p{
+  font-family:var(--sans);font-size:14.5px;line-height:1.75;color:var(--muted);
+}
+.spread-card-wrapper:hover:not(.flipped){
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:0 16px 35px oklch(24% 0.03 55 / .15);
+}
+
+/* ============ 页脚 ============ */
+footer{padding:80px 0 60px;text-align:center}
+footer .ornament{margin-bottom:24px}
+footer p{font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--faint);text-transform:uppercase;line-height:2.2}
+footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(--muted);text-transform:none;margin-top:10px}
+
+/* ============ 响应式 ============ */
+@media(max-width:980px){
+  .hero-grid{grid-template-columns:1fr;gap:44px}
+  .symbol-layout{grid-template-columns:1fr;gap:38px}
+  .symbol-figure{position:static}
+  .numero{grid-template-columns:1fr;gap:30px}
+  .dim-grid{grid-template-columns:1fr}
+  .spread{grid-template-columns:1fr;gap:24px}
+  .spread-card-wrapper{height:300px}
+}
+@media(max-width:680px){
+  .wrap,.topbar-inner{padding:0 24px}
+  body{font-size:16px}
+  .tnav{display:none}
+  .pos-summary{grid-template-columns:1fr}
+  .pos-summary .kw{border-bottom:1px solid var(--border)!important}
+  .prose.drop::first-letter{font-size:64px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="mark"><b>IV</b> &nbsp;皇帝 · THE EMPEROR</div>
+    <nav class="tnav">
+      <a href="#hero">卷首</a>
+      <a href="#narrative">牌面叙事</a>
+      <a href="#facts">牌面要素</a>
+      <a href="#symbols">象征图谱</a>
+      <a href="#numerology">塔罗灵数</a>
+      <a href="#reading">正逆位解读</a>
+      <a href="#spread">牌阵示意</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ============ 卷首 ============ -->
+<header class="hero" id="hero">
+  <div class="wrap hero-grid">
+    <figure class="hero-figure">
+      <div class="plate">
+        <img src="../../assets/images/major/04-the-emperor/the-emperor.png" alt="塔罗牌皇帝主图"
+             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE I — 主图待上传&lt;br&gt;assets/images/major/04-the-emperor/the-emperor.png&lt;/div&gt;'">
+      </div>
+      <figcaption class="plate-cap">PLATE I · THE EMPEROR · 大阿尔卡那第IV号</figcaption>
+    </figure>
+    <div class="hero-text">
+      <div class="hero-num">IV<small>Arcanum Quartum</small></div>
+      <h1>皇帝<span class="en">The Emperor</span></h1>
+      <div class="hero-keywords">
+        <div>权威<span>AUTHORITY</span></div>
+        <div>秩序<span>ORDER</span></div>
+        <div>控制<span>CONTROL</span></div>
+        <div>意志<span>WILLPOWER</span></div>
+      </div>
+      <p class="hero-lede">皇帝是现实世界的建制者，是皇后的丈夫，也是男性象征的代表，拥有主宰物质世界的支配力。他关心规则、责任、疆界和长期稳定，代表把混乱整理成秩序的能力。一国之尊的皇帝充满自信，头戴皇冠，身着红袍，足蹬象征严格纪律的战靴，端坐在宝座之上。 皇帝牌偏向次序、规范与稳定的局面，象征道德戒律与禁令，握有至高无上的权利。也正因为这些理性与权威，他必须把个人的情感收藏起来，承担"高处不胜寒"的孤独。他是一个正直、公平而实际的人：若他给你忠告，那建议必来自他亲身的经验。他略有武断的倾向，但许下承诺后通常值得信赖；而当你也许下承诺，他便期望你切实履行，一旦你做不到，他不会轻易给第二次机会。 当皇帝出现，问题往往不在于缺乏情绪，而在于是否有足够清晰的原则和执行力。</p>
+      <a href="../../index.html" class="back-btn">← 返回大厅 / 选择其它卡牌</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 牌面叙事 ============ -->
+<section class="chapter reveal" id="narrative">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="idx">— 壹 · NARRATIVE</div>
+      <h2>牌面叙事<span class="en">The Image Speaks</span></h2>
+    </div>
+    <div class="prose drop">
+      <p class="prose drop">皇帝坐在坚硬的石质王座上，王座饰有公羊头浮雕，背景多为荒山。他左手握着象征秩序严谨、条理分明的水晶球，右手则持着古埃及十字架，象征生命与权力。王座上的四个白羊头呼应皇帝牌所对应的星相——白羊座（火星）：作为十二星座之首，白羊也象征勇敢、积极、野心与自信，与整张牌的红色主调不谋而合。背景重重的山峦预示着权力背后的风险，与女皇牌的富饶相比，难免让观者多生几分担忧。画面坚硬、稳定，表现出经验、控制力与保护性的权威，也显示出他建立边界、规则和方向的能力。</p>
+      <p class="prose ">皇帝描述的是带有男性内在特质的人事物——它不一定指具体的人，也可以形容一个人处理问题的风格。正位时像是英明神武：以清晰原则、稳健结构和果断执行驾驭局面；逆位时则有些昏庸无能：权力失衡、僵化失序，或无人愿意承担责任。判读时不妨先问，眼前的"权威"是在建立秩序，还是在压迫与失控。</p>
+      <p class="pullquote">皇帝坐在坚硬的石质王座上，王座饰有公羊头浮雕，背景多为荒山。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 牌面要素 ============ -->
+<section class="chapter reveal" id="facts">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="idx">— 貳 · CORRESPONDENCES</div>
+      <h2>对应要素<span class="en">Esoteric Correspondences</span></h2>
+    </div>
+    <div class="facts">
+      <dl><dt>元素 Element</dt><dd>火<small>火 · 行动、创造与热情的爆发</small></dd></dl>
+      <dl><dt>星座 Zodiac</dt><dd>白羊座<small>Aries · 开拓、领导力与阳性意志</small></dd></dl>
+      <dl><dt>生命之树 Tree of Life</dt><dd>Heh<small>第15条路径 · 联结智慧 (Chokmah) 与美丽 (Tiphareth)</small></dd></dl>
+      <dl><dt>希伯来字母</dt><dd>Heh<small>第五个字母 ה · "窗口"，启示与秩序的凝视</small></dd></dl>
+    </div>
+        <figure class="element-figure" style="margin-top:48px">
+      <div class="plate">
+        <img src="../../assets/images/major/04-the-emperor/the-emperor-elements.png" alt="塔罗牌皇帝对应要素"
+             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE III — 要素图待上传&lt;br&gt;assets/images/major/04-the-emperor/the-emperor-elements.png&lt;/div&gt;'">
+      </div>
+      <figcaption class="plate-cap">PLATE IV · 生命之树 · Heh 路径，第15条路径 · 联结智慧 (Chokmah) 与美丽 (Tiphareth)</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ 象征要素图谱 ============ -->
+<section class="chapter reveal" id="symbols">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="idx">— 叁 · ICONOGRAPHY</div>
+      <h2>象征要素图谱<span class="en">A Glossary of Symbols</span></h2>
+    </div>
+    <div class="symbol-layout">
+      <figure class="symbol-figure">
+        <div class="plate">
+          <img src="../../assets/images/major/04-the-emperor/the-emperor-symbols.png" alt="皇帝象征要素标注图"
+               onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE II — 象征标注图待上传&lt;br&gt;assets/images/major/04-the-emperor/the-emperor-symbols.png&lt;/div&gt;'">
+        </div>
+        <figcaption class="plate-cap">PLATE II · 象征细节的位置标注与神秘学破译</figcaption>
+      </figure>
+      <div class="symbol-list">
+        <div class="symbol-item" data-id="01"><div class="sym-no">01</div><div class="sym-body"><h4>皇帝的王冠</h4><p>权威、领导力与控制力的象征，通常与高级领导地位相关联。</p></div></div>
+        <div class="symbol-item" data-id="02"><div class="sym-no">02</div><div class="sym-body"><h4>头冠上的宝石</h4><p>象征财富与使命，也可能代表智慧的璀璨，由此获得领导的合法性。</p></div></div>
+        <div class="symbol-item" data-id="03"><div class="sym-no">03</div><div class="sym-body"><h4>石王座</h4><p>稳定、制度与不可轻易动摇的基础，居高临下而坚定的权力象征。</p></div></div>
+        <div class="symbol-item" data-id="04"><div class="sym-no">04</div><div class="sym-body"><h4>坚硬的石质宝座</h4><p>象征稳固性与持久的力量，以及建立长久基础的能力。</p></div></div>
+        <div class="symbol-item" data-id="05"><div class="sym-no">05</div><div class="sym-body"><h4>公羊头 / 山羊头浮雕</h4><p>白羊座的开创力、战斗精神与主动性，也象征决心、野心与坚韧。</p></div></div>
+        <div class="symbol-item" data-id="06"><div class="sym-no">06</div><div class="sym-body"><h4>权杖</h4><p>统治权、决策力与掌控方向的能力，显示对其统治领域的控制。</p></div></div>
+        <div class="symbol-item" data-id="07"><div class="sym-no">07</div><div class="sym-body"><h4><span class="swatch" style="background:oklch(40% 0.13 25)"></span>红色衣袍</h4><p>行动力、热血与权力意志，红色是行动和决心的颜色。</p></div></div>
+        <div class="symbol-item" data-id="08"><div class="sym-no">08</div><div class="sym-body"><h4>盔甲 / 护甲</h4><p>保护、警戒与现实压力，是准备好保护自身与领域的显明标志，暗示坚强与坚定。</p></div></div>
+        <div class="symbol-item" data-id="09"><div class="sym-no">09</div><div class="sym-body"><h4>安卓拉的胸甲</h4><p>古代罗马服装，表示皇帝可能与古罗马相关联的权力和力量。</p></div></div>
+        <div class="symbol-item" data-id="10"><div class="sym-no">10</div><div class="sym-body"><h4>脚下的盔甲</h4><p>领导者保护与力量的象征，盔甲下的人已准备好采取行动。</p></div></div>
+        <div class="symbol-item" data-id="11"><div class="sym-no">11</div><div class="sym-body"><h4>战靴</h4><p>坚固、稳定，象征严格纪律，也代表实际行动的准备。</p></div></div>
+        <div class="symbol-item" data-id="12"><div class="sym-no">12</div><div class="sym-body"><h4>领袖的姿态</h4><p>显示一名决心而自信的领导者，庄重前卫的姿态体现稳定与控制。</p></div></div>
+        <div class="symbol-item" data-id="13"><div class="sym-no">13</div><div class="sym-body"><h4>指导原则的轮廓</h4><p>背后的方形设计象征结构、规则与明确的边界。</p></div></div>
+        <div class="symbol-item" data-id="14"><div class="sym-no">14</div><div class="sym-body"><h4>荒山</h4><p>经过考验后的坚韧，也代表权力背后的风险与不易亲近的环境。</p></div></div>
+        <div class="symbol-item" data-id="15"><div class="sym-no">15</div><div class="sym-body"><h4><span class="swatch" style="background:oklch(40% 0.13 25)"></span>红黄搭配</h4><p>赤橙二色代表能量、魄力与动力，也是行动与自信的颜色。</p></div></div>
+        <div class="symbol-item" data-id="16"><div class="sym-no">16</div><div class="sym-body"><h4>胡须</h4><p>传统象征智慧与成熟，表达一个成熟领导者的形象。</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 塔罗灵数 ============ -->
+<section class="chapter reveal" id="numerology">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="idx">— 肆 · NUMEROLOGY</div>
+      <h2>塔罗灵数<span class="en">The Number IV</span></h2>
+    </div>
+    <div class="numero">
+      <div class="bignum">IV<small>The Emperor</small></div>
+      <div class="numero-text">
+        <p>数字 4 是方形、秩序与结构，代表把想法落地为制度、边界、责任和可持续的安排。</p>
+        <p>皇帝的 4 号能量说明稳定来自规划、执行、限制和承担。缺少结构时，再强的热情也容易散入风中。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 正逆位解读 ============ -->
+<section class="chapter reveal" id="reading">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="idx">— 伍 · DIVINATORY MEANING</div>
+      <h2>正逆位解读<span class="en">Upright &amp; Reversed</span></h2>
+    </div>
+    <div class="pos-switch-wrapper">
+      <div class="pos-switch" role="tablist">
+        <button class="on" data-pos="up" role="tab" aria-selected="true">正位<span class="en">Upright</span></button>
+        <button data-pos="rev" role="tab" aria-selected="false">逆位<span class="en">Reversed</span></button>
+      </div>
+    </div>
+
+    <div class="pos-panel-container">
+      <!-- 正位 -->
+      <div class="pos-panel show" id="panel-up">
+        <figure class="pos-figure" style="margin-bottom:40px;max-width:480px">
+          <div class="plate">
+            <img src="../../assets/images/major/04-the-emperor/the-emperor-upright.png" alt="皇帝正位意象"
+                 onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE V — 正位意象图待上传&lt;br&gt;assets/images/major/04-the-emperor/the-emperor-upright.png&lt;/div&gt;'">
+          </div>
+          <figcaption class="plate-cap">PLATE V · 正位意象 · 直觉与宇宙能量的显现</figcaption>
+        </figure>
+        <div class="prose" style="max-width:62ch;margin-bottom:40px">
+          <p>**关键词**：权威，领导，秩序，父性，责任，边界，规划，稳定，魄力十足，万众瞩目，男性化，基本功扎实，富有责任感，充满阳刚之气，出众的领导才能，权力，威权，地位，职权，批准，授权，机构，大型组织，企业，旅馆，当权派，权势集团，权威人士，建立，创立，确立，结构，构造，精心组织，周密安排，形成体系，系统安排，父亲角色，掌控，决断，规则，坚持，领导力</p>
+        <p>正位的皇帝要求你拿回主导权，用清楚的规则和长期规划处理问题。他代表权力，象征稳定，显示出坚定的决心与强烈的领导力，也代表着父权。此刻指示你需要坚守规则、展现结构与秩序，让做法落到实际与现实之上，并以有目标的行动稳步推进。当主观的意志被组织进可执行的骨架，热情才不至于白白蒸发，理想也才有落地的可能。</p>
+        </div>
+        <div class="pos-summary">
+          <div class="kw"><span class="lab">核心关键词</span><p>权威，领导，秩序，父性，责任，边界，规划，稳定，魄力十足，万众瞩目，男性化，基本功扎实，富有责任感，充满阳刚之气，出众的领导才能，权力，威权，地位，职权，批准，授权，机构，大型组织，企业，旅馆，当权派，权势集团，权威人士，建立，创立，确立，结构，构造，精心组织，周密安排，形成体系，系统安排，父亲角色，掌控，决断，规则，坚持，领导力</p></div>
+          <div class="kw"><span class="lab">能量基调</span><p>火 元素 · 开启、滋养与自我调和</p></div>
+        </div>
+        <div class="dim-grid">
+          <div class="dim">
+            <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
+            <ul>
+              <li><b>现况</b>感情中存在着控制与被控制的关系，整体算是稳定发展，只是当中好像缺乏了热情与浪漫的感觉。</li>
+            <li><b>桃花</b>眼下出现的感情并不浪漫，而是基于双方理性判断决定在一起；若能用心经营，也会是非常稳定的恋情。</li>
+            <li><b>看法</b>这段感情可以帮助双方实现各自的理想，虽不是热恋的那种感觉，但双方都能从中感到安全与稳定。</li>
+            <li><b>复合</b>这段感情里情感成分本就稀薄，复合的可能性不大；即便复合，也仍会落入互相控制的状况，失去了恋爱的意义。</li>
+            </ul>
+          </div>
+          <div class="dim">
+            <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
+            <ul>
+              <li><b>现况</b>工作中有许多困难，但也藏着许多晋升的机会；虽受到不少规则限制，仍然可以完成自己设定的目标。</li>
+            <li><b>建议</b>此时领导的态度最为关键，若能得到高层充分授权，就应放手贯彻执行，但要小心不要出现越权的情况。</li>
+            <li><b>关系</b>这份工作只看成绩的特性，使得竞争十分激烈；即便私下有些交情，遇到工作上的事也只能公事公办。</li>
+            <li><b>发展</b>工作性质虽然困难，未来仍有不错的发展空间，可以把某位上司当作榜样，努力朝这个目标迈进。</li>
+            </ul>
+          </div>
+          <div class="dim">
+            <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
+            <ul>
+              <li><b>现况</b>由于你待人过于严肃，又太过重视利害关系，因此很难交到知心朋友，建议放松心情去与人交往。</li>
+            <li><b>建议</b>你与朋友的关系其实还算稳固，只要主动开口说明、给对方一个合理的说法，要化解问题并不困难。</li>
+            <li><b>财运</b>以现实角度衡量，你的财务状况还不算坏，未来仍有很大成长空间，应在自己的事业上更加努力。现在可以开始保守的投资，虽不会立刻带来实质好处，但就长期投资而言，目前是个好时机。</li>
+            </ul>
+          </div>
+          <div class="dim">
+            <div class="dim-head"><span class="ic">✚</span><h4>健康 / 生活</h4><span class="en">Health</span></div>
+            <p>健康上适合建立规律：固定运动、作息、饮食和检查。皇帝也提醒你注意压力、头部、血压、肌肉紧绷，以及因过度控制造成的身体僵硬。把纪律用在照顾自己身上，让身体在稳定的节律里获得持久的力量，而不是被高压逼到紧绷。</p>
+          </div>
+        </div>
+        <div class="dim-extra">
+          <span class="lab">其它牌意 · Other</span>
+          <p>可能代表父亲、老板、领导、丈夫、制度、政府、法律和组织架构。也适合和朋友一起外出旅游，体现出个性坚定、永不言败、坚忍不拔的性格。若问事情结果，正位通常表示可以稳定下来，但需要服从规则和承担责任。</p>
+        </div>
+      </div>
+
+      <!-- 逆位 -->
+      <div class="pos-panel" id="panel-rev">
+        <figure class="pos-figure" style="margin-bottom:40px;max-width:480px">
+          <div class="plate">
+            <img src="../../assets/images/major/04-the-emperor/the-emperor-reversed.png" alt="皇帝逆位意象"
+                 onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VI — 逆位意象图待上传&lt;br&gt;assets/images/major/04-the-emperor/the-emperor-reversed.png&lt;/div&gt;'">
+          </div>
+          <figcaption class="plate-cap">PLATE VI · 逆位意象 · 失衡与能量阻塞</figcaption>
+        </figure>
+        <div class="prose" style="max-width:62ch;margin-bottom:40px">
+          <p>**关键词**：专制，僵化，控制欲，失序，逃避责任，权威冲突，幼稚，寡欲，不负责任，率性妄为，蛮横霸道，缺乏治理能力，统治，支配，主宰，占有欲强，没有训练，无纪律，风纪差，无自制力，不遵守纪律，不接受惩罚，自我控制能力差，没有严格要求自己，僵硬，缺乏灵活性，呆滞，较真，暴力，顽固，独裁，失去控制，欺诈</p>
+        <p>逆位的皇帝表示权力失衡：可能是过度控制、刚愎自用，也可能是缺少承担责任的人。它代表决断力的缺失，象征稳定性的丧失，显示出领导力的不足，常表现为过于强硬顽固、缺乏规划与结构。此时可能暗示权力被滥用，或一个人过分自信、自大，却同时在逃避现实、回避责任——这往往预示着失败的风险。皇帝逆位提醒你，僵硬地紧握权柄并不等于真正的掌控，懂得松手与变通，才不至于把局面带向失序。</p>
+        </div>
+        <div class="pos-summary">
+          <div class="kw"><span class="lab">核心关键词</span><p>专制，僵化，控制欲，失序，逃避责任，权威冲突，幼稚，寡欲，不负责任，率性妄为，蛮横霸道，缺乏治理能力，统治，支配，主宰，占有欲强，没有训练，无纪律，风纪差，无自制力，不遵守纪律，不接受惩罚，自我控制能力差，没有严格要求自己，僵硬，缺乏灵活性，呆滞，较真，暴力，顽固，独裁，失去控制，欺诈</p></div>
+          <div class="kw"><span class="lab">能量基调</span><p>火 元素 · 延迟、失控与过度自我沉溺</p></div>
+        </div>
+        <div class="dim-grid">
+          <div class="dim reversed">
+            <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
+            <ul>
+              <li><b>现况</b>这是一段感觉被对方控制的关系，虽然对方也给了许多照顾，却总让你觉得缺乏自由与平等。</li>
+            <li><b>桃花</b>出现新恋情的可能并不高，更重要的是你自己还没准备好接受一段新感情，应先想清楚自己在感情中真正需要什么。</li>
+            <li><b>看法</b>感情中充满障碍与冲突，并非一种和谐稳定的关系，还有很多事情悬而未决，所以也没有明确的目标和方向。</li>
+            <li><b>复合</b>这段感情复合的可能性很低，主要是因为两个人心中已经没有情分了。</li>
+            </ul>
+          </div>
+          <div class="dim reversed">
+            <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
+            <ul>
+              <li><b>现况</b>工作上遇到不好相处的领导，不但帮不上你，反而常害你累个半死；事情往往超出预料，还得努力收尾。</li>
+            <li><b>建议</b>此时应设法自己解决问题，好好计划、做好准备；若不在此全力一拼，接下来的状况只会更加无法收拾。</li>
+            <li><b>关系</b>这份工作里人际似乎不是重点，太好的人际关系反而对你有害，此刻还是独善其身比较安全。</li>
+            <li><b>发展</b>工作未来的发展还不明朗，可以确定的是仍会很辛苦；如果不喜欢挑战，不妨找机会换个位置。</li>
+            </ul>
+          </div>
+          <div class="dim reversed">
+            <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
+            <ul>
+              <li><b>现况</b>你对人际关系的想法太过单纯，往往落入别人的陷阱而不自知，应当小心防范身边的小人，不要再被骗了。</li>
+            <li><b>建议</b>你应该给自己和对方更大的空间，不要被一大堆原则和固执的个性绑住，弹性地处理事情才能化解你的问题。</li>
+            <li><b>财运</b>现在你的财务状态并不太好，资产配置也有很大问题，若还有债务则雪上加霜，重要的是如何保住老本。眼下并不适合任何投资，把现金留在手上才是最好的策略；如果现有投资已经赔了不少，就先放着不要去理它。</li>
+            </ul>
+          </div>
+          <div class="dim reversed">
+            <div class="dim-head"><span class="ic">✚</span><h4>健康 / 生活</h4><span class="en">Health</span></div>
+            <p>健康上可能与压力、僵硬、紧绷、过劳和长期压抑有关。逆位皇帝提醒你：真正的纪律会形成可持续的秩序，而非把自己逼到崩溃。当控制变成自我苛责，身体往往最先发出抗议——适度松开紧握的拳头，给身心留出弹性与喘息，才是长久之道。</p>
+          </div>
+        </div>
+        <div class="dim-extra">
+          <span class="lab">其它牌意 · Other</span>
+          <p>事情可能卡在规则、审批、权责不清或领导问题上。此时需要厘清谁负责、按什么规则负责，以及哪些控制其实已经阻碍了发展。逆位也常表现为对任何活动都提不起爱好、虚张声势、自以为是——表面的强硬之下，未必有相称的实力与方向。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 牌阵示意 ============ -->
+<section class="chapter reveal" id="spread">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="idx">— 陆 · THE SPREAD</div>
+      <h2>三牌阵示意<span class="en">Past · Present · Future</span></h2>
+    </div>
+    <figure class="spread-figure" style="margin-bottom:40px;max-width:680px">
+      <div class="plate">
+        <img src="../../assets/images/major/04-the-emperor/the-emperor-spread.png" alt="三牌阵示意图"
+             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VII — 三牌阵示意图待上传&lt;br&gt;assets/images/major/04-the-emperor/the-emperor-spread.png&lt;/div&gt;'">
+      </div>
+      <figcaption class="plate-cap">PLATE VII · 三牌阵 · 过去 · 现在 · 未来（向内觉察的能量）</figcaption>
+    </figure>
+    <div class="prose" style="max-width:60ch;margin-bottom:38px">
+      <p>当皇帝出现在三牌阵中，它象征的是能量在时间维度上的显现。点击下方卡牌揭示隐秘启示。</p>
+    </div>
+    <div class="spread">
+      <!-- 过去 -->
+      <div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')">
+        <div class="spread-card-back">
+          <div class="back-pattern">
+            <span>I</span>
+            <span style="font-size:16px; font-family:var(--sans); letter-spacing:0.1em;">过去 · PAST</span>
+          </div>
+          <div class="click-to-reveal">点击翻牌</div>
+        </div>
+        <div class="spread-card-front">
+          <div class="pos-no">I</div>
+          <span class="en">Past · 过去</span>
+          <h4>奠定基石</h4>
+          <p>过去可能表现为强烈的领导力或父性影响，曾经为局面建立起秩序与稳定。</p>
+        </div>
+      </div>
+
+      <!-- 现在 -->
+      <div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')">
+        <div class="spread-card-back">
+          <div class="back-pattern">
+            <span>II</span>
+            <span style="font-size:16px; font-family:var(--sans); letter-spacing:0.1em;">现在 · PRESENT</span>
+          </div>
+          <div class="click-to-reveal">点击翻牌</div>
+        </div>
+        <div class="spread-card-front">
+          <div class="pos-no">II</div>
+          <span class="en">Present · 现在</span>
+          <h4>执掌秩序</h4>
+          <p>现在是坚定、稳定、能控制情绪与环境的状态，拥有很好的自我管理能力。</p>
+        </div>
+      </div>
+
+      <!-- 未来 -->
+      <div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')">
+        <div class="spread-card-back">
+          <div class="back-pattern">
+            <span>III</span>
+            <span style="font-size:16px; font-family:var(--sans); letter-spacing:0.1em;">未来 · FUTURE</span>
+          </div>
+          <div class="click-to-reveal">点击翻牌</div>
+        </div>
+        <div class="spread-card-front">
+          <div class="pos-no">III</div>
+          <span class="en">Future · 未来</span>
+          <h4>巩固江山</h4>
+          <p>未来可能朝更加结构化、有组织的方向发展，预示将有更多的稳定与控制。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <hr class="rule-gold" style="margin-bottom:40px">
+    <p class="ornament">✦ ❖ ✦</p>
+    <p>ARCANUM IV · THE EMPEROR · 火  · 白羊座</p>
+    <p class="zh">「观牌如观画，读意如读经。」</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // 滚动显现机制 (Intersection Observer)
+  if ('IntersectionObserver' in window) {
+    var revealElems = document.querySelectorAll('.reveal');
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealElems.forEach(function(el) {
+      observer.observe(el);
+    });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      el.classList.add('active');
+    });
+  }
+
+  // 正逆位切换 (带淡入滑动动画)
+  var btns = document.querySelectorAll('.pos-switch button');
+  var panels = {
+    up: document.getElementById('panel-up'),
+    rev: document.getElementById('panel-rev')
+  };
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var pos = btn.dataset.pos;
+
+      btns.forEach(function(b){
+        b.classList.toggle('on', b === btn);
+        b.setAttribute('aria-selected', b === btn);
+      });
+
+      Object.keys(panels).forEach(function(key){
+        var panel = panels[key];
+        if(key === pos){
+          panel.classList.add('show');
+        } else {
+          panel.classList.remove('show');
+        }
+      });
+    });
+  });
+
+  // 象征要素图谱点击高亮
+  var symbolItems = document.querySelectorAll('.symbol-item');
+  symbolItems.forEach(function(item) {
+    item.addEventListener('click', function() {
+      symbolItems.forEach(function(x) { x.classList.remove('highlight'); });
+      item.classList.add('highlight');
+      console.log("Focused symbol: ", item.dataset.id);
+    });
+  });
+
+  // 滚动高亮目录
+  var links = Array.prototype.slice.call(document.querySelectorAll('.tnav a'));
+  var secs = links.map(function(l){return document.querySelector(l.getAttribute('href'));});
+  function onScroll(){
+    var y = window.scrollY + 120, active = -1;
+    secs.forEach(function(s, i){if(s && s.offsetTop <= y) active = i;});
+    links.forEach(function(l, i){l.classList.toggle('active', i === active);});
+  }
+
+  // 顶栏滚动收缩
+  var lastScrollY = window.scrollY;
+  var topbar = document.querySelector('.topbar');
+  window.addEventListener('scroll', function() {
+    var currentScrollY = window.scrollY;
+    if (currentScrollY > lastScrollY && currentScrollY > 150) {
+      topbar.style.transform = 'translateY(-100%)';
+    } else {
+      topbar.style.transform = 'translateY(0)';
+    }
+    lastScrollY = currentScrollY;
+    onScroll();
+  }, { passive: true });
+
+  onScroll();
+})();
+</script>
+
+</body>
+</html>

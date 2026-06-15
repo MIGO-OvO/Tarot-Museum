@@ -3,45 +3,44 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>女祭司 · THE HIGH PRIESTESS — 塔罗牌深度专题</title>
+<title>恶魔 · THE DEVIL — 塔罗牌深度专题</title>
 <style>
 :root{
-  --bg: oklch(96.2% 0.008 235);      /* 极浅的水月灰蓝底色，体现深夜与水元素 */
-  --paper: oklch(98.5% 0.006 230);   /* 羊皮纸白 */
-  --surface: oklch(94% 0.012 230);    /* 深色背景卡片 */
-  --fg: oklch(22% 0.025 245);         /* 深墨水蓝 */
-  --muted: oklch(44% 0.02 245);       /* 石板灰蓝 */
-  --faint: oklch(62% 0.015 240);      /* 黯淡灰蓝 */
-  --border: oklch(86% 0.015 230);     /* 纸张边缘线 */
-  --rule: oklch(76% 0.018 230);       /* 分割双线 */
-  --gold: oklch(62% 0.08 85);         /* 月亮金 / 铜金 */
-  --gold-deep: oklch(48% 0.08 80);    /* 深月金 */
-  --wine: oklch(38% 0.12 28);         /* 石榴红 / 冥后红 */
-  --wine-soft: oklch(50% 0.11 26);    /* 柔和石榴红 */
-  --ink-blue: oklch(34% 0.06 240);    /* 智慧深蓝 */
-  --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Songti SC', 'Source Han Serif SC', Georgia, 'Times New Roman', serif;
-  --song: 'Songti SC', 'STSong', 'Source Han Serif SC', serif;
-  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
-  --mono: 'SFMono-Regular', ui-monospace, Menlo, Consolas, monospace;
+  --bg: oklch(95.2% 0.012 85);
+  --paper: oklch(97.5% 0.009 85);
+  --surface: oklch(93.2% 0.015 80);
+  --fg: oklch(23% 0.022 65);
+  --muted: oklch(44% 0.025 65);
+  --faint: oklch(60% 0.02 65);
+  --border: oklch(82% 0.025 75);
+  --rule: oklch(72% 0.04 70);
+  --gold: oklch(58% 0.11 75);
+  --gold-deep: oklch(48% 0.1 70);
+  --wine: oklch(38% 0.1 28);
+  --wine-soft: oklch(50% 0.09 26);
+  --ink-blue: oklch(34% 0.05 240);
+  --serif:'Iowan Old Style','Palatino Linotype',Palatino,'Songti SC','Source Han Serif SC',Georgia,'Times New Roman',serif;
+  --song:'Songti SC','STSong','Source Han Serif SC',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+  --mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,monospace;
 }
-
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
   background:var(--bg);
   background-image:
-    radial-gradient(oklch(55% .03 235 / .03) 1.2px,transparent 1.2px),
-    radial-gradient(oklch(55% .03 235 / .02) 1.2px,transparent 1.2px);
-  background-size:40px 40px,40px 40px;
-  background-position:0 0,20px 20px;
+    radial-gradient(oklch(55% .04 70 / .04) 1px,transparent 1px),
+    radial-gradient(oklch(55% .04 70 / .03) 1px,transparent 1px);
+  background-size:34px 34px,34px 34px;
+  background-position:0 0,17px 17px;
   color:var(--fg);
   font-family:var(--serif);
   font-size:18px;
-  line-height:1.8;
+  line-height:1.78;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
 }
-::selection{background:oklch(62% 0.08 85 / .24)}
+::selection{background:oklch(58% .12 70 / .28)}
 
 /* 自定义滚动条 */
 ::-webkit-scrollbar{width:8px}
@@ -80,9 +79,9 @@ body{
 /* ============ 顶栏目录 ============ */
 .topbar{
   position:sticky;top:0;z-index:50;
-  background:oklch(96.2% 0.008 235 / .88);
-  backdrop-filter:blur(16px) saturate(1.2);
-  -webkit-backdrop-filter:blur(16px) saturate(1.2);
+  background:oklch(95% .018 85 / .86);
+  backdrop-filter:blur(12px) saturate(1.2);
+  -webkit-backdrop-filter:blur(12px) saturate(1.2);
   border-bottom:1px solid var(--border);
   transition:transform 0.3s;
 }
@@ -98,8 +97,8 @@ body{
   color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:2px;
   transition:.25s;white-space:nowrap;
 }
-.tnav a:hover{color:var(--wine);background:oklch(38% 0.12 28 / .06)}
-.tnav a.active{color:var(--wine);font-weight:600;background:oklch(38% 0.12 28 / .04)}
+.tnav a:hover{color:var(--wine);background:oklch(40% .13 25 / .07)}
+.tnav a.active{color:var(--wine);font-weight:600;background:oklch(40% .13 25 / .04)}
 
 /* ============ 卷首 ============ */
 .hero{
@@ -123,22 +122,22 @@ body{
 .hero-figure .plate{
   position:relative;border:1px solid var(--rule);
   padding:20px;background:var(--paper);
-  box-shadow:0 4px 12px oklch(22% 0.025 245 / .05), 0 24px 68px oklch(24% 0.02 245 / .15);
+  box-shadow:0 4px 12px oklch(24% 0.03 55 / .05), 0 24px 68px oklch(24% 0.03 55 / .15);
   transition:transform 0.4s ease, box-shadow 0.4s ease;
 }
 .hero-figure .plate::before{
   content:"";position:absolute;inset:8px;border:1px solid var(--gold);opacity:.5;pointer-events:none;
 }
-.hero-figure img{display:block;width:100%;height:auto;filter:saturate(.93) contrast(1);transition:filter 0.3s;}
+.hero-figure img{display:block;width:100%;height:auto;filter:saturate(.94) contrast(1.02);transition:filter 0.3s;}
 .hero-figure:hover .plate{
   transform:translateY(-4px);
-  box-shadow:0 6px 16px oklch(22% 0.025 245 / .08), 0 30px 80px oklch(24% 0.02 245 / .18);
+  box-shadow:0 6px 16px oklch(24% 0.03 55 / .08), 0 30px 80px oklch(24% 0.03 55 / .18);
 }
-.hero-figure:hover img{filter:saturate(1) contrast(1.01)}
+.hero-figure:hover img{filter:saturate(1) contrast(1.03)}
 
 .hero-figure .imgfallback{
   aspect-ratio:3/5;display:flex;align-items:center;justify-content:center;
-  background:repeating-linear-gradient(45deg,oklch(92% .01 230),oklch(92% .01 230) 12px,oklch(90% .015 230) 12px,oklch(90% .015 230) 24px);
+  background:repeating-linear-gradient(45deg,oklch(90% .02 80),oklch(90% .02 80) 12px,oklch(88% .024 80) 12px,oklch(88% .024 80) 24px);
   color:var(--faint);font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-align:center;padding:24px;line-height:2;
 }
 .plate-cap{
@@ -169,7 +168,7 @@ body{
 }
 .hero-keywords div{
   flex:1;padding:18px 8px;text-align:center;font-family:var(--song);
-  font-size:18px;color:var(--fg);position:relative;
+  font-size:19px;color:var(--fg);position:relative;
 }
 .hero-keywords div+div::before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:1px;background:var(--border)}
 .hero-keywords span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--gold-deep);margin-top:6px}
@@ -203,7 +202,7 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
 .pullquote{
   margin:52px 0;padding:12px 0 12px 34px;border-left:3px solid var(--gold);
   font-family:var(--song);font-size:25px;line-height:1.6;color:var(--wine);font-style:normal;
-  background:oklch(62% 0.08 85 / .03);
+  background:oklch(58% .12 70 / .03);
 }
 
 /* ============ 牌面要素 标签 ============ */
@@ -218,10 +217,10 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
 /* ============ 象征要素图谱 ============ */
 .symbol-layout{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:start}
 .symbol-figure{position:sticky;top:100px}
-.symbol-figure .plate{position:relative;border:1px solid var(--rule);padding:16px;background:var(--paper);box-shadow:0 18px 44px oklch(24% 0.02 245 / .12)}
+.symbol-figure .plate{position:relative;border:1px solid var(--rule);padding:16px;background:var(--paper);box-shadow:0 18px 44px oklch(24% 0.03 55 / .12)}
 .symbol-figure .plate::before{content:"";position:absolute;inset:8px;border:1px solid var(--gold);opacity:.4;pointer-events:none}
 .symbol-figure img{display:block;width:100%;height:auto}
-.symbol-figure .imgfallback{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,oklch(92% .01 230),oklch(92% .01 230) 12px,oklch(90% .015 230) 12px,oklch(90% .015 230) 24px);color:var(--faint);font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-align:center;padding:20px;line-height:2}
+.symbol-figure .imgfallback{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,oklch(90% .02 80),oklch(90% .02 80) 12px,oklch(88% .024 80) 12px,oklch(88% .024 80) 24px);color:var(--faint);font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-align:center;padding:20px;line-height:2}
 
 .symbol-list{display:flex;flex-direction:column;gap:2px}
 .symbol-item{display:grid;grid-template-columns:42px 1fr;gap:18px;padding:18px 16px;border-bottom:1px solid var(--border);transition:all .25s ease;align-items:start;cursor:pointer}
@@ -240,14 +239,14 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
 .numero-keys{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}
 .numero-keys span{font-family:var(--sans);font-size:13.5px;padding:6px 14px;border:1px solid var(--border);border-radius:999px;color:var(--muted);background:var(--paper)}
 .numero p{margin-bottom:18px;font-size:17.5px;line-height:1.85;color:var(--fg)}
-.numero .lesson{margin-top:22px;padding:22px 26px;background:var(--paper);border-left:3px solid var(--gold);box-shadow:0 4px 12px oklch(24% 0.02 245 / .02)}
+.numero .lesson{margin-top:22px;padding:22px 26px;background:var(--paper);border-left:3px solid var(--gold);box-shadow:0 4px 12px oklch(24% 0.03 55 / .02)}
 .numero .lesson b{color:var(--wine);font-family:var(--song)}
 
 /* ============ 正逆位切换 ============ */
 .pos-switch-wrapper{
   display:flex;justify-content:center;margin-bottom:50px;
 }
-.pos-switch{display:inline-flex;border:1px solid var(--fg);background:var(--paper);border-radius:3px;overflow:hidden;padding:3px;box-shadow:0 4px 12px oklch(24% 0.02 245 / .04)}
+.pos-switch{display:inline-flex;border:1px solid var(--fg);background:var(--paper);border-radius:3px;overflow:hidden;padding:3px;box-shadow:0 4px 12px oklch(24% 0.03 55 / .04)}
 .pos-switch button{font-family:var(--song);font-size:17px;padding:12px 38px;background:transparent;border:0;cursor:pointer;color:var(--muted);position:relative;transition:all .3s ease;letter-spacing:.06em;border-radius:2px}
 .pos-switch button.on{background:var(--fg);color:var(--paper)}
 .pos-switch button .en{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.24em;margin-top:4px;text-transform:uppercase;opacity:.7}
@@ -274,7 +273,7 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
 .pos-summary .kw .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.26em;color:var(--gold-deep);text-transform:uppercase;display:block;margin-bottom:10px}
 .pos-summary .kw p{font-family:var(--song);font-size:16.5px;line-height:1.75;color:var(--fg)}
 
-.dim-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);box-shadow:0 8px 24px oklch(24% 0.02 245 / .04)}
+.dim-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);box-shadow:0 8px 24px oklch(24% 0.03 55 / .04)}
 .dim{background:var(--bg);padding:36px 32px;transition:background-color 0.3s;}
 .dim:hover{background:var(--paper)}
 .dim-head{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}
@@ -292,17 +291,17 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
 .dim-extra p{font-size:15.5px;line-height:1.8;color:var(--muted)}
 
 /* ============ 新增图版通用 ============ */
-.element-figure, .pos-figure, .spread-figure, .archetype-figure{margin:40px 0}
-.element-figure .plate, .pos-figure .plate, .spread-figure .plate, .archetype-figure .plate{
+.element-figure, .pos-figure, .spread-figure{margin:40px 0}
+.element-figure .plate, .pos-figure .plate, .spread-figure .plate{
   position:relative;border:1px solid var(--rule);padding:16px;background:var(--paper);
-  box-shadow:0 10px 30px oklch(24% 0.02 245 / .08);
+  box-shadow:0 10px 30px oklch(24% 0.03 55 / .08);
   transition:all 0.3s ease;
 }
-.element-figure .plate::before, .pos-figure .plate::before, .spread-figure .plate::before, .archetype-figure .plate::before{content:"";position:absolute;inset:8px;border:1px solid var(--gold);opacity:.4;pointer-events:none}
-.element-figure img, .pos-figure img, .spread-figure img, .archetype-figure img{display:block;width:100%;height:auto}
-.element-figure:hover .plate, .pos-figure:hover .plate, .spread-figure:hover .plate, .archetype-figure:hover .plate{
+.element-figure .plate::before, .pos-figure .plate::before, .spread-figure .plate::before{content:"";position:absolute;inset:8px;border:1px solid var(--gold);opacity:.4;pointer-events:none}
+.element-figure img, .pos-figure img, .spread-figure img{display:block;width:100%;height:auto}
+.element-figure:hover .plate, .pos-figure:hover .plate, .spread-figure:hover .plate{
   transform:translateY(-4px);
-  box-shadow:0 14px 40px oklch(24% 0.02 245 / .14);
+  box-shadow:0 14px 40px oklch(24% 0.03 55 / .14);
 }
 
 /* ============ 牌阵 3D 卡牌翻牌动效 ============ */
@@ -328,7 +327,7 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
   border-radius:2px;
   display:flex;
   flex-direction:column;
-  box-shadow:0 10px 25px oklch(24% 0.02 245 / .08);
+  box-shadow:0 10px 25px oklch(24% 0.03 55 / .08);
   transition:all 0.3s ease;
 }
 .spread-card-front{
@@ -394,7 +393,7 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
 }
 .spread-card-wrapper:hover:not(.flipped){
   transform:translateY(-8px) scale(1.02);
-  box-shadow:0 16px 35px oklch(24% 0.02 245 / .15);
+  box-shadow:0 16px 35px oklch(24% 0.03 55 / .15);
 }
 
 /* ============ 页脚 ============ */
@@ -427,7 +426,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
 
 <div class="topbar">
   <div class="topbar-inner">
-    <div class="mark"><b>II</b> &nbsp;女祭司 · THE HIGH PRIESTESS</div>
+    <div class="mark"><b>XV</b> &nbsp;恶魔 · THE DEVIL</div>
     <nav class="tnav">
       <a href="#hero">卷首</a>
       <a href="#narrative">牌面叙事</a>
@@ -445,22 +444,22 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
   <div class="wrap hero-grid">
     <figure class="hero-figure">
       <div class="plate">
-        <img src="assets/images/major/02-the-high-priestess/the-high-priestess.png" alt="塔罗牌女祭司主图"
-             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE I — 主图待上传&lt;br&gt;assets/images/major/02-the-high-priestess/the-high-priestess.png&lt;/div&gt;'">
+        <img src="../../assets/images/major/15-the-devil/the-devil.png" alt="塔罗牌恶魔主图"
+             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE I — 主图待上传&lt;br&gt;assets/images/major/15-the-devil/the-devil.png&lt;/div&gt;'">
       </div>
-      <figcaption class="plate-cap">PLATE I · THE HIGH PRIESTESS · 大阿尔卡那第二号</figcaption>
+      <figcaption class="plate-cap">PLATE I · THE DEVIL · 大阿尔卡那第XV号</figcaption>
     </figure>
     <div class="hero-text">
-      <div class="hero-num">II<small>Arcanum Secundum</small></div>
-      <h1>女祭司<span class="en">The High Priestess</span></h1>
+      <div class="hero-num">XV<small>Arcanum Decimum Quintum</small></div>
+      <h1>恶魔<span class="en">The Devil</span></h1>
       <div class="hero-keywords">
-        <div>直觉力<span>INTUITION</span></div>
-        <div>潜意识<span>SUBCONSCIOUS</span></div>
-        <div>智慧<span>WISDOM</span></div>
-        <div>静默祈祷<span>SILENCE</span></div>
+        <div>束缚<span>BONDAGE</span></div>
+        <div>欲望<span>MATERIALISM</span></div>
+        <div>幻象<span>ILLUSION</span></div>
+        <div>执念<span>ATTACHMENT</span></div>
       </div>
-      <p class="hero-lede">深夜中的虔诚使者，智慧与直觉的象征。她端坐于石凳之上，手捧律法卷宗，静静等待着适合行动的时机。在黑白双柱之间，她维系着世间对立能量的微妙平衡。</p>
-      <a href="index.html" class="back-btn">← 返回大厅 / 选择其它卡牌</a>
+      <p class="hero-lede">恶魔牌与第六张恋人牌彼此映照，却把天使般的相守翻转成了对欲望的无尽迷恋。它指出那些看似在掌控我们的东西：欲望、恐惧、成瘾、关系里的依附、金钱执念与权力游戏。曾经的浪漫与温馨，化成了颈上的枷锁；曾经物质、精神、道德三者的循环被颠覆，只剩下对物欲的追逐。 然而恶魔并不真是坏人，它只是被画成了坏人，所以恶魔牌并非坏牌。它的本质是人最原始的欢乐、生命力与本能，以及由此而来的自然亲近与纯真狂喜。只是同样一股能量，在不同的社会与情境里使用，会结出截然不同的果实。当这股力量被金钱、权力、名声、占有欲玷污，原始的喜乐就被异化为诱惑、欲望与占有——人们误把占有当成爱，把金钱当成自由，把权力名声当成自我的强大，最终困在所追逐之物里，离真正想要的越来越远。当这张牌出现，说明你正遇到“束缚、欲望、阴影、物质执着”的课题。它既可能表现为外部事件，也可能是内心正在成熟的一个阶段。</p>
+      <a href="../../index.html" class="back-btn">← 返回大厅 / 选择其它卡牌</a>
     </div>
   </div>
 </header>
@@ -470,21 +469,13 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
   <div class="wrap">
     <div class="chapter-head">
       <div class="idx">— 壹 · NARRATIVE</div>
-      <h2>牌面叙事<span class="en">The Quiet Observer</span></h2>
+      <h2>牌面叙事<span class="en">The Image Speaks</span></h2>
     </div>
     <div class="prose drop">
-      <p>塔罗牌女祭司相传是月亮的使者，虔诚，静默却又透着十分的警觉和睿智，是智慧与直觉的象征。相对于魔术师的激情 and 主动，女祭司只是在深夜中手捧经书默默地祈祷着，似乎是中国传统文化中的阴阳。假如说魔术师散发着阳刚的话，那么女祭司则是阴柔的代表，于静寂中凸现沉稳，与寡言中凸显睿智。</p>
-      <p>由图中可以看到，女祭司端坐于石凳之上，手上的卷宗上书写着 Tora，乃律法之一，代表她内心的知性和洞察力，长短分明，善恶明暗，也代表神秘的魔法，静静等待适合行动的时机，并给于明确的指示。身侧的柱子一黑一白，也暗示了她阴阳的强烈观念，理性的思考和判定。白色的头冠和白色的长裙，象征了她内心的纯洁和对洁净的要求。背后的绿叶和果实，既象征她的女性形象，慈爱和娴静，同时也暗示了她具有强大的直觉力和判定力。</p>
-      <p class="pullquote">她坐在黑白廊柱之间，静默却又波涛汹涌，在黑与白，日与夜，正义与邪恶的徘徊中感悟人世沧桑。</p>
-      <p>女祭司的原型是古希腊神话中的 <b>珀耳塞福涅 (Persephone)</b> —— 冥界之后与生命循环的象征。牌面中背景帷幕上那饱满的石榴，正是暗示着希腊神话中冥后吞下的那颗代表婚姻不中断的石榴子，同时也暗示着欲望、生命与剥开自我的思考力和洞察力。她裙角边的月亮，也是智慧和直觉的象征。</p>
-
-      <figure class="archetype-figure" style="margin:48px 0">
-        <div class="plate">
-          <img src="assets/images/major/02-the-high-priestess/the-high-priestess-archetype-persephone.png" alt="冥后珀耳塞福涅与生命石榴——莫奈印象派画风"
-               onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE III — 冥后意象图待上传&lt;br&gt;assets/images/major/02-the-high-priestess/the-high-priestess-archetype-persephone.png (莫奈风)&lt;/div&gt;'">
-        </div>
-        <figcaption class="plate-cap">PLATE III · 神话原型 · 冥后珀耳塞福涅在果实与寂静中孕育内在智慧</figcaption>
-      </figure>
+      <p class="prose drop">恶魔面目狰狞，生着蝙蝠般的双翼、羊角、羊腿与鸟足，象征野性的本能与粗犷的天性；驴耳代表固执，头顶倒立的五角星指向地面，象征沉溺于物质世界。他右手向上摆出魔鬼的手势，与教皇的祝福手势恰成对照，掌心的符号代表土星，也是物质与堕落之星；左手持火把朝下，仿佛在煽动亚当尾上的火焰。</p>
+      <p class="prose ">恶魔坐在台座上，台下的男女被松散的锁链拴住。他们因沉溺于欲望，已听不见天使的祝福，耳畔只剩地狱的诅咒。亚当仍注视着夏娃，夏娃却低首垂颈，无奈地望着颈上的铁链。值得注意的是，锁链是松的，两人本可自行取下——这暗示束缚多半是自我配合、自我设定的，枷锁随时可以打破。</p>
+      <p class="prose ">凡不符合客观规律之事，必定符合某些人的利益——恶魔牌常常指向这层被欲望与利益遮蔽的真相。正位表示看着相关人事物觉得非常美好，于是顺着这份“美好”继续行动，沉溺其中；逆位则同样看见那份美好，却能从诱惑中抽身，转为理智的行动。正逆位的差别，就在于人能否在欲望的甜美面前保持清醒、摆脱掌控。</p>
+      <p class="pullquote">恶魔坐在台座上，台下的男女被松散的锁链拴住。</p>
     </div>
   </div>
 </section>
@@ -494,21 +485,20 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
   <div class="wrap">
     <div class="chapter-head">
       <div class="idx">— 貳 · CORRESPONDENCES</div>
-      <h2>对应要素<span class="en">Mystic Associations</span></h2>
+      <h2>对应要素<span class="en">Esoteric Correspondences</span></h2>
     </div>
     <div class="facts">
-      <dl><dt>元素 Element</dt><dd>水<small>Water · 情感、直觉与深层潜意识</small></dd></dl>
-      <dl><dt>天体 Celestial</dt><dd>月亮<small>The Moon · 变动周期、潮汐与夜之灵感</small></dd></dl>
-      <dl><dt>生命树 Tree of Life</dt><dd>Gimel<small>第3条路径 · 联结王冠 (Kether) 与美 (Tiphareth)</small></dd></dl>
-      <dl><dt>希伯来字母</dt><dd>Gimel<small>第三个字母 ג · "骆驼"，跨越沙漠的坚韧旅人</small></dd></dl>
+      <dl><dt>元素 Element</dt><dd>土<small>土 · 物质、现实与稳固的基石</small></dd></dl>
+      <dl><dt>星座 Zodiac</dt><dd>摩羯座<small>Capricorn · 欲望、物质枷锁与野心的试炼</small></dd></dl>
+      <dl><dt>生命之树 Tree of Life</dt><dd>Ayin<small>第26条路径 · 联结美丽 (Tiphareth) 与荣耀 (Hod)</small></dd></dl>
+      <dl><dt>希伯来字母</dt><dd>Ayin<small>第十六个字母 ע · "眼睛"，直视物质幻象与盲区的深渊</small></dd></dl>
     </div>
-
-    <figure class="element-figure" style="margin-top:48px">
+        <figure class="element-figure" style="margin-top:48px">
       <div class="plate">
-        <img src="assets/images/major/02-the-high-priestess/the-high-priestess-pillars-veil.png" alt="黑白双柱与石榴帷幕——莫奈印象派画风"
-             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE IV — 双柱与帷幕图待上传&lt;br&gt;assets/images/major/02-the-high-priestess/the-high-priestess-pillars-veil.png (莫奈风)&lt;/div&gt;'">
+        <img src="../../assets/images/major/15-the-devil/the-devil-elements.png" alt="塔罗牌恶魔对应要素"
+             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE III — 要素图待上传&lt;br&gt;assets/images/major/15-the-devil/the-devil-elements.png&lt;/div&gt;'">
       </div>
-      <figcaption class="plate-cap">PLATE IV · 极性与面纱 · 波阿斯与雅斤柱，阻隔世俗知识与深层神秘的面纱</figcaption>
+      <figcaption class="plate-cap">PLATE IV · 生命之树 · Ayin 路径，第26条路径 · 联结美丽 (Tiphareth) 与荣耀 (Hod)</figcaption>
     </figure>
   </div>
 </section>
@@ -518,32 +508,34 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
   <div class="wrap">
     <div class="chapter-head">
       <div class="idx">— 叁 · ICONOGRAPHY</div>
-      <h2>象征要素图谱<span class="en">Annotated Glossary of Symbols</span></h2>
+      <h2>象征要素图谱<span class="en">A Glossary of Symbols</span></h2>
     </div>
     <div class="symbol-layout">
       <figure class="symbol-figure">
         <div class="plate">
-          <img src="assets/images/major/02-the-high-priestess/the-high-priestess-symbols.png" alt="女祭司象征要素标注图"
-               onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE II — 象征标注图待上传&lt;br&gt;assets/images/major/02-the-high-priestess/the-high-priestess-symbols.png&lt;/div&gt;'">
+          <img src="../../assets/images/major/15-the-devil/the-devil-symbols.png" alt="恶魔象征要素标注图"
+               onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE II — 象征标注图待上传&lt;br&gt;assets/images/major/15-the-devil/the-devil-symbols.png&lt;/div&gt;'">
         </div>
-        <figcaption class="plate-cap">PLATE II · 十五处象征细节的位置标注与神秘学破译</figcaption>
+        <figcaption class="plate-cap">PLATE II · 象征细节的位置标注与神秘学破译</figcaption>
       </figure>
       <div class="symbol-list">
-        <div class="symbol-item" data-id="1"><div class="sym-no">01</div><div class="sym-body"><h4><span class="swatch" style="background:oklch(52% 0.1 245)"></span>蓝色披风</h4><p>蓝色常与智慧、深思和冷静联系在一起，暗示深沉的内省和直觉。</p></div></div>
-        <div class="symbol-item" data-id="2"><div class="sym-no">02</div><div class="sym-body"><h4>黑色柱子 "B"</h4><p>代指圣经中的柱子波阿斯（Boaz），象征「力量」。代表阴性、物质与被动力量。</p></div></div>
-        <div class="symbol-item" data-id="3"><div class="sym-no">03</div><div class="sym-body"><h4>白色柱子 "J"</h4><p>代指圣经中的柱子雅斤（Jachin），象征「树立与建设」。代表阳性、精神与主动力量。</p></div></div>
-        <div class="symbol-item" data-id="4"><div class="sym-no">04</div><div class="sym-body"><h4>双柱对立平衡</h4><p>黑色与白色的柱子并立，代表对立和极性的平衡，如阴阳、积极与消极、物质与精神。</p></div></div>
-        <div class="symbol-item" data-id="5"><div class="sym-no">05</div><div class="sym-body"><h4>十字牌头饰</h4><p>十字可能代表平衡、信仰和神性，也可以象征心智和物质世界的交汇。</p></div></div>
-        <div class="symbol-item" data-id="6"><div class="sym-no">06</div><div class="sym-body"><h4>月亮图案 / 裙角新月</h4><p>月亮常与女性能量、直觉和潜意识相关联，体现潮汐与情绪波动的智慧。</p></div></div>
-        <div class="symbol-item" data-id="7"><div class="sym-no">07</div><div class="sym-body"><h4>背后的帷幕</h4><p>横跨的蓝色帷幕，可能代表隐藏的秘密或更深层的真理，需要进一步的内省才能揭开。</p></div></div>
-        <div class="symbol-item" data-id="8"><div class="sym-no">08</div><div class="sym-body"><h4>TORA 卷轴</h4><p>学习和知识的象征，代表寻求或拥有的智慧、自然的律法、自然之道与神秘真理。</p></div></div>
-        <div class="symbol-item" data-id="9"><div class="sym-no">09</div><div class="sym-body"><h4>满月和新月冠冕</h4><p>指明周期、变化、时间流逝和直觉的循环，象征三相女神的崇高地位。</p></div></div>
-        <div class="symbol-item" data-id="10"><div class="sym-no">10</div><div class="sym-body"><h4><span class="swatch" style="background:oklch(98.5% 0.005 230)"></span>白色长裙</h4><p>白色是纯洁、无罪和启示的颜色，象征内在的光明、真理和洁净动机。</p></div></div>
-        <div class="symbol-item" data-id="11"><div class="sym-no">11</div><div class="sym-body"><h4>纹章十字 / 胸前十字</h4><p>表示宗教信仰、神圣保护以及可能的神圣使命。</p></div></div>
-        <div class="symbol-item" data-id="12"><div class="sym-no">12</div><div class="sym-body"><h4><span class="swatch" style="background:oklch(84% 0.1 85)"></span>黄色地面</h4><p>代表意识和智能的觉醒。黄色关联着阳光、理性思考、活力和快乐。</p></div></div>
-        <div class="symbol-item" data-id="13"><div class="sym-no">13</div><div class="sym-body"><h4>十字胸前束带</h4><p>象征参与者忠诚于某种宗教、誓言或高深的精神信念。</p></div></div>
-        <div class="symbol-item" data-id="14"><div class="sym-no">14</div><div class="sym-body"><h4>石榴与绿叶图案</h4><p>象征女性形象、生长、慈爱和娴静。石榴暗示欲望、丰饶和剥开自我的洞察力。</p></div></div>
-        <div class="symbol-item" data-id="15"><div class="sym-no">15</div><div class="sym-body"><h4>高阶祭司地位</h4><p>表明其高高在上、与神圣领域的直接联系，将潜意识的智慧传达给意识世界。</p></div></div>
+        <div class="symbol-item" data-id="01"><div class="sym-no">01</div><div class="sym-body"><h4>核心画面</h4><p>恶魔坐在台座上，男女被松散锁链拴住，暗示束缚也有自我配合。</p></div></div>
+        <div class="symbol-item" data-id="02"><div class="sym-no">02</div><div class="sym-body"><h4>魔鬼形象</h4><p>在多数塔罗牌中，魔鬼代表邪恶、束缚或诱惑，指向生活中物质世界的陷阱。</p></div></div>
+        <div class="symbol-item" data-id="03"><div class="sym-no">03</div><div class="sym-body"><h4>倒立五角星</h4><p>头顶倒置的五角星指向地面，常关联撒旦崇拜与黑魔法，象征邪恶力量、混乱与对物质的沉溺。</p></div></div>
+        <div class="symbol-item" data-id="04"><div class="sym-no">04</div><div class="sym-body"><h4>双角与蝙蝠翅膀</h4><p>角与蝙蝠翼强化了魔鬼的非人特性，表明他是一个超自然的存在。</p></div></div>
+        <div class="symbol-item" data-id="05"><div class="sym-no">05</div><div class="sym-body"><h4>火焰与火把</h4><p>恶魔左手的火把朝下，代表地狱的火焰，常与炼狱相关，象征陷阱与毁灭。</p></div></div>
+        <div class="symbol-item" data-id="06"><div class="sym-no">06</div><div class="sym-body"><h4>链子</h4><p>周围人物被锁链束缚，代表被捆绑的情感、思想或某种形式的依赖。</p></div></div>
+        <div class="symbol-item" data-id="07"><div class="sym-no">07</div><div class="sym-body"><h4>被束缚的男人和女人</h4><p>这两人可视为亚当与夏娃，象征人类陷入物质与诱惑的束缚。</p></div></div>
+        <div class="symbol-item" data-id="08"><div class="sym-no">08</div><div class="sym-body"><h4>男女的尾巴</h4><p>尾巴代表人类低等的、动物性的本能与欲望。</p></div></div>
+        <div class="symbol-item" data-id="09"><div class="sym-no">09</div><div class="sym-body"><h4>男女的果实尾巴</h4><p>尾端的果实隐喻诱惑与原罪，预示诱惑不仅来自外在，也潜藏于内在。</p></div></div>
+        <div class="symbol-item" data-id="10"><div class="sym-no">10</div><div class="sym-body"><h4>男女人物的角</h4><p>头上长出的兽角表现出动物般的本性，象征原始欲望的统治。</p></div></div>
+        <div class="symbol-item" data-id="11"><div class="sym-no">11</div><div class="sym-body"><h4>魔鬼抬起的右手</h4><p>朝上的手势是对被束缚者的控制与权力的展示，与教皇的祝福手势相对。</p></div></div>
+        <div class="symbol-item" data-id="12"><div class="sym-no">12</div><div class="sym-body"><h4>魔鬼向下的左手</h4><p>朝下的手势像是对手中被束缚灵魂的指挥，或对他们的贬低。</p></div></div>
+        <div class="symbol-item" data-id="13"><div class="sym-no">13</div><div class="sym-body"><h4>魔鬼的发型与胡须</h4><p>与传统的撒旦形象挂钩，象征对古老而负面符号的引用。</p></div></div>
+        <div class="symbol-item" data-id="14"><div class="sym-no">14</div><div class="sym-body"><h4>男女站立的姿态</h4><p>他们似乎是自愿被束缚，暗示这种束缚可以打破——局限是自我设定的。</p></div></div>
+        <div class="symbol-item" data-id="15"><div class="sym-no">15</div><div class="sym-body"><h4>黑暗背景</h4><p>黑色关联未知、恐惧与不确定，暗示被束缚者前景的晦暗。</p></div></div>
+        <div class="symbol-item" data-id="16"><div class="sym-no">16</div><div class="sym-body"><h4>地面的颜色</h4><p>暗红、棕色的地面代表人类的世俗根基与基础欲望。</p></div></div>
+        <div class="symbol-item" data-id="17"><div class="sym-no">17</div><div class="sym-body"><h4>编号</h4><p>对应此阶段在人生旅程中的功课。</p></div></div>
       </div>
     </div>
   </div>
@@ -554,18 +546,13 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
   <div class="wrap">
     <div class="chapter-head">
       <div class="idx">— 肆 · NUMEROLOGY</div>
-      <h2>塔罗灵数<span class="en">The Duality of Two</span></h2>
+      <h2>塔罗灵数<span class="en">The Number XV</span></h2>
     </div>
     <div class="numero">
-      <div class="bignum">2<small>Duality · Balance</small></div>
+      <div class="bignum">XV<small>The Devil</small></div>
       <div class="numero-text">
-        <div class="numero-keys">
-          <span>分化与对立</span><span>依赖与合作</span><span>直觉敏感</span><span>细腻与情绪</span><span>被动接收</span>
-        </div>
-        <p>数字 2 代表着分化，精神与物质、灵与肉、生与死、正与反的分别与相对，以及两端相互辨证 of 思考方式。与 1 数的主动发射能量相反，2 数代表接收能量。</p>
-        <p>2 数的人对份量均衡非常敏感，看事情较为透彻。他们心思细腻，善于分析和解决问题，天赋有写作、说故事甚至双重性格的特质。在金钱上他们学习力强、直觉敏感；在感情上浪漫多情却也优柔寡断。</p>
-        <p>作为阴性能量的绝对代表，女祭司的 2 号牌特质表现为「依赖与吸收」，极易吸收别人的能量并受到干扰。如何管控自身高需求和情绪化，是其一生的修行。</p>
-        <div class="lesson"><b>2 号牌的课题：</b>学会在与他人互动时也可以独处，不要当别人的负面能量接收器，不要过度共情，管控好自己的情绪波动。</div>
+        <p>数字 15 是 1 与 5 的相遇，也是 1+5=6 对恋人牌的回响。1 是自我与起点，5 是变动、感官与试探；当二者结合，纯粹的自我意志便被卷入感官世界的诱惑之中，于是恋人牌中天使祝福的结合，在此被翻转为彼此捆绑的迷恋。</p>
+        <p>在解读时，恶魔提醒我们：事件表面的顺逆终会变化，真正值得把握的是牌面所揭示的内在功课。它指向经验累积后的转折与整合，引导人从事件表层进入更深的精神功课——看清自己究竟是被外物捆绑，还是甘愿被捆绑。</p>
       </div>
     </div>
   </div>
@@ -588,123 +575,112 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
     <div class="pos-panel-container">
       <!-- 正位 -->
       <div class="pos-panel show" id="panel-up">
-        <figure class="pos-figure" style="margin-bottom:40px;max-width:560px">
+        <figure class="pos-figure" style="margin-bottom:40px;max-width:480px">
           <div class="plate">
-            <img src="assets/images/major/02-the-high-priestess/the-high-priestess-upright.png" alt="女祭司正位意象——静水流深，明镜止水——莫奈印象派画风"
-                 onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE V — 正位意象图待上传&lt;br&gt;assets/images/major/02-the-high-priestess/the-high-priestess-upright.png (莫奈风)&lt;/div&gt;'">
+            <img src="../../assets/images/major/15-the-devil/the-devil-upright.png" alt="恶魔正位意象"
+                 onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE V — 正位意象图待上传&lt;br&gt;assets/images/major/15-the-devil/the-devil-upright.png&lt;/div&gt;'">
           </div>
-          <figcaption class="plate-cap">PLATE V · 正位意象 · 月光照耀静水，内心清明，直觉显现</figcaption>
+          <figcaption class="plate-cap">PLATE V · 正位意象 · 直觉与宇宙能量的显现</figcaption>
         </figure>
         <div class="prose" style="max-width:62ch;margin-bottom:40px">
-          <p>高位的女祭司是一张代表精神和心灵发展的牌。你应该要相信你的直觉，因为在这一点上，有些事情可能在表面上看不见。这是一个向内心探索的阶段，以便为你人生的下一个阶段播种，去消化并感悟世事。</p>
+          <p>**关键词**：束缚，诱惑，欲望，占有，成瘾，控制，物质执着，阴影，受到拘束深感不安，卑躬屈膝，颓废的生活，隐瞒真相，固执己见，贪婪成性，自我投影，依恋，爱慕，信念，信仰，忠诚，拥护，入迷，鬼迷心窍，限制，约束，性欲，过度依赖，沦为欲望的俘虏</p>
+        <p>正位的恶魔表示这股能量正在逐渐清晰，并已显露它的诱惑面目。它的提示语是：束缚、诱惑、贪婪、放纵、欲望的奴隶、拘泥物质、缺乏自由、过度依赖、被欺骗、沉溺于肉体的快乐、落入诱惑的陷阱。顺着牌面主题去看，你会发现自己正被某种东西牢牢吸住——可能是一个人、一种习惯、一笔钱，或一份不甘放手的执念。承认它的存在，是松开锁链的第一步。</p>
         </div>
         <div class="pos-summary">
-          <div class="kw"><span class="lab">核心关键词</span><p>知性理性 · 富有研究精神 · 敏锐洞察力 · 直觉与第六感 · 天启与天象</p></div>
-          <div class="kw"><span class="lab">能量基调</span><p>相信直觉 · 探寻潜意识真相 · 静观其变 · 隐秘智慧 · 精神上的知己</p></div>
+          <div class="kw"><span class="lab">核心关键词</span><p>束缚，诱惑，欲望，占有，成瘾，控制，物质执着，阴影，受到拘束深感不安，卑躬屈膝，颓废的生活，隐瞒真相，固执己见，贪婪成性，自我投影，依恋，爱慕，信念，信仰，忠诚，拥护，入迷，鬼迷心窍，限制，约束，性欲，过度依赖，沦为欲望的俘虏</p></div>
+          <div class="kw"><span class="lab">能量基调</span><p>土 元素 · 开启、滋养与自我调和</p></div>
         </div>
         <div class="dim-grid">
           <div class="dim">
             <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
-            <p class="kw-line">柏拉图式恋爱 · 精神契合 · 互补成长 · 感情内敛 · 暂无新桃花</p>
-            <p>双方保持理智状态，重视精神心灵结合，能够一同学习成长。对方的爱意深藏在内心。若为单身，目前是沉淀充实自我的极佳时机，不必急于开展新恋情。</p>
             <ul>
-              <li><b>现况</b>感情进入稳定期，褪去了热恋期的积极，表面虽显冷清但内里联结极深。</li>
-              <li><b>桃花</b>目前并无新桃花，建议不要把心思花在寻找对象上，多独处与阅读。</li>
-              <li><b>看法</b>两人在灵魂深处存在默契，能够努力达到差异中的平衡与和谐。</li>
-              <li><b>复合</b>此牌正位下并无复合可能，保持距离才是最好的，你需要时间深刻反省。</li>
+              <li><b>现况</b>两人的关系其实已走到尽头，继续下去也难有进展，与其拖着彼此受伤，不如及早放手。</li>
+            <li><b>桃花</b>眼下并没有真正的新恋情，即便有人示好也多半心怀不轨，需要仔细甄别，不必自找麻烦。</li>
+            <li><b>看法</b>这段关系带来的更多是精神上的痛苦——想控制对方却不得法，内心的空虚始终无法被填满。</li>
+            <li><b>复合</b>这段关系几乎没有复合的可能，强行在一起只是自找罪受；唯有离开，才能看清对方与自己的本来面目。</li>
             </ul>
           </div>
           <div class="dim">
             <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
-            <p class="kw-line">考运极佳 · 责任感强 · 卓越判断力 · 按部就班 · 适合学术与创作</p>
-            <p>求知欲旺盛，适合从事助理、作家、心理咨询、研发、教育、财务等行业。学习上专注力强，极具考运，洞察力一流。</p>
             <ul>
-              <li><b>现况</b>工作局势十分稳定，不宜进行激进的改变，按部就班做好分内之事即可。</li>
-              <li><b>建议</b>问题尚未完全显露，切忌盲动，应耐心查阅文件规定，做好应对的文字准备。</li>
-              <li><b>人际</b>与他人互动不多，切记绝对不能随意泄露工作中的任何机密。</li>
-              <li><b>发展</b>未来发展尚不明朗，保守看待，做好维持当前岗位现状的物理准备。</li>
+              <li><b>现况</b>眼下的工作遭遇各方掣肘，大半局面已超出你的掌控，事前难以防范，甚至有丢掉饭碗的风险。</li>
+            <li><b>建议</b>即便事情无解，也切忌动用旁门左道；一时得利，终将付出更大的代价。</li>
+            <li><b>关系</b>这份工作里人人钩心斗角，即使一同共事也难以信任彼此，务必小心别被算计。</li>
+            <li><b>发展</b>前景一片黯淡，也不必妄想去改变什么，及早抽身离开才是上策，不要再抱任何幻想。</li>
             </ul>
           </div>
           <div class="dim">
             <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
-            <p class="kw-line">低调温和 · 知心知己 · 理性消费 · 谨慎投资 · 闷声发大财</p>
-            <p>不喜张扬，人缘虽冷淡但能结交知心好友。财运平稳，善于理财，绝不冲动消费。在理财上女祭司鼓励你用直觉与细致调查做出评估，切忌大额盲目投资。</p>
             <ul>
-              <li><b>现况</b>并不积极社交，人际上保持适度距离让你感到最舒适和自由。</li>
-              <li><b>建议</b>人际若有争议，可寻求公正的第三方仲裁，私下争吵只会加深彼此误会。</li>
-              <li><b>财运</b>财务稳定，投资方面应理性保守，评估可行性后再作决定。</li>
+              <li><b>现况</b>人际状况并不理想，旁人都不太愿意与你深交；若不改一改脾气、不再动辄怪罪他人，这种局面难有转机。</li>
+            <li><b>建议</b>有误会要主动去化解，即便一时解不开，也要拿出解决的姿态，这本身就有益于关系。</li>
+            <li><b>财运</b>表面看来风光，实则是纸上富贵，内里藏着不少问题，且非短期能够解决，宜尽快将投资变现落袋为安。</li>
             </ul>
           </div>
           <div class="dim">
             <div class="dim-head"><span class="ic">✚</span><h4>健康 / 生活</h4><span class="en">Health</span></div>
-            <p class="kw-line">关注循环 · 妇科与手脚冰凉 · 倾听身体暗示 · 精神压力与情绪疾病</p>
-            <p>容易手脚冰凉、体内循环较差、宫寒。由于内心敏感情绪化，也需要提防心理焦虑与抑郁，时时倾听身体的声音以获取平衡。</p>
+            <p>健康生活上，恶魔提示身心状态与当前的心理课题紧密相连。各种“成瘾”往往在身体上留下痕迹——过度工作、暴饮暴食、过度消费或任何形式的放纵，都会反噬。适合检查压力的来源、作息的习惯与身体发出的信号，警惕用刺激去填补内心的空虚。以更稳定、更节制的方式照顾自己，把松开锁链当作一种自我疗愈。</p>
           </div>
         </div>
         <div class="dim-extra">
           <span class="lab">其它牌意 · Other</span>
-          <p>喜欢阅读并从中获得心智成长，多以理性方式理解世界，喜欢安静独处。</p>
+          <p>身心受到束缚，计划赶不上变化，精神压抑，外部环境恶劣，隐秘的行动。若问具体事件，正位多表示事情进入某种沉溺或受困的关键阶段。主动去理解它的意义、看清是谁在从中得利，会比单纯等待结果更有力量。</p>
         </div>
       </div>
 
       <!-- 逆位 -->
       <div class="pos-panel" id="panel-rev">
-        <figure class="pos-figure" style="margin-bottom:40px;max-width:560px">
+        <figure class="pos-figure" style="margin-bottom:40px;max-width:480px">
           <div class="plate">
-            <img src="assets/images/major/02-the-high-priestess/the-high-priestess-reversed.png" alt="女祭司逆位意象——风起水涌，心神不宁——莫奈印象派画风"
-                 onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VI — 逆位意象图待上传&lt;br&gt;assets/images/major/02-the-high-priestess/the-high-priestess-reversed.png (莫奈风)&lt;/div&gt;'">
+            <img src="../../assets/images/major/15-the-devil/the-devil-reversed.png" alt="恶魔逆位意象"
+                 onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VI — 逆位意象图待上传&lt;br&gt;assets/images/major/15-the-devil/the-devil-reversed.png&lt;/div&gt;'">
           </div>
-          <figcaption class="plate-cap">PLATE VI · 逆位意象 · 暴雨突降，波涛汹涌，理性尽失，直觉受阻</figcaption>
+          <figcaption class="plate-cap">PLATE VI · 逆位意象 · 失衡与能量阻塞</figcaption>
         </figure>
         <div class="prose" style="max-width:62ch;margin-bottom:40px">
-          <p>逆位的女祭司暗示你当前无法倾听内在的声音，或内心的知性无法转化为有效的行动。此时容易冲动、浮躁或失去理性，应当走出去接受现实生活中的人际交往与新机会，而不是自我封闭。</p>
+          <p>**关键词**：摆脱束缚，戒除，觉醒，断开依附，重获自由，解脱，反抗，内在力量，与酒肉朋友断交，抛弃欲望，解除负担，能够表达自己的意志，释放，探索思想，思考内心的阴暗，超然，超脱，独立，公正，客观</p>
+        <p>逆位的恶魔表示这股能量开始松动、被看清，人正从沉溺中清醒。它的提示语是：解脱束缚、避开诱惑、抵制贪婪、克制欲望、重获自由、摆脱物质的控制、突破欺骗、追求精神的满足、逃离过度依赖、从沉溺中清醒。此时最重要的是先看清自己是否仍在抗拒这张牌所要求的功课——是真的放下了，还是只是换了一副锁链。</p>
         </div>
         <div class="pos-summary">
-          <div class="kw"><span class="lab">核心关键词</span><p>粗心大意 · 易紧张神经质 · 意气用事 · 秘密泄露 · 自我封闭</p></div>
-          <div class="kw"><span class="lab">能量基调</span><p>冲动盲目 · 失去直觉 · 沟通受阻 · 财务隐患 · 暗潮汹涌</p></div>
+          <div class="kw"><span class="lab">核心关键词</span><p>摆脱束缚，戒除，觉醒，断开依附，重获自由，解脱，反抗，内在力量，与酒肉朋友断交，抛弃欲望，解除负担，能够表达自己的意志，释放，探索思想，思考内心的阴暗，超然，超脱，独立，公正，客观</p></div>
+          <div class="kw"><span class="lab">能量基调</span><p>土 元素 · 延迟、失控与过度自我沉溺</p></div>
         </div>
         <div class="dim-grid">
           <div class="dim reversed">
             <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
-            <p class="kw-line">暗恋错过 · 拒绝沟通 · 容易受骗 · 关系冷战 · 单身独身主义</p>
-            <p>内心封闭且性格被动，面对心仪对象脑袋空白、不敢表白，极易因此错过良缘。已婚者不善表达情感，缺乏深层沟通，易引发冷战或猜忌误会。</p>
             <ul>
-              <li><b>现况</b>表面稳定但分歧严重，若不积极破冰，将会演变成长期的冷战状态。</li>
-              <li><b>桃花</b>可能有一时冲动的桃花，但不合适，盲目开始只会带来更多麻烦。</li>
-              <li><b>看法</b>两人之间仍有诸多心结，必须保持热情勇敢地沟通，避免冷漠应对。</li>
-              <li><b>复合</b>虽有一丝复合可能，但若不解决沟通冷漠的问题，再在一起也是痛苦。</li>
+              <li><b>现况</b>两人之间纠缠着太多错综复杂的情绪，也经历过不少欺骗，只剩肉体的结合而无情感上的契合。</li>
+            <li><b>桃花</b>眼前出现的感情多半只是肉欲的诱惑，对方并非真心相爱，更可能想利用你、控制你来满足私欲。</li>
+            <li><b>看法</b>这段关系带来太多束缚与限制，你为对方失去了自我，想逃却放不下，是一段相当痛苦的关系。</li>
+            <li><b>复合</b>复合不会带来幸福，对方只想控制你为其私利服务；一旦看清两人真正的关系，你便不会再想复合。</li>
             </ul>
           </div>
           <div class="dim reversed">
             <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
-            <p class="kw-line">肤浅固执 · 粗心大意 · 错失良机 · 考核紧张 · 台面下暗潮汹涌</p>
-            <p>认知流于表面，固执己见，不愿学习新技能却又自以为是。在压力下极度焦虑，容易因犹豫不决而丧失发展机会。学业上比较懒散，粗心大意易失误。</p>
             <ul>
-              <li><b>现况</b>工作看似稳定，实则在台面下暗潮汹涌，一不留神就会爆发大纰漏。</li>
-              <li><b>建议</b>重点是平衡各方立场、整合不同意见，过于偏向任何一方都会带来损失。</li>
-              <li><b>人际</b>职场人际助力极少，需要警惕刻意逢迎你的人，背后可能有其它图谋。</li>
-              <li><b>发展</b>未来变动很大，现已初见端倪。如想待下去，必须做好随时应变的准备。</li>
+              <li><b>现况</b>利欲熏心而忽视了手段与道德的底线，短期或许得利，长远看反而招来不利影响。</li>
+            <li><b>建议</b>必须拒绝不正当的诱惑，才不会把自己逼上绝路，关键时刻方能保全自身。</li>
+            <li><b>关系</b>工作里结成了各种利益联盟，派系斗争激烈，此时即便保持中立，也容易被卷入其中。</li>
+            <li><b>发展</b>这份工作金玉其外、败絮其中，未来难有好的发展，能离开就尽早离开。</li>
             </ul>
           </div>
           <div class="dim reversed">
             <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
-            <p class="kw-line">孤立排他 · 盲目理财 · 消费无度 · 提防欺诈 · 及时止损</p>
-            <p>因性格封闭冷淡、不善沟通而人缘欠佳，容易被边缘化或得罪人。财运不佳，消费缺乏计划性，容易冲动跟随他人进行投资，需严防潜在的合同欺诈。</p>
             <ul>
-              <li><b>现况</b>两极分化，懂你的人极度喜欢你，不懂的人讨厌你，在人际中存在争议。</li>
-              <li><b>建议</b>主动探寻人际争议的原因，理智沟通，你会发现往往只是一个小误会。</li>
-              <li><b>财运</b>已出现财务亏空，若不及时理性整理，问题会演变成大窟窿。</li>
+              <li><b>现况</b>你越想控制或利用别人，别人就越会远离你。</li>
+            <li><b>建议</b>向内求，而非向外求。</li>
+            <li><b>财运</b>眼下状况很糟，一定要用正当手段才能真正解决问题。</li>
+            <li><b>再一层提醒</b>若已陷入投资陷阱，越早脱身就越能减少损失，拖晚了恐怕血本无归。</li>
             </ul>
           </div>
           <div class="dim reversed">
             <div class="dim-head"><span class="ic">✚</span><h4>健康 / 生活</h4><span class="en">Health</span></div>
-            <p class="kw-line">精神衰弱 · 极端减肥 · 消化道溃疡 · 贫血与淋巴问题 · 压力累积</p>
-            <p>态度傲慢或个性好强给自己施加了过大压力，容易引发肠胃病、贫血。心胸变狭隘，可能因好胜而深感孤独，应注意情绪宣泄，调节作息。</p>
+            <p>健康上，逆位常提示一个解放与排毒的过程：开始戒除旧瘾、释放长期压抑的情绪、重建作息。这是身心从沉溺中复原的阶段，但脱离旧习惯时也会有不适与反复，需要耐心。建议减少极端做法，重新建立可持续的生活节奏，给自己时间去适应新的自由。</p>
           </div>
         </div>
         <div class="dim-extra">
           <span class="lab">其它牌意 · Other</span>
-          <p>计划被迫打断，沟通出现重大偏颇，内心充满猜忌和不安全感。</p>
+          <p>向往轻松的生活方式，开展新的计划，重获自由，吐露心声。事情可能在松绑中暴露出隐藏的问题——先修正模式，再谈结果。</p>
         </div>
       </div>
     </div>
@@ -715,22 +691,19 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
 <section class="chapter reveal" id="spread">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="idx">— 陸 · THE SPREAD</div>
+      <div class="idx">— 陆 · THE SPREAD</div>
       <h2>三牌阵示意<span class="en">Past · Present · Future</span></h2>
     </div>
-
     <figure class="spread-figure" style="margin-bottom:40px;max-width:680px">
       <div class="plate">
-        <img src="assets/images/major/02-the-high-priestess/the-high-priestess-spread.png" alt="三牌阵示意图——莫奈印象派画风"
-             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VII — 牌阵示意图待上传&lt;br&gt;assets/images/major/02-the-high-priestess/the-high-priestess-spread.png (莫奈风)&lt;/div&gt;'">
+        <img src="../../assets/images/major/15-the-devil/the-devil-spread.png" alt="三牌阵示意图"
+             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VII — 三牌阵示意图待上传&lt;br&gt;assets/images/major/15-the-devil/the-devil-spread.png&lt;/div&gt;'">
       </div>
-      <figcaption class="plate-cap">PLATE VII · 三牌阵 · 过去 · 现在 · 未来（月光蜡烛下的神秘探寻）</figcaption>
+      <figcaption class="plate-cap">PLATE VII · 三牌阵 · 过去 · 现在 · 未来（向内觉察的能量）</figcaption>
     </figure>
-
     <div class="prose" style="max-width:60ch;margin-bottom:38px">
-      <p>当女祭司出现在三牌阵中，它召唤的是「向内觉察」的能量。它指示着此时不宜诉诸强力与外在扩张，而应退回内心，聆听直觉，在寂静中寻求对立的平衡。点击下方卡牌揭示隐秘启示。</p>
+      <p>当恶魔出现在三牌阵中，它象征的是能量在时间维度上的显现。点击下方卡牌揭示隐秘启示。</p>
     </div>
-
     <div class="spread">
       <!-- 过去 -->
       <div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')">
@@ -744,8 +717,8 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
         <div class="spread-card-front">
           <div class="pos-no">I</div>
           <span class="en">Past · 过去</span>
-          <h4>隐秘积蓄</h4>
-          <p>在过去的一段时间里，你扮演了沉默的观察者。内在的智慧和直觉已为你筑起坚实的潜意识基础，能量已在暗中孕育。</p>
+          <h4>欲望萌芽</h4>
+          <p>曾存在某种形式的束缚或依赖，如不良习惯、恶劣关系或其他枷锁，限制了你的自由。</p>
         </div>
       </div>
 
@@ -761,8 +734,8 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
         <div class="spread-card-front">
           <div class="pos-no">II</div>
           <span class="en">Present · 现在</span>
-          <h4>静观其变</h4>
-          <p>黑白廊柱在身侧，律法在手。此刻不需要激进表态或主动出击。像女祭司一样，在静默中审视细节，静待时机自然成熟。</p>
+          <h4>物质枷锁</h4>
+          <p>可能正深陷某种不良状况无法自拔，例如不健康的关系、恶习，或对物质的极度渴望。</p>
         </div>
       </div>
 
@@ -778,8 +751,8 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
         <div class="spread-card-front">
           <div class="pos-no">III</div>
           <span class="en">Future · 未来</span>
-          <h4>天启指引</h4>
-          <p>直觉将在未来的关键时刻为你揭示隐藏的真相。你将拥有极强的洞察力，看清事物的二元极性，并在心灵层面上获得巨大成长。</p>
+          <h4>破除执念</h4>
+          <p>若延续当前模式，可能落入更深的陷阱、更难解脱的境地，需要警觉并及早行动来改变。</p>
         </div>
       </div>
     </div>
@@ -790,8 +763,8 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
   <div class="wrap">
     <hr class="rule-gold" style="margin-bottom:40px">
     <p class="ornament">✦ ❖ ✦</p>
-    <p>ARCANUM II · THE HIGH PRIESTESS · WATER · MOON · GIMEL</p>
-    <p class="zh">「在静寂中凸现沉稳，于寡言中凸显睿智。」</p>
+    <p>ARCANUM XV · THE DEVIL · 土  · 摩羯座</p>
+    <p class="zh">「观牌如观画，读意如读经。」</p>
   </div>
 </footer>
 
