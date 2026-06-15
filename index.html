@@ -18,10 +18,27 @@
   --gold-deep: oklch(48% .11 65);
   --wine: oklch(40% .13 25);
   --wine-soft: oklch(52% .12 26);
+  --ink-blue: oklch(38% .06 250);
   --serif:'Iowan Old Style','Palatino Linotype',Palatino,'Songti SC','Source Han Serif SC',Georgia,'Times New Roman',serif;
   --song:'Songti SC','STSong','Source Han Serif SC',serif;
   --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
   --mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,monospace;
+
+  /* 语义化字阶 —— 以 1rem=18px 为基准的模块音阶（比例约 1.25），
+     展品 chrome 用固定 rem，页头 display 用 clamp 流体 */
+  --text-caption: .6875rem;   /* 12.4px — 版号、页脚 mono */
+  --text-label:   .75rem;     /* 13.5px — 眉题 / 标签 */
+  --text-small:   .875rem;    /* 15.75px — 展品描述 */
+  --text-body:    1rem;       /* 18px — 正文基准 */
+  --text-lead:    1.125rem;   /* 20.25px — 导言 */
+  --text-sub:     1.375rem;   /* 24.75px — 小节副题 */
+  --text-h3:      1.75rem;    /* 31.5px — 展品名 */
+  --text-h2:      clamp(1.75rem, 3.4vw, 2.375rem);  /* 分节大标题 */
+  --text-display: clamp(2.75rem, 7vw, 4.75rem);     /* 页头主题 */
+
+  --lh-tight: 1.12;
+  --lh-snug:  1.4;
+  --lh-prose: 1.85;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -35,8 +52,10 @@ body{
   background-position:0 0, 0 0, 17px 17px;
   color:var(--fg);
   font-family:var(--serif);
-  font-size:18px;
-  line-height:1.78;
+  font-size:var(--text-body);
+  line-height:var(--lh-prose);
+  font-kerning:normal;
+  text-rendering:optimizeLegibility;
   -webkit-font-smoothing:antialiased;
 }
 ::selection{background:oklch(58% .12 70 / .28)}
@@ -67,7 +86,7 @@ body{
 
 /* ============ 顶部横幅 ============ */
 header.gallery-header{
-  padding:120px 0 80px;
+  padding:120px 0 72px;
   text-align:center;
   border-bottom: 2px solid var(--fg);
   position: relative;
@@ -84,36 +103,137 @@ header.gallery-header::after{
 }
 .gallery-header .eyebrow{
   font-family:var(--mono);
-  font-size:12px;
+  font-size:var(--text-label);
   letter-spacing:.5em;
   text-transform:uppercase;
   color:var(--gold-deep);
   font-weight:600;
-  margin-bottom:20px;
+  margin-bottom:22px;
 }
 .gallery-header h1{
   font-family:var(--serif);
-  font-size:clamp(44px,7vw,76px);
+  font-size:var(--text-display);
   font-weight:400;
-  line-height:1.1;
+  line-height:var(--lh-tight);
+  letter-spacing:.01em;
   color:var(--fg);
-  margin-bottom:28px;
+  margin-bottom:30px;
 }
 .gallery-header h1 .en{
   display:block;
   font-family:var(--mono);
-  font-size:15px;
+  font-size:var(--text-label);
   letter-spacing:.45em;
   color:var(--muted);
   text-transform:uppercase;
-  margin-top:14px;
+  margin-top:18px;
 }
 .gallery-header p.lead{
-  max-width:64ch;
+  max-width:60ch;
   margin:0 auto;
-  font-size:18px;
+  font-size:var(--text-lead);
   color:var(--muted);
   line-height:1.8;
+}
+/* 典藏普查 —— 78 / 22 / 56 */
+.census{
+  display:flex;
+  justify-content:center;
+  align-items:stretch;
+  gap:0;
+  margin:40px auto 0;
+  width:fit-content;
+  border:1px solid var(--border);
+  background:var(--paper);
+}
+.census .cell{
+  padding:18px 34px;
+  border-right:1px solid var(--border);
+  text-align:center;
+}
+.census .cell:last-child{border-right:0}
+.census .num{
+  font-family:var(--serif);
+  font-size:var(--text-h3);
+  line-height:1;
+  color:var(--wine);
+  font-feature-settings:"tnum";
+}
+.census .cap{
+  display:block;
+  font-family:var(--mono);
+  font-size:var(--text-caption);
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--gold-deep);
+  margin-top:10px;
+}
+
+/* ============ 策展前言 ============ */
+.preface{
+  padding:84px 0 76px;
+  border-bottom:1px solid var(--border);
+}
+.preface-inner{
+  max-width:64ch;
+  margin:0 auto;
+}
+.preface .eyebrow{
+  font-family:var(--mono);
+  font-size:var(--text-label);
+  letter-spacing:.42em;
+  text-transform:uppercase;
+  color:var(--gold-deep);
+  font-weight:600;
+  text-align:center;
+  margin-bottom:30px;
+}
+.preface p{
+  font-size:var(--text-lead);
+  line-height:var(--lh-prose);
+  color:var(--fg);
+  margin-bottom:24px;
+  text-align:justify;
+}
+.preface p:first-of-type::first-letter{
+  font-family:var(--serif);
+  float:left;
+  font-size:78px;
+  line-height:.72;
+  padding:8px 14px 0 0;
+  color:var(--wine);
+  font-weight:400;
+}
+.preface .colophon{
+  font-family:var(--song);
+  font-size:var(--text-sub);
+  line-height:1.6;
+  color:var(--wine);
+  text-align:center;
+  margin:44px 0 0;
+}
+
+/* ============ 分节标题（手稿馆体例） ============ */
+.section-head{
+  text-align:center;
+  margin-bottom:14px;
+}
+.section-head .kicker{
+  font-family:var(--mono);
+  font-size:var(--text-label);
+  letter-spacing:.42em;
+  text-transform:uppercase;
+  color:var(--gold-deep);
+  font-weight:600;
+  margin-bottom:16px;
+}
+.section-head h2{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:var(--text-h2);
+  line-height:var(--lh-snug);
+  letter-spacing:.04em;
+  color:var(--fg);
 }
 
 /* ============ 卡牌网格 ============ */
@@ -191,7 +311,7 @@ header.gallery-header::after{
   background:oklch(90% .02 80);
   color:var(--faint);
   font-family:var(--mono);
-  font-size:13px;
+  font-size:var(--text-small);
   letter-spacing:.2em;
 }
 
@@ -203,7 +323,7 @@ header.gallery-header::after{
 }
 .card-meta{
   font-family:var(--mono);
-  font-size:12px;
+  font-size:var(--text-caption);
   letter-spacing:.3em;
   color:var(--gold-deep);
   text-transform:uppercase;
@@ -211,13 +331,14 @@ header.gallery-header::after{
 }
 .card-info h3{
   font-family:var(--serif);
-  font-size:32px;
+  font-size:var(--text-h3);
   font-weight:400;
   margin-bottom:12px;
   color:var(--fg);
   display:flex;
   align-items:baseline;
   justify-content:space-between;
+  gap:12px;
   transition: color .35s ease;
 }
 .card-exhibit:hover h3{
@@ -225,13 +346,14 @@ header.gallery-header::after{
 }
 .card-info h3 .en-name{
   font-family:var(--mono);
-  font-size:12px;
+  font-size:var(--text-caption);
   letter-spacing:.2em;
   color:var(--muted);
   text-transform:uppercase;
+  white-space:nowrap;
 }
 .card-desc{
-  font-size:15.5px;
+  font-size:var(--text-small);
   color:var(--muted);
   line-height:1.7;
   margin-bottom:24px;
@@ -244,7 +366,7 @@ header.gallery-header::after{
 }
 .card-tags span{
   font-family:var(--sans);
-  font-size:12px;
+  font-size:var(--text-label);
   padding:4px 10px;
   background:var(--surface);
   border:1px solid var(--border);
@@ -267,7 +389,7 @@ header.gallery-header::after{
 }
 .tab-btn {
   font-family: var(--sans);
-  font-size: 15px;
+  font-size: var(--text-small);
   padding: 10px 24px;
   background: var(--paper);
   border: 1px solid var(--border);
@@ -307,28 +429,105 @@ header.gallery-header::after{
   color: var(--fg);
 }
 
-/* ============ 哲理与阴阳二元 ============ */
-.philosophy-section{
-  padding:80px 0;
-  text-align:center;
+/* ============ 如何阅读这副牌（双联展板） ============ */
+.reading-section{
+  padding:88px 0 96px;
 }
-.philosophy-inner{
-  max-width:80ch;
-  margin:0 auto;
+.reading-section .section-head{
+  margin-bottom:52px;
 }
-.philosophy-inner h2{
+.reading-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+  border:1px solid var(--rule);
+  background:var(--paper);
+  box-shadow:0 18px 44px oklch(40% .05 60 / .10);
+  position:relative;
+}
+.reading-grid::before{
+  content:"";
+  position:absolute;
+  inset:10px;
+  border:1px solid var(--gold);
+  opacity:.35;
+  pointer-events:none;
+}
+.reading-panel{
+  padding:52px 48px;
+  position:relative;
+}
+.reading-panel + .reading-panel{
+  border-left:1px solid var(--border);
+}
+.reading-panel .plate{
+  font-family:var(--mono);
+  font-size:var(--text-caption);
+  letter-spacing:.34em;
+  text-transform:uppercase;
+  color:var(--gold-deep);
+  font-weight:600;
+  margin-bottom:16px;
+}
+.reading-panel h3{
   font-family:var(--serif);
   font-weight:400;
-  font-size:30px;
+  font-size:var(--text-sub);
+  line-height:var(--lh-snug);
   color:var(--fg);
-  margin-bottom:24px;
-  letter-spacing:.05em;
+  margin-bottom:6px;
 }
-.philosophy-inner p{
-  font-size:16.5px;
+.reading-panel h3 .en{
+  display:block;
+  font-family:var(--mono);
+  font-size:var(--text-caption);
+  letter-spacing:.22em;
+  text-transform:uppercase;
   color:var(--muted);
+  margin-top:8px;
+}
+.reading-panel .divider{
+  height:1px;
+  background:linear-gradient(90deg,var(--gold),transparent);
+  border:0;
+  margin:22px 0;
+}
+.reading-panel p{
+  font-size:var(--text-small);
   line-height:1.85;
-  margin-bottom:20px;
+  color:var(--muted);
+  margin-bottom:16px;
+}
+.reading-panel p strong{
+  color:var(--wine);
+  font-weight:400;
+}
+.reading-panel .suit-keys{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:20px;
+}
+.reading-panel .suit-keys span{
+  font-family:var(--mono);
+  font-size:var(--text-caption);
+  letter-spacing:.12em;
+  padding:5px 11px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  color:var(--fg);
+}
+.duality-note{
+  max-width:72ch;
+  margin:48px auto 0;
+  text-align:center;
+}
+.duality-note .ornament{margin-bottom:18px}
+.duality-note p{
+  font-family:var(--song);
+  font-size:var(--text-lead);
+  line-height:1.9;
+  color:var(--wine);
 }
 
 /* ============ 页脚 ============ */
@@ -339,7 +538,7 @@ footer{
 }
 footer p{
   font-family:var(--mono);
-  font-size:11px;
+  font-size:var(--text-caption);
   letter-spacing:.24em;
   color:var(--faint);
   text-transform:uppercase;
@@ -347,10 +546,11 @@ footer p{
 }
 footer .zh{
   font-family:var(--song);
-  font-size:13.5px;
+  font-size:var(--text-small);
   letter-spacing:.1em;
   color:var(--muted);
   margin-top:8px;
+  text-transform:none;
 }
 
 /* ============ 响应式 ============ */
@@ -359,6 +559,13 @@ footer .zh{
     grid-template-columns:1fr;
     gap:40px;
   }
+  .reading-grid{
+    grid-template-columns:1fr;
+  }
+  .reading-panel + .reading-panel{
+    border-left:0;
+    border-top:1px solid var(--border);
+  }
   header.gallery-header{
     padding:80px 0 50px;
   }
@@ -366,6 +573,9 @@ footer .zh{
 @media(max-width:680px){
   .wrap{padding:0 24px}
   .card-exhibit{padding:24px}
+  .census .cell{padding:14px 20px}
+  .reading-panel{padding:40px 28px}
+  .preface p:first-of-type::first-letter{font-size:62px}
 }
 </style>
 </head>
@@ -373,14 +583,32 @@ footer .zh{
 
 <header class="gallery-header reveal">
   <div class="wrap">
-    <div class="eyebrow">The Major Arcana Manuscript</div>
-    <h1>大阿卡纳手稿馆展厅<span class="en">The Arcana Exposition Hall</span></h1>
-    <p class="lead">这是一部关于塔罗大阿尔卡那的学术与象征研究手稿。我们将从历史源流、炼金术要素、天体星象、卡巴拉生命之树等多重维度，层层剥开每一张牌的隐秘内涵。</p>
+    <div class="eyebrow">The Arcanum Gallery · 78 Plates</div>
+    <h1>阿卡纳手稿馆<span class="en">The Arcanum Gallery</span></h1>
+    <p class="lead">一座静默的塔罗典藏馆。七十八张牌如七十八幅泥金手稿，自历史源流、炼金术要素、天体星象与卡巴拉生命之树等多重维度，层层剥开各自的隐秘内涵。请放慢脚步，如展厅观画。</p>
+    <div class="census">
+      <div class="cell"><span class="num">78</span><span class="cap">Plates 全副典藏</span></div>
+      <div class="cell"><span class="num">22</span><span class="cap">Major 大阿卡纳</span></div>
+      <div class="cell"><span class="num">56</span><span class="cap">Minor 小阿卡纳</span></div>
+    </div>
   </div>
 </header>
 
+<section class="preface reveal">
+  <div class="wrap preface-inner">
+    <p class="eyebrow">Curator's Preface · 策展前言</p>
+    <p>塔罗并非一叠用以占卜的纸牌，而是一部以图像写成的典籍。大阿卡纳记述灵魂的旅程，自愚者的第一步起，途经魔术师的意志、女祭司的静默，直至世界的圆满；小阿卡纳则以权杖、圣杯、宝剑、星币四组，铺陈火、水、风、土四种元素在日常中的流转。两者合为一副，恰似一座馆藏完整的展厅——既有恢弘的主殿，也有细密的侧廊。</p>
+    <p>本馆以手稿馆的体例陈列全部七十八张牌。每一幅图版皆配以独立的深度释义，从牌面象征到正逆位牌意，从爱情、事业、人际到健康诸境，逐层注解。我们无意提供速查的答案，只愿你在此驻足、凝视、沉思，让每一张牌的内核在静观中自行显现。</p>
+    <p class="colophon">「观牌如观画，读意如读经。」</p>
+  </div>
+</section>
+
 <main class="deck-section">
   <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">The Collection · 展品总览</div>
+      <h2>按牌组浏览全副图版</h2>
+    </div>
     <div class="deck-tabs">
       <button class="tab-btn active" data-tab="major">大阿卡那 (Major)</button>
       <button class="tab-btn" data-tab="wands">权杖牌组 (Wands)</button>
@@ -394,12 +622,44 @@ footer .zh{
   </div>
 </main>
 
-<section class="philosophy-section reveal">
-  <div class="wrap philosophy-inner">
-    <h2>「一」与「二」的哲学辩证</h2>
-    <p class="ornament">✦ ❖ ✦</p>
-    <p>魔术师代表最初的源泉、阳性的意志、有意识的创造力，是将无形的想法显化为具体成果的能量。而女祭司则代表接收的容器、阴性的直觉、无意识的蓄积，是退回内心、在静默中寻求平衡与真理的力量。</p>
-    <p>从魔术师的「一」到女祭司的「二」，是二元对立的诞生，也是阴与阳、光与暗、显露与隐秘的交融与平衡。唯有理解这两股力量的对立与统一，方能洞悉阿卡纳的真正门径。</p>
+<section class="reading-section reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">How to Read the Deck · 如何阅读这副牌</div>
+      <h2>两座展厅，一段旅程</h2>
+    </div>
+    <div class="reading-grid">
+      <div class="reading-panel">
+        <div class="plate">Major Arcana · 大阿卡纳</div>
+        <h3>愚者之旅<span class="en">The Fool's Journey</span></h3>
+        <hr class="divider" />
+        <p>二十二张大牌记述一场灵魂的成长史诗。<strong>愚者</strong>以「零」启程，怀抱天真踏入未知；<strong>魔术师</strong>的「一」是阳性的意志与显化之力，<strong>女祭司</strong>的「二」是阴性的直觉与静默之渊——自此，二元对立诞生，光与暗、显露与隐秘相互交融。</p>
+        <p>此后历经女皇的丰饶、皇帝的秩序，直至世界的圆满归一。每一张牌都是旅途中的一处驿站，标记着意识从蒙昧走向觉醒的阶次。</p>
+        <div class="suit-keys">
+          <span>0 愚者 · 启程</span>
+          <span>I 魔术师 · 意志</span>
+          <span>II 女祭司 · 直觉</span>
+          <span>XXI 世界 · 圆满</span>
+        </div>
+      </div>
+      <div class="reading-panel">
+        <div class="plate">Minor Arcana · 小阿卡纳</div>
+        <h3>四元素的流转<span class="en">The Four Suits</span></h3>
+        <hr class="divider" />
+        <p>五十六张小牌将旅程落回人间日常，以四组牌呈现四种元素能量：<strong>权杖</strong>属火，主行动、热情与创造；<strong>圣杯</strong>属水，主情感、关系与直觉；<strong>宝剑</strong>属风，主思想、沟通与真相；<strong>星币</strong>属土，主物质、事业与踏实。</p>
+        <p>每组自首牌到国王，由元素的初生潜能，历经数字牌的境遇起伏，终归于宫廷牌的人格成熟。大牌言其道，小牌述其事，二者合观，方得阿卡纳的全貌。</p>
+        <div class="suit-keys">
+          <span>权杖 · 火 Fire</span>
+          <span>圣杯 · 水 Water</span>
+          <span>宝剑 · 风 Air</span>
+          <span>星币 · 土 Earth</span>
+        </div>
+      </div>
+    </div>
+    <div class="duality-note">
+      <p class="ornament">✦ ❖ ✦</p>
+      <p>唯有理解「一」与「二」的对立与统一、四元素的分与合，方能洞悉阿卡纳真正的门径。</p>
+    </div>
   </div>
 </section>
 
@@ -900,10 +1160,11 @@ footer .zh{
   // 4. Initial Render
   render('major');
 
-  // Header and philosophy reveal
+  // Header and static section reveals (preface, deck heading, reading section)
   if ('IntersectionObserver' in window) {
-    var revealHeader = document.querySelector('header.reveal');
-    var revealPhilosophy = document.querySelector('.philosophy-section.reveal');
+    var staticReveals = document.querySelectorAll(
+      'header.reveal, .preface.reveal, .deck-section .section-head.reveal, .reading-section.reveal'
+    );
     var observer = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
@@ -912,8 +1173,7 @@ footer .zh{
         }
       });
     }, { threshold: 0.1 });
-    if(revealHeader) observer.observe(revealHeader);
-    if(revealPhilosophy) observer.observe(revealPhilosophy);
+    staticReveals.forEach(function(el) { observer.observe(el); });
   } else {
     document.querySelectorAll('.reveal').forEach(function(el) {
       el.classList.add('active');
