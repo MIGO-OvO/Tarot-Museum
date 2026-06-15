@@ -1,0 +1,926 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>阿卡纳手稿馆 · THE ARCANUM GALLERY — 塔罗牌深度专题展厅</title>
+<style>
+:root{
+  --bg: oklch(95% .018 85);
+  --paper: oklch(97% .013 88);
+  --surface: oklch(93% .022 82);
+  --fg: oklch(24% .03 55);
+  --muted: oklch(46% .035 58);
+  --faint: oklch(62% .03 60);
+  --border: oklch(80% .035 70);
+  --rule: oklch(70% .05 68);
+  --gold: oklch(58% .12 70);
+  --gold-deep: oklch(48% .11 65);
+  --wine: oklch(40% .13 25);
+  --wine-soft: oklch(52% .12 26);
+  --serif:'Iowan Old Style','Palatino Linotype',Palatino,'Songti SC','Source Han Serif SC',Georgia,'Times New Roman',serif;
+  --song:'Songti SC','STSong','Source Han Serif SC',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+  --mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  background-image:
+    radial-gradient(circle at 50% 30%, oklch(97% .02 85), transparent 60%),
+    radial-gradient(oklch(55% .04 70 / .04) 1px,transparent 1px),
+    radial-gradient(oklch(55% .04 70 / .03) 1px,transparent 1px);
+  background-size:100% 100%, 34px 34px, 34px 34px;
+  background-position:0 0, 0 0, 17px 17px;
+  color:var(--fg);
+  font-family:var(--serif);
+  font-size:18px;
+  line-height:1.78;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:oklch(58% .12 70 / .28)}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--gold)}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 48px}
+.rule-gold{height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);border:0}
+.ornament{
+  text-align:center;color:var(--gold);font-size:20px;letter-spacing:1.4em;
+  margin:0;padding-left:1.4em;user-select:none;
+}
+
+/* ============ 滚动显现动画 ============ */
+.reveal{
+  opacity:0;
+  transform:translateY(30px);
+  transition:opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ============ 顶部横幅 ============ */
+header.gallery-header{
+  padding:120px 0 80px;
+  text-align:center;
+  border-bottom: 2px solid var(--fg);
+  position: relative;
+}
+header.gallery-header::after{
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: var(--gold);
+}
+.gallery-header .eyebrow{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:.5em;
+  text-transform:uppercase;
+  color:var(--gold-deep);
+  font-weight:600;
+  margin-bottom:20px;
+}
+.gallery-header h1{
+  font-family:var(--serif);
+  font-size:clamp(44px,7vw,76px);
+  font-weight:400;
+  line-height:1.1;
+  color:var(--fg);
+  margin-bottom:28px;
+}
+.gallery-header h1 .en{
+  display:block;
+  font-family:var(--mono);
+  font-size:15px;
+  letter-spacing:.45em;
+  color:var(--muted);
+  text-transform:uppercase;
+  margin-top:14px;
+}
+.gallery-header p.lead{
+  max-width:64ch;
+  margin:0 auto;
+  font-size:18px;
+  color:var(--muted);
+  line-height:1.8;
+}
+
+/* ============ 卡牌网格 ============ */
+.deck-section{
+  padding:80px 0 100px;
+  border-bottom:1px solid var(--border);
+}
+.deck-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:56px;
+}
+.card-exhibit{
+  background:var(--paper);
+  border:1px solid var(--rule);
+  padding:40px;
+  position:relative;
+  box-shadow:0 18px 44px oklch(40% .05 60 / .14);
+  transition:all .35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display:flex;
+  flex-direction:column;
+  text-decoration:none;
+  color:inherit;
+}
+.card-exhibit::before{
+  content:"";
+  position:absolute;
+  inset:10px;
+  border:1px solid var(--gold);
+  opacity:.4;
+  pointer-events:none;
+  transition:opacity .35s ease, inset .35s ease;
+}
+.card-exhibit:hover{
+  transform:translateY(-8px);
+  box-shadow:
+    0 24px 60px oklch(40% .05 60 / .22),
+    0 0 25px oklch(58% .12 70 / .15);
+  border-color:var(--gold);
+}
+.card-exhibit:hover::before{
+  opacity:.8;
+  inset:6px;
+}
+
+/* 卡牌图版区 */
+.card-frame{
+  position:relative;
+  border:1px solid var(--border);
+  padding:14px;
+  background:var(--bg);
+  margin-bottom:30px;
+  overflow:hidden;
+  transition: border-color .35s ease;
+}
+.card-exhibit:hover .card-frame{
+  border-color: var(--gold);
+}
+.card-frame img{
+  display:block;
+  width:100%;
+  height:auto;
+  filter:saturate(.9) contrast(1.02);
+  transition:transform .6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter .35s ease;
+}
+.card-exhibit:hover .card-frame img{
+  transform:scale(1.03);
+  filter:saturate(1) contrast(1.03);
+}
+.card-frame .imgfallback{
+  aspect-ratio:3/5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:oklch(90% .02 80);
+  color:var(--faint);
+  font-family:var(--mono);
+  font-size:13px;
+  letter-spacing:.2em;
+}
+
+/* 卡牌文字区 */
+.card-info{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
+.card-meta{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:.3em;
+  color:var(--gold-deep);
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+.card-info h3{
+  font-family:var(--serif);
+  font-size:32px;
+  font-weight:400;
+  margin-bottom:12px;
+  color:var(--fg);
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  transition: color .35s ease;
+}
+.card-exhibit:hover h3{
+  color: var(--wine);
+}
+.card-info h3 .en-name{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:.2em;
+  color:var(--muted);
+  text-transform:uppercase;
+}
+.card-desc{
+  font-size:15.5px;
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:24px;
+}
+.card-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:auto;
+}
+.card-tags span{
+  font-family:var(--sans);
+  font-size:12px;
+  padding:4px 10px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:2px;
+  color:var(--fg);
+  transition: all .25s ease;
+}
+.card-exhibit:hover .card-tags span{
+  background: var(--paper);
+  border-color: var(--gold);
+}
+
+/* ============ 分类切换选项卡 ============ */
+.deck-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+.tab-btn {
+  font-family: var(--sans);
+  font-size: 15px;
+  padding: 10px 24px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 10px oklch(40% .05 60 / .04);
+}
+.tab-btn:hover {
+  border-color: var(--gold);
+  color: var(--fg);
+}
+.tab-btn.active {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--paper);
+  box-shadow: 0 4px 12px oklch(40% .05 60 / .15);
+}
+
+/* 占位卡牌样式 */
+.card-exhibit.placeholder-card {
+  opacity: 0.85;
+}
+.card-exhibit.placeholder-card:hover {
+  transform: none;
+  box-shadow: 0 18px 44px oklch(40% .05 60 / .14);
+  border-color: var(--rule);
+  cursor: pointer;
+}
+.card-exhibit.placeholder-card:hover::before {
+  opacity: .4;
+  inset: 10px;
+}
+.card-exhibit.placeholder-card:hover h3 {
+  color: var(--fg);
+}
+
+/* ============ 哲理与阴阳二元 ============ */
+.philosophy-section{
+  padding:80px 0;
+  text-align:center;
+}
+.philosophy-inner{
+  max-width:80ch;
+  margin:0 auto;
+}
+.philosophy-inner h2{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:30px;
+  color:var(--fg);
+  margin-bottom:24px;
+  letter-spacing:.05em;
+}
+.philosophy-inner p{
+  font-size:16.5px;
+  color:var(--muted);
+  line-height:1.85;
+  margin-bottom:20px;
+}
+
+/* ============ 页脚 ============ */
+footer{
+  padding:64px 0;
+  text-align:center;
+  border-top:1px solid var(--border);
+}
+footer p{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.24em;
+  color:var(--faint);
+  text-transform:uppercase;
+  line-height:2.2;
+}
+footer .zh{
+  font-family:var(--song);
+  font-size:13.5px;
+  letter-spacing:.1em;
+  color:var(--muted);
+  margin-top:8px;
+}
+
+/* ============ 响应式 ============ */
+@media(max-width:860px){
+  .deck-grid{
+    grid-template-columns:1fr;
+    gap:40px;
+  }
+  header.gallery-header{
+    padding:80px 0 50px;
+  }
+}
+@media(max-width:680px){
+  .wrap{padding:0 24px}
+  .card-exhibit{padding:24px}
+}
+</style>
+</head>
+<body>
+
+<header class="gallery-header reveal">
+  <div class="wrap">
+    <div class="eyebrow">The Major Arcana Manuscript</div>
+    <h1>大阿卡纳手稿馆展厅<span class="en">The Arcana Exposition Hall</span></h1>
+    <p class="lead">这是一部关于塔罗大阿尔卡那的学术与象征研究手稿。我们将从历史源流、炼金术要素、天体星象、卡巴拉生命之树等多重维度，层层剥开每一张牌的隐秘内涵。</p>
+  </div>
+</header>
+
+<main class="deck-section">
+  <div class="wrap">
+    <div class="deck-tabs">
+      <button class="tab-btn active" data-tab="major">大阿卡那 (Major)</button>
+      <button class="tab-btn" data-tab="wands">权杖牌组 (Wands)</button>
+      <button class="tab-btn" data-tab="cups">圣杯牌组 (Cups)</button>
+      <button class="tab-btn" data-tab="swords">宝剑牌组 (Swords)</button>
+      <button class="tab-btn" data-tab="pentacles">星币牌组 (Pentacles)</button>
+    </div>
+    <div class="deck-grid" id="deck-grid">
+      <!-- Cards will be injected here via JavaScript -->
+    </div>
+  </div>
+</main>
+
+<section class="philosophy-section reveal">
+  <div class="wrap philosophy-inner">
+    <h2>「一」与「二」的哲学辩证</h2>
+    <p class="ornament">✦ ❖ ✦</p>
+    <p>魔术师代表最初的源泉、阳性的意志、有意识的创造力，是将无形的想法显化为具体成果的能量。而女祭司则代表接收的容器、阴性的直觉、无意识的蓄积，是退回内心、在静默中寻求平衡与真理的力量。</p>
+    <p>从魔术师的「一」到女祭司的「二」，是二元对立的诞生，也是阴与阳、光与暗、显露与隐秘的交融与平衡。唯有理解这两股力量的对立与统一，方能洞悉阿卡纳的真正门径。</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="ornament">✦ ❖ ✦</p>
+    <p>ARCANUM GALLERY · TAROT ARCHIVE</p>
+    <p class="zh">「在静寂中凸现沉稳，于显露中贯彻意志。」</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // 1. Tarot Card Database
+  const tarotDeck = [
+    // 22 Major Arcana
+    {
+      id: "major-00",
+      num: "0",
+      roman: "0",
+      name: "愚者",
+      enName: "The Fool",
+      type: "major",
+      meta: "Arcanum 0 · 第零号牌",
+      desc: "流浪与开端之星。他背负行囊，脚悬悬崖，带着天真无邪的笑容踏向未知的世界。代表无限可能、冒险与纯粹的自由。",
+      tags: ["风元素 Air", "天王星 Uranus", "毕达哥拉斯: 0", "生命之树: Aleph"],
+      image: "assets/images/major/00-the-fool/the-fool.png",
+      link: "#",
+      fallbackText: "PLATE 0 — 愚者主图待上传"
+    },
+    {
+      id: "major-01",
+      num: "1",
+      roman: "I",
+      name: "魔術師",
+      enName: "The Magician",
+      type: "major",
+      meta: "Arcanum I · 第一号牌",
+      desc: "阳性与主动的绝对代名词。他一手执杖指天，一手指向地面，成为联结上界与下界的桥梁。他桌上放置着火水风土四元素，代表将灵感显化为现实世界的全部力量。",
+      tags: ["风元素 Air", "水星 Mercury", "毕达哥拉斯: 1", "生命之树: Beth"],
+      image: "assets/images/major/01-the-magician/the-magician.png",
+      link: "the-magician.html",
+      fallbackText: "PLATE I — 魔术师主图待上传"
+    },
+    {
+      id: "major-02",
+      num: "2",
+      roman: "II",
+      name: "女祭司",
+      enName: "The High Priestess",
+      type: "major",
+      meta: "Arcanum II · 第二号牌",
+      desc: "阴柔与被动的深沉代名词。她静坐在黑白双柱（Boaz & Jachin）之间，胸前饰以十字，裙角垂落着新月，手捧隐秘的TORA卷轴。她主宰着直觉、梦境与人类最深邃的潜意识世界。",
+      tags: ["水元素 Water", "月亮 The Moon", "毕达哥拉斯: 2", "生命之树: Gimel"],
+      image: "assets/images/major/02-the-high-priestess/the-high-priestess.png",
+      link: "the-high-priestess.html",
+      fallbackText: "PLATE II — 女祭司主图待上传"
+    },
+    {
+      id: "major-03",
+      num: "3",
+      roman: "III",
+      name: "女皇",
+      enName: "The Empress",
+      type: "major",
+      meta: "Arcanum III · 第三号牌",
+      desc: "大地之母的绝对化身。她身穿石榴裙，手持盾牌与麦穗，在繁茂森林中安坐。主宰着丰饶、生育、大自然与无尽的爱意。",
+      tags: ["土元素 Earth", "金星 Venus", "毕达哥拉斯: 3", "生命之树: Daleth"],
+      image: "assets/images/major/03-the-empress/the-empress.png",
+      link: "#",
+      fallbackText: "PLATE III — 女皇主图待上传"
+    },
+    {
+      id: "major-04",
+      num: "4",
+      roman: "IV",
+      name: "皇帝",
+      enName: "The Emperor",
+      type: "major",
+      meta: "Arcanum IV · 第四号牌",
+      desc: "世俗权力与秩序的巅峰。他身披红袍铠甲，手握权杖，端坐于石质羊头宝座之上。代表权威、控制、稳定与坚强的意志。",
+      tags: ["火元素 Fire", "白羊座 Aries", "毕达哥拉斯: 4", "生命之树: Heh"],
+      image: "assets/images/major/04-the-emperor/the-emperor.png",
+      link: "#",
+      fallbackText: "PLATE IV — 皇帝主图待上传"
+    },
+    {
+      id: "major-05",
+      num: "5",
+      roman: "V",
+      name: "教皇",
+      enName: "The Hierophant",
+      type: "major",
+      meta: "Arcanum V · 第五号牌",
+      desc: "精神法则与传统的守卫者。他身穿三重冠冕，手执十字法杖，向座下僧侣开示。象征信仰、社会建制、教育与心灵契约。",
+      tags: ["土元素 Earth", "金牛座 Taurus", "毕达哥拉斯: 5", "生命之树: Vav"],
+      image: "assets/images/major/05-the-hierophant/the-hierophant.png",
+      link: "#",
+      fallbackText: "PLATE V — 教皇主图待上传"
+    },
+    {
+      id: "major-06",
+      num: "6",
+      roman: "VI",
+      name: "恋人",
+      enName: "The Lovers",
+      type: "major",
+      meta: "Arcanum VI · 第六号牌",
+      desc: "选择与和谐交融的纽带。在大天使的庇佑下，亚当与夏娃站在生命树与知善恶树旁。代表爱情、道德抉择、和谐与人际联结。",
+      tags: ["风元素 Air", "双子座 Gemini", "毕达哥拉斯: 6", "生命之树: Zain"],
+      image: "assets/images/major/06-the-lovers/the-lovers.png",
+      link: "#",
+      fallbackText: "PLATE VI — 恋人主图待上传"
+    },
+    {
+      id: "major-07",
+      num: "7",
+      roman: "VII",
+      name: "战车",
+      enName: "The Chariot",
+      type: "major",
+      meta: "Arcanum VII · 第七号牌",
+      desc: "意志力与凯旋的飞驰。战车御者头戴星冠，驾驭黑白双狮，奔向前方。象征胜利、自律、克服阻碍与坚定的方向感。",
+      tags: ["水元素 Water", "巨蟹座 Cancer", "毕达哥拉斯: 7", "生命之树: Cheth"],
+      image: "assets/images/major/07-the-chariot/the-chariot.png",
+      link: "#",
+      fallbackText: "PLATE VII — 战车主图待上传"
+    },
+    {
+      id: "major-08",
+      num: "8",
+      roman: "VIII",
+      name: "力量",
+      enName: "Strength",
+      type: "major",
+      meta: "Arcanum VIII · 第八号牌",
+      desc: "温柔掌控与内在勇气的典范。身穿白裙、头戴花冠的女子正轻柔地抚摸并驯服一头巨狮。代表信念、温柔克服暴力、耐心与精神力量。",
+      tags: ["火元素 Fire", "狮子座 Leo", "毕达哥拉斯: 8", "生命之树: Teth"],
+      image: "assets/images/major/08-strength/strength.png",
+      link: "#",
+      fallbackText: "PLATE VIII — 力量主图待上传"
+    },
+    {
+      id: "major-09",
+      num: "9",
+      roman: "IX",
+      name: "隐士",
+      enName: "The Hermit",
+      type: "major",
+      meta: "Arcanum IX · 第九号牌",
+      desc: "孤独探索与内心智慧的追寻。老者身披灰袍，高举孤灯，驻足于冰封的山巅。代表冥想、自我反省、导师指引与隐秘的光芒。",
+      tags: ["土元素 Earth", "处女座 Virgo", "毕达哥拉斯: 9", "生命之树: Yod"],
+      image: "assets/images/major/09-the-hermit/the-hermit.png",
+      link: "#",
+      fallbackText: "PLATE IX — 隐士主图待上传"
+    },
+    {
+      id: "major-10",
+      num: "10",
+      roman: "X",
+      name: "命运之轮",
+      enName: "Wheel of Fortune",
+      type: "major",
+      meta: "Arcanum X · 第十号牌",
+      desc: "宇宙循环与机缘的转折。巨大的轮盘在星空盘旋，人面狮身像、斯芬克斯及四活物环绕周围。代表命运转变、机遇、因果与好运的降临。",
+      tags: ["火元素 Fire", "木星 Jupiter", "毕达哥拉斯: 10", "生命之树: Kaph"],
+      image: "assets/images/major/10-wheel-of-fortune/wheel-of-fortune.png",
+      link: "#",
+      fallbackText: "PLATE X — 命运之轮主图待上传"
+    },
+    {
+      id: "major-11",
+      num: "11",
+      roman: "XI",
+      name: "正义",
+      enName: "Justice",
+      type: "major",
+      meta: "Arcanum XI · 第十一号牌",
+      desc: "绝对真理与客观因果的裁决。正义女神端坐于石柱之间，一手执宝剑，一手执天平。代表公正、法律、因果报应与理性的权衡。",
+      tags: ["风元素 Air", "天秤座 Libra", "毕达哥拉斯: 11", "生命之树: Lamed"],
+      image: "assets/images/major/11-justice/justice.png",
+      link: "#",
+      fallbackText: "PLATE XI — 正义主图待上传"
+    },
+    {
+      id: "major-12",
+      num: "12",
+      roman: "XII",
+      name: "倒吊人",
+      enName: "The Hanged Man",
+      type: "major",
+      meta: "Arcanum XII · 第十二号牌",
+      desc: "换个角度看世界的自我牺牲。男子倒吊在十字树干上，面容平静，头顶散发智慧光芒。象征等待、奉献、新视角与暂时的停滞。",
+      tags: ["水元素 Water", "海王星 Neptune", "毕达哥拉斯: 12", "生命之树: Mem"],
+      image: "assets/images/major/12-the-hanged-man/the-hanged-man.png",
+      link: "#",
+      fallbackText: "PLATE XII — 倒吊人主图待上传"
+    },
+    {
+      id: "major-13",
+      num: "13",
+      roman: "XIII",
+      name: "死神",
+      enName: "Death",
+      type: "major",
+      meta: "Arcanum XIII · 第十三号牌",
+      desc: "旧事物终结与新生命新生的宣告。骷髅骑士手持死亡旗帜踏过大地，国王与孩童皆在其足下。象征终结、重大变革、解脱与自然更替。",
+      tags: ["水元素 Water", "天蝎座 Scorpio", "毕达哥拉斯: 13", "生命之树: Nun"],
+      image: "assets/images/major/13-death/death.png",
+      link: "#",
+      fallbackText: "PLATE XIII — 死神主图待上传"
+    },
+    {
+      id: "major-14",
+      num: "14",
+      roman: "XIV",
+      name: "节制",
+      enName: "Temperance",
+      type: "major",
+      meta: "Arcanum XIV · 第十四号牌",
+      desc: "灵魂融合与情绪平衡的调和。大天使双足一踏入静水，一踏入坚地，在金杯中倾倒生命之水。代表节制、融合、和谐与精神的炼金术。",
+      tags: ["火元素 Fire", "射手座 Sagittarius", "毕达哥拉斯: 14", "生命之树: Samekh"],
+      image: "assets/images/major/14-temperance/temperance.png",
+      link: "#",
+      fallbackText: "PLATE XIV — 节制主图待上传"
+    },
+    {
+      id: "major-15",
+      num: "15",
+      roman: "XV",
+      name: "恶魔",
+      enName: "The Devil",
+      type: "major",
+      meta: "Arcanum XV · 第十五号牌",
+      desc: "物质束缚与欲望深渊的枷锁。恶魔盘踞在石台上，男女被锁链松松套在颈项，在黑暗中沉沦。象征物欲、成瘾、自我设限与阴暗面。",
+      tags: ["土元素 Earth", "摩羯座 Capricorn", "毕达哥拉斯: 15", "生命之树: Ayin"],
+      image: "assets/images/major/15-the-devil/the-devil.png",
+      link: "#",
+      fallbackText: "PLATE XV — 恶魔主图待上传"
+    },
+    {
+      id: "major-16",
+      num: "16",
+      roman: "XVI",
+      name: "高塔",
+      enName: "The Tower",
+      type: "major",
+      meta: "Arcanum XVI · 第十六号牌",
+      desc: "幻象破灭与突发剧变的震荡。闪电击中高耸的塔顶，王冠坠落，人们惊慌跳下深渊。代表突如其来的解构、突破束缚、觉醒与重建。",
+      tags: ["火元素 Fire", "火星 Mars", "毕达哥拉斯: 16", "生命之树: Peh"],
+      image: "assets/images/major/16-the-tower/the-tower.png",
+      link: "#",
+      fallbackText: "PLATE XVI — 高塔主图待上传"
+    },
+    {
+      id: "major-17",
+      num: "17",
+      roman: "XVII",
+      name: "星星",
+      enName: "The Star",
+      type: "major",
+      meta: "Arcanum XVII · 第十七号牌",
+      desc: "暗夜过后的希望与灵性治愈。裸女跪在水池旁，将生命之水同时倒入池中与土地。代表平静、信念、灵感、宁静与未来的光明。",
+      tags: ["风元素 Air", "水瓶座 Aquarius", "毕达哥拉斯: 17", "生命之树: Tzaddi"],
+      image: "assets/images/major/17-the-star/the-star.png",
+      link: "#",
+      fallbackText: "PLATE XVII — 星星主图待上传"
+    },
+    {
+      id: "major-18",
+      num: "18",
+      roman: "XVIII",
+      name: "月亮",
+      enName: "The Moon",
+      type: "major",
+      meta: "Arcanum XVIII · 第十八号牌",
+      desc: "潜意识迷雾与直觉梦境的试炼。两只狼对着满月长嚎，龙虾正从幽深水池爬向陆地。代表恐惧、幻觉、隐秘危险、第六感与梦境探索。",
+      tags: ["水元素 Water", "双鱼座 Pisces", "毕达哥拉斯: 18", "生命之树: Qoph"],
+      image: "assets/images/major/18-the-moon/the-moon.png",
+      link: "#",
+      fallbackText: "PLATE XVIII — 月亮主图待上传"
+    },
+    {
+      id: "major-19",
+      num: "19",
+      roman: "XIX",
+      name: "太阳",
+      enName: "The Sun",
+      type: "major",
+      meta: "Arcanum XIX · 第十九号牌",
+      desc: "生命力与纯真喜悦的最高彰显。赤裸的孩童骑在白马上，背后是金色向日葵与炽热烈日。代表成功、光明、活力、纯真与自我实现。",
+      tags: ["火元素 Fire", "太阳 Sun", "毕达哥拉斯: 19", "生命之树: Resh"],
+      image: "assets/images/major/19-the-sun/the-sun.png",
+      link: "#",
+      fallbackText: "PLATE XIX — 太阳主图待上传"
+    },
+    {
+      id: "major-20",
+      num: "20",
+      roman: "XX",
+      name: "审判",
+      enName: "Judgement",
+      type: "major",
+      meta: "Arcanum XX · 第二十号牌",
+      desc: "灵魂觉醒与过往因果的召唤。天使吹响金色号角，人们从棺木中起立欢呼，获得新生。代表救赎、自我评估、重大决定与天职觉醒。",
+      tags: ["火元素 Fire", "冥王星 Pluto", "毕达哥拉斯: 20", "生命之树: Shin"],
+      image: "assets/images/major/20-judgement/judgement.png",
+      link: "#",
+      fallbackText: "PLATE XX — 审判主图待上传"
+    },
+    {
+      id: "major-21",
+      num: "21",
+      roman: "XXI",
+      name: "世界",
+      enName: "The World",
+      type: "major",
+      meta: "Arcanum XXI · 第二十一号牌",
+      desc: "完美终点与圆满旅程的合一。舞者手持权杖，置于双月桂花环中，四活物守护四角。代表完成、功德圆满、全球视野与大同世界。",
+      tags: ["土元素 Earth", "土星 Saturn", "毕达哥拉斯: 21", "生命之树: Tav"],
+      image: "assets/images/major/21-the-world/the-world.png",
+      link: "#",
+      fallbackText: "PLATE XXI — 世界主图待上传"
+    }
+  ];
+
+  // Dynamically generate minor arcana data
+  const minorSuits = [
+    { key: "wands", zh: "权杖", elem: "火元素 Fire" },
+    { key: "cups", zh: "圣杯", elem: "水元素 Water" },
+    { key: "swords", zh: "宝剑", elem: "风元素 Air" },
+    { key: "pentacles", zh: "星币", elem: "土元素 Earth" }
+  ];
+
+  const minorNumberNames = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Page", "Knight", "Queen", "King"];
+  const minorNumberZh = ["首牌", "二", "三", "四", "五", "六", "七", "八", "九", "十", "侍从", "骑士", "王后", "国王"];
+
+  const minorDescs = {
+    wands: [
+      "行动与热情的绝对源泉。一根嫩芽初绽的权杖从云中之手伸出，象征创造力的爆发、新计划的开始与冒险的激情。",
+      "站在高处俯瞰疆域的领主。他手持地球仪，望着远方，计划着未来的扩张。代表远见、决策与走出舒适圈的准备。",
+      "眺望商船远航的开拓者。他在岸边伫立，基业初成，等待着回报与新的探索。代表合作、发展与商业拓展。",
+      "繁花拱门下的欢庆庄园。人们手举花束，庆祝丰收或婚礼，气氛喜悦安定。代表稳固、和谐、归属感与阶段性成功。",
+      "混战与竞争的乱局。五个青年手持权杖在混战摩擦，但并无实质伤害。代表竞争、冲突、思想碰撞与缺乏组织的乱象。",
+      "凯旋归来的英雄骑在白马上。他头戴桂冠，手持挂有花环的权杖，受人群簇拥。代表胜利、荣耀、公众认可与自信的彰显。",
+      "站在高岗上孤军奋战的防守者。他手持长杖，面对下方突袭的六根权杖，神色坚毅。代表防守、反抗、捍卫地位与孤勇。",
+      "晴空中并排飞驰的八根权杖。它们斜斜坠落，速度极快，带来迅捷的变化。代表迅捷、行动力执行、好消息与沟通的畅通。",
+      "头上缠着绷带的警惕守卫。他手扶权杖，背后排列着八根长杖作为防线。代表警惕、防御、坚韧不拔与最后阶段的坚守。",
+      "艰难运送十根沉重权杖的负重者。他弯着腰，面部被遮挡，艰难走向远方城堡。代表重负、压力过大、责任心与过度承诺的后果。",
+      "站在沙漠中端详权杖的年轻信使。他身穿火纹华服，充满好奇与热忱。代表冒险精神、新消息、灵感火花与开端。",
+      "骑着烈马、手持权杖向前奔驰的骑士。他身穿火蜥蜴披风，动作激烈。代表激情冲动、旅行、挑战与迅速的变化。",
+      "端坐在狮子宝座上的热情女性。她手持权杖与向日葵，脚边有一只黑猫。代表自信、魅力、慷慨与蓬勃的内在能量。",
+      "手持权杖的威严君主。他的宝座和斗篷上饰有衔尾火蜥蜴，充满领袖风范。代表远见、领导力、开拓精神与掌控力。"
+    ],
+    cups: [
+      "情感与爱意的无限涌流。一只盛满生命之水的圣杯被云中之手托起，五道水流溢出。代表新恋情、同理心、直觉与心灵滋养。",
+      "男女对立凝视并交换酒杯。上方有双蛇杖与狮子头，象征契约与祝福。代表爱情、友谊、契约、和谐与平等的联结。",
+      "三个女子高举金杯共同起舞。四周环绕着丰盛的瓜果，气氛欢乐。代表庆祝、友谊、丰产、社群支持与团队快乐。",
+      "双臂交叠坐在树下的沉思者。面对云中伸出的第四只杯子，他闭目无视，另三只杯子放在身前。代表冷漠、厌倦、忽视机会与内省。",
+      "身披黑袍、低头哀悼三个倒下杯子的男子。他背后有两个直立的杯子 and 一条通往城堡的桥。代表悲伤、失落、悔恨与忽视现存的资源。",
+      "阳光庄园中，男孩将盛满鲜花的杯子递给小女孩。周围古朴温馨。代表童年回忆、纯真、馈赠、安全感与过去的美好。",
+      "面对半空云雾中七个盛有奇珍异宝杯子的幻影，男子陷入呆滞。代表幻想、选择过多、诱惑、不切实际与虚无缥缈的愿望。",
+      "在明月高照的乱石之夜，男子抛弃身后整齐排列的八个杯子，拄杖离去。代表追寻更高真理、放弃执念、离别与心灵觉醒。",
+      "双臂交叠、满脸自得地坐在摆满九个杯子的展示台前的富商。代表愿望达成、自满、感官享受、物质富足与得意洋洋。",
+      "在绚丽彩虹拱照下，男女相拥，孩童欢舞，身前十个金杯排列。代表家庭幸福、情感大团圆、喜悦、终极和谐与爱的圆满。",
+      "端着金杯、杯中探出一只小鱼的少年。他站在海边，神色天真。代表直觉、艺术天赋、敏感、意外的好消息与同理心。",
+      "骑着俊美骏马、优雅举着金杯的白马王子。他神态闲适，走向宁静河流。代表罗曼蒂克、邀请、使者、艺术追求与和平主义。",
+      "在海岸凝视精美饰角金杯的宁静女性。她神态温柔，能洞悉潜意识之海。代表同理心、直觉强、温柔、慈爱与情感的港湾。",
+      "坐在波涛汹涌海面石椅上的君主。他手持权杖，颈挂鱼形吊坠，处变不惊。代表情绪成熟、掌控同理心、宽容、克制与冷静。"
+    ],
+    swords: [
+      "理智与力量的绝对胜利。云中之手握住一把宝剑，剑尖穿过皇冠，饰以月桂。代表清晰理智、重大突破、真相大白与决断力。",
+      "双眼蒙布、双手持剑交叉在胸前的静坐者。背景是夜海与新月。代表僵局、逃避抉择、情感封闭、理智与直觉的权衡。",
+      "乌云密布暴雨中，三把宝剑狠狠刺入一颗红心。代表心碎、分离的痛苦、悲哀、言语伤害与必须经历的哀悼期。",
+      "双手合十躺在教堂墓石之上的骑士浮雕。墙上挂着三把剑，身下一把剑。代表修整、沉淀、退隐、战后恢复与精神冥想。",
+      "满脸奸笑的胜者抱着三把宝剑，看着远方垂头丧气的败者。背景风云突变。代表损人利己的胜利、冲突、背叛、名誉受损与两败俱伤。",
+      "船夫划着小船载着母子走向对岸，船头插着六把宝剑。水面渐趋平静。代表疗伤、度过难关、迁徙、逃离冲突与理智的逃避。",
+      "潜入敌营的盗贼怀抱五把宝剑偷偷溜走，留下两把插在地里。代表计谋、欺骗、孤军行动、缺乏沟通与非传统手段。",
+      "双眼被蒙、身体被松垮捆绑的女子，被八把宝剑环绕在泥泞中。远处是城堡。代表自我设限、受困感、幻觉盲区、被动与虚弱感。",
+      "深夜从噩梦中惊醒、双手掩面的哭泣者。墙上并排挂着九把宝剑。代表极度焦虑、失眠、痛苦、内疚与潜意识的折磨。",
+      "男子俯卧在荒凉海滩，脊背上整齐刺入十把宝剑。远处朝阳初升。代表惨败、终结、跌入谷底、幻想彻底破灭与黎明前的黑暗。",
+      "双手握剑、在狂风乱云中警惕眺望的少年。他站在崎岖高地上。代表求知欲、警惕、心智活泼、年轻的监视者与八卦消息。",
+      "狂风大作中，挥舞宝剑骑马飞驰的年轻骑士。他充满攻击性与急躁。代表急躁、勇往直前、思想风暴、缺乏耐性与突发冲突。",
+      "高举宝剑、神色严峻凝视前方的女性。她端坐风之宝座，另一手招展。代表理智冷静、直言不讳、悲伤磨砺的智慧与独立。",
+      "正襟危坐、手执宝剑的严肃法官或学者。背景天空云开雾散。代表权威理智、公正客观、专业建议、逻辑与法律的仲裁。"
+    ],
+    pentacles: [
+      "物质与财富的绝对基石。云中之手托起一枚刻有五角星的金色钱币，下方是繁茂的花园。代表财运、商业机会、健康与稳固的开端。",
+      "在波涛起伏的海边，小丑打扮的男子用无穷符号线杂耍两枚钱币。代表平衡、财务变动、多任务处理、适应力与日常开支的管理。",
+      "石匠在教堂雕刻，僧侣与设计人员手持图纸在一旁指导和评估。代表专业技能、团队合作、商业声誉与建设性合作。",
+      "双手和双脚牢牢死守四枚星币、神色守财的男子。他坐在城堡外的阶梯上。代表守财奴、控制欲、缺乏安全感、死板与拒绝改变。",
+      "风雪夜中，两个贫民（其中一人拄拐）路过透出彩色光芒的教堂窗户。代表财务困境、被排斥、疾病、贫穷与忽视心灵救赎。",
+      "身穿华服的商人一手拿着天平称量，另一手将钱币施舍给跪在地上的乞丐。代表慷慨施舍、慈善、财务分配、权力的平衡与雇佣关系。",
+      "农夫拄着锄头，神色复杂地端详着藤蔓上结出的七枚星币。代表思考回报、耐心等待、收获评估与投资回报的思索。",
+      "全神贯注在木凳上雕刻钱币的工匠，墙上整齐悬挂着做好的星币。代表工匠精神、专注学习、磨砺技能、勤奋与稳定的工作。",
+      "站在富丽堂皇葡萄园中、单手托着猎鹰的高贵妇人。她衣着华贵，自给自足。代表独立富足、感官享受、物质成功、休闲与优雅自律。",
+      "拱门古宅下，三代同堂的大家庭其乐融融，老者抚摸猎犬，十个星币交织成家族树。代表家族传承、财务自由、稳固财富、传统与圆满。",
+      "双手小心托起星币、专注凝视它的青年。他站在繁花似锦的草地上。代表学习新技能、商业学徒、脚踏实地、好消息与潜在机会。",
+      "骑着壮硕黑马停驻在翻耕土地上的骑士。他神色稳重，是唯一立定不动的骑士。代表可靠、勤恳工作、注重细节、耐心与缓慢的进展。",
+      "端坐在雕刻繁复石椅上的宁静妇人，双手抱着星币，周围绿意盎然。代表慈爱温和、丰产、理财能手、感官愉悦与务实照顾。",
+      "被金色果实与兽首装饰包围的威严富豪。他手按着大星币，神色自满。代表企业领袖、金融成功、丰富物质、商业帝国与慷慨掌控。"
+    ]
+  };
+
+  // Add the 56 Minor Arcana dynamically into the deck
+  minorSuits.forEach(suit => {
+    for (let i = 0; i < 14; i++) {
+      const numFormatted = String(i + 1).padStart(2, '0');
+      const numberName = minorNumberNames[i];
+      const numberZh = minorNumberZh[i];
+      const cardNameEn = `${numberName} of ${suit.key.charAt(0).toUpperCase() + suit.key.slice(1)}`;
+      const filePrefix = `${numberName.toLowerCase()}-of-${suit.key}`;
+
+      tarotDeck.push({
+        id: `${suit.key}-${numFormatted}`,
+        num: String(i + 1),
+        roman: "",
+        name: `${suit.zh}${numberZh}`,
+        enName: cardNameEn,
+        type: suit.key,
+        meta: `${suit.zh}牌组 · 第 ${i + 1} 张`,
+        desc: minorDescs[suit.key][i],
+        tags: [suit.elem, `${suit.zh} ${i + 1}`],
+        image: `assets/images/minor/${suit.key}/${numFormatted}-${filePrefix}/${filePrefix}.png`,
+        link: "#",
+        fallbackText: `PLATE ${numFormatted} — ${suit.zh}${numberZh}主图待上传`
+      });
+    }
+  });
+
+  // 2. Rendering Logic
+  const grid = document.getElementById('deck-grid');
+  const tabs = document.querySelectorAll('.tab-btn');
+
+  function render(tabType) {
+    grid.innerHTML = '';
+    const filtered = tarotDeck.filter(c => c.type === tabType);
+
+    filtered.forEach(card => {
+      const a = document.createElement('a');
+      a.href = card.link;
+      a.className = `card-exhibit reveal ${card.link === '#' ? 'placeholder-card' : ''}`;
+
+      if (card.link === '#') {
+        a.addEventListener('click', function(e) {
+          e.preventDefault();
+          alert(`《${card.name} (${card.enName})》的深度专题馆展厅正在筹备中，敬请期待！`);
+        });
+      }
+
+      a.innerHTML = `
+        <div class="card-frame">
+          <img src="${card.image}" alt="${card.roman ? card.roman + '. ' : ''}${card.name} (${card.enName})"
+               onerror="this.outerHTML='<div class=&quot;imgfallback&quot;>${card.fallbackText}</div>'">
+        </div>
+        <div class="card-info">
+          <div class="card-meta">${card.meta}</div>
+          <h3>${card.name} <span class="en-name">${card.enName}</span></h3>
+          <p class="card-desc">${card.desc}</p>
+          <div class="card-tags">
+            ${card.tags.map(t => `<span>${t}</span>`).join('')}
+          </div>
+        </div>
+      `;
+      grid.appendChild(a);
+    });
+
+    // Re-initialize IntersectionObserver for dynamically added elements
+    if ('IntersectionObserver' in window) {
+      const revealElems = grid.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      revealElems.forEach(function(el) {
+        observer.observe(el);
+      });
+    } else {
+      grid.querySelectorAll('.reveal').forEach(function(el) {
+        el.classList.add('active');
+      });
+    }
+  }
+
+  // 3. Tab Switching Event Listeners
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      render(btn.dataset.tab);
+    });
+  });
+
+  // 4. Initial Render
+  render('major');
+
+  // Header and philosophy reveal
+  if ('IntersectionObserver' in window) {
+    var revealHeader = document.querySelector('header.reveal');
+    var revealPhilosophy = document.querySelector('.philosophy-section.reveal');
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    if(revealHeader) observer.observe(revealHeader);
+    if(revealPhilosophy) observer.observe(revealPhilosophy);
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      el.classList.add('active');
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
