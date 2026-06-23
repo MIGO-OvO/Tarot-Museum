@@ -911,7 +911,7 @@ footer .zh{
       desc: "幻象破灭与突发剧变的震荡。闪电击中高耸的塔顶，王冠坠落，人们惊慌跳下深渊。代表突如其来的解构、突破束缚、觉醒与重建。",
       tags: ["火元素 Fire", "火星 Mars", "毕达哥拉斯: 16", "生命之树: Peh"],
       image: "assets/images/major/16-the-tower/the-tower.png",
-      link: "#",
+      link: "cards/major/16-the-tower.html",
       fallbackText: "PLATE XVI — 高塔主图待上传"
     },
     {
@@ -925,7 +925,7 @@ footer .zh{
       desc: "暗夜过后的希望与灵性治愈。裸女跪在水池旁，将生命之水同时倒入池中与土地。代表平静、信念、灵感、宁静与未来的光明。",
       tags: ["风元素 Air", "水瓶座 Aquarius", "毕达哥拉斯: 17", "生命之树: Tzaddi"],
       image: "assets/images/major/17-the-star/the-star.png",
-      link: "#",
+      link: "cards/major/17-the-star.html",
       fallbackText: "PLATE XVII — 星星主图待上传"
     },
     {
@@ -939,7 +939,7 @@ footer .zh{
       desc: "潜意识迷雾与直觉梦境的试炼。两只狼对着满月长嚎，龙虾正从幽深水池爬向陆地。代表恐惧、幻觉、隐秘危险、第六感与梦境探索。",
       tags: ["水元素 Water", "双鱼座 Pisces", "毕达哥拉斯: 18", "生命之树: Qoph"],
       image: "assets/images/major/18-the-moon/the-moon.png",
-      link: "#",
+      link: "cards/major/18-the-moon.html",
       fallbackText: "PLATE XVIII — 月亮主图待上传"
     },
     {
@@ -953,7 +953,7 @@ footer .zh{
       desc: "生命力与纯真喜悦的最高彰显。赤裸的孩童骑在白马上，背后是金色向日葵与炽热烈日。代表成功、光明、活力、纯真与自我实现。",
       tags: ["火元素 Fire", "太阳 Sun", "毕达哥拉斯: 19", "生命之树: Resh"],
       image: "assets/images/major/19-the-sun/the-sun.png",
-      link: "#",
+      link: "cards/major/19-the-sun.html",
       fallbackText: "PLATE XIX — 太阳主图待上传"
     },
     {
@@ -967,7 +967,7 @@ footer .zh{
       desc: "灵魂觉醒与过往因果的召唤。天使吹响金色号角，人们从棺木中起立欢呼，获得新生。代表救赎、自我评估、重大决定与天职觉醒。",
       tags: ["火元素 Fire", "冥王星 Pluto", "毕达哥拉斯: 20", "生命之树: Shin"],
       image: "assets/images/major/20-judgement/judgement.png",
-      link: "#",
+      link: "cards/major/20-judgement.html",
       fallbackText: "PLATE XX — 审判主图待上传"
     },
     {
@@ -981,17 +981,17 @@ footer .zh{
       desc: "完美终点与圆满旅程的合一。舞者手持权杖，置于双月桂花环中，四活物守护四角。代表完成、功德圆满、全球视野与大同世界。",
       tags: ["土元素 Earth", "土星 Saturn", "毕达哥拉斯: 21", "生命之树: Tav"],
       image: "assets/images/major/21-the-world/the-world.png",
-      link: "#",
+      link: "cards/major/21-the-world.html",
       fallbackText: "PLATE XXI — 世界主图待上传"
     }
   ];
 
   // Dynamically generate minor arcana data
   const minorSuits = [
-    { key: "wands", zh: "权杖", elem: "火元素 Fire" },
-    { key: "cups", zh: "圣杯", elem: "水元素 Water" },
-    { key: "swords", zh: "宝剑", elem: "风元素 Air" },
-    { key: "pentacles", zh: "星币", elem: "土元素 Earth" }
+    { key: "wands", zh: "权杖", elem: "火元素 Fire", start: 22 },
+    { key: "cups", zh: "圣杯", elem: "水元素 Water", start: 36 },
+    { key: "swords", zh: "宝剑", elem: "风元素 Air", start: 50 },
+    { key: "pentacles", zh: "星币", elem: "土元素 Earth", start: 64 }
   ];
 
   const minorNumberNames = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Page", "Knight", "Queen", "King"];
@@ -1068,6 +1068,7 @@ footer .zh{
   minorSuits.forEach(suit => {
     for (let i = 0; i < 14; i++) {
       const numFormatted = String(i + 1).padStart(2, '0');
+      const assetNum = suit.start + i;
       const numberName = minorNumberNames[i];
       const numberZh = minorNumberZh[i];
       const cardNameEn = `${numberName} of ${suit.key.charAt(0).toUpperCase() + suit.key.slice(1)}`;
@@ -1083,7 +1084,7 @@ footer .zh{
         meta: `${suit.zh}牌组 · 第 ${i + 1} 张`,
         desc: minorDescs[suit.key][i],
         tags: [suit.elem, `${suit.zh} ${i + 1}`],
-        image: `assets/images/minor/${suit.key}/${numFormatted}-${filePrefix}/${filePrefix}.png`,
+        image: `assets/images/minor/${suit.key}/${assetNum}-${filePrefix}/${filePrefix}.png`,
         link: "#",
         fallbackText: `PLATE ${numFormatted} — ${suit.zh}${numberZh}主图待上传`
       });

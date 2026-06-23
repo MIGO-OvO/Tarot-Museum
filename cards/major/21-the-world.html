@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>世界 · THE WORLD — 塔罗牌深度专题</title>
+<style>
+:root{
+  --bg: oklch(95.2% 0.012 85);
+  --paper: oklch(97.5% 0.009 85);
+  --surface: oklch(93.2% 0.015 80);
+  --fg: oklch(23% 0.022 65);
+  --muted: oklch(44% 0.025 65);
+  --faint: oklch(60% 0.02 65);
+  --border: oklch(82% 0.025 75);
+  --rule: oklch(72% 0.04 70);
+  --gold: oklch(58% 0.11 75);
+  --gold-deep: oklch(48% 0.1 70);
+  --wine: oklch(38% 0.1 28);
+  --wine-soft: oklch(50% 0.09 26);
+  --ink-blue: oklch(34% 0.05 240);
+  --serif:'Iowan Old Style','Palatino Linotype',Palatino,'Songti SC','Source Han Serif SC',Georgia,'Times New Roman',serif;
+  --song:'Songti SC','STSong','Source Han Serif SC',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+  --mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  background-image:
+    radial-gradient(oklch(55% .04 70 / .04) 1px,transparent 1px),
+    radial-gradient(oklch(55% .04 70 / .03) 1px,transparent 1px);
+  background-size:34px 34px,34px 34px;
+  background-position:0 0,17px 17px;
+  color:var(--fg);
+  font-family:var(--serif);
+  font-size:18px;
+  line-height:1.78;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+::selection{background:oklch(58% .12 70 / .28)}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--gold)}
+
+/* ============ 装帧通用 ============ */
+.wrap{max-width:1180px;margin:0 auto;padding:0 48px}
+.eyebrow{
+  font-family:var(--mono);
+  font-size:11.5px;
+  letter-spacing:.42em;
+  text-transform:uppercase;
+  color:var(--gold-deep);
+  font-weight:600;
+}
+.rule-gold{height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);border:0;margin:30px 0}
+.rule-thin{height:1px;background:var(--border);border:0}
+.ornament{
+  text-align:center;color:var(--gold);font-size:22px;letter-spacing:1.4em;
+  margin:20px 0;padding-left:1.4em;user-select:none;
+}
+
+/* ============ 滚动显现动画 ============ */
+.reveal{
+  opacity:0;
+  transform:translateY(30px);
+  transition:opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ============ 顶栏目录 ============ */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:oklch(95% .018 85 / .86);
+  backdrop-filter:blur(12px) saturate(1.2);
+  -webkit-backdrop-filter:blur(12px) saturate(1.2);
+  border-bottom:1px solid var(--border);
+  transition:transform 0.3s;
+}
+.topbar-inner{
+  max-width:1180px;margin:0 auto;padding:0 48px;
+  height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px;
+}
+.topbar .mark{font-family:var(--mono);font-size:12px;letter-spacing:.34em;color:var(--fg);text-transform:uppercase;white-space:nowrap}
+.topbar .mark b{color:var(--wine);font-weight:700}
+.tnav{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.tnav a{
+  font-family:var(--sans);font-size:12.5px;letter-spacing:.04em;
+  color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:2px;
+  transition:.25s;white-space:nowrap;
+}
+.tnav a:hover{color:var(--wine);background:oklch(40% .13 25 / .07)}
+.tnav a.active{color:var(--wine);font-weight:600;background:oklch(40% .13 25 / .04)}
+
+/* ============ 卷首 ============ */
+.hero{
+  padding:100px 0 80px;
+  border-bottom:2px solid var(--fg);
+  position:relative;
+  overflow:hidden;
+}
+.hero-grid{
+  display:grid;grid-template-columns:1fr 1.15fr;gap:64px;align-items:center;
+}
+.hero-figure{
+  position:relative;
+  animation: heroImageIn 1.2s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+@keyframes heroImageIn {
+  0% { opacity:0; transform:scale(0.96) translateY(20px); }
+  100% { opacity:1; transform:scale(1) translateY(0); }
+}
+
+.hero-figure .plate{
+  position:relative;border:1px solid var(--rule);
+  padding:20px;background:var(--paper);
+  box-shadow:0 4px 12px oklch(24% 0.03 55 / .05), 0 24px 68px oklch(24% 0.03 55 / .15);
+  transition:transform 0.4s ease, box-shadow 0.4s ease;
+}
+.hero-figure .plate::before{
+  content:"";position:absolute;inset:8px;border:1px solid var(--gold);opacity:.5;pointer-events:none;
+}
+.hero-figure img{display:block;width:100%;height:auto;filter:saturate(.94) contrast(1.02);transition:filter 0.3s;}
+.hero-figure:hover .plate{
+  transform:translateY(-4px);
+  box-shadow:0 6px 16px oklch(24% 0.03 55 / .08), 0 30px 80px oklch(24% 0.03 55 / .18);
+}
+.hero-figure:hover img{filter:saturate(1) contrast(1.03)}
+
+.hero-figure .imgfallback{
+  aspect-ratio:3/5;display:flex;align-items:center;justify-content:center;
+  background:repeating-linear-gradient(45deg,oklch(90% .02 80),oklch(90% .02 80) 12px,oklch(88% .024 80) 12px,oklch(88% .024 80) 24px);
+  color:var(--faint);font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-align:center;padding:24px;line-height:2;
+}
+.plate-cap{
+  margin-top:16px;font-family:var(--mono);font-size:11.5px;letter-spacing:.22em;
+  color:var(--faint);text-transform:uppercase;text-align:center;
+}
+.hero-text{
+  animation: heroTextIn 1s cubic-bezier(0.215, 0.61, 0.355, 1) 0.2s forwards;
+  opacity:0;
+}
+@keyframes heroTextIn {
+  0% { opacity:0; transform:translateY(15px); }
+  100% { opacity:1; transform:translateY(0); }
+}
+.hero-num{
+  font-family:var(--serif);font-size:clamp(60px,9vw,128px);line-height:.8;
+  color:var(--wine);font-weight:400;letter-spacing:-.02em;
+}
+.hero-num small{display:block;font-family:var(--mono);font-size:13px;letter-spacing:.4em;color:var(--gold-deep);margin-top:18px;text-transform:uppercase}
+.hero h1{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(48px,6.4vw,84px);line-height:.98;letter-spacing:-.01em;
+  margin:22px 0 6px;color:var(--fg);
+}
+.hero h1 .en{display:block;font-family:var(--mono);font-size:clamp(13px,1.4vw,17px);letter-spacing:.46em;color:var(--muted);font-weight:500;margin-top:18px;text-transform:uppercase}
+.hero-keywords{
+  display:flex;gap:0;margin-top:34px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.hero-keywords div{
+  flex:1;padding:18px 8px;text-align:center;font-family:var(--song);
+  font-size:19px;color:var(--fg);position:relative;
+}
+.hero-keywords div+div::before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:1px;background:var(--border)}
+.hero-keywords span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--gold-deep);margin-top:6px}
+.hero-lede{margin-top:30px;font-size:18px;line-height:1.85;color:var(--muted);max-width:46ch}
+
+.back-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--sans);font-size:13.5px;color:var(--muted);
+  text-decoration:none;transition:.2s;margin-top:28px;
+  border-bottom:1px dashed var(--border);padding-bottom:2px;
+}
+.back-btn:hover{color:var(--wine);border-color:var(--wine)}
+
+/* ============ 章节通用 ============ */
+section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
+.chapter-head{margin-bottom:50px;position:relative}
+.chapter-head .idx{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--gold-deep)}
+.chapter-head h2{
+  font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,46px);
+  line-height:1.08;letter-spacing:-.01em;margin:10px 0 0;color:var(--fg);
+}
+.chapter-head h2 .en{font-family:var(--mono);font-size:13px;letter-spacing:.34em;color:var(--faint);text-transform:uppercase;margin-left:14px;vertical-align:middle}
+
+/* 叙事正文 */
+.prose{max-width:65ch;font-size:19px;line-height:1.95;color:var(--fg)}
+.prose.drop::first-letter{
+  font-family:var(--serif);float:left;font-size:84px;line-height:.72;
+  padding:8px 14px 0 0;color:var(--wine);font-weight:400;
+}
+.prose p{margin-bottom:24px;text-align:justify}
+.prose strong{font-family:var(--song);font-weight:600;color:var(--wine)}
+.pullquote{
+  margin:52px 0;padding:12px 0 12px 34px;border-left:3px solid var(--gold);
+  font-family:var(--song);font-size:25px;line-height:1.6;color:var(--wine);font-style:normal;
+  background:oklch(58% .12 70 / .03);
+}
+.keyword-strip{
+  display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px;
+}
+.keyword-strip span{
+  font-family:var(--sans);font-size:13.5px;line-height:1.4;
+  padding:7px 13px;border:1px solid var(--border);border-radius:999px;
+  color:var(--wine);background:var(--paper);
+}
+.reading-intro{
+  max-width:64ch;margin:0 0 40px;
+  padding:24px 28px;border-left:3px solid var(--gold);
+  background:var(--paper);
+}
+.reading-intro p{
+  font-size:16.5px;line-height:1.9;color:var(--muted);margin:0;
+}
+
+/* ============ 牌面要素 标签 ============ */
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--rule);background:var(--paper)}
+.facts dl{padding:30px 26px;border-right:1px solid var(--border);position:relative}
+.facts dl:last-child{border-right:0}
+.facts dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:14px}
+.facts dd{font-family:var(--serif);font-size:30px;line-height:1.1;color:var(--fg)}
+.facts dd small{display:block;font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:10px;line-height:1.6;letter-spacing:0}
+@media(max-width:860px){.facts{grid-template-columns:repeat(2,1fr)}.facts dl:nth-child(2){border-right:0}.facts dl:nth-child(-n+2){border-bottom:1px solid var(--border)}}
+
+/* ============ 象征要素图谱 ============ */
+.symbol-layout{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:start}
+.symbol-figure{position:sticky;top:100px}
+.symbol-figure .plate{position:relative;border:1px solid var(--rule);padding:16px;background:var(--paper);box-shadow:0 18px 44px oklch(24% 0.03 55 / .12)}
+.symbol-figure .plate::before{content:"";position:absolute;inset:8px;border:1px solid var(--gold);opacity:.4;pointer-events:none}
+.symbol-figure img{display:block;width:100%;height:auto}
+.symbol-figure .imgfallback{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,oklch(90% .02 80),oklch(90% .02 80) 12px,oklch(88% .024 80) 12px,oklch(88% .024 80) 24px);color:var(--faint);font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-align:center;padding:20px;line-height:2}
+
+.symbol-list{display:flex;flex-direction:column;gap:2px}
+.symbol-item{display:grid;grid-template-columns:42px 1fr;gap:18px;padding:18px 16px;border-bottom:1px solid var(--border);transition:all .25s ease;align-items:start;cursor:pointer}
+.symbol-item:hover, .symbol-item.highlight{background:var(--paper);transform:translateX(6px);border-bottom-color:var(--gold)}
+.symbol-item:hover .sym-no, .symbol-item.highlight .sym-no{background:var(--wine);color:var(--paper);border-color:var(--wine)}
+.sym-no{width:42px;height:42px;border:1px solid var(--rule);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;color:var(--gold-deep);transition:all .25s ease}
+.sym-body h4{font-family:var(--song);font-size:18.5px;font-weight:600;color:var(--fg);margin-bottom:6px;letter-spacing:.01em}
+.sym-body p{font-family:var(--sans);font-size:15px;line-height:1.75;color:var(--muted)}
+.swatch{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:7px;vertical-align:baseline;border:1px solid oklch(40% .05 60 / .3)}
+
+/* ============ 塔罗灵数 ============ */
+.numero{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:center}
+.bignum{font-family:var(--serif);font-size:clamp(180px,26vw,340px);line-height:.74;color:var(--wine);text-align:center;position:relative}
+.bignum::after{content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);width:60%;height:1px;background:var(--gold)}
+.bignum small{display:block;font-family:var(--mono);font-size:13px;letter-spacing:.4em;color:var(--gold-deep);margin-top:30px;text-transform:uppercase}
+.numero-keys{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}
+.numero-keys span{font-family:var(--sans);font-size:13.5px;padding:6px 14px;border:1px solid var(--border);border-radius:999px;color:var(--muted);background:var(--paper)}
+.numero p{margin-bottom:18px;font-size:17.5px;line-height:1.85;color:var(--fg)}
+.numero .lesson{margin-top:22px;padding:22px 26px;background:var(--paper);border-left:3px solid var(--gold);box-shadow:0 4px 12px oklch(24% 0.03 55 / .02)}
+.numero .lesson b{color:var(--wine);font-family:var(--song)}
+
+/* ============ 正逆位切换 ============ */
+.pos-switch-wrapper{
+  display:flex;justify-content:center;margin-bottom:50px;
+}
+.pos-switch{display:inline-flex;border:1px solid var(--fg);background:var(--paper);border-radius:3px;overflow:hidden;padding:3px;box-shadow:0 4px 12px oklch(24% 0.03 55 / .04)}
+.pos-switch button{font-family:var(--song);font-size:17px;padding:12px 38px;background:transparent;border:0;cursor:pointer;color:var(--muted);position:relative;transition:all .3s ease;letter-spacing:.06em;border-radius:2px}
+.pos-switch button.on{background:var(--fg);color:var(--paper)}
+.pos-switch button .en{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.24em;margin-top:4px;text-transform:uppercase;opacity:.7}
+
+/* 正逆位内容面板 */
+.pos-panel-container{
+  position:relative;
+  min-height:500px;
+}
+.pos-panel{
+  position:absolute;top:0;left:0;width:100%;
+  opacity:0;visibility:hidden;
+  transform:translateY(15px);
+  transition:opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
+}
+.pos-panel.show{
+  position:relative;
+  opacity:1;visibility:visible;
+  transform:translateY(0);
+}
+.pos-summary{display:grid;grid-template-columns:1fr 1fr;gap:0 56px;margin-bottom:48px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.pos-summary .kw{padding:26px 0;border-bottom:1px solid var(--border)}
+.pos-summary .kw:nth-last-child(-n+2){border-bottom:0}
+.pos-summary .kw .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.26em;color:var(--gold-deep);text-transform:uppercase;display:block;margin-bottom:10px}
+.pos-summary .kw p{font-family:var(--song);font-size:16.5px;line-height:1.75;color:var(--fg)}
+
+.dim-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);box-shadow:0 8px 24px oklch(24% 0.03 55 / .04)}
+.dim{background:var(--bg);padding:36px 32px;transition:background-color 0.3s;}
+.dim:hover{background:var(--paper)}
+.dim-head{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}
+.dim-head .ic{font-family:var(--serif);font-size:24px;color:var(--gold-deep)}
+.dim-head h4{font-family:var(--song);font-size:21px;font-weight:600;color:var(--fg)}
+.dim-head .en{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;margin-left:auto}
+.dim .kw-line{font-family:var(--sans);font-size:13.5px;color:var(--wine-soft);line-height:1.7;margin-bottom:16px;padding-bottom:16px;border-bottom:1px dashed var(--border)}
+.dim>p{font-size:15.8px;line-height:1.82;color:var(--muted);margin-bottom:18px}
+.dim ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.dim li{font-size:14.5px;line-height:1.65;color:var(--fg);display:grid;grid-template-columns:auto 1fr;gap:11px;align-items:baseline}
+.dim li b{font-family:var(--song);font-size:12.5px;color:var(--paper);background:var(--gold-deep);padding:3px 9px;border-radius:2px;white-space:nowrap;font-weight:500;letter-spacing:.04em}
+.dim.reversed li b{background:var(--wine)}
+.dim-extra{margin-top:30px;padding:26px 30px;background:var(--paper);border:1px solid var(--border)}
+.dim-extra .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;color:var(--gold-deep);text-transform:uppercase;display:block;margin-bottom:12px}
+.dim-extra p{font-size:15.5px;line-height:1.8;color:var(--muted)}
+
+/* ============ 新增图版通用 ============ */
+.element-figure, .pos-figure, .spread-figure{margin:40px 0}
+.element-figure .plate, .pos-figure .plate, .spread-figure .plate{
+  position:relative;border:1px solid var(--rule);padding:16px;background:var(--paper);
+  box-shadow:0 10px 30px oklch(24% 0.03 55 / .08);
+  transition:all 0.3s ease;
+}
+.element-figure .plate::before, .pos-figure .plate::before, .spread-figure .plate::before{content:"";position:absolute;inset:8px;border:1px solid var(--gold);opacity:.4;pointer-events:none}
+.element-figure img, .pos-figure img, .spread-figure img{display:block;width:100%;height:auto}
+.element-figure:hover .plate, .pos-figure:hover .plate, .spread-figure:hover .plate{
+  transform:translateY(-4px);
+  box-shadow:0 14px 40px oklch(24% 0.03 55 / .14);
+}
+
+/* ============ 牌阵 3D 卡牌翻牌动效 ============ */
+.spread{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:28px;
+  perspective:1000px;
+}
+.spread-card-wrapper{
+  position:relative;
+  height:380px;
+  cursor:pointer;
+  transform-style:preserve-3d;
+  transition:transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.spread-card-wrapper.flipped{
+  transform:rotateY(180deg);
+}
+.spread-card-front, .spread-card-back{
+  position:absolute;inset:0;
+  backface-visibility:hidden;
+  border:1px solid var(--rule);
+  padding:36px 30px;
+  border-radius:2px;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 10px 25px oklch(24% 0.03 55 / .08);
+  transition:all 0.3s ease;
+}
+.spread-card-front{
+  background:var(--paper);
+  transform:rotateY(180deg);
+}
+.spread-card-back{
+  background:var(--surface);
+  align-items:center;
+  justify-content:center;
+  border:2px solid var(--gold);
+}
+.spread-card-back::before{
+  content:"";
+  position:absolute;inset:8px;
+  border:1px dashed var(--gold);
+  opacity:.6;
+}
+.spread-card-back .back-pattern{
+  font-family:var(--serif);
+  font-size:48px;
+  color:var(--gold-deep);
+  text-align:center;
+  opacity:.7;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+}
+.spread-card-back .back-pattern::before{
+  content:"✦";
+  font-size:24px;
+  animation: pulseGold 2s infinite ease-in-out;
+}
+@keyframes pulseGold {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+.spread-card-back .click-to-reveal{
+  font-family:var(--mono);
+  font-size:11px;
+  color:var(--muted);
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  margin-top:20px;
+  border:1px solid var(--border);
+  padding:6px 12px;
+  border-radius:2px;
+  background:var(--paper);
+}
+
+.spread-card-front .pos-no{
+  font-family:var(--serif);font-size:54px;line-height:1;color:var(--wine);opacity:.85;
+}
+.spread-card-front h4{
+  font-family:var(--song);font-size:20px;font-weight:600;color:var(--fg);margin:14px 0 10px;
+}
+.spread-card-front .en{
+  font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;display:block;margin-bottom:14px;
+}
+.spread-card-front p{
+  font-family:var(--sans);font-size:14.5px;line-height:1.75;color:var(--muted);
+}
+.spread-card-wrapper:hover:not(.flipped){
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:0 16px 35px oklch(24% 0.03 55 / .15);
+}
+
+/* ============ 页脚 ============ */
+footer{padding:80px 0 60px;text-align:center}
+footer .ornament{margin-bottom:24px}
+footer p{font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--faint);text-transform:uppercase;line-height:2.2}
+footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(--muted);text-transform:none;margin-top:10px}
+
+/* ============ 响应式 ============ */
+@media(max-width:980px){
+  .hero-grid{grid-template-columns:1fr;gap:44px}
+  .symbol-layout{grid-template-columns:1fr;gap:38px}
+  .symbol-figure{position:static}
+  .numero{grid-template-columns:1fr;gap:30px}
+  .dim-grid{grid-template-columns:1fr}
+  .spread{grid-template-columns:1fr;gap:24px}
+  .spread-card-wrapper{height:300px}
+}
+@media(max-width:680px){
+  .wrap,.topbar-inner{padding:0 24px}
+  body{font-size:16px}
+  .tnav{display:none}
+  .pos-summary{grid-template-columns:1fr}
+  .pos-summary .kw{border-bottom:1px solid var(--border)!important}
+  .prose.drop::first-letter{font-size:64px}
+}
+*,*::before,*::after{box-sizing:border-box}
+.plate,.imgfallback{max-width:100%}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="topbar-inner"><div class="mark"><b>XXI</b> &nbsp;世界 · THE WORLD</div><nav class="tnav"><a href="#hero">卷首</a><a href="#narrative">牌面叙事</a><a href="#facts">牌面要素</a><a href="#symbols">象征图谱</a><a href="#numerology">塔罗灵数</a><a href="#reading">正逆位解读</a><a href="#spread">牌阵示意</a></nav></div></div>
+<header class="hero" id="hero"><div class="wrap hero-grid"><figure class="hero-figure"><div class="plate"><img src="../../assets/images/major/21-the-world/the-world.png" alt="塔罗牌世界主图" onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE I — 主图待上传&lt;br&gt;assets/images/major/21-the-world/the-world.png&lt;/div&gt;'"></div><figcaption class="plate-cap">PLATE I · THE WORLD · 大阿尔卡那第XXI号</figcaption></figure><div class="hero-text"><div class="hero-num">XXI<small>Arcanum Vicesimum Primum</small></div><h1>世界<span class="en">The World</span></h1><div class="hero-keywords"><div>圆满<span>COMPLETION</span></div>
+        <div>整合<span>INTEGRATION</span></div>
+        <div>合一<span>WHOLENESS</span></div>
+        <div>完成<span>FULFILLMENT</span></div></div><p class="hero-lede">世界是旅程的花环，也是经验被整合后的舞蹈。四方元素归位，灵魂终于抵达一个完整的圆。它与命运之轮相呼应——四角依然是狮子、飞鹰、天使与神牛，只是中间不再是转动的轮，而是一位在月桂花环中翩然起舞的少女。她一手握着魔杖，又似一把钥匙，为步入终点的人喝彩，也像是一种召唤，引导胜利者走到智慧之门前，接过那把开启幸福的钥匙。</p><a href="../../index.html" class="back-btn">← 返回大厅 / 选择其它卡牌</a></div></div></header>
+<section class="chapter reveal" id="narrative"><div class="wrap"><div class="chapter-head"><div class="idx">— 壹 · NARRATIVE</div><h2>牌面叙事<span class="en">The Image Speaks</span></h2></div><div class="prose drop">
+      <p>世界是旅程的花环，也是经验被整合后的舞蹈。四方元素归位，灵魂终于抵达一个完整的圆。它与命运之轮相呼应——四角依然是狮子、飞鹰、天使与神牛，只是中间不再是转动的轮，而是一位在月桂花环中翩然起舞的少女。她一手握着魔杖，又似一把钥匙，为步入终点的人喝彩，也像是一种召唤，引导胜利者走到智慧之门前，接过那把开启幸福的钥匙。</p>
+      <p>当这张牌出现，说明你正遇到“完成、整合、圆满、阶段达成”的课题。它既可能表现为外部事件，也可能是内心正在成熟的一个阶段。世界是人生旅途的终点，也是一个新的开始——一旦踏入智慧之门，你又会变回愚者，为寻找新的智慧或人生目标而重新启程。快乐的核心元素是“整体”，是一切协调共处的感觉，它不是静态的安稳，而是动态的平衡。世界牌所代表的，往往是一个增广见闻的时期：虽然短时间内或许什么都不会改变，但你有充足的精力去探索喜爱的事物——旅行、广交朋友、博览群书，都是好的选择。作为二十二张大牌的最后一张，世界是一张圆满的牌；只是事物一旦圆满便难有变化，浑圆的石头滚得再久也还是浑圆。多数人对这份安稳是满意的——经历了那么多风霜，总觉得该安定下来了，而“心满意足”本身，对人生而言不就已是一种成功？但偶尔，你也会在极糟的处境里抽到世界牌，那时它因稳定的特性反而成了煎熬：无论身处何种困境，这种状态都会原封不动地持续相当长一段时间，像在给养刚好够用的情况下独自驾车穿越撒哈拉，一马平川却毫无变化，唯有继续重复同样的动作，才可能最终驶出这片沙漠。</p>
+      <p>舞者位于桂冠之中，四角有四圣兽，象征四元素整合。她身披紫色丝带，姿态轻盈，双足交叉，仿佛在动态的平衡中起舞。绿色的月桂花环环绕四周，是自然、生长与繁荣的循环；四个角落的狮子、神牛、飞鹰与天使，分别对应火、土、风、水四象与四位牌主，守护并指引着这趟旅程。整幅画面被一条衔尾蛇般的环所收束——结束即是新的开始，圆满之后，旅人又将以愚者之姿重新上路。</p>
+      <p class="pullquote">通过完成理解当前阶段的命运功课，在圆满中孕育新的开始</p>
+      <p>世界描述的是人事物已经处在完结的阶段——这个阶段是对已经发生之事进行总结，而这种总结是主观的感受。它的特点是：不可对已经发生的人事物进行更改。这正是世界与审判的微妙差别：审判的总结客观如实，世界的圆满则更关乎当事人内心的满足与认定。也因此，处境顺遂的人会因这份安稳而心满意足，处境艰难的人却可能被这份不变所困——同样一张圆满之牌，落在不同的境遇里，滋味截然不同。</p>
+</div></div></section>
+<section class="chapter reveal" id="facts"><div class="wrap"><div class="chapter-head"><div class="idx">— 貳 · CORRESPONDENCES</div><h2>对应要素<span class="en">Esoteric Correspondences</span></h2></div><div class="facts"><dl><dt>元素 Element</dt><dd>土<small>完成、整合、圆满、阶段达成</small></dd></dl><dl><dt>星座 / 行星</dt><dd>土星<small>完成、整合、圆满、阶段达成</small></dd></dl><dl><dt>生命之树 Tree of Life</dt><dd>Tav<small>路径与此牌的精神功课相连</small></dd></dl><dl><dt>希伯来字母</dt><dd>Tav（十字记号）<small>通过完成理解当前阶段的命运功课，在圆满中孕育新的开始</small></dd></dl></div><figure class="element-figure" style="margin-top:48px"><div class="plate"><img src="../../assets/images/major/21-the-world/the-world-elements.png" alt="世界对应要素图" onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE III — 要素图待上传&lt;br&gt;assets/images/major/21-the-world/the-world-elements.png&lt;/div&gt;'"></div><figcaption class="plate-cap">PLATE III · 对应要素 · 完成、整合、圆满、阶段达成</figcaption></figure></div></section>
+<section class="chapter reveal" id="symbols"><div class="wrap"><div class="chapter-head"><div class="idx">— 叁 · ICONOGRAPHY</div><h2>象征要素图谱<span class="en">A Glossary of Symbols</span></h2></div><div class="symbol-layout"><figure class="symbol-figure"><div class="plate"><img src="../../assets/images/major/21-the-world/the-world-symbols.png" alt="世界象征要素标注图" onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE II — 象征标注图待上传&lt;br&gt;assets/images/major/21-the-world/the-world-symbols.png&lt;/div&gt;'"></div><figcaption class="plate-cap">PLATE II · 象征细节 · 世界牌面图像注解</figcaption></figure><div class="symbol-list">
+        <div class="symbol-item" data-id="01"><div class="sym-no">01</div><div class="sym-body"><h4>核心画面</h4><p>舞者位于桂冠之中，四角有四圣兽，象征四元素整合。</p></div></div>
+        <div class="symbol-item" data-id="02"><div class="sym-no">02</div><div class="sym-body"><h4>蛇咬尾环</h4><p>衔尾蛇（Ouroboros）象征自我循环与永恒的循环，表示结束与新开始、自我完善。</p></div></div>
+        <div class="symbol-item" data-id="03"><div class="sym-no">03</div><div class="sym-body"><h4>方形</h4><p>四个角落构成一个抽象的方形，代表稳定与物理世界的界限。</p></div></div>
+        <div class="symbol-item" data-id="04"><div class="sym-no">04</div><div class="sym-body"><h4>狮子</h4><p>通常代表力量与勇气，以及火象星座狮子座的象征。</p></div></div>
+        <div class="symbol-item" data-id="05"><div class="sym-no">05</div><div class="sym-body"><h4>牛</h4><p>耐力与努力的象征，也可能与土象星座如金牛座相关。</p></div></div>
+        <div class="symbol-item" data-id="06"><div class="sym-no">06</div><div class="sym-body"><h4>鹰</h4><p>思考高远的象征，与风象星座如水瓶座相关。</p></div></div>
+        <div class="symbol-item" data-id="07"><div class="sym-no">07</div><div class="sym-body"><h4>天使</h4><p>精神世界的导向与保护，也代表水象星座如双鱼座。</p></div></div>
+        <div class="symbol-item" data-id="08"><div class="sym-no">08</div><div class="sym-body"><h4>紫色丝带</h4><p>紫色通常与智慧、精神力量以及皇室相关联。</p></div></div>
+        <div class="symbol-item" data-id="09"><div class="sym-no">09</div><div class="sym-body"><h4>手里杖</h4><p>控制与权力的传统象征，亦似一把开启智慧之门的钥匙。</p></div></div>
+        <div class="symbol-item" data-id="10"><div class="sym-no">10</div><div class="sym-body"><h4>背景蓝色</h4><p>象征知识、平静与治愈。</p></div></div>
+        <div class="symbol-item" data-id="11"><div class="sym-no">11</div><div class="sym-body"><h4>盾牌形状的花纹</h4><p>可能象征保护与安全感。</p></div></div>
+        <div class="symbol-item" data-id="12"><div class="sym-no">12</div><div class="sym-body"><h4>绿色花环</h4><p>自然的象征，代表生长、繁荣与再生的循环。</p></div></div>
+        <div class="symbol-item" data-id="13"><div class="sym-no">13</div><div class="sym-body"><h4>红色交叉</h4><p>可能象征地球四方与人类体验的平衡。</p></div></div>
+        <div class="symbol-item" data-id="14"><div class="sym-no">14</div><div class="sym-body"><h4>双足交叉</h4><p>可能代表平衡与紧密的联系。</p></div></div>
+        <div class="symbol-item" data-id="15"><div class="sym-no">15</div><div class="sym-body"><h4>编号</h4><p>对应此阶段在人生旅程中的功课。</p></div></div>
+</div></div></div></section>
+<section class="chapter reveal" id="numerology"><div class="wrap"><div class="chapter-head"><div class="idx">— 肆 · NUMEROLOGY</div><h2>塔罗灵数<span class="en">The Number XXI</span></h2></div><div class="numero"><div class="bignum">XXI<small>The World</small></div><div class="numero-text"><div class="numero-keys"><span>圆满</span><span>整合</span><span>合一</span><span>完成</span></div>
+        <p>数字 21 是 2 与 1 的组合，约化为 2+1=3（皇后），象征丰盛的圆熟与孕育；同时 21 又是大牌旅程的终点，下一步便回到 0（愚者），周而复始。它指向经验累积后的转折与整合，引导人从事件表层进入更深的精神功课。</p>
+        <p>在解读时，世界提醒我们：事件表面的顺逆终会变化，真正值得把握的是牌面所揭示的内在功课。圆满并非终结，而是一段完整经验的收束，也是下一趟旅程的起点。</p>
+        <div class="lesson"><b>XXI 号牌的课题：</b>完成、整合、圆满、阶段达成。在事件表层之外，辨认这张牌真正要求你学习的内在功课。</div></div></div></div></section>
+<section class="chapter reveal" id="reading"><div class="wrap"><div class="chapter-head"><div class="idx">— 伍 · DIVINATORY MEANING</div><h2>正逆位解读<span class="en">Upright &amp; Reversed</span></h2></div><div class="pos-switch-wrapper"><div class="pos-switch" role="tablist"><button class="on" data-pos="up" role="tab" aria-selected="true">正位<span class="en">Upright</span></button><button data-pos="rev" role="tab" aria-selected="false">逆位<span class="en">Reversed</span></button></div></div><div class="pos-panel-container"><div class="pos-panel show" id="panel-up"><figure class="pos-figure" style="margin:0 auto 46px;max-width:min(860px,100%)"><div class="plate"><img src="../../assets/images/major/21-the-world/the-world-upright.png" alt="世界正位意象" onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE V — 正位意象图待上传&lt;br&gt;assets/images/major/21-the-world/the-world-upright.png&lt;/div&gt;'"></div><figcaption class="plate-cap">PLATE V · 正位意象 · 世界能量顺势显现</figcaption></figure><div class="keyword-strip" aria-label="世界正位关键词"><span>完成</span><span>圆满</span><span>毕业</span><span>旅行</span><span>成果</span><span>整合</span><span>成功</span><span>愿望达成</span><span>精神高昂</span><span>幸福时光</span><span>达到巅峰</span><span>到达目的地</span><span>结合</span><span>一体化</span></div><div class="reading-intro"><p>正位的世界表示这股能量正走向圆满与整合。它的提示语是：完成、成功、达成目标、实现梦想、满足、全面性、完美、圆满、世界观。顺着牌面主题行动，享受这份成就，事情会显露出可被把握的方向。</p></div><div class="pos-summary"><div class="kw"><span class="lab">核心关键词</span><p>完成，圆满，毕业，旅行，成果，整合，成功，愿望达成，精神高昂，幸福时光，达到巅峰，到达目的地，结合，一体化，融合，成就，才艺，专长，长途行走，游历，传播，世界观</p></div><div class="kw"><span class="lab">能量基调</span><p>土 · 完成、整合、圆满、阶段达成</p></div></div><div class="dim-grid">
+          <div class="dim">
+            <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
+            <p>感情中，世界代表关系进入与“完成、整合、圆满、阶段达成”有关的阶段：得到祝福的婚姻、最佳伴侣、婚姻美满、永恒的爱恋，是一段稳定、深深相互理解、走向喜剧结尾的关系。单身者会被成熟、完整、能与自己共享圆满的人吸引；有伴侣者则可以围绕承诺、相互理解与共享的幸福，进行更成熟的沟通。</p>
+            <ul>
+            <li><b>现况</b>感情非常稳定，正在朝下一阶段发展。</li>
+            <li><b>桃花</b>现在会出现一个很好的恋爱对象，不一定是你新认识的人，但这就是最终的选择了，好好把握。</li>
+            <li><b>看法</b>两人在一起已经很久了，该做些实质的行动了。</li>
+            <li><b>复合</b>还是能复合的。</li>
+            </ul>
+          </div>
+          <div class="dim">
+            <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
+            <p>事业学业上，世界象征事业的壮盛时期与既定目标的达成：学业有成、成绩优异、考试顺利，项目成功，甚至迎来国际化的新机会。这份成就大多已水到渠成，按既定的计划稳步前行即可。</p>
+            <ul>
+            <li><b>现况</b>你在工作上十分成功，事情也都如期完成，这是一份很好的工作，你也会有很大的成就。</li>
+            <li><b>建议</b>没什么特别的建议，按自己的计划行动即可。</li>
+            <li><b>关系</b>没什么需要特别注意的地方。</li>
+            <li><b>发展</b>发展很好，前途光明。</li>
+            </ul>
+          </div>
+          <div class="dim">
+            <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
+            <p>人际关系中，世界象征和谐、稳定而深厚的情谊：收入增加、资金运作公道、交友获益、备受他人信赖，身边多是经历沉淀、非常可靠的革命友谊。财富方面运势很好，之前的投资已开花结果，该有的全都有了，保持现况即可。</p>
+            <ul>
+            <li><b>现况</b>身边有很多革命友谊般的存在，经历这么久的沉淀，都非常可靠。</li>
+            <li><b>建议</b>没什么需要建议的。</li>
+            <li><b>财运</b>财运很好，之前的投资都已开花结果，目前该有的全都有了，没什么需要变动的地方。</li>
+            <li><b>再一层提醒</b>没什么建议，保持现况就好。</li>
+            </ul>
+          </div>
+          <div class="dim">
+            <div class="dim-head"><span class="ic">✚</span><h4>健康 / 生活</h4><span class="en">Health</span></div>
+            <p>健康生活上，世界提示身心状态与当前的心理课题相连，常意味着一种圆满、平衡而安稳的状态——身心各方面都处于协调运作之中。它适合趁这份安定去亲近自然、开阔身心，比如前往海洋、草原一类开阔之地旅游，让疲惫的身心好好充电。需要留意的是，圆满之中也可能藏着停滞，不妨为规律的生活添一点新鲜的探索，让身心在动态的平衡里保持活力。</p>
+          </div>
+</div><div class="dim-extra"><span class="lab">其它牌意 · Other</span>
+            <p>梦想成真，适合前往海洋、草原等开阔地旅游，幸福伴随左右。若问具体事件，正位多表示事情进入圆满收束的关键阶段。主动去理解它的意义、享受成果并为新的旅程做准备，会比单纯等待结果更有力量。</p>
+</div></div><div class="pos-panel" id="panel-rev"><figure class="pos-figure" style="margin:0 auto 46px;max-width:min(860px,100%)"><div class="plate"><img src="../../assets/images/major/21-the-world/the-world-reversed.png" alt="世界逆位意象" onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VI — 逆位意象图待上传&lt;br&gt;assets/images/major/21-the-world/the-world-reversed.png&lt;/div&gt;'"></div><figcaption class="plate-cap">PLATE VI · 逆位意象 · 世界能量受阻或失衡</figcaption></figure><div class="keyword-strip" aria-label="世界逆位关键词"><span>未完成</span><span>延迟</span><span>缺口</span><span>停滞</span><span>收尾困难</span><span>成就感不足</span><span>无法全身心投入</span><span>杞人忧天</span><span>事事不顺</span><span>不安现状</span><span>情绪低迷</span><span>思维幼稚</span><span>迟到</span><span>耽误</span></div><div class="reading-intro"><p>逆位的世界表示这股圆满的能量受阻、失衡或被错误使用，那个本该闭合的圆出现了缺口。它的提示语是：未完成、失败、未达成目标、梦想破灭、不满、不完美、挫折、停滞、困惑、不满意。此时最重要的是先看清自己是否正在抗拒这张牌所要求的功课——也许只差最后一步，却因迟疑、抄近路或半途而废，迟迟无法真正收尾。</p></div><div class="pos-summary"><div class="kw"><span class="lab">核心关键词</span><p>未完成，延迟，缺口，停滞，收尾困难，成就感不足，无法全身心投入，杞人忧天，事事不顺，不安现状，情绪低迷，思维幼稚，迟到，耽误，推迟，走捷径，跳过，失败，阻碍，滞后，困惑，恐惧未知</p></div><div class="kw"><span class="lab">能量基调</span><p>土 · 受阻、延迟、反复与失衡</p></div></div><div class="dim-grid">
+          <div class="dim reversed">
+            <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
+            <p>感情中，逆位的世界常表现为盲目接受、半途而废，恋情前景不明朗、彼此难以真正结合，或往日的热情逐渐冷却、对伴侣失去新鲜感，关系暧昧不清而不稳定。它提示感情容易出现误解、冷淡或对承诺的恐惧。关系若一直无法推进，需要回到双方真实的需求。</p>
+            <ul>
+            <li><b>现况</b>感情中的热情正在消退，逐渐趋向平淡。</li>
+            <li><b>桃花</b>现在不会出现新的恋情，这次单身的时间可能会很久。</li>
+            <li><b>看法</b>两个人都习惯了彼此的存在，却没有什么生活的热情。</li>
+            <li><b>复合</b>不会复合了，感情太淡了。</li>
+            </ul>
+          </div>
+          <div class="dim reversed">
+            <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
+            <p>事业学业上，逆位的世界常表现为面对工作力不从心或精神懈怠、事业远景不被看好、处于低潮期，项目中途而废，潜能受外界束缚无法发挥，或对薪资待遇感到不满、学业中途而废、备考不足而失利。它提示你可能困在原地、难以突破。先重新评估目标，找到完成它的新方法，再决定下一步。</p>
+            <ul>
+            <li><b>现况</b>一直在做重复的事情，没有任何成长，感觉自己被困在原地无法突破。</li>
+            <li><b>建议</b>最好的结果也只是维持现状，若强行去改变，反而会更加麻烦。</li>
+            <li><b>关系</b>工作中的关系都很稳定，都是老同事了。</li>
+            <li><b>发展</b>你现在看到的样子就是未来的样子，这是一个可以干到退休养老的地方。</li>
+            </ul>
+          </div>
+          <div class="dim reversed">
+            <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
+            <p>人际方面要小心投射与不公平的交换。逆位的世界常表现为交友遇挫、朋友关系冷淡、处世过于幼稚以致事事不顺，难以分享成就。财富方面则可能破产、现金流短缺，市场上有些损失而自己难以避免。适合回到理性评估与长期规划，维持现况、避免被恐惧推着走。</p>
+            <ul>
+            <li><b>现况</b>朋友比较固定，很难结交到新的朋友。</li>
+            <li><b>建议</b>没什么可以建议的，也不需要刻意改变什么。</li>
+            <li><b>财运</b>没什么大的变化，市场上都有些损失，自己也无法避免。</li>
+            <li><b>再一层提醒</b>不动就好，维持现况。</li>
+            </ul>
+          </div>
+          <div class="dim reversed">
+            <div class="dim-head"><span class="ic">✚</span><h4>健康 / 生活</h4><span class="en">Health</span></div>
+            <p>健康上，逆位的世界常提示一种停滞与悬而未决的状态：身心仿佛被困在某个未完成的循环里，提不起劲，成就感与满足感双双缺失。长期的不满与杞人忧天，可能在情绪上累积成隐隐的内耗。建议减少对“未完成”的焦虑，把大的目标拆成可以一步步收尾的小步骤，重新建立可持续的生活节奏，让身心从原地踏步中慢慢走出来。</p>
+          </div>
+</div><div class="dim-extra"><span class="lab">其它牌意 · Other</span>
+            <p>计划不周，不宜乔迁动土，缺乏先见之明，不得要领。事情可能延迟、反复或暴露隐藏问题——先修正模式、补齐缺口，再谈结果。</p>
+</div></div></div></div></section>
+<section class="chapter reveal" id="spread"><div class="wrap"><div class="chapter-head"><div class="idx">— 陆 · THE SPREAD</div><h2>三牌阵示意<span class="en">Past · Present · Future</span></h2></div><figure class="spread-figure" style="margin:0 auto 46px;max-width:min(960px,100%)"><div class="plate"><img src="../../assets/images/major/21-the-world/the-world-spread.png" alt="世界三牌阵示意图" onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VII — 三牌阵示意图待上传&lt;br&gt;assets/images/major/21-the-world/the-world-spread.png&lt;/div&gt;'"></div><figcaption class="plate-cap">PLATE VII · 三牌阵 · 过去 · 现在 · 未来，观察世界能量如何在时间中展开</figcaption></figure><div class="prose" style="max-width:60ch;margin-bottom:38px"><p>当世界出现在三牌阵中，它提示你从时间维度观察这股能量：过去留下的结构、现在显现的课题，以及未来需要整合的方向。点击下方卡牌揭示隐秘启示。</p></div><div class="spread"><div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')"><div class="spread-card-back"><div class="back-pattern"><span>I</span><span style="font-size:16px; font-family:var(--sans); letter-spacing:0.1em;">过去 · PAST</span></div><div class="click-to-reveal">点击翻牌</div></div><div class="spread-card-front"><div class="pos-no">I</div><span class="en">Past · 过去</span><h4>既往线索</h4><p>可能经历了一系列挑战与成长，使你得以抵达目前这一阶段，这些经历已构成你现在的基础，为日后的成功铺平了道路。</p></div></div><div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')"><div class="spread-card-back"><div class="back-pattern"><span>II</span><span style="font-size:16px; font-family:var(--sans); letter-spacing:0.1em;">现在 · PRESENT</span></div><div class="click-to-reveal">点击翻牌</div></div><div class="spread-card-front"><div class="pos-no">II</div><span class="en">Present · 现在</span><h4>当前显现</h4><p>可能正处在一个收获成果的时刻，感受到努力的价值，这或许是一个完成长期项目、实现个人目标的时期。</p></div></div><div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')"><div class="spread-card-back"><div class="back-pattern"><span>III</span><span style="font-size:16px; font-family:var(--sans); letter-spacing:0.1em;">未来 · FUTURE</span></div><div class="click-t
+o-reveal">点击翻牌</div></div><div class="spread-card-front"><div class="pos-no">III</div><span class="en">Future · 未来</span><h4>后续整合</h4><p>前景看起来非常光明，暗示你将继续在道路上成功前进，新的机会与旅程可能正等待着你。</p></div></div></div></div></section>
+<footer><div class="wrap"><hr class="rule-gold" style="margin-bottom:40px"><p class="ornament">✦ ❖ ✦</p><p>ARCANUM XXI · THE WORLD · 土 · 土星</p><p class="zh">「观牌如观画，读意如读经。」</p></div></footer>
+<script>
+(function(){
+  // 滚动显现机制 (Intersection Observer)
+  if ('IntersectionObserver' in window) {
+    var revealElems = document.querySelectorAll('.reveal');
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealElems.forEach(function(el) {
+      observer.observe(el);
+    });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      el.classList.add('active');
+    });
+  }
+
+  // 正逆位切换 (带淡入滑动动画)
+  var btns = document.querySelectorAll('.pos-switch button');
+  var panels = {
+    up: document.getElementById('panel-up'),
+    rev: document.getElementById('panel-rev')
+  };
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var pos = btn.dataset.pos;
+
+      btns.forEach(function(b){
+        b.classList.toggle('on', b === btn);
+        b.setAttribute('aria-selected', b === btn);
+      });
+
+      Object.keys(panels).forEach(function(key){
+        var panel = panels[key];
+        if(key === pos){
+          panel.classList.add('show');
+        } else {
+          panel.classList.remove('show');
+        }
+      });
+    });
+  });
+
+  // 象征要素图谱点击高亮
+  var symbolItems = document.querySelectorAll('.symbol-item');
+  symbolItems.forEach(function(item) {
+    item.addEventListener('click', function() {
+      symbolItems.forEach(function(x) { x.classList.remove('highlight'); });
+      item.classList.add('highlight');
+      console.log("Focused symbol: ", item.dataset.id);
+    });
+  });
+
+  // 滚动高亮目录
+  var links = Array.prototype.slice.call(document.querySelectorAll('.tnav a'));
+  var secs = links.map(function(l){return document.querySelector(l.getAttribute('href'));});
+  function onScroll(){
+    var y = window.scrollY + 120, active = -1;
+    secs.forEach(function(s, i){if(s && s.offsetTop <= y) active = i;});
+    links.forEach(function(l, i){l.classList.toggle('active', i === active);});
+  }
+
+  // 顶栏滚动收缩
+  var lastScrollY = window.scrollY;
+  var topbar = document.querySelector('.topbar');
+  window.addEventListener('scroll', function() {
+    var currentScrollY = window.scrollY;
+    if (currentScrollY > lastScrollY && currentScrollY > 150) {
+      topbar.style.transform = 'translateY(-100%)';
+    } else {
+      topbar.style.transform = 'translateY(0)';
+    }
+    lastScrollY = currentScrollY;
+    onScroll();
+  }, { passive: true });
+
+  onScroll();
+})();
+</script>
+</body>
+</html>
