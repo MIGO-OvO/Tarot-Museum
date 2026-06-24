@@ -66,14 +66,72 @@ body{
 }
 
 /* ============ 滚动显现动画 ============ */
+:root{
+  --ease-out-quart:cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo:cubic-bezier(0.16, 1, 0.3, 1);
+}
 .reveal{
   opacity:0;
-  transform:translateY(30px);
-  transition:opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform:translateY(24px);
+  transition:opacity 0.7s var(--ease-out-quart), transform 0.7s var(--ease-out-quart);
 }
 .reveal.active{
   opacity:1;
   transform:translateY(0);
+}
+
+/* 子元素交错入场 */
+.reveal.active .facts dl,
+.reveal.active .keyword-strip span,
+.reveal.active .symbol-item,
+.reveal.active .dim{
+  animation:staggerIn 0.6s var(--ease-out-quart) both;
+}
+.reveal.active .facts dl:nth-child(1){animation-delay:0s}
+.reveal.active .facts dl:nth-child(2){animation-delay:.08s}
+.reveal.active .facts dl:nth-child(3){animation-delay:.16s}
+.reveal.active .facts dl:nth-child(4){animation-delay:.24s}
+
+.reveal.active .keyword-strip span:nth-child(1){animation-delay:0s}
+.reveal.active .keyword-strip span:nth-child(2){animation-delay:.04s}
+.reveal.active .keyword-strip span:nth-child(3){animation-delay:.08s}
+.reveal.active .keyword-strip span:nth-child(4){animation-delay:.12s}
+.reveal.active .keyword-strip span:nth-child(5){animation-delay:.16s}
+.reveal.active .keyword-strip span:nth-child(6){animation-delay:.2s}
+.reveal.active .keyword-strip span:nth-child(7){animation-delay:.24s}
+.reveal.active .keyword-strip span:nth-child(8){animation-delay:.28s}
+.reveal.active .keyword-strip span:nth-child(9){animation-delay:.32s}
+.reveal.active .keyword-strip span:nth-child(10){animation-delay:.36s}
+.reveal.active .keyword-strip span:nth-child(11){animation-delay:.4s}
+.reveal.active .keyword-strip span:nth-child(12){animation-delay:.44s}
+
+.reveal.active .symbol-item:nth-child(n){animation-delay:calc(var(--i,0) * .06s)}
+.reveal.active .dim:nth-child(1){animation-delay:.05s}
+.reveal.active .dim:nth-child(2){animation-delay:.12s}
+.reveal.active .dim:nth-child(3){animation-delay:.19s}
+.reveal.active .dim:nth-child(4){animation-delay:.26s}
+
+@keyframes staggerIn{
+  from{opacity:0;transform:translateY(16px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Pullquote 左边框生长 */
+.reveal.active .pullquote{
+  animation:borderGrow 0.8s var(--ease-out-expo) 0.3s both;
+}
+@keyframes borderGrow{
+  from{border-left-color:transparent;opacity:0;transform:translateX(-8px)}
+  to{border-left-color:var(--gold);opacity:1;transform:translateX(0)}
+}
+
+/* Bignum 数字入场 */
+.reveal.active .bignum{
+  animation:bignumIn 1s var(--ease-out-expo) both;
+}
+@keyframes bignumIn{
+  from{opacity:0;transform:scale(0.9) translateY(12px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
 }
 
 /* ============ 顶栏目录 ============ */
@@ -95,8 +153,15 @@ body{
 .tnav a{
   font-family:var(--sans);font-size:12.5px;letter-spacing:.04em;
   color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:2px;
-  transition:.25s;white-space:nowrap;
+  transition:color .25s var(--ease-out-quart), background .25s var(--ease-out-quart);
+  white-space:nowrap;position:relative;
 }
+.tnav a::after{
+  content:"";position:absolute;bottom:2px;left:12px;right:12px;height:1.5px;
+  background:var(--wine);transform:scaleX(0);transform-origin:center;
+  transition:transform .3s var(--ease-out-quart);
+}
+.tnav a:hover::after,.tnav a.active::after{transform:scaleX(1)}
 .tnav a:hover{color:var(--wine);background:oklch(40% .13 25 / .07)}
 .tnav a.active{color:var(--wine);font-weight:600;background:oklch(40% .13 25 / .04)}
 
@@ -112,10 +177,10 @@ body{
 }
 .hero-figure{
   position:relative;
-  animation: heroImageIn 1.2s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+  animation: heroImageIn 1s var(--ease-out-expo) forwards;
 }
 @keyframes heroImageIn {
-  0% { opacity:0; transform:scale(0.96) translateY(20px); }
+  0% { opacity:0; transform:scale(0.94) translateY(24px); }
   100% { opacity:1; transform:scale(1) translateY(0); }
 }
 
@@ -123,17 +188,17 @@ body{
   position:relative;border:1px solid var(--rule);
   padding:20px;background:var(--paper);
   box-shadow:0 4px 12px oklch(24% 0.03 55 / .05), 0 24px 68px oklch(24% 0.03 55 / .15);
-  transition:transform 0.4s ease, box-shadow 0.4s ease;
+  transition:transform 0.4s var(--ease-out-quart), box-shadow 0.4s var(--ease-out-quart);
 }
 .hero-figure .plate::before{
   content:"";position:absolute;inset:8px;border:1px solid var(--gold);opacity:.5;pointer-events:none;
 }
-.hero-figure img{display:block;width:100%;height:auto;filter:saturate(.94) contrast(1.02);transition:filter 0.3s;}
+.hero-figure img{display:block;width:100%;height:auto;filter:saturate(.94) contrast(1.02);transition:filter 0.4s var(--ease-out-quart);}
 .hero-figure:hover .plate{
-  transform:translateY(-4px);
-  box-shadow:0 6px 16px oklch(24% 0.03 55 / .08), 0 30px 80px oklch(24% 0.03 55 / .18);
+  transform:translateY(-6px);
+  box-shadow:0 8px 20px oklch(24% 0.03 55 / .1), 0 36px 88px oklch(24% 0.03 55 / .2);
 }
-.hero-figure:hover img{filter:saturate(1) contrast(1.03)}
+.hero-figure:hover img{filter:saturate(1.02) contrast(1.04)}
 
 .hero-figure .imgfallback{
   aspect-ratio:3/5;display:flex;align-items:center;justify-content:center;
@@ -145,11 +210,11 @@ body{
   color:var(--faint);text-transform:uppercase;text-align:center;
 }
 .hero-text{
-  animation: heroTextIn 1s cubic-bezier(0.215, 0.61, 0.355, 1) 0.2s forwards;
+  animation: heroTextIn 0.9s var(--ease-out-expo) 0.15s forwards;
   opacity:0;
 }
 @keyframes heroTextIn {
-  0% { opacity:0; transform:translateY(15px); }
+  0% { opacity:0; transform:translateY(18px); }
   100% { opacity:1; transform:translateY(0); }
 }
 .hero-num{
@@ -169,7 +234,13 @@ body{
 .hero-keywords div{
   flex:1;padding:18px 8px;text-align:center;font-family:var(--song);
   font-size:19px;color:var(--fg);position:relative;
+  opacity:0;animation:kwFadeIn .6s var(--ease-out-quart) both;
 }
+.hero-keywords div:nth-child(1){animation-delay:.4s}
+.hero-keywords div:nth-child(2){animation-delay:.5s}
+.hero-keywords div:nth-child(3){animation-delay:.6s}
+.hero-keywords div:nth-child(4){animation-delay:.7s}
+@keyframes kwFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .hero-keywords div+div::before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:1px;background:var(--border)}
 .hero-keywords span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--gold-deep);margin-top:6px}
 .hero-lede{margin-top:30px;font-size:18px;line-height:1.85;color:var(--muted);max-width:46ch}
@@ -177,10 +248,10 @@ body{
 .back-btn{
   display:inline-flex;align-items:center;gap:8px;
   font-family:var(--sans);font-size:13.5px;color:var(--muted);
-  text-decoration:none;transition:.2s;margin-top:28px;
-  border-bottom:1px dashed var(--border);padding-bottom:2px;
+  text-decoration:none;transition:color .25s var(--ease-out-quart), border-color .25s var(--ease-out-quart), transform .25s var(--ease-out-quart);
+  margin-top:28px;border-bottom:1px dashed var(--border);padding-bottom:2px;
 }
-.back-btn:hover{color:var(--wine);border-color:var(--wine)}
+.back-btn:hover{color:var(--wine);border-color:var(--wine);transform:translateX(-3px)}
 
 /* ============ 章节通用 ============ */
 section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
@@ -223,10 +294,10 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
 .symbol-figure .imgfallback{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,oklch(90% .02 80),oklch(90% .02 80) 12px,oklch(88% .024 80) 12px,oklch(88% .024 80) 24px);color:var(--faint);font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-align:center;padding:20px;line-height:2}
 
 .symbol-list{display:flex;flex-direction:column;gap:2px}
-.symbol-item{display:grid;grid-template-columns:42px 1fr;gap:18px;padding:18px 16px;border-bottom:1px solid var(--border);transition:all .25s ease;align-items:start;cursor:pointer}
-.symbol-item:hover, .symbol-item.highlight{background:var(--paper);transform:translateX(6px);border-bottom-color:var(--gold)}
-.symbol-item:hover .sym-no, .symbol-item.highlight .sym-no{background:var(--wine);color:var(--paper);border-color:var(--wine)}
-.sym-no{width:42px;height:42px;border:1px solid var(--rule);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;color:var(--gold-deep);transition:all .25s ease}
+.symbol-item{display:grid;grid-template-columns:42px 1fr;gap:18px;padding:18px 16px;border-bottom:1px solid var(--border);transition:transform .3s var(--ease-out-quart), background .3s var(--ease-out-quart), border-color .3s var(--ease-out-quart);align-items:start;cursor:pointer}
+.symbol-item:hover, .symbol-item.highlight{background:var(--paper);transform:translateX(8px);border-bottom-color:var(--gold)}
+.symbol-item:hover .sym-no, .symbol-item.highlight .sym-no{background:var(--wine);color:var(--paper);border-color:var(--wine);transform:scale(1.1)}
+.sym-no{width:42px;height:42px;border:1px solid var(--rule);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;color:var(--gold-deep);transition:all .3s var(--ease-out-quart)}
 .sym-body h4{font-family:var(--song);font-size:18.5px;font-weight:600;color:var(--fg);margin-bottom:6px;letter-spacing:.01em}
 .sym-body p{font-family:var(--sans);font-size:15px;line-height:1.75;color:var(--muted)}
 .swatch{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:7px;vertical-align:baseline;border:1px solid oklch(40% .05 60 / .3)}
@@ -247,7 +318,10 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
   display:flex;justify-content:center;margin-bottom:50px;
 }
 .pos-switch{display:inline-flex;border:1px solid var(--fg);background:var(--paper);border-radius:3px;overflow:hidden;padding:3px;box-shadow:0 4px 12px oklch(24% 0.03 55 / .04)}
-.pos-switch button{font-family:var(--song);font-size:17px;padding:12px 38px;background:transparent;border:0;cursor:pointer;color:var(--muted);position:relative;transition:all .3s ease;letter-spacing:.06em;border-radius:2px}
+.pos-switch button{font-family:var(--song);font-size:17px;padding:12px 38px;background:transparent;border:0;cursor:pointer;color:var(--muted);position:relative;transition:background .35s var(--ease-out-quart),color .35s var(--ease-out-quart),transform .2s var(--ease-out-quart),box-shadow .25s var(--ease-out-quart);letter-spacing:.06em;border-radius:2px}
+.pos-switch button:hover:not(.on){color:var(--fg);background:oklch(40% .05 65 / .06)}
+.pos-switch button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.pos-switch button:active{transform:scale(0.96)}
 .pos-switch button.on{background:var(--fg);color:var(--paper)}
 .pos-switch button .en{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.24em;margin-top:4px;text-transform:uppercase;opacity:.7}
 
@@ -260,7 +334,7 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
   position:absolute;top:0;left:0;width:100%;
   opacity:0;visibility:hidden;
   transform:translateY(15px);
-  transition:opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
+  transition:opacity 0.5s var(--ease-out-quart), transform 0.5s var(--ease-out-quart), visibility 0.5s;
 }
 .pos-panel.show{
   position:relative;
@@ -274,10 +348,11 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
 .pos-summary .kw p{font-family:var(--song);font-size:16.5px;line-height:1.75;color:var(--fg)}
 
 .dim-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);box-shadow:0 8px 24px oklch(24% 0.03 55 / .04)}
-.dim{background:var(--bg);padding:36px 32px;transition:background-color 0.3s;}
-.dim:hover{background:var(--paper)}
+.dim{background:var(--bg);padding:36px 32px;transition:background-color .35s var(--ease-out-quart), transform .35s var(--ease-out-quart), box-shadow .35s var(--ease-out-quart)}
+.dim:hover{background:var(--paper);transform:translateY(-2px);box-shadow:0 6px 18px oklch(24% 0.03 55 / .08)}
 .dim-head{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}
-.dim-head .ic{font-family:var(--serif);font-size:24px;color:var(--gold-deep)}
+.dim-head .ic{font-family:var(--serif);font-size:24px;color:var(--gold-deep);transition:transform .3s var(--ease-out-quart)}
+.dim:hover .dim-head .ic{transform:scale(1.15)}
 .dim-head h4{font-family:var(--song);font-size:21px;font-weight:600;color:var(--fg)}
 .dim-head .en{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;margin-left:auto}
 .dim .kw-line{font-family:var(--sans);font-size:13.5px;color:var(--wine-soft);line-height:1.7;margin-bottom:16px;padding-bottom:16px;border-bottom:1px dashed var(--border)}
@@ -290,12 +365,25 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
 .dim-extra .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;color:var(--gold-deep);text-transform:uppercase;display:block;margin-bottom:12px}
 .dim-extra p{font-size:15.5px;line-height:1.8;color:var(--muted)}
 
+/* ============ 关键词标签带 & 解读引言 ============ */
+.keyword-strip{
+  display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px;
+}
+.keyword-strip span{
+  font-family:var(--sans);font-size:13.5px;padding:6px 14px;
+  border:1px solid var(--border);border-radius:999px;
+  color:var(--muted);background:var(--paper);transition:all .25s;
+}
+.keyword-strip span:hover{border-color:var(--gold);color:var(--wine);background:oklch(58% .12 70 / .06)}
+.reading-intro{max-width:62ch;margin-bottom:40px}
+.reading-intro p{font-size:18px;line-height:1.9;color:var(--fg)}
+
 /* ============ 新增图版通用 ============ */
-.element-figure, .pos-figure, .spread-figure{margin:40px 0}
+.element-figure, .pos-figure, .spread-figure{margin:40px auto}
 .element-figure .plate, .pos-figure .plate, .spread-figure .plate{
   position:relative;border:1px solid var(--rule);padding:16px;background:var(--paper);
   box-shadow:0 10px 30px oklch(24% 0.03 55 / .08);
-  transition:all 0.3s ease;
+  transition:transform .3s var(--ease-out-quart), box-shadow .3s var(--ease-out-quart);
 }
 .element-figure .plate::before, .pos-figure .plate::before, .spread-figure .plate::before{content:"";position:absolute;inset:8px;border:1px solid var(--gold);opacity:.4;pointer-events:none}
 .element-figure img, .pos-figure img, .spread-figure img{display:block;width:100%;height:auto}
@@ -314,7 +402,7 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
   height:380px;
   cursor:pointer;
   transform-style:preserve-3d;
-  transition:transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition:transform 0.7s var(--ease-out-quart), box-shadow 0.4s var(--ease-out-quart);
 }
 .spread-card-wrapper.flipped{
   transform:rotateY(180deg);
@@ -328,7 +416,7 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
   display:flex;
   flex-direction:column;
   box-shadow:0 10px 25px oklch(24% 0.03 55 / .08);
-  transition:all 0.3s ease;
+  transition:border-color .3s var(--ease-out-quart), box-shadow .3s var(--ease-out-quart);
 }
 .spread-card-front{
   background:var(--paper);
@@ -391,10 +479,12 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
 .spread-card-front p{
   font-family:var(--sans);font-size:14.5px;line-height:1.75;color:var(--muted);
 }
-.spread-card-wrapper:hover:not(.flipped){
+.spread-card-wrapper:hover:not(.flipped),
+.spread-card-wrapper:focus-visible:not(.flipped){
   transform:translateY(-8px) scale(1.02);
   box-shadow:0 16px 35px oklch(24% 0.03 55 / .15);
 }
+.spread-card-wrapper:focus-visible{outline:2px solid var(--gold);outline-offset:6px}
 
 /* ============ 页脚 ============ */
 footer{padding:80px 0 60px;text-align:center}
@@ -422,6 +512,20 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
 }
 *,*::before,*::after{box-sizing:border-box}
 .plate,.imgfallback{max-width:100%}
+
+/* ============ Reduced Motion ============ */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:0.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.01ms !important;
+  }
+  .reveal{opacity:1;transform:none}
+  .hero-figure{animation:none;opacity:1}
+  .hero-text{animation:none;opacity:1}
+  .hero-keywords div{animation:none;opacity:1}
+  .spread-card-wrapper{transition:none}
+}
 </style>
 </head>
 <body>
@@ -460,7 +564,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
         <div>控制<span>CONTROL</span></div>
         <div>意志<span>WILLPOWER</span></div>
       </div>
-      <p class="hero-lede">皇帝是现实世界的建制者，是皇后的丈夫，也是男性象征的代表，拥有主宰物质世界的支配力。他关心规则、责任、疆界和长期稳定，代表把混乱整理成秩序的能力。一国之尊的皇帝充满自信，头戴皇冠，身着红袍，足蹬象征严格纪律的战靴，端坐在宝座之上。 皇帝牌偏向次序、规范与稳定的局面，象征道德戒律与禁令，握有至高无上的权利。也正因为这些理性与权威，他必须把个人的情感收藏起来，承担"高处不胜寒"的孤独。他是一个正直、公平而实际的人：若他给你忠告，那建议必来自他亲身的经验。他略有武断的倾向，但许下承诺后通常值得信赖；而当你也许下承诺，他便期望你切实履行，一旦你做不到，他不会轻易给第二次机会。 当皇帝出现，问题往往不在于缺乏情绪，而在于是否有足够清晰的原则和执行力。</p>
+        <p class="hero-lede">皇帝是现实世界的建制者，是皇后的丈夫，也是男性象征的代表，拥有主宰物质世界的支配力以及物质世界的控制权与父权制度。他关心规则、责任、疆界和长期稳定，代表把混乱整理成秩序的能力。对应支配、白羊座及火元素，希腊神话原型为宙斯。一国之尊的皇帝充满自信，头戴皇冠，身着红袍，足蹬象征严格纪律的战靴，端坐在宝座之上。</p>
       <a href="../../index.html" class="back-btn">← 返回大厅 / 选择其它卡牌</a>
     </div>
   </div>
@@ -474,9 +578,12 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
       <h2>牌面叙事<span class="en">The Image Speaks</span></h2>
     </div>
     <div class="prose drop">
-      <p class="prose drop">皇帝坐在坚硬的石质王座上，王座饰有公羊头浮雕，背景多为荒山。他左手握着象征秩序严谨、条理分明的水晶球，右手则持着古埃及十字架，象征生命与权力。王座上的四个白羊头呼应皇帝牌所对应的星相——白羊座（火星）：作为十二星座之首，白羊也象征勇敢、积极、野心与自信，与整张牌的红色主调不谋而合。背景重重的山峦预示着权力背后的风险，与女皇牌的富饶相比，难免让观者多生几分担忧。画面坚硬、稳定，表现出经验、控制力与保护性的权威，也显示出他建立边界、规则和方向的能力。</p>
-      <p class="prose ">皇帝描述的是带有男性内在特质的人事物——它不一定指具体的人，也可以形容一个人处理问题的风格。正位时像是英明神武：以清晰原则、稳健结构和果断执行驾驭局面；逆位时则有些昏庸无能：权力失衡、僵化失序，或无人愿意承担责任。判读时不妨先问，眼前的"权威"是在建立秩序，还是在压迫与失控。</p>
-      <p class="pullquote">皇帝坐在坚硬的石质王座上，王座饰有公羊头浮雕，背景多为荒山。</p>
+      <p>神话传说中，皇帝相当于希腊十二主神之首宙斯，也就是罗马神朱庇特。他逃过被父亲吞食的命运，靠喝山羊的奶长大，最终夺走了父亲的统治权。法国大革命后，他一度曾被酒神狄俄尼索斯取代；酒神同样被称为“伟大的父亲”，同时赐予人们富足与文明。</p>
+      <p>中国神话体系里，皇帝可对应玉皇大帝或者黄帝。道教认为玉皇为众神之王，在神阶中地位极高；三皇五帝则是远古传说中部落首领的合称。古人所说的“皇帝”，意指天地，说明天地是万物之主，也延伸为中国帝制时期最高统治者的称号。</p>
+      <p>现实图像中，罗马赫库兰尼姆市的狄俄尼索斯浮雕清楚证明了他和皇帝形象的关联：御座上的狄俄尼索斯姿态与塔罗牌上的皇帝相同，手持节杖，杖顶有一枚松球，双腿也以特殊方式交叉着。</p>
+      <p>皇帝坐在坚硬的石质王座上，王座饰有公羊头浮雕，背景多为荒山。他左手握着象征秩序严谨、条理分明的水晶球，右手则持着古埃及十字架，象征生命与权力。王座上的四个白羊头呼应皇帝牌所对应的星相——白羊座（火星）：作为十二星座之首，白羊也象征勇敢、积极、野心与自信，与整张牌的红色主调不谋而合。背景重重的山峦预示着权力背后的风险，与女皇牌的富饶相比，难免让观者多生几分担忧。</p>
+      <p>皇帝描述的是带有男性内在特质的人事物——它不一定指具体的人，也可以形容一个人处理问题的风格。正位时像是英明神武：以清晰原则、稳健结构和果断执行驾驭局面；逆位时则有些昏庸无能：权力失衡、僵化失序，或无人愿意承担责任。判读时不妨先问，眼前的“权威”是在建立秩序，还是在压迫与失控。</p>
+      <p class="pullquote">皇帝的本质是“法则的执行”：不是创造者本人，而是把意志落实为制度、边界与可执行现实结构的人。</p>
     </div>
   </div>
 </section>
@@ -489,17 +596,17 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
       <h2>对应要素<span class="en">Esoteric Correspondences</span></h2>
     </div>
     <div class="facts">
-      <dl><dt>元素 Element</dt><dd>火<small>火 · 行动、创造与热情的爆发</small></dd></dl>
-      <dl><dt>星座 Zodiac</dt><dd>白羊座<small>Aries · 开拓、领导力与阳性意志</small></dd></dl>
-      <dl><dt>生命之树 Tree of Life</dt><dd>Heh<small>第15条路径 · 联结智慧 (Chokmah) 与美丽 (Tiphareth)</small></dd></dl>
-      <dl><dt>希伯来字母</dt><dd>Heh<small>第五个字母 ה · "窗口"，启示与秩序的凝视</small></dd></dl>
+      <dl><dt>元素 Element</dt><dd>火<small>行动、创造、热情与支配力</small></dd></dl>
+      <dl><dt>星座 Zodiac</dt><dd>白羊座 / 火星<small>Aries · 开拓、战争性与阳性意志</small></dd></dl>
+      <dl><dt>生命之树 Tree of Life</dt><dd>Heh<small>联结智慧 (Chokhmah) 与仁慈 (Chesed) · 法则的执行</small></dd></dl>
+      <dl><dt>象征 Symbol</dt><dd>窗户<small>海底轮 · 安全感；方向：东北</small></dd></dl>
     </div>
-        <figure class="element-figure" style="margin-top:48px">
+    <figure class="element-figure" style="margin:48px auto 0;max-width:min(860px,100%)">
       <div class="plate">
         <img src="../../assets/images/major/04-the-emperor/the-emperor-elements.png" alt="塔罗牌皇帝对应要素"
              onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE III — 要素图待上传&lt;br&gt;assets/images/major/04-the-emperor/the-emperor-elements.png&lt;/div&gt;'">
       </div>
-      <figcaption class="plate-cap">PLATE IV · 生命之树 · Heh 路径，第15条路径 · 联结智慧 (Chokmah) 与美丽 (Tiphareth)</figcaption>
+      <figcaption class="plate-cap">PLATE IV · 生命之树 · Heh 路径 · Chokhmah 到 Chesed · 法则的执行</figcaption>
     </figure>
   </div>
 </section>
@@ -524,8 +631,8 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
         <div class="symbol-item" data-id="02"><div class="sym-no">02</div><div class="sym-body"><h4>头冠上的宝石</h4><p>象征财富与使命，也可能代表智慧的璀璨，由此获得领导的合法性。</p></div></div>
         <div class="symbol-item" data-id="03"><div class="sym-no">03</div><div class="sym-body"><h4>石王座</h4><p>稳定、制度与不可轻易动摇的基础，居高临下而坚定的权力象征。</p></div></div>
         <div class="symbol-item" data-id="04"><div class="sym-no">04</div><div class="sym-body"><h4>坚硬的石质宝座</h4><p>象征稳固性与持久的力量，以及建立长久基础的能力。</p></div></div>
-        <div class="symbol-item" data-id="05"><div class="sym-no">05</div><div class="sym-body"><h4>公羊头 / 山羊头浮雕</h4><p>白羊座的开创力、战斗精神与主动性，也象征决心、野心与坚韧。</p></div></div>
-        <div class="symbol-item" data-id="06"><div class="sym-no">06</div><div class="sym-body"><h4>权杖</h4><p>统治权、决策力与掌控方向的能力，显示对其统治领域的控制。</p></div></div>
+        <div class="symbol-item" data-id="05"><div class="sym-no">05</div><div class="sym-body"><h4>公羊头 / 山羊头浮雕</h4><p>白羊象征力量、侵略性和战争；作为黄道第一个星座，它同时意味着春天的新生命与关键考验，令社会稳定之下得以生发。</p></div></div>
+        <div class="symbol-item" data-id="06"><div class="sym-no">06</div><div class="sym-body"><h4>权杖 / 安卡十字</h4><p>手中的古埃及十字架象征生命与权力，暗示他在律法下掌握生与死的秩序，并以统治权、决策力和方向感治理领域。</p></div></div>
         <div class="symbol-item" data-id="07"><div class="sym-no">07</div><div class="sym-body"><h4><span class="swatch" style="background:oklch(40% 0.13 25)"></span>红色衣袍</h4><p>行动力、热血与权力意志，红色是行动和决心的颜色。</p></div></div>
         <div class="symbol-item" data-id="08"><div class="sym-no">08</div><div class="sym-body"><h4>盔甲 / 护甲</h4><p>保护、警戒与现实压力，是准备好保护自身与领域的显明标志，暗示坚强与坚定。</p></div></div>
         <div class="symbol-item" data-id="09"><div class="sym-no">09</div><div class="sym-body"><h4>安卓拉的胸甲</h4><p>古代罗马服装，表示皇帝可能与古罗马相关联的权力和力量。</p></div></div>
@@ -551,8 +658,10 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
     <div class="numero">
       <div class="bignum">IV<small>The Emperor</small></div>
       <div class="numero-text">
-        <p>数字 4 是方形、秩序与结构，代表把想法落地为制度、边界、责任和可持续的安排。</p>
-        <p>皇帝的 4 号能量说明稳定来自规划、执行、限制和承担。缺少结构时，再强的热情也容易散入风中。</p>
+        <p>数字 4 是方形、秩序与结构，代表把想法落地为制度、边界、责任和可持续的安排。它在平面基础上增加高度，形成第一个稳定的立体结构，也对应四元素、四方向、四季与物质世界的基础秩序。</p>
+        <p>数字 4 偏向稳定、保守、田宅宫与库存；在金钱上比较节约、谨慎，喜欢安稳的赚钱与储蓄；在感情上强调责任感、务实爱家、安全感、巩固与基础。</p>
+        <p>4 号能量擅长组织、维持现况、找出行得通的方法并精益求精；过度时会变得食古不化、完美主义，甚至对别人的表现吹毛求疵。</p>
+        <div class="lesson"><b>数字4课题：</b>学习如何灵活处事。稳定来自规划、执行、限制和承担，但真正的将领不能认死理；缺少结构时热情会散入风中，结构过硬时生命也会失去弹性。</div>
       </div>
     </div>
   </div>
@@ -575,50 +684,56 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
     <div class="pos-panel-container">
       <!-- 正位 -->
       <div class="pos-panel show" id="panel-up">
-        <figure class="pos-figure" style="margin-bottom:40px;max-width:480px">
+        <figure class="pos-figure" style="margin:0 auto 46px;max-width:min(860px,100%)">
           <div class="plate">
             <img src="../../assets/images/major/04-the-emperor/the-emperor-upright.png" alt="皇帝正位意象"
                  onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE V — 正位意象图待上传&lt;br&gt;assets/images/major/04-the-emperor/the-emperor-upright.png&lt;/div&gt;'">
           </div>
-          <figcaption class="plate-cap">PLATE V · 正位意象 · 直觉与宇宙能量的显现</figcaption>
+          <figcaption class="plate-cap">PLATE V · 正位意象 · 权威、秩序与稳定结构的显现</figcaption>
         </figure>
-        <div class="prose" style="max-width:62ch;margin-bottom:40px">
-          <p>**关键词**：权威，领导，秩序，父性，责任，边界，规划，稳定，魄力十足，万众瞩目，男性化，基本功扎实，富有责任感，充满阳刚之气，出众的领导才能，权力，威权，地位，职权，批准，授权，机构，大型组织，企业，旅馆，当权派，权势集团，权威人士，建立，创立，确立，结构，构造，精心组织，周密安排，形成体系，系统安排，父亲角色，掌控，决断，规则，坚持，领导力</p>
-        <p>正位的皇帝要求你拿回主导权，用清楚的规则和长期规划处理问题。他代表权力，象征稳定，显示出坚定的决心与强烈的领导力，也代表着父权。此刻指示你需要坚守规则、展现结构与秩序，让做法落到实际与现实之上，并以有目标的行动稳步推进。当主观的意志被组织进可执行的骨架，热情才不至于白白蒸发，理想也才有落地的可能。</p>
+        <div class="keyword-strip" aria-label="皇帝正位关键词">
+          <span>权威</span><span>领导</span><span>秩序</span><span>父性</span><span>责任</span><span>边界</span><span>规划</span><span>稳定</span><span>结构</span><span>掌控</span><span>决断</span><span>领导力</span>
+        </div>
+        <div class="reading-intro">
+          <p>正位的皇帝要求你拿回主导权，用清楚的规则和长期规划处理问题。他代表权力，象征稳定，显示出坚定的决心与强烈的领导力，也代表着父权。此刻指示你需要坚守规则、展现结构与秩序，让做法落到实际与现实之上，并以有目标的行动稳步推进。当主观的意志被组织进可执行的骨架，热情才不至于白白蒸发，理想也才有落地的可能。</p>
         </div>
         <div class="pos-summary">
-          <div class="kw"><span class="lab">核心关键词</span><p>权威，领导，秩序，父性，责任，边界，规划，稳定，魄力十足，万众瞩目，男性化，基本功扎实，富有责任感，充满阳刚之气，出众的领导才能，权力，威权，地位，职权，批准，授权，机构，大型组织，企业，旅馆，当权派，权势集团，权威人士，建立，创立，确立，结构，构造，精心组织，周密安排，形成体系，系统安排，父亲角色，掌控，决断，规则，坚持，领导力</p></div>
-          <div class="kw"><span class="lab">能量基调</span><p>火 元素 · 开启、滋养与自我调和</p></div>
+          <div class="kw"><span class="lab">核心关键词</span><p>权威，领导，秩序，父性，责任，边界，规划，稳定，魄力十足，万众瞩目，男性化，基本功扎实，富有责任感，充满阳刚之气，出众的领导才能，权力，威权，地位，职权，批准，授权，机构，大型组织，企业，当权派，权势集团，权威人士，建立，创立，确立，结构，构造，精心组织，周密安排，形成体系，系统安排，父亲角色，掌控，决断，规则，坚持，领导力</p></div>
+          <div class="kw"><span class="lab">能量基调</span><p>火 元素 · 主动执行、坚定控制与结构建立</p></div>
         </div>
         <div class="dim-grid">
           <div class="dim">
             <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
+            <p class="kw-line">承诺稳定 · 理性信任 · 保护欲 · 成熟可靠 · 主导关系</p>
             <ul>
               <li><b>现况</b>感情中存在着控制与被控制的关系，整体算是稳定发展，只是当中好像缺乏了热情与浪漫的感觉。</li>
-            <li><b>桃花</b>眼下出现的感情并不浪漫，而是基于双方理性判断决定在一起；若能用心经营，也会是非常稳定的恋情。</li>
-            <li><b>看法</b>这段感情可以帮助双方实现各自的理想，虽不是热恋的那种感觉，但双方都能从中感到安全与稳定。</li>
-            <li><b>复合</b>这段感情里情感成分本就稀薄，复合的可能性不大；即便复合，也仍会落入互相控制的状况，失去了恋爱的意义。</li>
+              <li><b>桃花</b>眼下出现的感情并不浪漫，而是基于双方理性判断决定在一起；若能用心经营，也会是非常稳定的恋情。</li>
+              <li><b>看法</b>这段感情可以帮助双方实现各自的理想，虽不是热恋的那种感觉，但双方都能从中感到安全与稳定。</li>
+              <li><b>复合</b>这段感情里情感成分本就稀薄，复合的可能性不大；即便复合，也仍会落入互相控制的状况，失去了恋爱的意义。</li>
             </ul>
           </div>
           <div class="dim">
             <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
+            <p class="kw-line">管理领导 · 制度建设 · 考试规划 · 权责明确 · 长期执行</p>
             <ul>
               <li><b>现况</b>工作中有许多困难，但也藏着许多晋升的机会；虽受到不少规则限制，仍然可以完成自己设定的目标。</li>
-            <li><b>建议</b>此时领导的态度最为关键，若能得到高层充分授权，就应放手贯彻执行，但要小心不要出现越权的情况。</li>
-            <li><b>关系</b>这份工作只看成绩的特性，使得竞争十分激烈；即便私下有些交情，遇到工作上的事也只能公事公办。</li>
-            <li><b>发展</b>工作性质虽然困难，未来仍有不错的发展空间，可以把某位上司当作榜样，努力朝这个目标迈进。</li>
+              <li><b>建议</b>此时领导的态度最为关键，若能得到高层充分授权，就应放手贯彻执行，但要小心不要出现越权的情况。</li>
+              <li><b>关系</b>这份工作只看成绩的特性，使得竞争十分激烈；即便私下有些交情，遇到工作上的事也只能公事公办。</li>
+              <li><b>发展</b>工作性质虽然困难，未来仍有不错的发展空间，可以把某位上司当作榜样，努力朝这个目标迈进。</li>
             </ul>
           </div>
           <div class="dim">
             <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
+            <p class="kw-line">权威合作 · 清晰边界 · 稳健规划 · 长期投资 · 资产管理</p>
             <ul>
               <li><b>现况</b>由于你待人过于严肃，又太过重视利害关系，因此很难交到知心朋友，建议放松心情去与人交往。</li>
-            <li><b>建议</b>你与朋友的关系其实还算稳固，只要主动开口说明、给对方一个合理的说法，要化解问题并不困难。</li>
-            <li><b>财运</b>以现实角度衡量，你的财务状况还不算坏，未来仍有很大成长空间，应在自己的事业上更加努力。现在可以开始保守的投资，虽不会立刻带来实质好处，但就长期投资而言，目前是个好时机。</li>
+              <li><b>建议</b>你与朋友的关系其实还算稳固，只要主动开口说明、给对方一个合理的说法，要化解问题并不困难。</li>
+              <li><b>财运</b>以现实角度衡量，你的财务状况还不算坏，未来仍有很大成长空间，应在自己的事业上更加努力。现在可以开始保守的投资，虽不会立刻带来实质好处，但就长期投资而言，目前是个好时机。</li>
             </ul>
           </div>
           <div class="dim">
             <div class="dim-head"><span class="ic">✚</span><h4>健康 / 生活</h4><span class="en">Health</span></div>
+            <p class="kw-line">规律作息 · 固定运动 · 纪律养生 · 注意压力 · 头部血压</p>
             <p>健康上适合建立规律：固定运动、作息、饮食和检查。皇帝也提醒你注意压力、头部、血压、肌肉紧绷，以及因过度控制造成的身体僵硬。把纪律用在照顾自己身上，让身体在稳定的节律里获得持久的力量，而不是被高压逼到紧绷。</p>
           </div>
         </div>
@@ -630,50 +745,56 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
 
       <!-- 逆位 -->
       <div class="pos-panel" id="panel-rev">
-        <figure class="pos-figure" style="margin-bottom:40px;max-width:480px">
+        <figure class="pos-figure" style="margin:0 auto 46px;max-width:min(860px,100%)">
           <div class="plate">
             <img src="../../assets/images/major/04-the-emperor/the-emperor-reversed.png" alt="皇帝逆位意象"
                  onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VI — 逆位意象图待上传&lt;br&gt;assets/images/major/04-the-emperor/the-emperor-reversed.png&lt;/div&gt;'">
           </div>
-          <figcaption class="plate-cap">PLATE VI · 逆位意象 · 失衡与能量阻塞</figcaption>
+          <figcaption class="plate-cap">PLATE VI · 逆位意象 · 权力失衡、僵化与失序</figcaption>
         </figure>
-        <div class="prose" style="max-width:62ch;margin-bottom:40px">
-          <p>**关键词**：专制，僵化，控制欲，失序，逃避责任，权威冲突，幼稚，寡欲，不负责任，率性妄为，蛮横霸道，缺乏治理能力，统治，支配，主宰，占有欲强，没有训练，无纪律，风纪差，无自制力，不遵守纪律，不接受惩罚，自我控制能力差，没有严格要求自己，僵硬，缺乏灵活性，呆滞，较真，暴力，顽固，独裁，失去控制，欺诈</p>
-        <p>逆位的皇帝表示权力失衡：可能是过度控制、刚愎自用，也可能是缺少承担责任的人。它代表决断力的缺失，象征稳定性的丧失，显示出领导力的不足，常表现为过于强硬顽固、缺乏规划与结构。此时可能暗示权力被滥用，或一个人过分自信、自大，却同时在逃避现实、回避责任——这往往预示着失败的风险。皇帝逆位提醒你，僵硬地紧握权柄并不等于真正的掌控，懂得松手与变通，才不至于把局面带向失序。</p>
+        <div class="keyword-strip" aria-label="皇帝逆位关键词">
+          <span>专制</span><span>僵化</span><span>控制欲</span><span>失序</span><span>逃避责任</span><span>权威冲突</span><span>独裁</span><span>顽固</span><span>失去控制</span><span>无纪律</span><span>不负责任</span><span>欺诈</span>
+        </div>
+        <div class="reading-intro">
+          <p>逆位的皇帝表示权力失衡：可能是过度控制、刚愎自用，也可能是缺少承担责任的人。它代表决断力的缺失，象征稳定性的丧失，显示出领导力的不足。皇帝逆位提醒你，僵硬地紧握权柄并不等于真正的掌控，懂得松手与变通，才不至于把局面带向失序。</p>
         </div>
         <div class="pos-summary">
-          <div class="kw"><span class="lab">核心关键词</span><p>专制，僵化，控制欲，失序，逃避责任，权威冲突，幼稚，寡欲，不负责任，率性妄为，蛮横霸道，缺乏治理能力，统治，支配，主宰，占有欲强，没有训练，无纪律，风纪差，无自制力，不遵守纪律，不接受惩罚，自我控制能力差，没有严格要求自己，僵硬，缺乏灵活性，呆滞，较真，暴力，顽固，独裁，失去控制，欺诈</p></div>
-          <div class="kw"><span class="lab">能量基调</span><p>火 元素 · 延迟、失控与过度自我沉溺</p></div>
+          <div class="kw"><span class="lab">核心关键词</span><p>专制，僵化，控制欲，失序，逃避责任，权威冲突，幼稚，寡欲，不负责任，率性妄为，蛮横霸道，缺乏治理能力，统治，支配，主宰，占有欲强，无纪律，无自制力，僵硬，缺乏灵活性，暴力，顽固，独裁，失去控制，欺诈</p></div>
+          <div class="kw"><span class="lab">能量基调</span><p>火 元素 · 失控、僵化与权力的滥用或缺失</p></div>
         </div>
         <div class="dim-grid">
           <div class="dim reversed">
             <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
+            <p class="kw-line">控制欲 · 父权压迫 · 冷漠 · 不平等 · 缺乏承诺</p>
             <ul>
               <li><b>现况</b>这是一段感觉被对方控制的关系，虽然对方也给了许多照顾，却总让你觉得缺乏自由与平等。</li>
-            <li><b>桃花</b>出现新恋情的可能并不高，更重要的是你自己还没准备好接受一段新感情，应先想清楚自己在感情中真正需要什么。</li>
-            <li><b>看法</b>感情中充满障碍与冲突，并非一种和谐稳定的关系，还有很多事情悬而未决，所以也没有明确的目标和方向。</li>
-            <li><b>复合</b>这段感情复合的可能性很低，主要是因为两个人心中已经没有情分了。</li>
+              <li><b>桃花</b>出现新恋情的可能并不高，更重要的是你自己还没准备好接受一段新感情，应先想清楚自己在感情中真正需要什么。</li>
+              <li><b>看法</b>感情中充满障碍与冲突，并非一种和谐稳定的关系，还有很多事情悬而未决，所以也没有明确的目标和方向。</li>
+              <li><b>复合</b>这段感情复合的可能性很低，主要是因为两个人心中已经没有情分了。</li>
             </ul>
           </div>
           <div class="dim reversed">
             <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
+            <p class="kw-line">强势上级 · 僵化制度 · 计划混乱 · 执行力不足 · 领导无能</p>
             <ul>
               <li><b>现况</b>工作上遇到不好相处的领导，不但帮不上你，反而常害你累个半死；事情往往超出预料，还得努力收尾。</li>
-            <li><b>建议</b>此时应设法自己解决问题，好好计划、做好准备；若不在此全力一拼，接下来的状况只会更加无法收拾。</li>
-            <li><b>关系</b>这份工作里人际似乎不是重点，太好的人际关系反而对你有害，此刻还是独善其身比较安全。</li>
-            <li><b>发展</b>工作未来的发展还不明朗，可以确定的是仍会很辛苦；如果不喜欢挑战，不妨找机会换个位置。</li>
+              <li><b>建议</b>此时应设法自己解决问题，好好计划、做好准备；若不在此全力一拼，接下来的状况只会更加无法收拾。</li>
+              <li><b>关系</b>这份工作里人际似乎不是重点，太好的人际关系反而对你有害，此刻还是独善其身比较安全。</li>
+              <li><b>发展</b>工作未来的发展还不明朗，可以确定的是仍会很辛苦；如果不喜欢挑战，不妨找机会换个位置。</li>
             </ul>
           </div>
           <div class="dim reversed">
             <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
+            <p class="kw-line">权威压迫 · 固执己见 · 独断投资 · 经济薄弱 · 配置失衡</p>
             <ul>
               <li><b>现况</b>你对人际关系的想法太过单纯，往往落入别人的陷阱而不自知，应当小心防范身边的小人，不要再被骗了。</li>
-            <li><b>建议</b>你应该给自己和对方更大的空间，不要被一大堆原则和固执的个性绑住，弹性地处理事情才能化解你的问题。</li>
-            <li><b>财运</b>现在你的财务状态并不太好，资产配置也有很大问题，若还有债务则雪上加霜，重要的是如何保住老本。眼下并不适合任何投资，把现金留在手上才是最好的策略；如果现有投资已经赔了不少，就先放着不要去理它。</li>
+              <li><b>建议</b>你应该给自己和对方更大的空间，不要被一大堆原则和固执的个性绑住，弹性地处理事情才能化解你的问题。</li>
+              <li><b>财运</b>现在你的财务状态并不太好，资产配置也有很大问题，若还有债务则雪上加霜，重要的是如何保住老本。眼下并不适合任何投资，把现金留在手上才是最好的策略；如果现有投资已经赔了不少，就先放着不要去理它。</li>
             </ul>
           </div>
           <div class="dim reversed">
             <div class="dim-head"><span class="ic">✚</span><h4>健康 / 生活</h4><span class="en">Health</span></div>
+            <p class="kw-line">压力过劳 · 身体僵硬 · 紧绷压抑 · 自我苛责 · 缺乏弹性</p>
             <p>健康上可能与压力、僵硬、紧绷、过劳和长期压抑有关。逆位皇帝提醒你：真正的纪律会形成可持续的秩序，而非把自己逼到崩溃。当控制变成自我苛责，身体往往最先发出抗议——适度松开紧握的拳头，给身心留出弹性与喘息，才是长久之道。</p>
           </div>
         </div>
@@ -693,19 +814,19 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
       <div class="idx">— 陆 · THE SPREAD</div>
       <h2>三牌阵示意<span class="en">Past · Present · Future</span></h2>
     </div>
-    <figure class="spread-figure" style="margin-bottom:40px;max-width:680px">
+    <figure class="spread-figure" style="margin:0 auto 46px;max-width:min(960px,100%)">
       <div class="plate">
         <img src="../../assets/images/major/04-the-emperor/the-emperor-spread.png" alt="三牌阵示意图"
              onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VII — 三牌阵示意图待上传&lt;br&gt;assets/images/major/04-the-emperor/the-emperor-spread.png&lt;/div&gt;'">
       </div>
-      <figcaption class="plate-cap">PLATE VII · 三牌阵 · 过去 · 现在 · 未来（向内觉察的能量）</figcaption>
+      <figcaption class="plate-cap">PLATE VII · 三牌阵 · 过去 · 现在 · 未来（秩序在时间中的展开）</figcaption>
     </figure>
-    <div class="prose" style="max-width:60ch;margin-bottom:38px">
-      <p>当皇帝出现在三牌阵中，它象征的是能量在时间维度上的显现。点击下方卡牌揭示隐秘启示。</p>
+    <div class="prose" style="max-width:60ch;margin:0 auto 38px;text-align:center">
+      <p>当皇帝出现在三牌阵中，它象征秩序、权威与结构在时间维度上的展开。点击下方卡牌揭示隐秘启示。</p>
     </div>
     <div class="spread">
       <!-- 过去 -->
-      <div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')">
+      <div class="spread-card-wrapper" role="button" tabindex="0" aria-label="翻开过去牌" onclick="this.classList.toggle('flipped')">
         <div class="spread-card-back">
           <div class="back-pattern">
             <span>I</span>
@@ -722,7 +843,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
       </div>
 
       <!-- 现在 -->
-      <div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')">
+      <div class="spread-card-wrapper" role="button" tabindex="0" aria-label="翻开现在牌" onclick="this.classList.toggle('flipped')">
         <div class="spread-card-back">
           <div class="back-pattern">
             <span>II</span>
@@ -739,7 +860,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
       </div>
 
       <!-- 未来 -->
-      <div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')">
+      <div class="spread-card-wrapper" role="button" tabindex="0" aria-label="翻开未来牌" onclick="this.classList.toggle('flipped')">
         <div class="spread-card-back">
           <div class="back-pattern">
             <span>III</span>
@@ -815,13 +936,23 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
     });
   });
 
-  // 象征要素图谱点击高亮
+  // 象征要素图谱 — 设置交错动画索引 & 点击高亮
   var symbolItems = document.querySelectorAll('.symbol-item');
-  symbolItems.forEach(function(item) {
+  symbolItems.forEach(function(item, i) {
+    item.style.setProperty('--i', i);
     item.addEventListener('click', function() {
       symbolItems.forEach(function(x) { x.classList.remove('highlight'); });
       item.classList.add('highlight');
-      console.log("Focused symbol: ", item.dataset.id);
+    });
+  });
+
+  // 牌阵翻牌 — 支持键盘触发
+  document.querySelectorAll('.spread-card-wrapper').forEach(function(card) {
+    card.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        card.classList.toggle('flipped');
+      }
     });
   });
 
