@@ -172,7 +172,8 @@ body{
 }
 .hero-keywords div+div::before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:1px;background:var(--border)}
 .hero-keywords span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--gold-deep);margin-top:6px}
-.hero-lede{margin-top:30px;font-size:18px;line-height:1.85;color:var(--muted);max-width:46ch}
+.hero-lede{margin-top:30px;font-size:18px;line-height:1.85;color:var(--muted);max-width:48ch}
+.hero-lede p+p{margin-top:18px}
 
 .back-btn{
   display:inline-flex;align-items:center;gap:8px;
@@ -212,6 +213,11 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
 .facts dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:14px}
 .facts dd{font-family:var(--serif);font-size:30px;line-height:1.1;color:var(--fg)}
 .facts dd small{display:block;font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:10px;line-height:1.6;letter-spacing:0}
+.fact-notes{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border);border-top:0;background:var(--surface)}
+.fact-notes div{padding:22px 26px;border-right:1px solid var(--border)}
+.fact-notes div:last-child{border-right:0}
+.fact-notes span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--gold-deep);text-transform:uppercase;margin-bottom:8px}
+.fact-notes p{font-family:var(--song);font-size:16px;line-height:1.65;color:var(--fg)}
 @media(max-width:860px){.facts{grid-template-columns:repeat(2,1fr)}.facts dl:nth-child(2){border-right:0}.facts dl:nth-child(-n+2){border-bottom:1px solid var(--border)}}
 
 /* ============ 象征要素图谱 ============ */
@@ -239,6 +245,9 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
 .numero-keys{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}
 .numero-keys span{font-family:var(--sans);font-size:13.5px;padding:6px 14px;border:1px solid var(--border);border-radius:999px;color:var(--muted);background:var(--paper)}
 .numero p{margin-bottom:18px;font-size:17.5px;line-height:1.85;color:var(--fg)}
+.numero-notes{display:grid;gap:10px;margin:20px 0}
+.numero-notes p{margin:0;padding-bottom:10px;border-bottom:1px solid var(--border);font-size:15.5px;color:var(--muted)}
+.numero-notes b{color:var(--fg);font-family:var(--song)}
 .numero .lesson{margin-top:22px;padding:22px 26px;background:var(--paper);border-left:3px solid var(--gold);box-shadow:0 4px 12px oklch(24% 0.03 55 / .02)}
 .numero .lesson b{color:var(--wine);font-family:var(--song)}
 
@@ -267,6 +276,25 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
   opacity:1;visibility:visible;
   transform:translateY(0);
 }
+.keyword-strip{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 32px}
+.keyword-strip span{
+  font-family:var(--sans);font-size:13.5px;line-height:1.4;padding:7px 14px;
+  border:1px solid var(--border);border-radius:999px;color:var(--muted);background:var(--paper);
+  transition:border-color .25s ease,color .25s ease,background-color .25s ease;
+}
+.keyword-strip span:hover{border-color:var(--gold);color:var(--wine);background:oklch(58% .12 70 / .06)}
+.reading-intro{
+  --note-accent:var(--gold-deep);
+  position:relative;width:100%;margin:0 0 40px;padding:34px clamp(24px,4vw,48px) 28px;
+  border:1px solid var(--rule);background:var(--paper);box-shadow:inset 0 0 0 5px var(--bg);
+}
+#panel-rev .reading-intro{--note-accent:var(--wine)}
+.reading-intro::before{
+  content:"牌意提要 · INTERPRETIVE NOTE";position:absolute;top:0;left:50%;transform:translate(-50%,-50%);
+  padding:0 14px;background:var(--bg);font-family:var(--mono);font-size:10px;line-height:1.6;
+  letter-spacing:.2em;white-space:nowrap;color:var(--note-accent);
+}
+.reading-intro p{margin:0;font-size:17px;line-height:1.95;color:var(--fg);text-align:justify;text-wrap:pretty}
 .pos-summary{display:grid;grid-template-columns:1fr 1fr;gap:0 56px;margin-bottom:48px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
 .pos-summary .kw{padding:26px 0;border-bottom:1px solid var(--border)}
 .pos-summary .kw:nth-last-child(-n+2){border-bottom:0}
@@ -289,6 +317,14 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
 .dim-extra{margin-top:30px;padding:26px 30px;background:var(--paper);border:1px solid var(--border)}
 .dim-extra .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;color:var(--gold-deep);text-transform:uppercase;display:block;margin-bottom:12px}
 .dim-extra p{font-size:15.5px;line-height:1.8;color:var(--muted)}
+.guidance{margin-top:22px;border:1px solid var(--border);background:var(--paper)}
+.guidance summary{cursor:pointer;padding:18px 24px;font-family:var(--song);font-size:18px;color:var(--fg);list-style:none;display:flex;justify-content:space-between;align-items:center}
+.guidance summary::after{content:"＋";font-family:var(--mono);color:var(--gold-deep)}
+.guidance[open] summary::after{content:"－"}
+.guidance-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border-top:1px solid var(--border)}
+.guidance-grid div{padding:16px 20px;background:var(--bg)}
+.guidance-grid dt{font-family:var(--song);font-weight:600;font-size:14px;color:var(--wine);margin-bottom:5px}
+.guidance-grid dd{font-family:var(--sans);font-size:13.5px;line-height:1.7;color:var(--muted)}
 
 /* ============ 新增图版通用 ============ */
 .element-figure, .pos-figure, .spread-figure{margin:40px 0}
@@ -409,6 +445,9 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
   .symbol-figure{position:static}
   .numero{grid-template-columns:1fr;gap:30px}
   .dim-grid{grid-template-columns:1fr}
+  .fact-notes,.guidance-grid{grid-template-columns:1fr}
+  .fact-notes div{border-right:0;border-bottom:1px solid var(--border)}
+  .fact-notes div:last-child{border-bottom:0}
   .spread{grid-template-columns:1fr;gap:24px}
   .spread-card-wrapper{height:300px}
 }
@@ -460,7 +499,11 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
         <div>开示<span>INITIATION</span></div>
         <div>契约<span>CONFORMITY</span></div>
       </div>
-      <p class="hero-lede">教皇，也被称为教宗，是塔罗牌中代表宗教与精神层面的一张牌。他承载着被社会认可的知识、仪式与价值系统，把经过漫长时间保存下来的经验与秩序传递下去，使每一个个人经验都能够接入更大的传统。皇帝负责提供物质条件，而教皇的责任是提供心灵上的指引与引导——在有组织的宗教或教堂之中，他向普通人展示了满足心灵需求的方法，让那些尚未生出探索灵性之心的人，也不至于在世间迷失方向。 教皇和女祭司同样关乎宗教精神与内心世界，但两者的姿态截然不同。女祭司坚守传统的法则与隐秘的知识，将宗教智慧默默融入自身修行，注重个人的内在体悟而不张扬；教皇则代表着耶稣传道般的精神，把智慧视为真理并广泛传播，关心世间一切痛苦，以身作则，用智慧去引导无知的众人。这张牌出现时，常常指向学习、认证、师承、组织规则，或一段关系中共同价值观的分量。 然而教皇（第五张牌）也悄悄提醒：当你把心灵成长的责任完全交给他人，你的心胸反而可能变得狭窄。因为只有通过直接的体验，你才能亲身感受到神，确定何者为真。若我告诉你我所体验到的神，你需要的只是信仰；可一旦你亲自去触碰，你便获得了一段足以带来理解的经验。相信未知是冒险的，而亲身经历能够提供证据，消除对盲信的依赖。教皇的最高境界，正在于"润物细无声"。</p>
+      <div class="hero-lede">
+        <p>教皇，也被称为教宗，是塔罗牌中代表宗教与精神层面的一张牌。牌中钥匙象征智慧开启，三头守护犬与公牛图像源于古埃及塞拉皮斯崇拜；其神话原型可追溯至希腊人马喀戎的自我牺牲形象，亦呼应孟菲斯圣牛阿皮斯（Apis）的繁衍象征。他承载被社会认可的知识、仪式与价值系统，把个人经验接入更大的传统。</p>
+        <p>教皇和女祭司同样关乎宗教精神与内心世界：女祭司重视内在体悟，教皇则将智慧视为真理并广泛传播。这张牌常指向学习、认证、师承、组织规则，或关系中共同价值观的分量。</p>
+        <p>“Pope”原意为“父亲”。教皇与皇帝共同分担对世人的责任：一个提供物质需求，一个导引心灵成长。但当你把成长责任完全交给他人，心胸反而可能变得狭窄；亲身体验，才是从盲信走向理解的证据。</p>
+      </div>
       <a href="../../index.html" class="back-btn">← 返回大厅 / 选择其它卡牌</a>
     </div>
   </div>
@@ -495,12 +538,17 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
       <dl><dt>生命之树 Tree of Life</dt><dd>Vav<small>第16条路径 · 联结智慧 (Chokmah) 与仁慈 (Chesed)</small></dd></dl>
       <dl><dt>希伯来字母</dt><dd>Vav<small>第六个字母 ו · "钉子"，联结世俗与神圣契约 the 纽带</small></dd></dl>
     </div>
+    <div class="fact-notes">
+      <div><span>象征符号 · Symbol</span><p>钉子或连接器——将知识、群体与传统联结起来。</p></div>
+      <div><span>脉轮 · Chakra</span><p>Yeli 轮（Causal）· 第四眼脉轮，代表灵性连结。</p></div>
+      <div><span>方向 · Direction</span><p>东南方 · 在稳定秩序中寻找新的精神入口。</p></div>
+    </div>
         <figure class="element-figure" style="margin-top:48px">
       <div class="plate">
-        <img src="../../assets/images/major/05-the-hierophant/the-hierophant-elements.png" alt="塔罗牌教皇对应要素"
+        <img src="../../assets/images/major/05-the-hierophant/the-hierophant-elements.png" alt="教皇对应要素——金银钥匙、圣牛、书卷、钉子与东南罗盘的莫奈风配图"
              onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE III — 要素图待上传&lt;br&gt;assets/images/major/05-the-hierophant/the-hierophant-elements.png&lt;/div&gt;'">
       </div>
-      <figcaption class="plate-cap">PLATE IV · 生命之树 · Vav 路径，第16条路径 · 联结智慧 (Chokmah) 与仁慈 (Chesed)</figcaption>
+      <figcaption class="plate-cap">PLATE III · 土 · 金牛座 · Vav · Causal Chakra · 东南方</figcaption>
     </figure>
   </div>
 </section>
@@ -515,7 +563,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
     <div class="symbol-layout">
       <figure class="symbol-figure">
         <div class="plate">
-          <img src="../../assets/images/major/05-the-hierophant/the-hierophant-symbols.png" alt="教皇象征要素标注图"
+          <img src="../../assets/images/major/05-the-hierophant/the-hierophant-symbols.png" alt="教皇象征图谱——双柱、三重冠、祝福手势、信徒与交叉钥匙的莫奈风配图"
                onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE II — 象征标注图待上传&lt;br&gt;assets/images/major/05-the-hierophant/the-hierophant-symbols.png&lt;/div&gt;'">
         </div>
         <figcaption class="plate-cap">PLATE II · 象征细节的位置标注与神秘学破译</figcaption>
@@ -553,7 +601,17 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
       <div class="bignum">V<small>The Hierophant</small></div>
       <div class="numero-text">
         <p>数字 5 是稳定结构中的挑战，也是人进入社会规则后的学习。它既带来冲突，也带来通过规范成长的机会。</p>
+        <div class="numero-keys">
+          <span>好奇</span><span>博学</span><span>自由</span><span>投资冒险</span><span>不喜束缚</span><span>喜欢挑战</span>
+        </div>
+        <div class="numero-notes">
+          <p><b>金钱：</b>博学不精，投资倾向冒险；应先稳固事业，再追求更高层次的自由。</p>
+          <p><b>感情：</b>重视自由、不喜束缚、喜欢挑战；若婚姻不幸福，可能为维持家庭而隐瞒真实问题。</p>
+          <p><b>人物：</b>见多识广、好学、能言善道、长袖善舞，适合贸易、自由职业与涉外工作，也喜欢旅行、美食与感官经验。</p>
+          <p><b>能量倾向：</b>在制度之上追求自由，容易打破数字 4 建立的结构，让能量自由流动。</p>
+        </div>
         <p>教皇的 5 号能量说明：个人终会走入更大的知识系统，学习群体如何保存经验、传递信念，并在规范之中获得成长。</p>
+        <p class="lesson"><b>数字 5 的课题：</b>如何集中能量，将好奇、博学与自由真正用在一个地方。</p>
       </div>
     </div>
   </div>
@@ -576,24 +634,27 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
     <div class="pos-panel-container">
       <!-- 正位 -->
       <div class="pos-panel show" id="panel-up">
-        <figure class="pos-figure" style="margin-bottom:40px;max-width:480px">
+        <figure class="pos-figure" style="margin:0 auto 46px;max-width:min(860px,100%)">
           <div class="plate">
             <img src="../../assets/images/major/05-the-hierophant/the-hierophant-upright.png" alt="教皇正位意象"
                  onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE V — 正位意象图待上传&lt;br&gt;assets/images/major/05-the-hierophant/the-hierophant-upright.png&lt;/div&gt;'">
           </div>
-          <figcaption class="plate-cap">PLATE V · 正位意象 · 直觉与宇宙能量的显现</figcaption>
+          <figcaption class="plate-cap">PLATE IV · 正位意象 · 传统、师承、承诺与共同价值</figcaption>
         </figure>
-        <div class="prose" style="max-width:62ch;margin-bottom:40px">
-          <p>**关键词**：值得信赖，得到援助，良好的建言者，有贡献，心胸宽广，宗教情绪，精神内在，智慧，才智，精明，明智，知识，学问，修士，修女，出家人，宗教信仰，遵从，遵守，慈善机构，传统，宗教，教育，权威，指引，导师，学习，认证，婚姻，制度，共同价值</p>
-        <p>正位的教皇代表规则与传统，象征精神导师，表示你正接受教育或指导。它暗示着顺从与忠诚，指向道德与伦理层面的抉择，也表达着对真理与智慧的追求。这张牌提醒你保持一致性与纪律，暗示社群或团体的参与，表现出对稳定与秩序的需求，并强调信仰与信任的重要。简而言之，它建议你尊重成熟经验，向可信的老师、制度或传统方法学习。</p>
+        <div class="keyword-strip" aria-label="教皇正位关键词">
+          <span>值得信赖</span><span>得到援助</span><span>良好建言</span><span>心胸宽广</span><span>精神内在</span><span>智慧</span><span>知识</span><span>遵从</span><span>传统</span><span>教育</span><span>指引</span><span>导师</span><span>认证</span><span>婚姻</span><span>共同价值</span>
+        </div>
+        <div class="reading-intro">
+          <p>正位的教皇代表规则与传统，象征精神导师，表示你正接受教育或指导。它暗示着顺从与忠诚，指向道德与伦理层面的抉择，也表达着对真理与智慧的追求。这张牌提醒你保持一致性与纪律，暗示社群或团体的参与，表现出对稳定与秩序的需求，并强调信仰与信任的重要。简而言之，它建议你尊重成熟经验，向可信的老师、制度或传统方法学习。</p>
         </div>
         <div class="pos-summary">
           <div class="kw"><span class="lab">核心关键词</span><p>值得信赖，得到援助，良好的建言者，有贡献，心胸宽广，宗教情绪，精神内在，智慧，才智，精明，明智，知识，学问，修士，修女，出家人，宗教信仰，遵从，遵守，慈善机构，传统，宗教，教育，权威，指引，导师，学习，认证，婚姻，制度，共同价值</p></div>
-          <div class="kw"><span class="lab">能量基调</span><p>土 元素 · 开启、滋养与自我调和</p></div>
+          <div class="kw"><span class="lab">能量基调</span><p>土元素 · 稳定、师承、制度与精神归属</p></div>
         </div>
         <div class="dim-grid">
           <div class="dim">
             <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
+            <p>这段感情值得信赖、稳定而正统，重视忠诚、责任、长辈祝福与社会认可，也可能走向订婚或婚嫁。热烈未必居首，共同信念与长期承诺才是关系的根基。</p>
             <ul>
               <li><b>现况</b>信仰或三观的因素，对这段关系有很大的影响。有时它表示两个人已经结婚，或者这段关系正稳稳朝着婚姻的方向发展。</li>
             <li><b>桃花</b>现在会有新的感情对象出现，最可能是通过相亲或长辈介绍而来。这段时间不妨多参加未婚男女的联谊活动，机缘往往藏在这些正式的场合里。</li>
@@ -603,6 +664,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           </div>
           <div class="dim">
             <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
+            <p>适合考试、培训、考取证照、接受正规教育、拜师或进入机构。先把基础规范学扎实，听取良师与上级建议，能换来稳定的成长与专业认可。</p>
             <ul>
               <li><b>现况</b>工作之中有很多贵人在帮助你，所以即使自己仍有不足之处，也会得到许多支持，正是你可以放手发挥的地方。</li>
             <li><b>建议</b>遇到自己解决不了的问题，应该寻找更高层的人来决定，或是依现有的秩序与规则来处理；这种时候保守一点不会错。</li>
@@ -612,6 +674,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           </div>
           <div class="dim">
             <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
+            <p>适合依靠团体、组织、家族与传统资源。财富宜采用稳健、合规、经过验证的方法，不宜投机或挑战规则底线。</p>
             <ul>
               <li><b>现况</b>现在你的人际关系算是稳定，也许会因为三观或信仰而交到不少知心的好朋友，这份缘分应该要好好把握。</li>
             <li><b>建议</b>你应该对朋友多一些宽容，发自内心地去原谅对方；如果对方不愿原谅你，则可以请一位值得信任的朋友来当和事佬。</li>
@@ -627,28 +690,58 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           <span class="lab">其它牌意 · Other</span>
           <p>观赏一场音乐会或看一部片子，前往寺庙上香许愿，或是去拥抱自然，都与这张牌的气质相合。它也可能代表老师、宗教人士、长辈、制度、学校、公司、婚礼、证书与传统仪式。若问建议，正位通常表示：先理解规则，再决定是否开辟新路。</p>
         </div>
+        <details class="guidance">
+          <summary>情境指引 · Upright Guidance</summary>
+          <dl class="guidance-grid">
+            <div><dt>爱情运势</dt><dd>传统、稳定且基于共享信仰与道德观念，可能指向婚姻或正式承诺。</dd></div>
+            <div><dt>财富运势</dt><dd>传统方法有望成功，宜采用固定工作、规划投资等稳健途径。</dd></div>
+            <div><dt>当前情况</dt><dd>正在遵循既定体系，或处于寻求知识、智慧与精神支持的环境。</dd></div>
+            <div><dt>过去</dt><dd>传统教育、宗教信仰或强烈的道德框架曾深刻支撑你的生活。</dd></div>
+            <div><dt>现在</dt><dd>需要指导与归属感，也可能正考虑加入一个团体。</dd></div>
+            <div><dt>未来</dt><dd>将出现更多遵循传统或深化精神实践的机会。</dd></div>
+            <div><dt>挑战</dt><dd>在尊重传统的同时，发展个人独立性与真实信仰。</dd></div>
+            <div><dt>障碍</dt><dd>对传统的盲从、固执或限制性教条。</dd></div>
+            <div><dt>环境</dt><dd>周围充满规则、传统与期望，要求你顺从权威。</dd></div>
+            <div><dt>支持</dt><dd>来自导师、宗教领袖、学习环境及理解你信仰的人。</dd></div>
+            <div><dt>建议</dt><dd>同时寻求内在智慧与外部指导，只遵循真正有助成长的传统。</dd></div>
+            <div><dt>优势</dt><dd>坚定的价值观，以及在困难时刻寻求智慧指引的能力。</dd></div>
+            <div><dt>弱点</dt><dd>可能过度依赖既定体系，难以接受新思想或面对挑战。</dd></div>
+            <div><dt>正面影响</dt><dd>精神成长、道德支撑、知识追求与对社会秩序的尊重。</dd></div>
+            <div><dt>负面影响</dt><dd>抵抗创新，或因过度依赖传统而限制个人自由。</dd></div>
+            <div><dt>希望发生</dt><dd>获得明确方向，更深入地理解并实践自己的信仰。</dd></div>
+            <div><dt>害怕发生</dt><dd>失去信仰支持，面对道德与精神上的不确定性。</dd></div>
+            <div><dt>你如何看对方</dt><dd>守规矩，行为受到传统或规则约束。</dd></div>
+            <div><dt>对方如何看你</dt><dd>一位好导师，或尊重传统与规则的人。</dd></div>
+            <div><dt>关系当前状态</dt><dd>建立在共享信念与传统价值之上，角色划分明确。</dd></div>
+            <div><dt>关系未来发展</dt><dd>沿传统道路进一步巩固，并加深精神连结。</dd></div>
+            <div><dt>结果</dt><dd>深化对传统的理解，在精神上找到更深意义与目的。</dd></div>
+          </dl>
+        </details>
       </div>
 
       <!-- 逆位 -->
       <div class="pos-panel" id="panel-rev">
-        <figure class="pos-figure" style="margin-bottom:40px;max-width:480px">
+        <figure class="pos-figure" style="margin:0 auto 46px;max-width:min(860px,100%)">
           <div class="plate">
-            <img src="../../assets/images/major/05-the-hierophant/the-hierophant-reversed.png" alt="教皇逆位意象"
+            <img src="../../assets/images/major/05-the-hierophant/the-hierophant-reversed.png" alt="教皇逆位意象——空置权威之座、分离钥匙与岔路的莫奈风配图"
                  onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VI — 逆位意象图待上传&lt;br&gt;assets/images/major/05-the-hierophant/the-hierophant-reversed.png&lt;/div&gt;'">
           </div>
-          <figcaption class="plate-cap">PLATE VI · 逆位意象 · 失衡与能量阻塞</figcaption>
+          <figcaption class="plate-cap">PLATE V · 逆位意象 · 教条、价值冲突与质疑传统</figcaption>
         </figure>
-        <div class="prose" style="max-width:62ch;margin-bottom:40px">
-          <p>**关键词**：失去信赖，多管闲事，过于依靠他人，心胸狭隘，被强迫倾销，孤立无援，个人信仰，看法，想法，自由，质疑权威，挑战现况，改变现在，打破传统，不遵守规则，追求自由，反传统，教条，束缚，盲从，价值冲突，权威失当</p>
-        <p>逆位的教皇意味着反抗传统与规则，忽视或拒绝接受指导。它可能表示道德或伦理上的困境，表达对自由的需求与对现状的不满，也可能呈现出对权威的挑战、独立思考的觉醒，或个人信仰正在发生变化。有时它暗示一个人不适应社群或团体，有时又透露出过于固执、顽固的另一面。它提醒你保留判断力：合群若吞没了真实，反叛若变成了新的固执，都会让人远离真正的信念。</p>
+        <div class="keyword-strip" aria-label="教皇逆位关键词">
+          <span>失去信赖</span><span>多管闲事</span><span>依赖他人</span><span>心胸狭隘</span><span>孤立无援</span><span>个人信仰</span><span>质疑权威</span><span>挑战现况</span><span>打破传统</span><span>追求自由</span><span>教条束缚</span><span>盲从</span><span>价值冲突</span><span>权威失当</span>
+        </div>
+        <div class="reading-intro">
+          <p>逆位的教皇意味着反抗传统与规则，忽视或拒绝接受指导。它可能表示道德或伦理上的困境，表达对自由的需求与对现状的不满，也可能呈现出对权威的挑战、独立思考的觉醒，或个人信仰正在发生变化。有时它暗示一个人不适应社群或团体，有时又透露出过于固执、顽固的另一面。它提醒你保留判断力：合群若吞没了真实，反叛若变成了新的固执，都会让人远离真正的信念。</p>
         </div>
         <div class="pos-summary">
           <div class="kw"><span class="lab">核心关键词</span><p>失去信赖，多管闲事，过于依靠他人，心胸狭隘，被强迫倾销，孤立无援，个人信仰，看法，想法，自由，质疑权威，挑战现况，改变现在，打破传统，不遵守规则，追求自由，反传统，教条，束缚，盲从，价值冲突，权威失当</p></div>
-          <div class="kw"><span class="lab">能量基调</span><p>土 元素 · 延迟、失控与过度自我沉溺</p></div>
+          <div class="kw"><span class="lab">能量基调</span><p>土元素 · 教条、失信、价值冲突与独立判断</p></div>
         </div>
         <div class="dim-grid">
           <div class="dim reversed">
             <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
+            <p>关系可能反抗传统婚姻，也可能受到父母反对、价值冲突或不平等付出的影响。需要重新定义承诺，警惕用道德与传统压迫彼此。</p>
             <ul>
               <li><b>现况</b>其中一方付出比较多，两个人的关系并不平等。如果能够心甘情愿地付出，倒也算是一段在稳定中发展的关系。</li>
             <li><b>桃花</b>现在会有一些新恋情发生，但多半是同侪之间介绍而认识的，所以应该多参加朋友的社交活动，机会就在其中。</li>
@@ -658,6 +751,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           </div>
           <div class="dim reversed">
             <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
+            <p>容易受困于僵化流程、无效课程或权威压制，也可能因排斥老师与制度而错失知识。此时应辨认：需要改善方法，还是当前体系本就不适合你。</p>
             <ul>
               <li><b>现况</b>工作中充满各种繁复的规则，还有一些是没有明文规定的潜规则，一不小心就会触到禁忌，要花很多时间才能真正进入状态。</li>
             <li><b>建议</b>工作里的问题很难单靠自己解决，应该由同事之间共同合作来处理，利用大家不同的经验与能力集思广益。</li>
@@ -667,6 +761,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           </div>
           <div class="dim reversed">
             <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
+            <p>不要盲目听信长辈、专家或团体意见。看清建议背后的利益关系，避免被“大家都如此”推着走，更不宜依靠小道消息投资。</p>
             <ul>
               <li><b>现况</b>你的人缘其实还不错，但太容易受到别人影响，反而失去了自己的主见，有时还会因为要帮助朋友，结果让自己受了伤害。</li>
             <li><b>建议</b>把自己的立场说清楚，不要让朋友觉得无论如何你都该让着他；只要你说得有理，就不必一味退让。</li>
@@ -682,6 +777,33 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           <span class="lab">其它牌意 · Other</span>
           <p>逆位的教皇带有恐高、喜清静、不宜乘坐飞机旅行的意味。事情也可能被规则、证照、审批或价值观卡住。此时要分辨清楚：究竟是规则真的在保护着你，还是它早已变成限制成长的外壳。</p>
         </div>
+        <details class="guidance">
+          <summary>情境指引 · Reversed Guidance</summary>
+          <dl class="guidance-grid">
+            <div><dt>爱情运势</dt><dd>挑战传统观念，寻找更自由的爱情表达与承诺方式。</dd></div>
+            <div><dt>财富运势</dt><dd>传统策略可能失效，需要重新评估规划，但不可把非传统等同于冒险。</dd></div>
+            <div><dt>当前情况</dt><dd>感到受限于传统桎梏，正在寻求个人成长与新方向。</dd></div>
+            <div><dt>过去</dt><dd>曾被严格规则束缚，个人表达与成长受到抑制。</dd></div>
+            <div><dt>现在</dt><dd>对某些传统失望，渴望更多自我表达的空间。</dd></div>
+            <div><dt>未来</dt><dd>将迎来打破常规、重新评估价值与信仰的时机。</dd></div>
+            <div><dt>挑战</dt><dd>在尊重传统的同时保持独立，并处理不符合传统的观念。</dd></div>
+            <div><dt>障碍</dt><dd>社会压力、他人期望与难以摆脱的旧观念。</dd></div>
+            <div><dt>环境</dt><dd>外界要求遵守既定规则，内心却感到不满或压抑。</dd></div>
+            <div><dt>支持</dt><dd>来自鼓励创新、个人自由与真实表达的人。</dd></div>
+            <div><dt>建议</dt><dd>质疑常规并寻找自己的道路，探索新的可能性。</dd></div>
+            <div><dt>优势</dt><dd>愿意接受新思想，在传统压力下仍能保持独立。</dd></div>
+            <div><dt>弱点</dt><dd>逆流而动带来的不确定、社会排斥与孤立感。</dd></div>
+            <div><dt>正面影响</dt><dd>追求个人自由与创新，借打破束缚实现成长。</dd></div>
+            <div><dt>负面影响</dt><dd>与传统社会冲突，带来更多混乱与不确定性。</dd></div>
+            <div><dt>希望发生</dt><dd>突破现状，找到新的生活方式或信念体系。</dd></div>
+            <div><dt>害怕发生</dt><dd>因抵制传统而被孤立或边缘化。</dd></div>
+            <div><dt>你如何看对方</dt><dd>过于固守传统，不理解你对变革与自由的需求。</dd></div>
+            <div><dt>对方如何看你</dt><dd>不尊重传统，或是挑战现状的叛逆者。</dd></div>
+            <div><dt>关系当前状态</dt><dd>存在传统价值冲突，或一方正在挑战既定关系模式。</dd></div>
+            <div><dt>关系未来发展</dt><dd>经历变革，探索新的互动方式并重新定义角色。</dd></div>
+            <div><dt>结果</dt><dd>打破规范，找到新的信仰路径或生活方式，同时经历一段动荡期。</dd></div>
+          </dl>
+        </details>
       </div>
     </div>
   </div>
@@ -694,12 +816,12 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
       <div class="idx">— 陆 · THE SPREAD</div>
       <h2>三牌阵示意<span class="en">Past · Present · Future</span></h2>
     </div>
-    <figure class="spread-figure" style="margin-bottom:40px;max-width:680px">
+    <figure class="spread-figure" style="margin:0 auto 46px;max-width:min(960px,100%)">
       <div class="plate">
-        <img src="../../assets/images/major/05-the-hierophant/the-hierophant-spread.png" alt="三牌阵示意图"
+        <img src="../../assets/images/major/05-the-hierophant/the-hierophant-spread.png" alt="教皇三牌阵示意——传统、指引与个人信念之路的莫奈风配图"
              onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VII — 三牌阵示意图待上传&lt;br&gt;assets/images/major/05-the-hierophant/the-hierophant-spread.png&lt;/div&gt;'">
       </div>
-      <figcaption class="plate-cap">PLATE VII · 三牌阵 · 过去 · 现在 · 未来（向内觉察的能量）</figcaption>
+      <figcaption class="plate-cap">PLATE VI · 三牌阵 · 承袭传统 · 寻求指引 · 精神开示</figcaption>
     </figure>
     <div class="prose" style="max-width:60ch;margin-bottom:38px">
       <p>当教皇出现在三牌阵中，它象征的是能量在时间维度上的显现。点击下方卡牌揭示隐秘启示。</p>
@@ -755,6 +877,10 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           <p>未来可能会有更多遵循传统或寻求精神成长的机会，你或许会更深入地投入到自己的精神实践或宗教信仰之中。</p>
         </div>
       </div>
+    </div>
+    <div class="dim-extra" style="margin-top:46px">
+      <span class="lab">总结 · Coda</span>
+      <p>塔罗借由个人经验引向此生的救赎，也提醒我们不要把灵性完全交给任何教会或权威。对克劳利而言，教皇所代表的“入门”是一道门径，使个人得以与宇宙合一；入门的形式与教旨会随着世界时代改变，但它最根本的特质——人与宇宙的融合——始终不变。</p>
     </div>
   </div>
 </section>
