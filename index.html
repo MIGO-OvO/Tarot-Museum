@@ -982,7 +982,7 @@ footer .zh{
   ];
 
   const minorNumberNames = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Page", "Knight", "Queen", "King"];
-  const minorNumberZh = ["首牌", "二", "三", "四", "五", "六", "七", "八", "九", "十", "侍从", "骑士", "王后", "国王"];
+  const minorNumberZh = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "侍从", "骑士", "王后", "国王"];
 
   const minorDescs = {
     wands: [
@@ -1072,7 +1072,7 @@ footer .zh{
         desc: minorDescs[suit.key][i],
         tags: [suit.elem, `${suit.zh} ${i + 1}`],
         image: `assets/images/minor/${suit.key}/${assetNum}-${filePrefix}/${filePrefix}.png`,
-        link: "#",
+        link: `cards/minor/${suit.key}/${assetNum}-${filePrefix}.html`,
         fallbackText: `PLATE ${numFormatted} — ${suit.zh}${numberZh}主图待上传`
       });
     }

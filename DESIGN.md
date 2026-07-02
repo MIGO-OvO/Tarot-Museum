@@ -130,6 +130,13 @@ The system is flat-by-default, simulating sheets of paper and parchment laid out
 - **Exhibit Cards:** Padded at `40px` with a subtle inner gold inset border (`1px solid var(--gold)` at `10px` inset, sliding to `6px` on hover).
 - **Frame Border:** Single pixel border (`1px solid var(--border)`), transitioning to (`1px solid var(--gold)`) on card hover.
 
+### Upright / Reversed Reading
+- **Shared source:** `assets/css/card-reading.css`, with legacy markup normalized by `assets/js/card-reading.js`.
+- **Keyword strip:** Use `.keyword-strip` with one `<span>` per keyword. Show up to 15 representative terms; retain the complete list in the “核心关键词” summary below.
+- **Interpretive note:** Use `.reading-intro` immediately after the keyword strip. It spans the full reading content width and uses the centered “牌意提要 · INTERPRETIVE NOTE” manuscript label.
+- **Position accent:** Upright notes use gold; reversed notes use wine. Both retain the same structure and spacing.
+- **Reference implementation:** `cards/major/05-the-hierophant.html`.
+
 ### Navigation / Top bar
 - **Top Bar:** Fixed sticky top bar. height (`64px`), background (`var(--bg)` at `86%` opacity) with backdrop-filter blur (`12px`). Uses wide monospace tags for links.
 
