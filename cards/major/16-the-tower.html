@@ -1,645 +1,334 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>高塔 · THE TOWER — 塔罗牌深度专题</title>
-<style>
-:root{
-  --bg: oklch(95.2% 0.012 85);
-  --paper: oklch(97.5% 0.009 85);
-  --surface: oklch(93.2% 0.015 80);
-  --fg: oklch(23% 0.022 65);
-  --muted: oklch(44% 0.025 65);
-  --faint: oklch(60% 0.02 65);
-  --border: oklch(82% 0.025 75);
-  --rule: oklch(72% 0.04 70);
-  --gold: oklch(58% 0.11 75);
-  --gold-deep: oklch(48% 0.1 70);
-  --wine: oklch(38% 0.1 28);
-  --wine-soft: oklch(50% 0.09 26);
-  --ink-blue: oklch(34% 0.05 240);
-  --serif:'Iowan Old Style','Palatino Linotype',Palatino,'Songti SC','Source Han Serif SC',Georgia,'Times New Roman',serif;
-  --song:'Songti SC','STSong','Source Han Serif SC',serif;
-  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
-  --mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,monospace;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  background:var(--bg);
-  background-image:
-    radial-gradient(oklch(55% .04 70 / .04) 1px,transparent 1px),
-    radial-gradient(oklch(55% .04 70 / .03) 1px,transparent 1px);
-  background-size:34px 34px,34px 34px;
-  background-position:0 0,17px 17px;
-  color:var(--fg);
-  font-family:var(--serif);
-  font-size:18px;
-  line-height:1.78;
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
-}
-::selection{background:oklch(58% .12 70 / .28)}
-
-/* 自定义滚动条 */
-::-webkit-scrollbar{width:8px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
-::-webkit-scrollbar-thumb:hover{background:var(--gold)}
-
-/* ============ 装帧通用 ============ */
-.wrap{max-width:1180px;margin:0 auto;padding:0 48px}
-.eyebrow{
-  font-family:var(--mono);
-  font-size:11.5px;
-  letter-spacing:.42em;
-  text-transform:uppercase;
-  color:var(--gold-deep);
-  font-weight:600;
-}
-.rule-gold{height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);border:0;margin:30px 0}
-.rule-thin{height:1px;background:var(--border);border:0}
-.ornament{
-  text-align:center;color:var(--gold);font-size:22px;letter-spacing:1.4em;
-  margin:20px 0;padding-left:1.4em;user-select:none;
-}
-
-/* ============ 滚动显现动画 ============ */
-.reveal{
-  opacity:0;
-  transform:translateY(30px);
-  transition:opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.reveal.active{
-  opacity:1;
-  transform:translateY(0);
-}
-
-/* ============ 顶栏目录 ============ */
-.topbar{
-  position:sticky;top:0;z-index:50;
-  background:oklch(95% .018 85 / .86);
-  backdrop-filter:blur(12px) saturate(1.2);
-  -webkit-backdrop-filter:blur(12px) saturate(1.2);
-  border-bottom:1px solid var(--border);
-  transition:transform 0.3s;
-}
-.topbar-inner{
-  max-width:1180px;margin:0 auto;padding:0 48px;
-  height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px;
-}
-.topbar .mark{font-family:var(--mono);font-size:12px;letter-spacing:.34em;color:var(--fg);text-transform:uppercase;white-space:nowrap}
-.topbar .mark b{color:var(--wine);font-weight:700}
-.tnav{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
-.tnav a{
-  font-family:var(--sans);font-size:12.5px;letter-spacing:.04em;
-  color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:2px;
-  transition:.25s;white-space:nowrap;
-}
-.tnav a:hover{color:var(--wine);background:oklch(40% .13 25 / .07)}
-.tnav a.active{color:var(--wine);font-weight:600;background:oklch(40% .13 25 / .04)}
-
-/* ============ 卷首 ============ */
-.hero{
-  padding:100px 0 80px;
-  border-bottom:2px solid var(--fg);
-  position:relative;
-  overflow:hidden;
-}
-.hero-grid{
-  display:grid;grid-template-columns:1fr 1.15fr;gap:64px;align-items:center;
-}
-.hero-figure{
-  position:relative;
-  animation: heroImageIn 1.2s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
-}
-@keyframes heroImageIn {
-  0% { opacity:0; transform:scale(0.96) translateY(20px); }
-  100% { opacity:1; transform:scale(1) translateY(0); }
-}
-
-.hero-figure .plate{
-  position:relative;border:1px solid var(--rule);
-  padding:20px;background:var(--paper);
-  box-shadow:0 4px 12px oklch(24% 0.03 55 / .05), 0 24px 68px oklch(24% 0.03 55 / .15);
-  transition:transform 0.4s ease, box-shadow 0.4s ease;
-}
-.hero-figure .plate::before{
-  content:"";position:absolute;inset:8px;border:1px solid var(--gold);opacity:.5;pointer-events:none;
-}
-.hero-figure img{display:block;width:100%;height:auto;filter:saturate(.94) contrast(1.02);transition:filter 0.3s;}
-.hero-figure:hover .plate{
-  transform:translateY(-4px);
-  box-shadow:0 6px 16px oklch(24% 0.03 55 / .08), 0 30px 80px oklch(24% 0.03 55 / .18);
-}
-.hero-figure:hover img{filter:saturate(1) contrast(1.03)}
-
-.hero-figure .imgfallback{
-  aspect-ratio:3/5;display:flex;align-items:center;justify-content:center;
-  background:repeating-linear-gradient(45deg,oklch(90% .02 80),oklch(90% .02 80) 12px,oklch(88% .024 80) 12px,oklch(88% .024 80) 24px);
-  color:var(--faint);font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-align:center;padding:24px;line-height:2;
-}
-.plate-cap{
-  margin-top:16px;font-family:var(--mono);font-size:11.5px;letter-spacing:.22em;
-  color:var(--faint);text-transform:uppercase;text-align:center;
-}
-.hero-text{
-  animation: heroTextIn 1s cubic-bezier(0.215, 0.61, 0.355, 1) 0.2s forwards;
-  opacity:0;
-}
-@keyframes heroTextIn {
-  0% { opacity:0; transform:translateY(15px); }
-  100% { opacity:1; transform:translateY(0); }
-}
-.hero-num{
-  font-family:var(--serif);font-size:clamp(60px,9vw,128px);line-height:.8;
-  color:var(--wine);font-weight:400;letter-spacing:-.02em;
-}
-.hero-num small{display:block;font-family:var(--mono);font-size:13px;letter-spacing:.4em;color:var(--gold-deep);margin-top:18px;text-transform:uppercase}
-.hero h1{
-  font-family:var(--serif);font-weight:400;
-  font-size:clamp(48px,6.4vw,84px);line-height:.98;letter-spacing:-.01em;
-  margin:22px 0 6px;color:var(--fg);
-}
-.hero h1 .en{display:block;font-family:var(--mono);font-size:clamp(13px,1.4vw,17px);letter-spacing:.46em;color:var(--muted);font-weight:500;margin-top:18px;text-transform:uppercase}
-.hero-keywords{
-  display:flex;gap:0;margin-top:34px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-}
-.hero-keywords div{
-  flex:1;padding:18px 8px;text-align:center;font-family:var(--song);
-  font-size:19px;color:var(--fg);position:relative;
-}
-.hero-keywords div+div::before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:1px;background:var(--border)}
-.hero-keywords span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--gold-deep);margin-top:6px}
-.hero-lede{margin-top:30px;font-size:18px;line-height:1.85;color:var(--muted);max-width:46ch}
-
-.back-btn{
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:var(--sans);font-size:13.5px;color:var(--muted);
-  text-decoration:none;transition:.2s;margin-top:28px;
-  border-bottom:1px dashed var(--border);padding-bottom:2px;
-}
-.back-btn:hover{color:var(--wine);border-color:var(--wine)}
-
-/* ============ 章节通用 ============ */
-section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
-.chapter-head{margin-bottom:50px;position:relative}
-.chapter-head .idx{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--gold-deep)}
-.chapter-head h2{
-  font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,46px);
-  line-height:1.08;letter-spacing:-.01em;margin:10px 0 0;color:var(--fg);
-}
-.chapter-head h2 .en{font-family:var(--mono);font-size:13px;letter-spacing:.34em;color:var(--faint);text-transform:uppercase;margin-left:14px;vertical-align:middle}
-
-/* 叙事正文 */
-.prose{max-width:65ch;font-size:19px;line-height:1.95;color:var(--fg)}
-.prose.drop::first-letter{
-  font-family:var(--serif);float:left;font-size:84px;line-height:.72;
-  padding:8px 14px 0 0;color:var(--wine);font-weight:400;
-}
-.prose p{margin-bottom:24px;text-align:justify}
-.prose strong{font-family:var(--song);font-weight:600;color:var(--wine)}
-.pullquote{
-  margin:52px 0;padding:12px 0 12px 34px;border-left:3px solid var(--gold);
-  font-family:var(--song);font-size:25px;line-height:1.6;color:var(--wine);font-style:normal;
-  background:oklch(58% .12 70 / .03);
-}
-.keyword-strip{
-  display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px;
-}
-.keyword-strip span{
-  font-family:var(--sans);font-size:13.5px;line-height:1.4;
-  padding:7px 13px;border:1px solid var(--border);border-radius:999px;
-  color:var(--wine);background:var(--paper);
-}
-.reading-intro{
-  max-width:64ch;margin:0 0 40px;
-  padding:24px 28px;border-left:3px solid var(--gold);
-  background:var(--paper);
-}
-.reading-intro p{
-  font-size:16.5px;line-height:1.9;color:var(--muted);margin:0;
-}
-
-/* ============ 牌面要素 标签 ============ */
-.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--rule);background:var(--paper)}
-.facts dl{padding:30px 26px;border-right:1px solid var(--border);position:relative}
-.facts dl:last-child{border-right:0}
-.facts dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:14px}
-.facts dd{font-family:var(--serif);font-size:30px;line-height:1.1;color:var(--fg)}
-.facts dd small{display:block;font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:10px;line-height:1.6;letter-spacing:0}
-@media(max-width:860px){.facts{grid-template-columns:repeat(2,1fr)}.facts dl:nth-child(2){border-right:0}.facts dl:nth-child(-n+2){border-bottom:1px solid var(--border)}}
-
-/* ============ 象征要素图谱 ============ */
-.symbol-layout{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:start}
-.symbol-figure{position:sticky;top:100px}
-.symbol-figure .plate{position:relative;border:1px solid var(--rule);padding:16px;background:var(--paper);box-shadow:0 18px 44px oklch(24% 0.03 55 / .12)}
-.symbol-figure .plate::before{content:"";position:absolute;inset:8px;border:1px solid var(--gold);opacity:.4;pointer-events:none}
-.symbol-figure img{display:block;width:100%;height:auto}
-.symbol-figure .imgfallback{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,oklch(90% .02 80),oklch(90% .02 80) 12px,oklch(88% .024 80) 12px,oklch(88% .024 80) 24px);color:var(--faint);font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-align:center;padding:20px;line-height:2}
-
-.symbol-list{display:flex;flex-direction:column;gap:2px}
-.symbol-item{display:grid;grid-template-columns:42px 1fr;gap:18px;padding:18px 16px;border-bottom:1px solid var(--border);transition:all .25s ease;align-items:start;cursor:pointer}
-.symbol-item:hover, .symbol-item.highlight{background:var(--paper);transform:translateX(6px);border-bottom-color:var(--gold)}
-.symbol-item:hover .sym-no, .symbol-item.highlight .sym-no{background:var(--wine);color:var(--paper);border-color:var(--wine)}
-.sym-no{width:42px;height:42px;border:1px solid var(--rule);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;color:var(--gold-deep);transition:all .25s ease}
-.sym-body h4{font-family:var(--song);font-size:18.5px;font-weight:600;color:var(--fg);margin-bottom:6px;letter-spacing:.01em}
-.sym-body p{font-family:var(--sans);font-size:15px;line-height:1.75;color:var(--muted)}
-.swatch{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:7px;vertical-align:baseline;border:1px solid oklch(40% .05 60 / .3)}
-
-/* ============ 塔罗灵数 ============ */
-.numero{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:center}
-.bignum{font-family:var(--serif);font-size:clamp(180px,26vw,340px);line-height:.74;color:var(--wine);text-align:center;position:relative}
-.bignum::after{content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);width:60%;height:1px;background:var(--gold)}
-.bignum small{display:block;font-family:var(--mono);font-size:13px;letter-spacing:.4em;color:var(--gold-deep);margin-top:30px;text-transform:uppercase}
-.numero-keys{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}
-.numero-keys span{font-family:var(--sans);font-size:13.5px;padding:6px 14px;border:1px solid var(--border);border-radius:999px;color:var(--muted);background:var(--paper)}
-.numero p{margin-bottom:18px;font-size:17.5px;line-height:1.85;color:var(--fg)}
-.numero .lesson{margin-top:22px;padding:22px 26px;background:var(--paper);border-left:3px solid var(--gold);box-shadow:0 4px 12px oklch(24% 0.03 55 / .02)}
-.numero .lesson b{color:var(--wine);font-family:var(--song)}
-
-/* ============ 正逆位切换 ============ */
-.pos-switch-wrapper{
-  display:flex;justify-content:center;margin-bottom:50px;
-}
-.pos-switch{display:inline-flex;border:1px solid var(--fg);background:var(--paper);border-radius:3px;overflow:hidden;padding:3px;box-shadow:0 4px 12px oklch(24% 0.03 55 / .04)}
-.pos-switch button{font-family:var(--song);font-size:17px;padding:12px 38px;background:transparent;border:0;cursor:pointer;color:var(--muted);position:relative;transition:all .3s ease;letter-spacing:.06em;border-radius:2px}
-.pos-switch button.on{background:var(--fg);color:var(--paper)}
-.pos-switch button .en{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.24em;margin-top:4px;text-transform:uppercase;opacity:.7}
-
-/* 正逆位内容面板 */
-.pos-panel-container{
-  position:relative;
-  min-height:500px;
-}
-.pos-panel{
-  position:absolute;top:0;left:0;width:100%;
-  opacity:0;visibility:hidden;
-  transform:translateY(15px);
-  transition:opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
-}
-.pos-panel.show{
-  position:relative;
-  opacity:1;visibility:visible;
-  transform:translateY(0);
-}
-.pos-summary{display:grid;grid-template-columns:1fr 1fr;gap:0 56px;margin-bottom:48px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
-.pos-summary .kw{padding:26px 0;border-bottom:1px solid var(--border)}
-.pos-summary .kw:nth-last-child(-n+2){border-bottom:0}
-.pos-summary .kw .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.26em;color:var(--gold-deep);text-transform:uppercase;display:block;margin-bottom:10px}
-.pos-summary .kw p{font-family:var(--song);font-size:16.5px;line-height:1.75;color:var(--fg)}
-
-.dim-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);box-shadow:0 8px 24px oklch(24% 0.03 55 / .04)}
-.dim{background:var(--bg);padding:36px 32px;transition:background-color 0.3s;}
-.dim:hover{background:var(--paper)}
-.dim-head{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}
-.dim-head .ic{font-family:var(--serif);font-size:24px;color:var(--gold-deep)}
-.dim-head h4{font-family:var(--song);font-size:21px;font-weight:600;color:var(--fg)}
-.dim-head .en{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;margin-left:auto}
-.dim .kw-line{font-family:var(--sans);font-size:13.5px;color:var(--wine-soft);line-height:1.7;margin-bottom:16px;padding-bottom:16px;border-bottom:1px dashed var(--border)}
-.dim>p{font-size:15.8px;line-height:1.82;color:var(--muted);margin-bottom:18px}
-.dim ul{list-style:none;display:flex;flex-direction:column;gap:11px}
-.dim li{font-size:14.5px;line-height:1.65;color:var(--fg);display:grid;grid-template-columns:auto 1fr;gap:11px;align-items:baseline}
-.dim li b{font-family:var(--song);font-size:12.5px;color:var(--paper);background:var(--gold-deep);padding:3px 9px;border-radius:2px;white-space:nowrap;font-weight:500;letter-spacing:.04em}
-.dim.reversed li b{background:var(--wine)}
-.dim-extra{margin-top:30px;padding:26px 30px;background:var(--paper);border:1px solid var(--border)}
-.dim-extra .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;color:var(--gold-deep);text-transform:uppercase;display:block;margin-bottom:12px}
-.dim-extra p{font-size:15.5px;line-height:1.8;color:var(--muted)}
-
-/* ============ 新增图版通用 ============ */
-.element-figure, .pos-figure, .spread-figure{margin:40px 0}
-.element-figure .plate, .pos-figure .plate, .spread-figure .plate{
-  position:relative;border:1px solid var(--rule);padding:16px;background:var(--paper);
-  box-shadow:0 10px 30px oklch(24% 0.03 55 / .08);
-  transition:all 0.3s ease;
-}
-.element-figure .plate::before, .pos-figure .plate::before, .spread-figure .plate::before{content:"";position:absolute;inset:8px;border:1px solid var(--gold);opacity:.4;pointer-events:none}
-.element-figure img, .pos-figure img, .spread-figure img{display:block;width:100%;height:auto}
-.element-figure:hover .plate, .pos-figure:hover .plate, .spread-figure:hover .plate{
-  transform:translateY(-4px);
-  box-shadow:0 14px 40px oklch(24% 0.03 55 / .14);
-}
-
-/* ============ 牌阵 3D 卡牌翻牌动效 ============ */
-.spread{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:28px;
-  perspective:1000px;
-}
-.spread-card-wrapper{
-  position:relative;
-  height:380px;
-  cursor:pointer;
-  transform-style:preserve-3d;
-  transition:transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.spread-card-wrapper.flipped{
-  transform:rotateY(180deg);
-}
-.spread-card-front, .spread-card-back{
-  position:absolute;inset:0;
-  backface-visibility:hidden;
-  border:1px solid var(--rule);
-  padding:36px 30px;
-  border-radius:2px;
-  display:flex;
-  flex-direction:column;
-  box-shadow:0 10px 25px oklch(24% 0.03 55 / .08);
-  transition:all 0.3s ease;
-}
-.spread-card-front{
-  background:var(--paper);
-  transform:rotateY(180deg);
-}
-.spread-card-back{
-  background:var(--surface);
-  align-items:center;
-  justify-content:center;
-  border:2px solid var(--gold);
-}
-.spread-card-back::before{
-  content:"";
-  position:absolute;inset:8px;
-  border:1px dashed var(--gold);
-  opacity:.6;
-}
-.spread-card-back .back-pattern{
-  font-family:var(--serif);
-  font-size:48px;
-  color:var(--gold-deep);
-  text-align:center;
-  opacity:.7;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:10px;
-}
-.spread-card-back .back-pattern::before{
-  content:"✦";
-  font-size:24px;
-  animation: pulseGold 2s infinite ease-in-out;
-}
-@keyframes pulseGold {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.1); }
-}
-.spread-card-back .click-to-reveal{
-  font-family:var(--mono);
-  font-size:11px;
-  color:var(--muted);
-  letter-spacing:.2em;
-  text-transform:uppercase;
-  margin-top:20px;
-  border:1px solid var(--border);
-  padding:6px 12px;
-  border-radius:2px;
-  background:var(--paper);
-}
-
-.spread-card-front .pos-no{
-  font-family:var(--serif);font-size:54px;line-height:1;color:var(--wine);opacity:.85;
-}
-.spread-card-front h4{
-  font-family:var(--song);font-size:20px;font-weight:600;color:var(--fg);margin:14px 0 10px;
-}
-.spread-card-front .en{
-  font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;display:block;margin-bottom:14px;
-}
-.spread-card-front p{
-  font-family:var(--sans);font-size:14.5px;line-height:1.75;color:var(--muted);
-}
-.spread-card-wrapper:hover:not(.flipped){
-  transform:translateY(-8px) scale(1.02);
-  box-shadow:0 16px 35px oklch(24% 0.03 55 / .15);
-}
-
-/* ============ 页脚 ============ */
-footer{padding:80px 0 60px;text-align:center}
-footer .ornament{margin-bottom:24px}
-footer p{font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--faint);text-transform:uppercase;line-height:2.2}
-footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(--muted);text-transform:none;margin-top:10px}
-
-/* ============ 响应式 ============ */
-@media(max-width:980px){
-  .hero-grid{grid-template-columns:1fr;gap:44px}
-  .symbol-layout{grid-template-columns:1fr;gap:38px}
-  .symbol-figure{position:static}
-  .numero{grid-template-columns:1fr;gap:30px}
-  .dim-grid{grid-template-columns:1fr}
-  .spread{grid-template-columns:1fr;gap:24px}
-  .spread-card-wrapper{height:300px}
-}
-@media(max-width:680px){
-  .wrap,.topbar-inner{padding:0 24px}
-  body{font-size:16px}
-  .tnav{display:none}
-  .pos-summary{grid-template-columns:1fr}
-  .pos-summary .kw{border-bottom:1px solid var(--border)!important}
-  .prose.drop::first-letter{font-size:64px}
-}
-*,*::before,*::after{box-sizing:border-box}
-.plate,.imgfallback{max-width:100%}
-</style>
-<link rel="stylesheet" href="../../assets/css/card-reading.css">
-<script src="../../assets/js/card-reading.js" defer></script>
+<link rel="stylesheet" href="../../assets/css/card-page.css" />
+<script type="application/json" id="card-data">{
+  "slug": "16-the-tower",
+  "title": "高塔",
+  "enTitle": "The Tower",
+  "roman": "XVI",
+  "arcanum": "Arcanum Sextum Decimum",
+  "heroLede": "高塔是突然而剧烈的觉醒。原本坚不可摧的塔，被一道突如其来的闪电击中，瞬间崩溃并燃烧起来。这雷鸣电闪，是神的愤怒与制裁的象征：它击碎虚假的安全感，让被隐藏的问题再也无法继续伪装。",
+  "heroKeywords": [
+    {
+      "zh": "崩塌",
+      "en": "COLLAPSE"
+    },
+    {
+      "zh": "突变",
+      "en": "RUPTURE"
+    },
+    {
+      "zh": "真相",
+      "en": "TRUTH"
+    },
+    {
+      "zh": "重建",
+      "en": "REBUILD"
+    }
+  ],
+  "coreThemes": [
+    "崩塌",
+    "突变",
+    "真相",
+    "旧结构瓦解"
+  ],
+  "facts": [
+    {
+      "label": "元素 Element",
+      "value": "火",
+      "detail": ""
+    },
+    {
+      "label": "星座 / 行星",
+      "value": "火星",
+      "detail": ""
+    },
+    {
+      "label": "希伯来字母",
+      "value": "Pe",
+      "detail": "Pe（口）"
+    },
+    {
+      "label": "核心主题",
+      "value": "崩塌",
+      "detail": "崩塌、突变、真相、旧结构瓦解"
+    }
+  ],
+  "footerMeta": "火 · 火星",
+  "energy": "火 · 崩塌、突变、真相、旧结构瓦解",
+  "images": {
+    "main": {
+      "src": "../../assets/images/major/16-the-tower/the-tower.png",
+      "alt": "塔罗牌高塔主图",
+      "fallback": "PLATE I — 主图待上传\nassets/images/major/16-the-tower/the-tower.png"
+    },
+    "symbols": {
+      "src": "../../assets/images/major/16-the-tower/the-tower-symbols.png",
+      "alt": "塔罗牌高塔象征要素图",
+      "fallback": "PLATE II — 象征要素图待上传\nassets/images/major/16-the-tower/the-tower-symbols.png"
+    },
+    "elements": {
+      "src": "../../assets/images/major/16-the-tower/the-tower-elements.png",
+      "alt": "塔罗牌高塔对应要素图",
+      "fallback": "PLATE III — 对应要素图待上传\nassets/images/major/16-the-tower/the-tower-elements.png"
+    },
+    "upright": {
+      "src": "../../assets/images/major/16-the-tower/the-tower-upright.png",
+      "alt": "塔罗牌高塔正位意象",
+      "fallback": "PLATE V — 正位意象待上传\nassets/images/major/16-the-tower/the-tower-upright.png"
+    },
+    "reversed": {
+      "src": "../../assets/images/major/16-the-tower/the-tower-reversed.png",
+      "alt": "塔罗牌高塔逆位意象",
+      "fallback": "PLATE VI — 逆位意象待上传\nassets/images/major/16-the-tower/the-tower-reversed.png"
+    },
+    "spread": {
+      "src": "../../assets/images/major/16-the-tower/the-tower-spread.png",
+      "alt": "塔罗牌高塔三牌阵示意图",
+      "fallback": "PLATE VII — 三牌阵示意图待上传\nassets/images/major/16-the-tower/the-tower-spread.png"
+    }
+  },
+  "narrativeHtml": "\u003cp>高塔是突然而剧烈的觉醒。原本坚不可摧的塔，被一道突如其来的闪电击中，瞬间崩溃并燃烧起来。这雷鸣电闪，是神的愤怒与制裁的象征：它击碎虚假的安全感，让被隐藏的问题再也无法继续伪装。\u003c/p>\u003cp>当这张牌出现，说明你正遇到“崩塌、突变、真相、旧结构瓦解”的课题。它既可能表现为外部事件，也可能是内心正在成熟的一个阶段。在全部 22 张大牌中，高塔无疑是最令人不安的一张——它几乎是唯一一张无论正位还是逆位、从任何角度看都只引出负面结论的牌，区别只在于负面的程度，以及当事人对它的接受程度。然而很多时候，高塔的出现并不真的代表毁灭，而是我们内心对毁灭的恐惧被无限放大。所以抽到它也不必过于惊慌，尤其当牌阵中其他牌并无明确的毁灭意味时——这个世界或许不像我们想象的那么美好，但也绝不像我们害怕的那么糟糕。\u003c/p>\u003cp>雷电击中高塔，王冠坠落，人物从塔中跌出。高塔代表物质，塔顶的皇冠象征统治与成就；皇冠被雷击落，预示权力、财富与功名在突变中尽数化为乌有。塔中坠落的两人，似是君王与圣职者，他们头朝下、面带惊恐——预示灾难临头时，无论身份与财富都无法幸免。高耸的塔与皇冠象征人类的高傲与自满，这恰是毁灭的根源，令人联想起圣经里的巴别塔。图中闪电溅起的火花共有 22 点，对应塔罗的 22 张大牌；灰色的云象征灾难，黑色的背景预示一段黑暗的时期。倘若运气真的存在，那么厄运与好运的降临，对任何人都是同样公平的。\u003c/p>",
+  "symbols": [
+    {
+      "name": "核心画面",
+      "meaning": "雷电击中高塔，王冠坠落，人物从塔中跌出。"
+    },
+    {
+      "name": "塔",
+      "meaning": "这张牌的主要符号，象征坚固的结构或信念体系正遭遇突如其来的改变或破坏。"
+    },
+    {
+      "name": "闪电",
+      "meaning": "描述突发的启示或灾难，代表突然的、无法预测的变化。"
+    },
+    {
+      "name": "倒塌的顶端",
+      "meaning": "塔顶的崩落表示即使最强大的事物也可能崩溃。"
+    },
+    {
+      "name": "火焰",
+      "meaning": "象征毁灭与净化，旧的被烧毁，使新的得以诞生。"
+    },
+    {
+      "name": "掉落的人物",
+      "meaning": "代表被改变强行带走的个人，或旧理念与计划的失败。"
+    },
+    {
+      "name": "人物的表情",
+      "meaning": "恐惧与震惊的神情，强调改变的突然与猛烈。"
+    },
+    {
+      "name": "岩石基座",
+      "meaning": "塔建立在不稳定的基础上，象征一种脆弱的状态或不稳的处境。"
+    },
+    {
+      "name": "黑暗的背景",
+      "meaning": "代表不确定与混乱，意味着不稳的未来。"
+    },
+    {
+      "name": "外部的云彩",
+      "meaning": "多变的环境，提醒我们即便外部条件无常，也要寻找内在的稳定。"
+    },
+    {
+      "name": "橙色和黄色",
+      "meaning": "代表能量与力量，常与阳性能量相关，在此可能指代破坏的力道。"
+    },
+    {
+      "name": "蓝色服装",
+      "meaning": "蓝色象征沟通与知识，在这里指即将失去的安全感与理解。"
+    },
+    {
+      "name": "红色服装",
+      "meaning": "红色代表激情与行动，坠落者的红衣象征其生活中主动力的消散。"
+    },
+    {
+      "name": "塔冠的形状",
+      "meaning": "塔顶设计似王冠，象征权力与控制的失落。"
+    },
+    {
+      "name": "塔上的金色元素",
+      "meaning": "金色关联财富与高尚，此处金色被破坏，提示重要的损失。"
+    },
+    {
+      "name": "编号",
+      "meaning": "对应此阶段在人生旅程中的功课。"
+    }
+  ],
+  "numerologyHtml": "\u003cp>数字 16 是 1 与 6 的相遇，约化为 1+6=7（战车）。它承接了恶魔牌的束缚之后那一记惊雷——当人长期被虚假的结构囚禁，迟早会有一道闪电劈开高墙。16 指向经验累积后的剧烈转折与重整，引导人从事件表层进入更深的精神功课。\u003c/p>\u003cp>在解读时，高塔提醒我们：事件表面的顺逆终会变化，真正值得把握的是牌面所揭示的内在功课。塔的崩塌固然痛苦，却也清出了一片空地，让更真实、更稳固的东西有机会从废墟上重新生长。\u003c/p>",
+  "readingFocusHtml": "\u003cp>引发剧烈动荡的原因，往往是不可预料的，且来自系统运行体系之外——它不以系统内部成员的意志为转移。所有身处剧烈动荡中的人事物，都无法改变那个引发动荡的源头。这正是高塔最难处之处：它不是你能谈判、修补或拖延的危机，而是一记从天而降、必须承受的雷击。正逆位的差别，仅在于你是迎面接受这场崩塌，还是试图逃避、延迟它的到来。\u003c/p>",
+  "upright": {
+    "keywords": [
+      "突变",
+      "崩塌",
+      "危机",
+      "真相揭露",
+      "震动",
+      "重建前的破坏",
+      "麻烦不断",
+      "遭遇逆境",
+      "遭受打击",
+      "原有信念崩溃",
+      "突发事件",
+      "骤变",
+      "剧变",
+      "动乱",
+      "动荡",
+      "没有征兆",
+      "混乱",
+      "启示",
+      "内幕显现",
+      "揭露秘密",
+      "醒悟",
+      "觉醒",
+      "开悟"
+    ],
+    "introHtml": "\u003cp>正位的高塔表示这股能量正在以最直接的方式爆发出来。它的提示语是：突发变故、破旧立新、混乱的状态、颠覆现状、意料之外的打击、灾难的预兆、痛苦的经历、人生的低谷、突如其来的坏消息、重新开始的信号。顺着牌面主题去面对，你会发现崩塌之中其实藏着一个被强行揭开的真相——与其抗拒，不如认清它，事情会显露出可被把握的方向。\u003c/p>",
+    "dimensions": [
+      {
+        "title": "爱情 / 婚姻",
+        "en": "Love",
+        "icon": "❤",
+        "html": "\u003cp>感情中，高塔代表关系进入与“崩塌、突变、真相、旧结构瓦解”有关的阶段：意外的分手、与爱人的激烈争执、突如其来的感情变故，或一段得不到亲友祝福、纷扰不断的关系。它常意味着震惊的发现或真相大白，导致关系的根本改变。单身者会被带有强烈张力的人或关系吸引；有伴侣者则可能面对外部压力的冲击，需要围绕信任、边界与真实需求进行更成熟的沟通。\u003c/p>\u003cul>\u003cli>\u003cb>现况\u003c/b>：感情上遭遇了重大的挫折，而这并非你们所能控制，也许还要面对来自外界的强烈反对，使关系难以为继。\u003c/li>\u003cli>\u003cb>桃花\u003c/b>：此时不会有新恋情发生，把自己该做的事做好，还需要再等一段时间。\u003c/li>\u003cli>\u003cb>看法\u003c/b>：这是一段看不到希望的感情，即便两人真心想在一起，也会被外部种种不利因素拆散。\u003c/li>\u003cli>\u003cb>复合\u003c/b>：复合也无法平息外界的反对声音，多半是白费力气。\u003c/li>\u003c/ul>"
+      },
+      {
+        "title": "事业 / 学业",
+        "en": "Work",
+        "icon": "✦",
+        "html": "\u003cp>事业学业上，这张牌提示事态可能急剧恶化：突发的瓶颈、意外事故、对上司的不满却苦无对策，乃至成绩骤降、辍学或落榜。它要求你用更高的眼光去看待这场动荡——很多变故并非人力可控，却偏偏要你来承担。不破不立，与其死守已经不再适用的旧结构，不如做好从头再来的准备。\u003c/p>\u003cul>\u003cli>\u003cb>现况\u003c/b>：工作上遇到突发意外，并非人为可控，却又要你来承担主要责任，无辜又倒霉。\u003c/li>\u003cli>\u003cb>建议\u003c/b>：不破不立，要做好从头再来的准备；若问题实在无解，选择放弃也无妨，不必硬撑。\u003c/li>\u003cli>\u003cb>关系\u003c/b>：这些人只能共享乐而不能共患难，关键时刻还是得靠自己。\u003c/li>\u003cli>\u003cb>发展\u003c/b>：这份工作未来没有什么发展，等着你的只可能是更糟的状况，应该早些离开这个地方。\u003c/li>\u003c/ul>"
+      },
+      {
+        "title": "人际 / 财富",
+        "en": "Wealth",
+        "icon": "◈",
+        "html": "\u003cp>人际关系中适合看清彼此的位置，减少表面的维持。高塔正位常伴随损失金钱、财政赤字、破产、受人连累，以及因口角与人绝交、急躁伤人。财富方面可能预示经济上的剧变——意外的金融危机、投资失败或突如其来的失业，是一个不稳定且不可预测的时期，要结合现实条件与长期影响，做出清醒的安排。\u003c/p>\u003cul>\u003cli>\u003cb>现况\u003c/b>：你在人际关系上遇到重大困难，多半是因为坚持了错误的做法，从而招致大家的排斥。\u003c/li>\u003cli>\u003cb>建议\u003c/b>：让人误会之处就向大家讲清前因后果，该改变就改变；若仍无起色，放弃也未尝不是一种选择。\u003c/li>\u003cli>\u003cb>财运\u003c/b>：最近亏得有点严重。\u003c/li>\u003cli>\u003cb>再一层提醒\u003c/b>：当机立断，不要再试图去拯救什么了。\u003c/li>\u003c/ul>"
+      },
+      {
+        "title": "健康 / 生活",
+        "en": "Health",
+        "icon": "✚",
+        "html": "\u003cp>健康生活上，高塔提示身心状态与当前的心理课题相连，常对应突如其来的健康警讯或长期压力的总爆发。此时尤其要留意意外伤害与急性状况，把身体安全放在第一位——若牌阵中同时出现死神、宝剑十一类的危险牌，更应保持平静、不要冒险。适合检查压力的来源、作息的习惯与身体信号，以更稳定的方式重建生活节奏。\u003c/p>"
+      }
+    ],
+    "otherHtml": "\u003cp>遭遇意外，多管闲事，卷入纷争。若问具体事件，正位多表示事情进入剧烈动荡的关键阶段。主动去理解它的意义、接受已经发生的改变，会比单纯等待结果更有力量。\u003c/p>",
+    "situation": {
+      "过去": "可能有过一段稳定却未必真实的时期，如今这种稳定被打破，潜藏的问题随之暴露。",
+      "现在": "正经历剧烈的震荡与改变，可能感到困惑与不安；但这也是清除旧结构、为新事物腾出空间的时机。",
+      "未来": "可能面临重建与恢复的过程；在高塔带来的破坏之后，有机会建立起更稳固、更真实的基础。",
+      "爱情运势": "可能代表关系中突然的冲突、分离或揭露，意味着震惊的发现或真相大白，导致关系的根本改变。",
+      "财富运势": "可能预示经济上的剧烈变动，如意外的金融危机、投资失败或突如其来的失业，是一个不稳定、不可预测的时期。",
+      "当前情况": "是混乱与突然的改变，可能感到不稳定与紧张，生活中发生了不可预见的事件，使原有秩序崩溃。",
+      "挑战": "如何处理这些突如其来的变化，如何在废墟中寻找重建生活的机会。",
+      "障碍": "对变化的恐惧、不愿接受现实，或试图维持已经不再适用的旧结构。",
+      "环境": "你所处的环境可能充满不确定与动荡，旧的安全感可能已经消失。",
+      "支持": "可能来自那些愿意帮你面对现实、一起重建的人——朋友、家人或专业顾问。",
+      "建议": "先接受已经发生的改变并学会适应，再着手建立更真实、更契合当下的生活方式。",
+      "优势": "有机会摧毁不健康的结构、清理不再适用的模式，为更正面的改变腾出空间。",
+      "弱点": "处理变化的能力不足，难以面对真相、接受新的现实。",
+      "正面影响": "提供一个彻底清除旧有结构与制度的机会，让真相大白，促使成长。",
+      "负面影响": "可能带来精神上的痛苦、焦虑与恐慌，以及物质上的损失。",
+      "希望发生": "希望在混乱之后能够建立起更坚实的基础，发展出更强大的自我。",
+      "害怕发生": "害怕无法承受这些剧变，害怕生活彻底崩塌且无法恢复。",
+      "你如何看对方": "你可能觉得对方正经历一种痛苦的转变或重大的冲击，面临突发的改变或挑战，令你为之担忧。",
+      "对方如何看待你": "对方可能觉得你正经历一场剧变、面临重大的冲击或挑战，并对你的处境感到担忧。",
+      "关系当前状态": "关系可能正经历一种剧变，或因突发事件、或因深层问题，使彼此变得不稳定。",
+      "关系未来发展": "可能还要经历更多改变，这是需要双方共同适应的挑战；只要愿意面对，关系仍有望找到新的平衡。",
+      "结果": "经过一段动荡与重建之后，可能抵达一个更清晰、更真实、更稳定的生活状态。"
+    }
+  },
+  "reversed": {
+    "keywords": [
+      "逃避危机",
+      "延迟爆发",
+      "余震",
+      "侥幸",
+      "害怕改变",
+      "悬崖勒马",
+      "遭遇口舌之灾",
+      "内部纠纷",
+      "风暴前的寂静",
+      "个人转变",
+      "避灾",
+      "远离是非之地",
+      "不立危墙之下",
+      "择良木而栖",
+      "情况紧急"
+    ],
+    "introHtml": "\u003cp>逆位的高塔表示这股崩塌的能量被压抑、被延迟，或被勉强按住。它的提示语是：未能看清现实、拒绝改变、逃避问题、拖延决定、害怕挑战、压抑情绪、自我欺骗、持续的痛苦、无法释怀的过去、挣扎在旧有的模式中。此时最重要的是先看清自己是否正在抗拒这张牌所要求的功课——你或许暂时躲过了那记惊雷，但潜藏的问题仍在，迟早需要直面。\u003c/p>",
+    "dimensions": [
+      {
+        "title": "爱情 / 婚姻",
+        "en": "Love",
+        "icon": "❤",
+        "html": "\u003cp>感情中，逆位的高塔常表现为对必要改变的逃避或拒绝：拖延分手、忽视已经存在的裂痕、害怕改变现状，或对一段早已不合适的关系抱有不切实际的幻想。可能没有经历彻底的、痛苦的分离，但未解决的问题与紧张始终都在。关系若一直无法推进，需要回到双方真实的需求。\u003c/p>\u003cul>\u003cli>\u003cb>现况\u003c/b>：这段感情其实已经无法继续，再怎么努力也难以改善，应该尽快放手。\u003c/li>\u003cli>\u003cb>桃花\u003c/b>：眼下不会出现好的对象，先走出旧的创伤再说；想用一段新感情去治愈旧伤，多半行不通。\u003c/li>\u003cli>\u003cb>看法\u003c/b>：这段感情带来太多痛苦，看不到未来与希望，早些结束对两人都是一种解脱。\u003c/li>\u003cli>\u003cb>复合\u003c/b>：不会复合了。\u003c/li>\u003c/ul>"
+      },
+      {
+        "title": "事业 / 学业",
+        "en": "Work",
+        "icon": "✦",
+        "html": "\u003cp>事业学业上，逆位的高塔常表现为面对困难听天由命、因紧张而功亏一篑，或大意失荆州。它指向对失败的逃避：拖延决策、害怕接受新挑战、忽视学业问题、仍坚持错误的方向，或过度依赖他人的评价。先正视问题、修正方向、补足信息，再决定下一步，比一味回避更稳妥。\u003c/p>\u003cul>\u003cli>\u003cb>现况\u003c/b>：有可能是突然被解雇，或因莫名其妙的原因遭到处罚。\u003c/li>\u003cli>\u003cb>建议\u003c/b>：克服对未知的恐惧，勇敢地放手去做就好。\u003c/li>\u003cli>\u003cb>关系\u003c/b>：工作里缺乏人与人之间的良性互动，彼此又陷于内斗，一切都要靠自己努力，还得提防同事挖坑。\u003c/li>\u003cli>\u003cb>发展\u003c/b>：这份工作最糟也就是眼下这个样子，未来不会有太大改变，若实在无法忍受就离开吧。\u003c/li>\u003c/ul>"
+      },
+      {
+        "title": "人际 / 财富",
+        "en": "Wealth",
+        "icon": "◈",
+        "html": "\u003cp>人际方面要小心投射与不公平的交换。逆位的高塔常表现为关系陷入僵局的前兆、与朋友纠纷不断、逞强好胜不知退让，或表面富有实则捉襟见肘、濒临破产。财富方面适合回到理性评估与长期规划，避免被恐惧推着走，眼下并不适合进行任何投资。\u003c/p>\u003cul>\u003cli>\u003cb>现况\u003c/b>：你在人际上过于保守，又难以适应环境，交不到新朋友，旧友也在渐渐离去。\u003c/li>\u003cli>\u003cb>建议\u003c/b>：把做事的风格转变一下试试看。\u003c/li>\u003cli>\u003cb>财运\u003c/b>：财运很差，处处都有意外让你吃亏，运气相当不顺。\u003c/li>\u003cli>\u003cb>再一层提醒\u003c/b>：现在并不适合进行任何投资，合伙的事业正面临散伙的危机。\u003c/li>\u003c/ul>"
+      },
+      {
+        "title": "健康 / 生活",
+        "en": "Health",
+        "icon": "✚",
+        "html": "\u003cp>健康上，逆位常提示压力被长期累积、情绪被压抑、身体的警讯被刻意忽略——就像风暴来临前那种令人窒息的寂静。问题被一再拖延，反而可能酝酿成更大的危机。建议减少极端做法，正视那些一直被回避的身心信号，重新建立可持续的生活节奏，给自己一个温和释压的出口。\u003c/p>"
+      }
+    ],
+    "otherHtml": "\u003cp>后悔的出行或聚会，狂风暴雨来临前的压抑，令人震动的事情。事情可能延迟、反复或暴露隐藏问题——先正视并修正模式，再谈结果。\u003c/p>",
+    "situation": {
+      "过去": "可能经历过一段不稳定的时期，并以某种方式暂时避开了彻底的崩塌，但问题并未真正解决。",
+      "现在": "可能正处在一个压抑或拒绝变化的时期，努力维持现状，内心却清楚这并不可持续。",
+      "未来": "可能仍需直面问题、采取必要行动去解决悬而未决之事；否则长期的回避会酿成更大的麻烦。",
+      "爱情运势": "可能指示关系中的逃避或拒绝面对必要的改变；也许没有经历痛苦的分离，但未解决的问题与紧张仍在。",
+      "财富运势": "可能意味着经济危机被延迟或暂时避免，但潜在的问题依然存在，需要在未来某个时点解决。",
+      "当前情况": "可能在回避一场必要的崩溃或改变，或试图修补已破碎的局面，却缺乏根本性的解决方案。",
+      "挑战": "克服对变化的恐惧，勇敢去面对那些可能带来痛苦但最终有益的改变。",
+      "障碍": "对失败的恐惧、不愿离开舒适区或对未知的畏惧，都在阻碍你前进与成长。",
+      "环境": "你所处的环境表面看似稳定，实则暗藏未解决的问题与隐患。",
+      "支持": "可能来自愿意和你一起面对困难、帮你寻找长期解决方案的人。",
+      "建议": "开始正视问题，不要再逃避或推迟必要的决定；短期或许痛苦，长期看却是为了更好的发展。",
+      "优势": "对当前状况有更深的认识，这能让你更谨慎地处理问题、避免不必要的损失。",
+      "弱点": "可能缺少采取行动的勇气，或在改变面前感到无力，导致问题持续存在。",
+      "正面影响": "可能给了你更多时间去准备和处理问题，避免了突如其来的灾难。",
+      "负面影响": "问题被拖延，可能累积成更大的麻烦，最终带来更多痛苦与混乱。",
+      "希望发生": "希望能找到温和的解决途径，既避免痛苦与损失，又能解决根本问题。",
+      "害怕发生": "害怕最终仍无法逃避问题，且结果比直面时更糟，造成更大的损失。",
+      "你如何看对方": "你可能觉得对方正在回避一些必要的改变，逃避问题或拒绝接受某些事实。",
+      "对方如何看待你": "对方可能认为你在逃避必要的转变，回避面对问题或拒绝承认某些事实。",
+      "关系当前状态": "关系可能处于一种停滞状态，双方在回避必要的改变，或拒绝面对一些问题。",
+      "关系未来发展": "若持续逃避与拒绝，关系可能陷入困境而停滞；但只要愿意面对这些问题，仍有望改善。",
+      "结果": "可能继续维持现状，但内心深知变化不可避免，需要做好准备，迎接未来可能突然到来的挑战。"
+    }
+  },
+  "spread": [
+    {
+      "title": "过去",
+      "text": "可能有过一段稳定却未必真实的时期，如今这种稳定被打破，潜藏的问题随之暴露。"
+    },
+    {
+      "title": "现在",
+      "text": "正经历剧烈的震荡与改变，可能感到困惑与不安；但这也是清除旧结构、为新事物腾出空间的时机。"
+    },
+    {
+      "title": "未来",
+      "text": "可能面临重建与恢复的过程；在高塔带来的破坏之后，有机会建立起更稳固、更真实的基础。"
+    }
+  ]
+}</script>
+<script defer src="../../assets/js/card-page.js"></script>
 </head>
 <body>
-<div class="topbar"><div class="topbar-inner"><div class="mark"><b>XVI</b> &nbsp;高塔 · THE TOWER</div><nav class="tnav"><a href="#hero">卷首</a><a href="#narrative">牌面叙事</a><a href="#facts">牌面要素</a><a href="#symbols">象征图谱</a><a href="#numerology">塔罗灵数</a><a href="#reading">正逆位解读</a><a href="#spread">牌阵示意</a></nav></div></div>
-<header class="hero" id="hero"><div class="wrap hero-grid"><figure class="hero-figure"><div class="plate"><img src="../../assets/images/major/16-the-tower/the-tower.png" alt="塔罗牌高塔主图" onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE I — 主图待上传&lt;br&gt;assets/images/major/16-the-tower/the-tower.png&lt;/div&gt;'"></div><figcaption class="plate-cap">PLATE I · THE TOWER · 大阿尔卡那第XVI号</figcaption></figure><div class="hero-text"><div class="hero-num">XVI<small>Arcanum Sextum Decimum</small></div><h1>高塔<span class="en">The Tower</span></h1><div class="hero-keywords"><div>崩塌<span>COLLAPSE</span></div>
-        <div>突变<span>RUPTURE</span></div>
-        <div>真相<span>TRUTH</span></div>
-        <div>重建<span>REBUILD</span></div></div><p class="hero-lede">高塔是突然而剧烈的觉醒。原本坚不可摧的塔，被一道突如其来的闪电击中，瞬间崩溃并燃烧起来。这雷鸣电闪，是神的愤怒与制裁的象征：它击碎虚假的安全感，让被隐藏的问题再也无法继续伪装。</p><a href="../../index.html" class="back-btn">← 返回大厅 / 选择其它卡牌</a></div></div></header>
-<section class="chapter reveal" id="narrative"><div class="wrap"><div class="chapter-head"><div class="idx">— 壹 · NARRATIVE</div><h2>牌面叙事<span class="en">The Image Speaks</span></h2></div><div class="prose drop">
-      <p>高塔是突然而剧烈的觉醒。原本坚不可摧的塔，被一道突如其来的闪电击中，瞬间崩溃并燃烧起来。这雷鸣电闪，是神的愤怒与制裁的象征：它击碎虚假的安全感，让被隐藏的问题再也无法继续伪装。</p>
-      <p>当这张牌出现，说明你正遇到“崩塌、突变、真相、旧结构瓦解”的课题。它既可能表现为外部事件，也可能是内心正在成熟的一个阶段。在全部 22 张大牌中，高塔无疑是最令人不安的一张——它几乎是唯一一张无论正位还是逆位、从任何角度看都只引出负面结论的牌，区别只在于负面的程度，以及当事人对它的接受程度。然而很多时候，高塔的出现并不真的代表毁灭，而是我们内心对毁灭的恐惧被无限放大。所以抽到它也不必过于惊慌，尤其当牌阵中其他牌并无明确的毁灭意味时——这个世界或许不像我们想象的那么美好，但也绝不像我们害怕的那么糟糕。</p>
-      <p>雷电击中高塔，王冠坠落，人物从塔中跌出。高塔代表物质，塔顶的皇冠象征统治与成就；皇冠被雷击落，预示权力、财富与功名在突变中尽数化为乌有。塔中坠落的两人，似是君王与圣职者，他们头朝下、面带惊恐——预示灾难临头时，无论身份与财富都无法幸免。高耸的塔与皇冠象征人类的高傲与自满，这恰是毁灭的根源，令人联想起圣经里的巴别塔。图中闪电溅起的火花共有 22 点，对应塔罗的 22 张大牌；灰色的云象征灾难，黑色的背景预示一段黑暗的时期。倘若运气真的存在，那么厄运与好运的降临，对任何人都是同样公平的。</p>
-      <p class="pullquote">通过崩塌理解当前阶段的命运功课，在废墟中看见真相与重建的契机</p>
-      <p>引发剧烈动荡的原因，往往是不可预料的，且来自系统运行体系之外——它不以系统内部成员的意志为转移。所有身处剧烈动荡中的人事物，都无法改变那个引发动荡的源头。这正是高塔最难处之处：它不是你能谈判、修补或拖延的危机，而是一记从天而降、必须承受的雷击。正逆位的差别，仅在于你是迎面接受这场崩塌，还是试图逃避、延迟它的到来。</p>
-</div></div></section>
-<section class="chapter reveal" id="facts"><div class="wrap"><div class="chapter-head"><div class="idx">— 貳 · CORRESPONDENCES</div><h2>对应要素<span class="en">Esoteric Correspondences</span></h2></div><div class="facts"><dl><dt>元素 Element</dt><dd>火<small>崩塌、突变、真相、旧结构瓦解</small></dd></dl><dl><dt>星座 / 行星</dt><dd>火星<small>崩塌、突变、真相、旧结构瓦解</small></dd></dl><dl><dt>生命之树 Tree of Life</dt><dd>Peh<small>路径与此牌的精神功课相连</small></dd></dl><dl><dt>希伯来字母</dt><dd>Pe（口）<small>通过崩塌理解当前阶段的命运功课，在废墟中看见真相与重建的契机</small></dd></dl></div><figure class="element-figure" style="margin-top:48px"><div class="plate"><img src="../../assets/images/major/16-the-tower/the-tower-elements.png" alt="高塔对应要素图" onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE III — 要素图待上传&lt;br&gt;assets/images/major/16-the-tower/the-tower-elements.png&lt;/div&gt;'"></div><figcaption class="plate-cap">PLATE III · 对应要素 · 崩塌、突变、真相、旧结构瓦解</figcaption></figure></div></section>
-<section class="chapter reveal" id="symbols"><div class="wrap"><div class="chapter-head"><div class="idx">— 叁 · ICONOGRAPHY</div><h2>象征要素图谱<span class="en">A Glossary of Symbols</span></h2></div><div class="symbol-layout"><figure class="symbol-figure"><div class="plate"><img src="../../assets/images/major/16-the-tower/the-tower-symbols.png" alt="高塔象征要素标注图" onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE II — 象征标注图待上传&lt;br&gt;assets/images/major/16-the-tower/the-tower-symbols.png&lt;/div&gt;'"></div><figcaption class="plate-cap">PLATE II · 象征细节 · 高塔牌面图像注解</figcaption></figure><div class="symbol-list">
-        <div class="symbol-item" data-id="01"><div class="sym-no">01</div><div class="sym-body"><h4>核心画面</h4><p>雷电击中高塔，王冠坠落，人物从塔中跌出。</p></div></div>
-        <div class="symbol-item" data-id="02"><div class="sym-no">02</div><div class="sym-body"><h4>塔</h4><p>这张牌的主要符号，象征坚固的结构或信念体系正遭遇突如其来的改变或破坏。</p></div></div>
-        <div class="symbol-item" data-id="03"><div class="sym-no">03</div><div class="sym-body"><h4>闪电</h4><p>描述突发的启示或灾难，代表突然的、无法预测的变化。</p></div></div>
-        <div class="symbol-item" data-id="04"><div class="sym-no">04</div><div class="sym-body"><h4>倒塌的顶端</h4><p>塔顶的崩落表示即使最强大的事物也可能崩溃。</p></div></div>
-        <div class="symbol-item" data-id="05"><div class="sym-no">05</div><div class="sym-body"><h4>火焰</h4><p>象征毁灭与净化，旧的被烧毁，使新的得以诞生。</p></div></div>
-        <div class="symbol-item" data-id="06"><div class="sym-no">06</div><div class="sym-body"><h4>掉落的人物</h4><p>代表被改变强行带走的个人，或旧理念与计划的失败。</p></div></div>
-        <div class="symbol-item" data-id="07"><div class="sym-no">07</div><div class="sym-body"><h4>人物的表情</h4><p>恐惧与震惊的神情，强调改变的突然与猛烈。</p></div></div>
-        <div class="symbol-item" data-id="08"><div class="sym-no">08</div><div class="sym-body"><h4>岩石基座</h4><p>塔建立在不稳定的基础上，象征一种脆弱的状态或不稳的处境。</p></div></div>
-        <div class="symbol-item" data-id="09"><div class="sym-no">09</div><div class="sym-body"><h4>黑暗的背景</h4><p>代表不确定与混乱，意味着不稳的未来。</p></div></div>
-        <div class="symbol-item" data-id="10"><div class="sym-no">10</div><div class="sym-body"><h4>外部的云彩</h4><p>多变的环境，提醒我们即便外部条件无常，也要寻找内在的稳定。</p></div></div>
-        <div class="symbol-item" data-id="11"><div class="sym-no">11</div><div class="sym-body"><h4>橙色和黄色</h4><p>代表能量与力量，常与阳性能量相关，在此可能指代破坏的力道。</p></div></div>
-        <div class="symbol-item" data-id="12"><div class="sym-no">12</div><div class="sym-body"><h4>蓝色服装</h4><p>蓝色象征沟通与知识，在这里指即将失去的安全感与理解。</p></div></div>
-        <div class="symbol-item" data-id="13"><div class="sym-no">13</div><div class="sym-body"><h4>红色服装</h4><p>红色代表激情与行动，坠落者的红衣象征其生活中主动力的消散。</p></div></div>
-        <div class="symbol-item" data-id="14"><div class="sym-no">14</div><div class="sym-body"><h4>塔冠的形状</h4><p>塔顶设计似王冠，象征权力与控制的失落。</p></div></div>
-        <div class="symbol-item" data-id="15"><div class="sym-no">15</div><div class="sym-body"><h4>塔上的金色元素</h4><p>金色关联财富与高尚，此处金色被破坏，提示重要的损失。</p></div></div>
-        <div class="symbol-item" data-id="16"><div class="sym-no">16</div><div class="sym-body"><h4>编号</h4><p>对应此阶段在人生旅程中的功课。</p></div></div>
-</div></div></div></section>
-<section class="chapter reveal" id="numerology"><div class="wrap"><div class="chapter-head"><div class="idx">— 肆 · NUMEROLOGY</div><h2>塔罗灵数<span class="en">The Number XVI</span></h2></div><div class="numero"><div class="bignum">XVI<small>The Tower</small></div><div class="numero-text"><div class="numero-keys"><span>崩塌</span><span>突变</span><span>真相</span><span>重建</span></div>
-        <p>数字 16 是 1 与 6 的相遇，约化为 1+6=7（战车）。它承接了恶魔牌的束缚之后那一记惊雷——当人长期被虚假的结构囚禁，迟早会有一道闪电劈开高墙。16 指向经验累积后的剧烈转折与重整，引导人从事件表层进入更深的精神功课。</p>
-        <p>在解读时，高塔提醒我们：事件表面的顺逆终会变化，真正值得把握的是牌面所揭示的内在功课。塔的崩塌固然痛苦，却也清出了一片空地，让更真实、更稳固的东西有机会从废墟上重新生长。</p>
-        <div class="lesson"><b>XVI 号牌的课题：</b>崩塌、突变、真相、旧结构瓦解。在事件表层之外，辨认这张牌真正要求你学习的内在功课。</div></div></div></div></section>
-<section class="chapter reveal" id="reading"><div class="wrap"><div class="chapter-head"><div class="idx">— 伍 · DIVINATORY MEANING</div><h2>正逆位解读<span class="en">Upright &amp; Reversed</span></h2></div><div class="pos-switch-wrapper"><div class="pos-switch" role="tablist"><button class="on" data-pos="up" role="tab" aria-selected="true">正位<span class="en">Upright</span></button><button data-pos="rev" role="tab" aria-selected="false">逆位<span class="en">Reversed</span></button></div></div><div class="pos-panel-container"><div class="pos-panel show" id="panel-up"><figure class="pos-figure" style="margin:0 auto 46px;max-width:min(860px,100%)"><div class="plate"><img src="../../assets/images/major/16-the-tower/the-tower-upright.png" alt="高塔正位意象" onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE V — 正位意象图待上传&lt;br&gt;assets/images/major/16-the-tower/the-tower-upright.png&lt;/div&gt;'"></div><figcaption class="plate-cap">PLATE V · 正位意象 · 高塔能量顺势显现</figcaption></figure><div class="keyword-strip" aria-label="高塔正位关键词"><span>突变</span><span>崩塌</span><span>危机</span><span>真相揭露</span><span>震动</span><span>重建前的破坏</span><span>麻烦不断</span><span>遭遇逆境</span><span>遭受打击</span><span>原有信念崩溃</span><span>突发事件</span><span>骤变</span><span>剧变</span><span>动乱</span></div><div class="reading-intro"><p>正位的高塔表示这股能量正在以最直接的方式爆发出来。它的提示语是：突发变故、破旧立新、混乱的状态、颠覆现状、意料之外的打击、灾难的预兆、痛苦的经历、人生的低谷、突如其来的坏消息、重新开始的信号。顺着牌面主题去面对，你会发现崩塌之中其实藏着一个被强行揭开的真相——与其抗拒，不如认清它，事情会显露出可被把握的方向。</p></div><div class="pos-summary"><div class="kw"><span class="lab">核心关键词</span><p>突变，崩塌，危机，真相揭露，震动，重建前的破坏，麻烦不断，遭遇逆境，遭受打击，原有信念崩溃，突发事件，骤变，剧变，动乱，动荡，没有征兆，混乱，启示，内幕显现，揭露秘密，醒悟，觉醒，开悟</p></div><div class="kw"><span class="lab">能量基调</span><p>火 · 崩塌、突变、真相、旧结构瓦解</p></div></div><div class="dim-grid">
-          <div class="dim">
-            <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
-            <p>感情中，高塔代表关系进入与“崩塌、突变、真相、旧结构瓦解”有关的阶段：意外的分手、与爱人的激烈争执、突如其来的感情变故，或一段得不到亲友祝福、纷扰不断的关系。它常意味着震惊的发现或真相大白，导致关系的根本改变。单身者会被带有强烈张力的人或关系吸引；有伴侣者则可能面对外部压力的冲击，需要围绕信任、边界与真实需求进行更成熟的沟通。</p>
-            <ul>
-            <li><b>现况</b>感情上遭遇了重大的挫折，而这并非你们所能控制，也许还要面对来自外界的强烈反对，使关系难以为继。</li>
-            <li><b>桃花</b>此时不会有新恋情发生，把自己该做的事做好，还需要再等一段时间。</li>
-            <li><b>看法</b>这是一段看不到希望的感情，即便两人真心想在一起，也会被外部种种不利因素拆散。</li>
-            <li><b>复合</b>复合也无法平息外界的反对声音，多半是白费力气。</li>
-            </ul>
-          </div>
-          <div class="dim">
-            <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
-            <p>事业学业上，这张牌提示事态可能急剧恶化：突发的瓶颈、意外事故、对上司的不满却苦无对策，乃至成绩骤降、辍学或落榜。它要求你用更高的眼光去看待这场动荡——很多变故并非人力可控，却偏偏要你来承担。不破不立，与其死守已经不再适用的旧结构，不如做好从头再来的准备。</p>
-            <ul>
-            <li><b>现况</b>工作上遇到突发意外，并非人为可控，却又要你来承担主要责任，无辜又倒霉。</li>
-            <li><b>建议</b>不破不立，要做好从头再来的准备；若问题实在无解，选择放弃也无妨，不必硬撑。</li>
-            <li><b>关系</b>这些人只能共享乐而不能共患难，关键时刻还是得靠自己。</li>
-            <li><b>发展</b>这份工作未来没有什么发展，等着你的只可能是更糟的状况，应该早些离开这个地方。</li>
-            </ul>
-          </div>
-          <div class="dim">
-            <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
-            <p>人际关系中适合看清彼此的位置，减少表面的维持。高塔正位常伴随损失金钱、财政赤字、破产、受人连累，以及因口角与人绝交、急躁伤人。财富方面可能预示经济上的剧变——意外的金融危机、投资失败或突如其来的失业，是一个不稳定且不可预测的时期，要结合现实条件与长期影响，做出清醒的安排。</p>
-            <ul>
-            <li><b>现况</b>你在人际关系上遇到重大困难，多半是因为坚持了错误的做法，从而招致大家的排斥。</li>
-            <li><b>建议</b>让人误会之处就向大家讲清前因后果，该改变就改变；若仍无起色，放弃也未尝不是一种选择。</li>
-            <li><b>财运</b>最近亏得有点严重。</li>
-            <li><b>再一层提醒</b>当机立断，不要再试图去拯救什么了。</li>
-            </ul>
-          </div>
-          <div class="dim">
-            <div class="dim-head"><span class="ic">✚</span><h4>健康 / 生活</h4><span class="en">Health</span></div>
-            <p>健康生活上，高塔提示身心状态与当前的心理课题相连，常对应突如其来的健康警讯或长期压力的总爆发。此时尤其要留意意外伤害与急性状况，把身体安全放在第一位——若牌阵中同时出现死神、宝剑十一类的危险牌，更应保持平静、不要冒险。适合检查压力的来源、作息的习惯与身体信号，以更稳定的方式重建生活节奏。</p>
-          </div>
-</div><div class="dim-extra"><span class="lab">其它牌意 · Other</span>
-            <p>遭遇意外，多管闲事，卷入纷争。若问具体事件，正位多表示事情进入剧烈动荡的关键阶段。主动去理解它的意义、接受已经发生的改变，会比单纯等待结果更有力量。</p>
-</div></div><div class="pos-panel" id="panel-rev"><figure class="pos-figure" style="margin:0 auto 46px;max-width:min(860px,100%)"><div class="plate"><img src="../../assets/images/major/16-the-tower/the-tower-reversed.png" alt="高塔逆位意象" onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VI — 逆位意象图待上传&lt;br&gt;assets/images/major/16-the-tower/the-tower-reversed.png&lt;/div&gt;'"></div><figcaption class="plate-cap">PLATE VI · 逆位意象 · 高塔能量受阻或失衡</figcaption></figure><div class="keyword-strip" aria-label="高塔逆位关键词"><span>逃避危机</span><span>延迟爆发</span><span>余震</span><span>侥幸</span><span>害怕改变</span><span>悬崖勒马</span><span>遭遇口舌之灾</span><span>内部纠纷</span><span>风暴前的寂静</span><span>个人转变</span><span>避灾</span><span>远离是非之地</span><span>不立危墙之下</span><span>择良木而栖</span></div><div class="reading-intro"><p>逆位的高塔表示这股崩塌的能量被压抑、被延迟，或被勉强按住。它的提示语是：未能看清现实、拒绝改变、逃避问题、拖延决定、害怕挑战、压抑情绪、自我欺骗、持续的痛苦、无法释怀的过去、挣扎在旧有的模式中。此时最重要的是先看清自己是否正在抗拒这张牌所要求的功课——你或许暂时躲过了那记惊雷，但潜藏的问题仍在，迟早需要直面。</p></div><div class="pos-summary"><div class="kw"><span class="lab">核心关键词</span><p>逃避危机，延迟爆发，余震，侥幸，害怕改变，悬崖勒马，遭遇口舌之灾，内部纠纷，风暴前的寂静，个人转变，避灾，远离是非之地，不立危墙之下，择良木而栖，情况紧急</p></div><div class="kw"><span class="lab">能量基调</span><p>火 · 受阻、延迟、反复与失衡</p></div></div><div class="dim-grid">
-          <div class="dim reversed">
-            <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
-            <p>感情中，逆位的高塔常表现为对必要改变的逃避或拒绝：拖延分手、忽视已经存在的裂痕、害怕改变现状，或对一段早已不合适的关系抱有不切实际的幻想。可能没有经历彻底的、痛苦的分离，但未解决的问题与紧张始终都在。关系若一直无法推进，需要回到双方真实的需求。</p>
-            <ul>
-            <li><b>现况</b>这段感情其实已经无法继续，再怎么努力也难以改善，应该尽快放手。</li>
-            <li><b>桃花</b>眼下不会出现好的对象，先走出旧的创伤再说；想用一段新感情去治愈旧伤，多半行不通。</li>
-            <li><b>看法</b>这段感情带来太多痛苦，看不到未来与希望，早些结束对两人都是一种解脱。</li>
-            <li><b>复合</b>不会复合了。</li>
-            </ul>
-          </div>
-          <div class="dim reversed">
-            <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
-            <p>事业学业上，逆位的高塔常表现为面对困难听天由命、因紧张而功亏一篑，或大意失荆州。它指向对失败的逃避：拖延决策、害怕接受新挑战、忽视学业问题、仍坚持错误的方向，或过度依赖他人的评价。先正视问题、修正方向、补足信息，再决定下一步，比一味回避更稳妥。</p>
-            <ul>
-            <li><b>现况</b>有可能是突然被解雇，或因莫名其妙的原因遭到处罚。</li>
-            <li><b>建议</b>克服对未知的恐惧，勇敢地放手去做就好。</li>
-            <li><b>关系</b>工作里缺乏人与人之间的良性互动，彼此又陷于内斗，一切都要靠自己努力，还得提防同事挖坑。</li>
-            <li><b>发展</b>这份工作最糟也就是眼下这个样子，未来不会有太大改变，若实在无法忍受就离开吧。</li>
-            </ul>
-          </div>
-          <div class="dim reversed">
-            <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
-            <p>人际方面要小心投射与不公平的交换。逆位的高塔常表现为关系陷入僵局的前兆、与朋友纠纷不断、逞强好胜不知退让，或表面富有实则捉襟见肘、濒临破产。财富方面适合回到理性评估与长期规划，避免被恐惧推着走，眼下并不适合进行任何投资。</p>
-            <ul>
-            <li><b>现况</b>你在人际上过于保守，又难以适应环境，交不到新朋友，旧友也在渐渐离去。</li>
-            <li><b>建议</b>把做事的风格转变一下试试看。</li>
-            <li><b>财运</b>财运很差，处处都有意外让你吃亏，运气相当不顺。</li>
-            <li><b>再一层提醒</b>现在并不适合进行任何投资，合伙的事业正面临散伙的危机。</li>
-            </ul>
-          </div>
-          <div class="dim reversed">
-            <div class="dim-head"><span class="ic">✚</span><h4>健康 / 生活</h4><span class="en">Health</span></div>
-            <p>健康上，逆位常提示压力被长期累积、情绪被压抑、身体的警讯被刻意忽略——就像风暴来临前那种令人窒息的寂静。问题被一再拖延，反而可能酝酿成更大的危机。建议减少极端做法，正视那些一直被回避的身心信号，重新建立可持续的生活节奏，给自己一个温和释压的出口。</p>
-          </div>
-</div><div class="dim-extra"><span class="lab">其它牌意 · Other</span>
-            <p>后悔的出行或聚会，狂风暴雨来临前的压抑，令人震动的事情。事情可能延迟、反复或暴露隐藏问题——先正视并修正模式，再谈结果。</p>
-</div></div></div></div></section>
-<section class="chapter reveal" id="spread"><div class="wrap"><div class="chapter-head"><div class="idx">— 陆 · THE SPREAD</div><h2>三牌阵示意<span class="en">Past · Present · Future</span></h2></div><figure class="spread-figure" style="margin:0 auto 46px;max-width:min(960px,100%)"><div class="plate"><img src="../../assets/images/major/16-the-tower/the-tower-spread.png" alt="高塔三牌阵示意图" onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VII — 三牌阵示意图待上传&lt;br&gt;assets/images/major/16-the-tower/the-tower-spread.png&lt;/div&gt;'"></div><figcaption class="plate-cap">PLATE VII · 三牌阵 · 过去 · 现在 · 未来，观察高塔能量如何在时间中展开</figcaption></figure><div class="prose" style="max-width:60ch;margin-bottom:38px"><p>当高塔出现在三牌阵中，它提示你从时间维度观察这股能量：过去留下的结构、现在显现的课题，以及未来需要整合的方向。点击下方卡牌揭示隐秘启示。</p></div><div class="spread"><div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')"><div class="spread-card-back"><div class="back-pattern"><span>I</span><span style="font-size:16px; font-family:var(--sans); letter-spacing:0.1em;">过去 · PAST</span></div><div class="click-to-reveal">点击翻牌</div></div><div class="spread-card-front"><div class="pos-no">I</div><span class="en">Past · 过去</span><h4>既往线索</h4><p>可能有过一段稳定却未必真实的时期，如今这种稳定被打破，潜藏的问题随之暴露。</p></div></div><div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')"><div class="spread-card-back"><div class="back-pattern"><span>II</span><span style="font-size:16px; font-family:var(--sans); letter-spacing:0.1em;">现在 · PRESENT</span></div><div class="click-to-reveal">点击翻牌</div></div><div class="spread-card-front"><div class="pos-no">II</div><span class="en">Present · 现在</span><h4>当前显现</h4><p>正经历剧烈的震荡与改变，可能感到困惑与不安；但这也是清除旧结构、为新事物腾出空间的时机。</p></div></div><div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')"><div class="spread-card-back"><div class="back-pattern"><span>III</span><span style="font-size:16px; font-family:var(--sans); letter-spacing:0.1em;">未来 · FUTURE</span></div><div class="click-t
-o-reveal">点击翻牌</div></div><div class="spread-card-front"><div class="pos-no">III</div><span class="en">Future · 未来</span><h4>后续整合</h4><p>可能面临重建与恢复的过程；在高塔带来的破坏之后，有机会建立起更稳固、更真实的基础。</p></div></div></div></div></section>
-<footer><div class="wrap"><hr class="rule-gold" style="margin-bottom:40px"><p class="ornament">✦ ❖ ✦</p><p>ARCANUM XVI · THE TOWER · 火 · 火星</p><p class="zh">「观牌如观画，读意如读经。」</p></div></footer>
-<script>
-(function(){
-  // 滚动显现机制 (Intersection Observer)
-  if ('IntersectionObserver' in window) {
-    var revealElems = document.querySelectorAll('.reveal');
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-    revealElems.forEach(function(el) {
-      observer.observe(el);
-    });
-  } else {
-    document.querySelectorAll('.reveal').forEach(function(el) {
-      el.classList.add('active');
-    });
-  }
-
-  // 正逆位切换 (带淡入滑动动画)
-  var btns = document.querySelectorAll('.pos-switch button');
-  var panels = {
-    up: document.getElementById('panel-up'),
-    rev: document.getElementById('panel-rev')
-  };
-  btns.forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var pos = btn.dataset.pos;
-
-      btns.forEach(function(b){
-        b.classList.toggle('on', b === btn);
-        b.setAttribute('aria-selected', b === btn);
-      });
-
-      Object.keys(panels).forEach(function(key){
-        var panel = panels[key];
-        if(key === pos){
-          panel.classList.add('show');
-        } else {
-          panel.classList.remove('show');
-        }
-      });
-    });
-  });
-
-  // 象征要素图谱点击高亮
-  var symbolItems = document.querySelectorAll('.symbol-item');
-  symbolItems.forEach(function(item) {
-    item.addEventListener('click', function() {
-      symbolItems.forEach(function(x) { x.classList.remove('highlight'); });
-      item.classList.add('highlight');
-      console.log("Focused symbol: ", item.dataset.id);
-    });
-  });
-
-  // 滚动高亮目录
-  var links = Array.prototype.slice.call(document.querySelectorAll('.tnav a'));
-  var secs = links.map(function(l){return document.querySelector(l.getAttribute('href'));});
-  function onScroll(){
-    var y = window.scrollY + 120, active = -1;
-    secs.forEach(function(s, i){if(s && s.offsetTop <= y) active = i;});
-    links.forEach(function(l, i){l.classList.toggle('active', i === active);});
-  }
-
-  // 顶栏滚动收缩
-  var lastScrollY = window.scrollY;
-  var topbar = document.querySelector('.topbar');
-  window.addEventListener('scroll', function() {
-    var currentScrollY = window.scrollY;
-    if (currentScrollY > lastScrollY && currentScrollY > 150) {
-      topbar.style.transform = 'translateY(-100%)';
-    } else {
-      topbar.style.transform = 'translateY(0)';
-    }
-    lastScrollY = currentScrollY;
-    onScroll();
-  }, { passive: true });
-
-  onScroll();
-})();
-</script>
+<noscript><main class="wrap" style="padding:80px 0"><h1>高塔</h1><p>此页面使用共享模板渲染，请启用 JavaScript 阅读完整牌面解读。</p></main></noscript>
 </body>
 </html>

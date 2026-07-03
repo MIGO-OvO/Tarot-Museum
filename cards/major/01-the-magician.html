@@ -3,866 +3,336 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>魔術師 · THE MAGICIAN — 塔罗牌深度专题</title>
-<style>
-:root{
-  --bg:oklch(95% .018 85);
-  --paper:oklch(97% .013 88);
-  --surface:oklch(93% .022 82);
-  --fg:oklch(24% .03 55);
-  --muted:oklch(46% .035 58);
-  --faint:oklch(62% .03 60);
-  --border:oklch(80% .035 70);
-  --rule:oklch(70% .05 68);
-  --gold:oklch(58% .12 70);
-  --gold-deep:oklch(48% .11 65);
-  --wine:oklch(40% .13 25);
-  --wine-soft:oklch(52% .12 26);
-  --ink-blue:oklch(38% .06 250);
-  --serif:'Iowan Old Style','Palatino Linotype',Palatino,'Songti SC','Source Han Serif SC',Georgia,'Times New Roman',serif;
-  --song:'Songti SC','STSong','Source Han Serif SC',serif;
-  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
-  --mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,monospace;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  background:var(--bg);
-  background-image:
-    radial-gradient(oklch(55% .04 70 / .04) 1px,transparent 1px),
-    radial-gradient(oklch(55% .04 70 / .03) 1px,transparent 1px);
-  background-size:34px 34px,34px 34px;
-  background-position:0 0,17px 17px;
-  color:var(--fg);
-  font-family:var(--serif);
-  font-size:18px;
-  line-height:1.78;
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
-}
-::selection{background:oklch(58% .12 70 / .28)}
-
-/* 自定义滚动条 */
-::-webkit-scrollbar{width:8px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
-::-webkit-scrollbar-thumb:hover{background:var(--gold)}
-
-/* ============ 装帧通用 ============ */
-.wrap{max-width:1180px;margin:0 auto;padding:0 48px}
-.eyebrow{
-  font-family:var(--mono);
-  font-size:11.5px;
-  letter-spacing:.42em;
-  text-transform:uppercase;
-  color:var(--gold-deep);
-  font-weight:600;
-}
-.rule-gold{height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);border:0;margin:30px 0}
-.rule-thin{height:1px;background:var(--border);border:0}
-.ornament{
-  text-align:center;color:var(--gold);font-size:22px;letter-spacing:1.4em;
-  margin:20px 0;padding-left:1.4em;user-select:none;
-}
-
-/* ============ 滚动显现动画 ============ */
-.reveal{
-  opacity:0;
-  transform:translateY(30px);
-  transition:opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.reveal.active{
-  opacity:1;
-  transform:translateY(0);
-}
-
-/* ============ 顶栏目录 ============ */
-.topbar{
-  position:sticky;top:0;z-index:50;
-  background:oklch(95% .018 85 / .86);
-  backdrop-filter:blur(12px) saturate(1.2);
-  -webkit-backdrop-filter:blur(12px) saturate(1.2);
-  border-bottom:1px solid var(--border);
-  transition:transform 0.3s;
-}
-.topbar-inner{
-  max-width:1180px;margin:0 auto;padding:0 48px;
-  height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px;
-}
-.topbar .mark{font-family:var(--mono);font-size:12px;letter-spacing:.34em;color:var(--fg);text-transform:uppercase;white-space:nowrap}
-.topbar .mark b{color:var(--wine);font-weight:700}
-.tnav{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
-.tnav a{
-  font-family:var(--sans);font-size:12.5px;letter-spacing:.04em;
-  color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:2px;
-  transition:.25s;white-space:nowrap;
-}
-.tnav a:hover{color:var(--wine);background:oklch(40% .13 25 / .07)}
-.tnav a.active{color:var(--wine);font-weight:600;background:oklch(40% .13 25 / .04)}
-
-/* ============ 卷首 ============ */
-.hero{
-  padding:100px 0 80px;
-  border-bottom:2px solid var(--fg);
-  position:relative;
-  overflow:hidden;
-}
-.hero-grid{
-  display:grid;grid-template-columns:1fr 1.15fr;gap:64px;align-items:center;
-}
-.hero-figure{
-  position:relative;
-  animation: heroImageIn 1.2s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
-}
-@keyframes heroImageIn {
-  0% { opacity:0; transform:scale(0.96) translateY(20px); }
-  100% { opacity:1; transform:scale(1) translateY(0); }
-}
-
-.hero-figure .plate{
-  position:relative;border:1px solid var(--rule);
-  padding:20px;background:var(--paper);
-  box-shadow:0 4px 12px oklch(24% 0.03 55 / .05), 0 24px 68px oklch(24% 0.03 55 / .15);
-  transition:transform 0.4s ease, box-shadow 0.4s ease;
-}
-.hero-figure .plate::before{
-  content:"";position:absolute;inset:8px;border:1px solid var(--gold);opacity:.5;pointer-events:none;
-}
-.hero-figure img{display:block;width:100%;height:auto;filter:saturate(.94) contrast(1.02);transition:filter 0.3s;}
-.hero-figure:hover .plate{
-  transform:translateY(-4px);
-  box-shadow:0 6px 16px oklch(24% 0.03 55 / .08), 0 30px 80px oklch(24% 0.03 55 / .18);
-}
-.hero-figure:hover img{filter:saturate(1) contrast(1.03)}
-
-.hero-figure .imgfallback{
-  aspect-ratio:3/5;display:flex;align-items:center;justify-content:center;
-  background:repeating-linear-gradient(45deg,oklch(90% .02 80),oklch(90% .02 80) 12px,oklch(88% .024 80) 12px,oklch(88% .024 80) 24px);
-  color:var(--faint);font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-align:center;padding:24px;line-height:2;
-}
-.plate-cap{
-  margin-top:16px;font-family:var(--mono);font-size:11.5px;letter-spacing:.22em;
-  color:var(--faint);text-transform:uppercase;text-align:center;
-}
-.hero-text{
-  animation: heroTextIn 1s cubic-bezier(0.215, 0.61, 0.355, 1) 0.2s forwards;
-  opacity:0;
-}
-@keyframes heroTextIn {
-  0% { opacity:0; transform:translateY(15px); }
-  100% { opacity:1; transform:translateY(0); }
-}
-.hero-num{
-  font-family:var(--serif);font-size:clamp(60px,9vw,128px);line-height:.8;
-  color:var(--wine);font-weight:400;letter-spacing:-.02em;
-}
-.hero-num small{display:block;font-family:var(--mono);font-size:13px;letter-spacing:.4em;color:var(--gold-deep);margin-top:18px;text-transform:uppercase}
-.hero h1{
-  font-family:var(--serif);font-weight:400;
-  font-size:clamp(48px,6.4vw,84px);line-height:.98;letter-spacing:-.01em;
-  margin:22px 0 6px;color:var(--fg);
-}
-.hero h1 .en{display:block;font-family:var(--mono);font-size:clamp(13px,1.4vw,17px);letter-spacing:.46em;color:var(--muted);font-weight:500;margin-top:18px;text-transform:uppercase}
-.hero-keywords{
-  display:flex;gap:0;margin-top:34px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-}
-.hero-keywords div{
-  flex:1;padding:18px 8px;text-align:center;font-family:var(--song);
-  font-size:19px;color:var(--fg);position:relative;
-}
-.hero-keywords div+div::before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:1px;background:var(--border)}
-.hero-keywords span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--gold-deep);margin-top:6px}
-.hero-lede{margin-top:30px;font-size:18px;line-height:1.85;color:var(--muted);max-width:46ch}
-
-.back-btn{
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:var(--sans);font-size:13.5px;color:var(--muted);
-  text-decoration:none;transition:.2s;margin-top:28px;
-  border-bottom:1px dashed var(--border);padding-bottom:2px;
-}
-.back-btn:hover{color:var(--wine);border-color:var(--wine)}
-
-/* ============ 章节通用 ============ */
-section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
-.chapter-head{margin-bottom:50px;position:relative}
-.chapter-head .idx{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--gold-deep)}
-.chapter-head h2{
-  font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,46px);
-  line-height:1.08;letter-spacing:-.01em;margin:10px 0 0;color:var(--fg);
-}
-.chapter-head h2 .en{font-family:var(--mono);font-size:13px;letter-spacing:.34em;color:var(--faint);text-transform:uppercase;margin-left:14px;vertical-align:middle}
-
-/* 叙事正文 */
-.prose{max-width:65ch;font-size:19px;line-height:1.95;color:var(--fg)}
-.prose.drop::first-letter{
-  font-family:var(--serif);float:left;font-size:84px;line-height:.72;
-  padding:8px 14px 0 0;color:var(--wine);font-weight:400;
-}
-.prose p{margin-bottom:24px;text-align:justify}
-.pullquote{
-  margin:52px 0;padding:12px 0 12px 34px;border-left:3px solid var(--gold);
-  font-family:var(--song);font-size:25px;line-height:1.6;color:var(--wine);font-style:normal;
-  background:oklch(58% .12 70 / .03);
-}
-
-/* ============ 牌面要素 标签 ============ */
-.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--rule);background:var(--paper)}
-.facts dl{padding:30px 26px;border-right:1px solid var(--border);position:relative}
-.facts dl:last-child{border-right:0}
-.facts dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:14px}
-.facts dd{font-family:var(--serif);font-size:30px;line-height:1.1;color:var(--fg)}
-.facts dd small{display:block;font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:10px;line-height:1.6;letter-spacing:0}
-@media(max-width:860px){.facts{grid-template-columns:repeat(2,1fr)}.facts dl:nth-child(2){border-right:0}.facts dl:nth-child(-n+2){border-bottom:1px solid var(--border)}}
-
-/* ============ 象征要素图谱 ============ */
-.symbol-layout{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:start}
-.symbol-figure{position:sticky;top:100px}
-.symbol-figure .plate{position:relative;border:1px solid var(--rule);padding:16px;background:var(--paper);box-shadow:0 18px 44px oklch(24% 0.03 55 / .12)}
-.symbol-figure .plate::before{content:"";position:absolute;inset:8px;border:1px solid var(--gold);opacity:.4;pointer-events:none}
-.symbol-figure img{display:block;width:100%;height:auto}
-.symbol-figure .imgfallback{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,oklch(90% .02 80),oklch(90% .02 80) 12px,oklch(88% .024 80) 12px,oklch(88% .024 80) 24px);color:var(--faint);font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-align:center;padding:20px;line-height:2}
-
-.symbol-list{display:flex;flex-direction:column;gap:2px}
-.symbol-item{display:grid;grid-template-columns:42px 1fr;gap:18px;padding:18px 16px;border-bottom:1px solid var(--border);transition:all .25s ease;align-items:start;cursor:pointer}
-.symbol-item:hover, .symbol-item.highlight{background:var(--paper);transform:translateX(6px);border-bottom-color:var(--gold)}
-.symbol-item:hover .sym-no, .symbol-item.highlight .sym-no{background:var(--wine);color:var(--paper);border-color:var(--wine)}
-.sym-no{width:42px;height:42px;border:1px solid var(--rule);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;color:var(--gold-deep);transition:all .25s ease}
-.sym-body h4{font-family:var(--song);font-size:18.5px;font-weight:600;color:var(--fg);margin-bottom:6px;letter-spacing:.01em}
-.sym-body p{font-family:var(--sans);font-size:15px;line-height:1.75;color:var(--muted)}
-.swatch{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:7px;vertical-align:baseline;border:1px solid oklch(40% .05 60 / .3)}
-
-/* ============ 塔罗灵数 ============ */
-.numero{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:center}
-.bignum{font-family:var(--serif);font-size:clamp(180px,26vw,340px);line-height:.74;color:var(--wine);text-align:center;position:relative}
-.bignum::after{content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);width:60%;height:1px;background:var(--gold)}
-.bignum small{display:block;font-family:var(--mono);font-size:13px;letter-spacing:.4em;color:var(--gold-deep);margin-top:30px;text-transform:uppercase}
-.numero-keys{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}
-.numero-keys span{font-family:var(--sans);font-size:13.5px;padding:6px 14px;border:1px solid var(--border);border-radius:999px;color:var(--muted);background:var(--paper)}
-.numero p{margin-bottom:18px;font-size:17.5px;line-height:1.85;color:var(--fg)}
-.numero .lesson{margin-top:22px;padding:22px 26px;background:var(--paper);border-left:3px solid var(--gold);box-shadow:0 4px 12px oklch(24% 0.03 55 / .02)}
-.numero .lesson b{color:var(--wine);font-family:var(--song)}
-
-/* ============ 正逆位切换 ============ */
-.pos-switch-wrapper{
-  display:flex;justify-content:center;margin-bottom:50px;
-}
-.pos-switch{display:inline-flex;border:1px solid var(--fg);background:var(--paper);border-radius:3px;overflow:hidden;padding:3px;box-shadow:0 4px 12px oklch(24% 0.03 55 / .04)}
-.pos-switch button{font-family:var(--song);font-size:17px;padding:12px 38px;background:transparent;border:0;cursor:pointer;color:var(--muted);position:relative;transition:all .3s ease;letter-spacing:.06em;border-radius:2px}
-.pos-switch button.on{background:var(--fg);color:var(--paper)}
-.pos-switch button .en{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.24em;margin-top:4px;text-transform:uppercase;opacity:.7}
-
-/* 正逆位内容面板 */
-.pos-panel-container{
-  position:relative;
-  min-height:500px;
-}
-.pos-panel{
-  position:absolute;top:0;left:0;width:100%;
-  opacity:0;visibility:hidden;
-  transform:translateY(15px);
-  transition:opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
-}
-.pos-panel.show{
-  position:relative;
-  opacity:1;visibility:visible;
-  transform:translateY(0);
-}
-.pos-summary{display:grid;grid-template-columns:1fr 1fr;gap:0 56px;margin-bottom:48px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
-.pos-summary .kw{padding:26px 0;border-bottom:1px solid var(--border)}
-.pos-summary .kw:nth-last-child(-n+2){border-bottom:0}
-.pos-summary .kw .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.26em;color:var(--gold-deep);text-transform:uppercase;display:block;margin-bottom:10px}
-.pos-summary .kw p{font-family:var(--song);font-size:16.5px;line-height:1.75;color:var(--fg)}
-
-.dim-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);box-shadow:0 8px 24px oklch(24% 0.03 55 / .04)}
-.dim{background:var(--bg);padding:36px 32px;transition:background-color 0.3s;}
-.dim:hover{background:var(--paper)}
-.dim-head{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}
-.dim-head .ic{font-family:var(--serif);font-size:24px;color:var(--gold-deep)}
-.dim-head h4{font-family:var(--song);font-size:21px;font-weight:600;color:var(--fg)}
-.dim-head .en{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;margin-left:auto}
-.dim .kw-line{font-family:var(--sans);font-size:13.5px;color:var(--wine-soft);line-height:1.7;margin-bottom:16px;padding-bottom:16px;border-bottom:1px dashed var(--border)}
-.dim>p{font-size:15.8px;line-height:1.82;color:var(--muted);margin-bottom:18px}
-.dim ul{list-style:none;display:flex;flex-direction:column;gap:11px}
-.dim li{font-size:14.5px;line-height:1.65;color:var(--fg);display:grid;grid-template-columns:auto 1fr;gap:11px;align-items:baseline}
-.dim li b{font-family:var(--song);font-size:12.5px;color:var(--paper);background:var(--gold-deep);padding:3px 9px;border-radius:2px;white-space:nowrap;font-weight:500;letter-spacing:.04em}
-.dim.reversed li b{background:var(--wine)}
-.dim-extra{margin-top:30px;padding:26px 30px;background:var(--paper);border:1px solid var(--border)}
-.dim-extra .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;color:var(--gold-deep);text-transform:uppercase;display:block;margin-bottom:12px}
-.dim-extra p{font-size:15.5px;line-height:1.8;color:var(--muted)}
-
-/* ============ 新增图版通用 ============ */
-.element-figure, .pos-figure, .spread-figure{margin:40px 0}
-.element-figure .plate, .pos-figure .plate, .spread-figure .plate{
-  position:relative;border:1px solid var(--rule);padding:16px;background:var(--paper);
-  box-shadow:0 10px 30px oklch(24% 0.03 55 / .08);
-  transition:all 0.3s ease;
-}
-.element-figure .plate::before, .pos-figure .plate::before, .spread-figure .plate::before{content:"";position:absolute;inset:8px;border:1px solid var(--gold);opacity:.4;pointer-events:none}
-.element-figure img, .pos-figure img, .spread-figure img{display:block;width:100%;height:auto}
-.element-figure:hover .plate, .pos-figure:hover .plate, .spread-figure:hover .plate{
-  transform:translateY(-4px);
-  box-shadow:0 14px 40px oklch(24% 0.03 55 / .14);
-}
-
-/* ============ 牌阵 3D 卡牌翻牌动效 ============ */
-.spread{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:28px;
-  perspective:1000px;
-}
-.spread-card-wrapper{
-  position:relative;
-  height:380px;
-  cursor:pointer;
-  transform-style:preserve-3d;
-  transition:transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.spread-card-wrapper.flipped{
-  transform:rotateY(180deg);
-}
-.spread-card-front, .spread-card-back{
-  position:absolute;inset:0;
-  backface-visibility:hidden;
-  border:1px solid var(--rule);
-  padding:36px 30px;
-  border-radius:2px;
-  display:flex;
-  flex-direction:column;
-  box-shadow:0 10px 25px oklch(24% 0.03 55 / .08);
-  transition:all 0.3s ease;
-}
-.spread-card-front{
-  background:var(--paper);
-  transform:rotateY(180deg);
-}
-.spread-card-back{
-  background:var(--surface);
-  align-items:center;
-  justify-content:center;
-  border:2px solid var(--gold);
-}
-.spread-card-back::before{
-  content:"";
-  position:absolute;inset:8px;
-  border:1px dashed var(--gold);
-  opacity:.6;
-}
-.spread-card-back .back-pattern{
-  font-family:var(--serif);
-  font-size:48px;
-  color:var(--gold-deep);
-  text-align:center;
-  opacity:.7;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:10px;
-}
-.spread-card-back .back-pattern::before{
-  content:"✦";
-  font-size:24px;
-  animation: pulseGold 2s infinite ease-in-out;
-}
-@keyframes pulseGold {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.1); }
-}
-.spread-card-back .click-to-reveal{
-  font-family:var(--mono);
-  font-size:11px;
-  color:var(--muted);
-  letter-spacing:.2em;
-  text-transform:uppercase;
-  margin-top:20px;
-  border:1px solid var(--border);
-  padding:6px 12px;
-  border-radius:2px;
-  background:var(--paper);
-}
-
-.spread-card-front .pos-no{
-  font-family:var(--serif);font-size:54px;line-height:1;color:var(--wine);opacity:.85;
-}
-.spread-card-front h4{
-  font-family:var(--song);font-size:20px;font-weight:600;color:var(--fg);margin:14px 0 10px;
-}
-.spread-card-front .en{
-  font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;display:block;margin-bottom:14px;
-}
-.spread-card-front p{
-  font-family:var(--sans);font-size:14.5px;line-height:1.75;color:var(--muted);
-}
-.spread-card-wrapper:hover:not(.flipped){
-  transform:translateY(-8px) scale(1.02);
-  box-shadow:0 16px 35px oklch(24% 0.03 55 / .15);
-}
-
-/* ============ 页脚 ============ */
-footer{padding:80px 0 60px;text-align:center}
-footer .ornament{margin-bottom:24px}
-footer p{font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--faint);text-transform:uppercase;line-height:2.2}
-footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(--muted);text-transform:none;margin-top:10px}
-
-/* ============ 响应式 ============ */
-@media(max-width:980px){
-  .hero-grid{grid-template-columns:1fr;gap:44px}
-  .symbol-layout{grid-template-columns:1fr;gap:38px}
-  .symbol-figure{position:static}
-  .numero{grid-template-columns:1fr;gap:30px}
-  .dim-grid{grid-template-columns:1fr}
-  .spread{grid-template-columns:1fr;gap:24px}
-  .spread-card-wrapper{height:300px}
-}
-@media(max-width:680px){
-  .wrap,.topbar-inner{padding:0 24px}
-  body{font-size:16px}
-  .tnav{display:none}
-  .pos-summary{grid-template-columns:1fr}
-  .pos-summary .kw{border-bottom:1px solid var(--border)!important}
-  .prose.drop::first-letter{font-size:64px}
-}
-</style>
-<link rel="stylesheet" href="../../assets/css/card-reading.css">
-<script src="../../assets/js/card-reading.js" defer></script>
+<title>魔术师 · THE MAGICIAN — 塔罗牌深度专题</title>
+<link rel="stylesheet" href="../../assets/css/card-page.css" />
+<script type="application/json" id="card-data">{
+  "slug": "01-the-magician",
+  "title": "魔术师",
+  "enTitle": "The Magician",
+  "roman": "I",
+  "arcanum": "Arcanum Primum",
+  "heroLede": "个人意识与宇宙能量的结合。他一手指天、一手指地，是联结天与地的桥梁——将灵感导入土地，把想法化为看得见、摸得着的成果。编号为一，意味着一切真正的开始。",
+  "heroKeywords": [
+    {
+      "zh": "创造力",
+      "en": "CREATION"
+    },
+    {
+      "zh": "行动力",
+      "en": "ACTION"
+    },
+    {
+      "zh": "掌控力",
+      "en": "CONTROL"
+    },
+    {
+      "zh": "有意识",
+      "en": "AWARENESS"
+    }
+  ],
+  "coreThemes": [
+    "创造力",
+    "行动力",
+    "掌控力",
+    "显化",
+    "有意识地运用资源"
+  ],
+  "facts": [
+    {
+      "label": "元素 Element",
+      "value": "风",
+      "detail": ""
+    },
+    {
+      "label": "星座 / 行星",
+      "value": "双子座",
+      "detail": "双子座、处女座 / 水星【手臂、手、肩膀、肺、支气管、呼吸道、神经系统】"
+    },
+    {
+      "label": "希伯来字母",
+      "value": "Beth / Beit",
+      "detail": "Beth / Beit（贝特，意为「房屋」）"
+    },
+    {
+      "label": "核心主题",
+      "value": "创造力",
+      "detail": "创造力、行动力、掌控力、显化、有意识地运用资源"
+    }
+  ],
+  "footerMeta": "风 · 双子座、处女座 / 水星【手臂、手、肩膀、肺、支气管、呼吸道、神经系统】",
+  "energy": "风 · 创造力、行动力、掌控力、显化、有意识地运用资源",
+  "images": {
+    "main": {
+      "src": "../../assets/images/major/01-the-magician/the-magician.png",
+      "alt": "塔罗牌魔术师主图",
+      "fallback": "PLATE I — 主图待上传\nassets/images/major/01-the-magician/the-magician.png"
+    },
+    "symbols": {
+      "src": "../../assets/images/major/01-the-magician/the-magician-symbols.png",
+      "alt": "塔罗牌魔术师象征要素图",
+      "fallback": "PLATE II — 象征要素图待上传\nassets/images/major/01-the-magician/the-magician-symbols.png"
+    },
+    "elements": {
+      "src": "../../assets/images/major/01-the-magician/the-magician-elements.png",
+      "alt": "塔罗牌魔术师对应要素图",
+      "fallback": "PLATE III — 对应要素图待上传\nassets/images/major/01-the-magician/the-magician-elements.png"
+    },
+    "upright": {
+      "src": "../../assets/images/major/01-the-magician/the-magician-upright.png",
+      "alt": "塔罗牌魔术师正位意象",
+      "fallback": "PLATE V — 正位意象待上传\nassets/images/major/01-the-magician/the-magician-upright.png"
+    },
+    "reversed": {
+      "src": "../../assets/images/major/01-the-magician/the-magician-reversed.png",
+      "alt": "塔罗牌魔术师逆位意象",
+      "fallback": "PLATE VI — 逆位意象待上传\nassets/images/major/01-the-magician/the-magician-reversed.png"
+    },
+    "spread": {
+      "src": "../../assets/images/major/01-the-magician/the-magician-spread.png",
+      "alt": "塔罗牌魔术师三牌阵示意图",
+      "fallback": "PLATE VII — 三牌阵示意图待上传\nassets/images/major/01-the-magician/the-magician-spread.png"
+    }
+  },
+  "narrativeHtml": "\u003cp>四个词形容他：\u003c/p>\u003cp>创造力、行动力、掌控力、有意识。\u003c/p>\u003cp>魔术师是大阿尔卡那中第一位真正动手的人。愚者带着满怀的潜能从悬崖边出发，而魔术师则把那些尚未成形的可能，凝聚成可以被运用的力量。他编号为一，意味着一切真正的开始——不是懵懂的萌芽，而是带着清晰意志的创造。他既是天与地之间的桥梁，也是想法与现实之间的转化器。\u003c/p>\u003cp>这张牌讲的是「显化」：把灵感落实为成果，把愿望转译成行动。魔术师从不被生活的潮流推着走，他在潮流之中为自己行动，凭着意志力把抽象的念头锻造成看得见、摸得着的东西。当这张牌出现，它在提醒你：实现目标所需的全部工具，其实早已摆在你眼前的桌上，关键只在于你是否愿意伸手去用。\u003c/p>\u003cp>塔罗牌魔术师正在实行法术，他右手高举权杖指向天，召唤神奇的法力，左手食指指向地，象征了他是联合天与地的桥梁，主宰者地上的一切。他身前的桌上放着权杖（火元素），圣杯（水元素），宝剑（风元素）和星币（土元素），既代表塔罗牌小阿尔卡那的四个牌组，也是四要素的象征。他身穿得红袍代表热情与主动，白色亵服代表内在的纯洁与智慧。他具有无穷的创造能力与潜力，但需要坚强意志和纯洁内心的保证。他的腰带是一条蛇，在这里的蛇不是代表邪恶，而是象征智慧和启发。头上的八字型符号代表其法力的无穷。四周绕着鲜花，红色的玫瑰象征热情，白色的百合象征智慧。鲜黄的背景预示着未来的成功。魔术师在塔罗牌中的编号是一，意味着一切真正的开始，同时也扮演着大阿尔卡那与小阿尔卡那之间沟通的角色。\u003c/p>\u003cp>魔术师从天空中（灵感）接受能量，一种灵光一现的灵感或者是自我的意识，并将这些能量导入某种具体且真实的东西——土地。也就是说他将想法转化成一些我们看得到，摸得着的事物。他运用他的意志力产生了具体的成果；他不是被生活的潮流推着走，而是在这些潮流中为他自己行动，并做出具体的成果。\u003c/p>\u003cp>魔术师背后的符号包括魔术棒、圆盘、剑和杯子，分别代表着力量、财富、思想和情感。这四个符号组合在一起，代表着魔术师拥有全面的能力和智慧，可以掌控所有的局面和机遇。魔术师还拥有自信和勇气，是一个具有创造力和想象力的人。\u003c/p>\u003cp>由此，可以看得出，魔术师他是一个个人意识和宇宙能量的结合，同时能够通过自己手里资源的整合充分发挥主观能动性最终达成目的。\u003c/p>\u003cp>整体牌面充满着希望的美好的能量，只要你愿意付出去努力，那你这件事就可以达成。\u003c/p>",
+  "symbols": [
+    {
+      "name": "白色手套 / 白色内衣",
+      "meaning": "纯净和精神上的事务，可能象征纯洁的动机和行为。"
+    },
+    {
+      "name": "红色斗篷",
+      "meaning": "激情、能量和力量；象征行动和意志力、热情与主动。"
+    },
+    {
+      "name": "白色长袍",
+      "meaning": "纯洁和无暇，代表内在的灵性和智慧。"
+    },
+    {
+      "name": "上举的右手",
+      "meaning": "连接高等力量的手势，象征从宇宙中汲取能量。"
+    },
+    {
+      "name": "左手指向地面",
+      "meaning": "接地的手势，意味着现实世界与精神世界的连接和平衡。"
+    },
+    {
+      "name": "魔术师桌上的工具",
+      "meaning": "杯子、宝剑、权杖和星币象征塔罗中的四个元素：水、空气、火、土。代表不同的层面和能力。"
+    },
+    {
+      "name": "横向的无限符号",
+      "meaning": "无限可能和永恒，代表精神性和知识的无限流动。"
+    },
+    {
+      "name": "红玫瑰和白百合",
+      "meaning": "红玫瑰代表激情和欲望以及行动的热情【生】，白百合代表纯洁和心灵；智慧【死】。"
+    },
+    {
+      "name": "葡萄藤",
+      "meaning": "成长和连接自然的象征，它们通常表示生命力，以及自然界的丰富和多产。"
+    },
+    {
+      "name": "黄色背景",
+      "meaning": "快乐、知识和智慧的颜色，它可以是正面能量、激情和活力的来源，未来的成功。"
+    },
+    {
+      "name": "表上的工具布局",
+      "meaning": "排列有序，表明思考有组织、计划周密。"
+    },
+    {
+      "name": "权杖/魔杖（权杖插地）",
+      "meaning": "代表种下意图或行动的\"种子\"，象征开始行动、火、行动力、创造力、热情、激情。"
+    },
+    {
+      "name": "红色腰带",
+      "meaning": "忠诚与责任的符号，也可能是能量和生命力的象征。"
+    },
+    {
+      "name": "牌边缘的花朵",
+      "meaning": "自然的丰饶，也代表生命的不断循环和更替。"
+    }
+  ],
+  "numerologyHtml": "\u003cp>数字1、象征着开始、开端和新事物。\u003c/p>\u003cul>\u003cli>数字1、关键词：独立、自主、将军、主动积极。\u003c/li>\u003cli>数字1、金钱关键词：创造力、点子多、小聪明、领导力\u003c/li>\u003cli>数字1、感情关键词：固执、爱恨分明、听我的、立场清晰，不喜欢浪费时间和金钱在无趣的情感上。\u003c/li>\u003cli>数字1、很多人是创业家，冲动，做事很拼、比较有语言天赋，可以学很多国外语言、演讲，适合做独立性较高的工作，不喜欢被别人管束，感情上喜欢别人听他的。\u003c/li>\u003c/ul>\u003cp>塔罗牌：魔术师(阳性能量)所有含有数字1的牌。\u003c/p>\u003cp>能量倾向特质：独立\u003c/p>\u003cp>数字1、是所有能量的源头，它能提供驱策其他数字发挥活力的能量。\u003c/p>\u003cp>数字1、越多越纯，表示活力旺盛，精明干练，自动自发，具备成功的所有条件。不耗尽这股力量容易导致忧郁和气馁。\u003c/p>\u003cp>数字1、使人立志独立，1的数字越多，想独立的意念越强。\u003c/p>\u003cp>数字1、代表领导权和创造力、如果两者未平衡发展，将会令他人不自在、过度的武断和独裁。\u003c/p>\u003cp>数字1、的影响太强烈会使人显得自私和专横霸道。\u003c/p>\u003cp>数字1、的课题是：如何和他人合作，听听他人的意见。不要钻牛角尖。\u003c/p>\u003cp>魔术师是1号牌，1是单数、奇数，在毕达哥斯拉学派中认为1是数字的开始，属于阳性数字，代表了创生与起源，1也是万物之母及智能的象征，在图象上的代表为点。因此魔术师是一张阳性能量很强的牌，他最大的能量就来自于创造力。\u003c/p>\u003cp>魔术师在无论在单身还是恋爱中都喜欢晒给别人看，谈恋爱的话会变得专一，有伴侣的话，他会引导伴侣变得优秀、赞美伴侣、喜欢秀恩爱，如果他很花心的话，说明他的伴侣跟不上他的节奏。单身的话，在人群当中受瞩目很有人格魅力、自身带有很强的气场，他很优秀、有一技之长、不缺桃花。\u003c/p>\u003cp>魔术师喜欢能够感染他和带动他和愿意欣赏他美好的并且能够支持他的事业或者正在做事情的伴侣、不会带给他很多负面情绪和压抑的伴侣，要给他独立的空间，他喜欢独立思考和反省自己，喜欢氛围感和新鲜感，审美力和洞察力很强，享受得到别人的关注，如果分手的话，不会拖泥带水，果断决绝。\u003c/p>",
+  "readingFocusHtml": "\u003cp>魔术师所代表的人事物有一个鲜明特点：往往需要长时间的准备，但真正展现、爆发的时间却很短。漫长的酝酿换来一瞬的显化，这正是它的核心节奏。由此延伸出它最关键的一组含义——正位表示准备充分、万事俱备，逆位则表示不做准备或准备不充分。无论正逆，其余的解读都可以在这条主轴上去拓展、去思考：力量是否已经备齐？意志是否足够坚定？工具是否真的被善加运用？\u003c/p>",
+  "upright": {
+    "keywords": [
+      "受好奇心驱使展开调查研究",
+      "具有独创性",
+      "具备发展潜力",
+      "展开新的计划并获得成功",
+      "幸福的开始",
+      "显现",
+      "表现",
+      "显化",
+      "表征",
+      "机智",
+      "足智多谋",
+      "智慧",
+      "丰富资源",
+      "控制力",
+      "影响力",
+      "操纵力",
+      "统治",
+      "政权",
+      "能力",
+      "机会",
+      "驱动",
+      "推动",
+      "迅速移动",
+      "快速前进",
+      "灵感",
+      "创新",
+      "决断",
+      "行动",
+      "技巧",
+      "潜能"
+    ],
+    "introHtml": "\u003cp>正位的魔术师，是一个人将创新精神、清晰目标与坚定意志合而为一的状态。你拥有良好的沟通技巧、高度的灵活性与专注力，积极主动且充满自信，手中握着实现目标所需的能力与资源。这是个着手新事物的适当时机。对的时间，对的机会，对的动机，使你的努力值回票价。对于展开行动，实现计划而言，这正是一个良好时机。由于你已为实现计划扎下良好基础，所以新的冒险很可能会实现。清楚的方向感和意志力的贯彻，大大的提升了成功的可能性。\u003c/p>",
+    "dimensions": [
+      {
+        "title": "爱情 / 婚姻",
+        "en": "Love",
+        "icon": "❤",
+        "html": "\u003cp>\u003cb>关键词\u003c/b>：心有灵犀一点通，表现的很爱，进入下一阶段，控制欲强，情绪变化快，出现新的恋人，默契的伴侣，魅力，吸引，热情，主动追求\u003c/p>\u003cp>爱情上，你正处于一个善于表达爱意、主动追求的时期。你可能会遇到能激发自己激情的人，新的恋情即将展开，甚至有机会遇上理想的、与你心意相通的伴侣。将有一段新恋情展开，对方备受异性欢迎，两个人都是比较务实的人，彼此间的性格是互补型的，两个人在一起做事能默契配合，不会因为特质方面的因素而影响到感情。两人在一起能够品尝爱情的喜悦，会以不断变更约会地点和方式，来令彼此保持新鲜感。整体而言，这是一段发展迅速、充满变化与新鲜感的关系，你拥有把握爱情、推动它向下一阶段迈进的能力，浪漫的求婚也并非不可能。\u003c/p>\u003cul>\u003cli>\u003cb>现况\u003c/b>：在感情当中充满热情，也有主动表达与沟通的能力，再加上在动机上十分单纯，应该是一段感情丰富的时期。\u003c/li>\u003cli>\u003cb>桃花\u003c/b>：其实新恋情的对象已经出现，只是你没有注意到而已，若是细心观察自己所处的环境，主动出击必然会有结果。\u003c/li>\u003cli>\u003cb>看法\u003c/b>：这是一段很有前景的感情，但现在还是刚刚起步的阶段，在这段感情中应该要主动付出，未来才会有好的收获。\u003c/li>\u003cli>\u003cb>复合\u003c/b>：这段感情完全没有复合的可能性，也许是已经有了新欢，或是即将出现更好的对象，不要在旧情人身上浪费时间了。\u003c/li>\u003c/ul>"
+      },
+      {
+        "title": "事业 / 学业",
+        "en": "Work",
+        "icon": "✦",
+        "html": "\u003cp>\u003cb>关键词\u003c/b>：学习努力，工作高效，思维敏捷，调配资源，运筹帷幄，进展顺利，智力非凡，想象力丰富，主动，机遇，创新，能力，技巧\u003c/p>\u003cp>事业学业上，你具有很好的创新思维与实现目标的能力，有可能开启新的事业或学习项目，并在其中展现高度的专注与热情。工作方面，头脑灵活，充满创意，处理事务得当，工作效率较高，并且非常注重细节，能够充分发挥自己所学，在工作中的创意可能得到旁人认同，适合从事艺术方面的工作。同时因为喜欢充满创新的工作，所以也适合从事技术创新，播音员，大众传媒等相关工作。你善于调配手头的资源、运筹帷幄，具备很好的领导力与自我激励能力，有机会因此得到升职或进步。学业方面，对学习非常有兴趣，也很努力，而且能以一种新的方式读书，并获得好的成绩。\u003c/p>\u003cul>\u003cli>\u003cb>现况\u003c/b>：你面对一个新的工作，这个工作的资源十分充足，只要你能把握机会，发挥主观能动性，就会得到你想要的东西。\u003c/li>\u003cli>\u003cb>建议\u003c/b>：你需要使用新的观念和方法去处理问题，把握即将到来的机会才能突破困境，有时候也可以考虑作用新人来负责这件事情。\u003c/li>\u003cli>\u003cb>人际\u003c/b>：在工作当中最重要的是与别人沟通，这会帮助你开展人际关系，拓宽道路，使事情的进展更加顺利。\u003c/li>\u003cli>\u003cb>发展\u003c/b>：这个工作的未来还有很大的发展空间，但还有很多东西没有成型并规范，你可以在这个工作当中创造更多的自我价值。\u003c/li>\u003c/ul>"
+      },
+      {
+        "title": "人际 / 财富",
+        "en": "Wealth",
+        "icon": "◈",
+        "html": "\u003cp>\u003cb>关键词\u003c/b>：人缘佳，喜交友，善经营，人际关系中的焦点，计划完美，发展空间大，成功，果断，好的开端，沟通，领导，影响力，交际能力\u003c/p>\u003cp>人际关系方面，人缘不错，喜欢结交更多的朋友，懂得如何与不同人交往，从中寻得良师益友，并与之深交，是一个有头脑的人。你善于建立与维系关系，拥有吸引他人、赢得尊重与认可的魅力，也懂得借助人际网络去实现自己的目标。财运方面，很有经营头脑，会寻求与自己性格互补之人作为合作对象，重视收入与产出，能够以拿理公道的代价获得想要的东西。\u003c/p>\u003cul>\u003cli>\u003cb>现况\u003c/b>：你面对新的人际关系结构，但当中还有很多空间是你可以去参与和创造的，所以要把握机会和新朋友处理好关系。\u003c/li>\u003cli>\u003cb>建议\u003c/b>：要主动沟通来化解误会，很多事情只要谈开来，其实也不是什么问题，别让一时的误会影响彼此的关系。\u003c/li>\u003cli>\u003cb>财运\u003c/b>：一切还在起步的阶段，但是仍然有许多发展的空间，这时需要按部就班地把事情完成，才能得到自己该得的。\u003c/li>\u003cli>\u003cb>建议\u003c/b>：考虑问题时必须符合各种不同的需要，但是由于自己还是有很大的主导权，所以仍然会存在一些自主发挥的空间。\u003c/li>\u003c/ul>"
+      },
+      {
+        "title": "健康 / 生活",
+        "en": "Health",
+        "icon": "✚",
+        "html": "\u003cp>\u003cb>关键词\u003c/b>：精神状态稳定，适合知性的装扮，知识丰富，养生有道\u003c/p>\u003cp>关于健康的问题都能解决。生病对你而言是一个警铃，告知你生活上缺少了某样东西，可能是好好的休息，也可能是均衡的饮食；但不论是什么问题，只要你倾听身体的需求，凭着你自己的意志力和自然的疗养法，必能获得很大的改善。\u003c/p>"
+      }
+    ],
+    "otherHtml": "\u003cp>喜欢阅读并从中获得知识和快乐，可能会有短期的履行，对语言学习颇有爱好，适合郊外野餐，拥有灵敏的运动神经，适合参加辩论会，善于模仿并所以获益，处事机灵善变，事事顺利。\u003c/p>",
+    "situation": {
+      "爱情运势": "魔术师象征着你在爱情中拥有主导权和自信心，能够通过积极的沟通和魅力吸引伴侣。你可能会遇到一个能与你匹配的伴侣，但关键在于利用你的沟通技巧和自我表达能力去建立和维持关系。",
+      "财富运势": "在财富方面，这张牌表示你有能力通过创新和利用现有资源来增加收入。你可能会借助创业或者投资获利。这是一个利用手边资源和技巧创造机会的时期，而不是等待机会自动来临。",
+      "当前情况": "目前你可能掌握着所有必要的工具和资源来实现你的目标。魔术师提醒你，拥有才能和资源的关键是如何有效地运用它们。",
+      "过去": "过去的你可能已经展现过创造力和机智，这些经历帮助你发展了现在的技能和自信。你可能已经在某些领域取得了成就，或者至少为未来奠定了基础。",
+      "现在": "你现在正处于活力充沛、创造力爆棚的状态。魔术师鼓励你把握这一时刻，利用你的能力和意志力去形成你想要的现实。",
+      "未来": "如果你继续积极地运用你的才能和资源，未来你将有很大的可能性达到当前设定的目标，并在多方面实现个人成长。",
+      "挑战": "你可能会面临如何有效集中和应用你的精力和技能的挑战。这可能意味着要克服分散注意力和缺乏集中的问题。",
+      "障碍": "遇到的障碍可能是自我怀疑或行动上的犹豫。你需要战胜内心的恐惧，相信自己拥有实现梦想的所有必要条件。",
+      "环境": "你周围的环境可能充满了各种各样可以帮助你成功的资源和人脉。你所处的环境为你提供了足够的支持，以实现你的目标。",
+      "支持": "你可能会得到朋友或者导师的支持，他们会提供你需要的帮助和建议。有人可能正观察着你的才华，愿意投资于你的未来。",
+      "建议": "魔术师建议你要积极行动，信任自己的直觉和能力。你应该利用你的全面技能和工具，创造自己想要的命运。",
+      "优势": "你具有多方面的才能和适应能力，能够在不同的情况下灵活应对。你的优势是能够利用现有资源创建机会。",
+      "弱点": "你的弱点可能是过度自信，有时会忽视细节和规划。你需要学习耐心和策略，以便更有效地实现目标。",
+      "正面影响": "魔术师的正面影响包括激发创造力，增强自信心，以及鼓励你采取主动。",
+      "负面影响": "如果不加控制，它也可能导致自负、冲动行事或者忽视他人的建议。在追求目标时要注意维持平衡。",
+      "希望发生": "你可能希望能够成功地运用你的才能和智慧，以实现你的梦想和目标。",
+      "害怕发生": "你可能担心会因为缺乏准备或计划而无法把握机会，或者担心失败和错失良机。",
+      "你如何看对方": "如果这是指人际关系，你可能认为对方是个有潜力、能力出众的人，你可能会从中感受到启发和动力。",
+      "对方如何看待你": "对方可能认为你是个非常有才华和创造力的人，能够对他们的生活产生积极的影响。",
+      "关系当前状态": "可能表明这段关系正在经历一个活跃和充满潜力的阶段；两方都在投入资源，期待共同的成长。",
+      "关系未来发展": "如果维持当前的积极态度，这段关系有望进入更深的合作和理解，进一步巩固或达到新的阶段。",
+      "结果": "这张牌通常预示着一个积极的结果，意味着你的努力和自信将导致成功。不过，这需要你的主动行动和恰当执行。"
+    }
+  },
+  "reversed": {
+    "keywords": [
+      "犹豫未定",
+      "因学艺不精而败北",
+      "看待事物过于消极",
+      "易受骗上当",
+      "遇事言而不行",
+      "操作",
+      "操纵",
+      "操控",
+      "推拿",
+      "处理",
+      "计划不周",
+      "人算不如天算",
+      "百密一疏",
+      "怀才不遇",
+      "有潜力",
+      "欺诈",
+      "滥用权力",
+      "疏忽",
+      "不诚实"
+    ],
+    "introHtml": "\u003cp>\u003cb>基本牌意\u003c/b>\u003c/p>\u003cp>逆位的魔术师，常常意味着行动力不足、缺乏创新精神，无法有效沟通，也缺少自我控制力。你可能对自己的目标感到模糊，对自身潜力感到困惑，容易受到他人影响而失去自信。它的另一面，则是力量被滥用——对别人进行控制可能导致毁掉对方，可能是暗中作梗，或以任何他想得到的方法，这可能包括仪式魔法，雇人暗杀，自己动手。也可能做出违反社会的行为。可能会变得不切实际，而导致精神，情感或身体健康上出问题；会变的漫无目标且缺乏自律。\u003c/p>",
+    "dimensions": [
+      {
+        "title": "爱情 / 婚姻",
+        "en": "Love",
+        "icon": "❤",
+        "html": "\u003cp>\u003cb>关键词\u003c/b>：不善表白，容易受骗，看不见优点，对未来消极看待，爱情没有进展，注意伴侣的行为，欺骗，玩弄感情，不诚实，不稳定\u003c/p>\u003cp>逆位时，感情发展缓慢、缺乏爱的表达，生活显得单调。当喜欢一个人时，不善于向对方表白，也缺乏爱情技巧，而且容易受甜言蜜语者蒙骗，从而在感情上受到伤害。你可能对爱情抱有过于理想化的期待，对伴侣的要求过高，沟通上也存在障碍，需要留心爱情骗子，以及出轨或欺骗的可能。走入婚姻之后，不善于经营感情，可能会变得心情浮躁，对感情没有办法专一，如果不加以调整，也可能会变得冷酷无情，与另一半无法沟通，使婚姻走向终结。\u003c/p>\u003cul>\u003cli>\u003cb>现况\u003c/b>：在感情当中充满热情，但有时显得过于冲动，这时若是遇到沟通不畅的状况，可能就会引发隐瞒与欺骗的行为。\u003c/li>\u003cli>\u003cb>桃花\u003c/b>：目前十分有可能发生新恋情，但是因为条件还不是很成熟，所以还需要等待一阵子，这时候观察比行动更重要。\u003c/li>\u003cli>\u003cb>看法\u003c/b>：这段感情现在陷入沟通不畅的状况当中，有些话若不说出口，可能就会因此发生大误会，必须花很大的精力才能化解。\u003c/li>\u003cli>\u003cb>复合\u003c/b>：这段感情没有任何复合的可能性，即使回头也无法得到一段完整的爱情，千万不要在旧情人身上再浪费时间了。\u003c/li>\u003c/ul>"
+      },
+      {
+        "title": "事业 / 学业",
+        "en": "Work",
+        "icon": "✦",
+        "html": "\u003cp>\u003cb>关键词\u003c/b>：成绩不佳，工作无作为，专业技术不够，失败，态度消极，做事匆忙，优柔寡断，才能平庸，缺乏技术，浪费才能，做事马虎，缺乏创新，不负责任\u003c/p>\u003cp>逆位的事业学业，常因创新思维不足、专注力涣散而陷入困境，无法有效运用手头资源，甚至面临职业上的滑铁卢。学业方面，可能会因为自己的努力不够，致使考试失误，成绩不理想，退步明显，需要改变自己的学习方法，投入更多的精力在学习上，才能取得预期的成绩。工作方面，容易因为所从事的工作一成不变，而产生厌倦的情绪，进而陷入恶性循环之中，从而在工作上无所作为，也可能萌生辍学、换工作甚至失业的念头，压力随之累积。\u003c/p>\u003cul>\u003cli>\u003cb>现况\u003c/b>：你面对的新工作，资源并不充足，运行也不规范，所以最好先掂量一下自己几斤几两，把自己的分内的事完成好。\u003c/li>\u003cli>\u003cb>建议\u003c/b>：你应该专注于自己的工作，并且把遇到的问题和困难据实以报，若是领导无法提供支持，就只能靠自己想办法了。\u003c/li>\u003cli>\u003cb>人际\u003c/b>：在工作当中可能会发生沟通不良，所以在说话的时候更要小心，别陷入派系斗争当中，要保持中立以求自保。\u003c/li>\u003cli>\u003cb>发展\u003c/b>：这个工作的未来还有不错的发展空间，但是中间还必须经过很多的改革和波折，若是能坚持下来应该就会有所成就了。\u003c/li>\u003c/ul>"
+      },
+      {
+        "title": "人际 / 财富",
+        "en": "Wealth",
+        "icon": "◈",
+        "html": "\u003cp>\u003cb>关键词\u003c/b>：待人欠真诚，花钱如流水，背人做事，没有判断力，没有创造力，欺诈，不诚实，不尊重他人，滥用权力\u003c/p>\u003cp>人际关系方面，不太懂得人情事故，只为自己着想，待人接物欠缺真诚，只是在表面上维持一种虚假的敷衍，容易因此而失信于人，交不到真心的朋友。你可能感到人际关系紧张、被人误解甚至被利用，社交压力大，时常体会到孤独，甚至遭遇朋友关系破裂或被他人排斥。财运方面，不会理财，花钱大手大脚，内心也比较贪财，并容易因此而遭遇欺诈，也可能因为好赌而倾家荡产。\u003c/p>\u003cul>\u003cli>\u003cb>现况\u003c/b>：你面对的新人际关系结构，以往的一切都不再可靠，所以要把握机会和新朋友处理好关系，这对你只有好处没有坏处。\u003c/li>\u003cli>\u003cb>建议\u003c/b>：这时候你需要更有技巧的沟通，以免自己的意思被对方误会，如果能倾听对方的想法，会帮助你判断事件情况。\u003c/li>\u003cli>\u003cb>现况\u003c/b>：身处在刚起步的阶段，要小心各种陷阱和欺骗，不要自以为是，此时应该以保守为宜。\u003c/li>\u003cli>\u003cb>建议\u003c/b>：很有可能遇到诈骗或是不良产品，所以要格外的小心谨慎，特别是在验收时严格把关，以免发生一些不必要的纠纷。\u003c/li>\u003c/ul>"
+      },
+      {
+        "title": "健康 / 生活",
+        "en": "Health",
+        "icon": "✚",
+        "html": "\u003cp>\u003cb>关键词\u003c/b>：精神紧张需要休息，情绪急躁轻易激动，呼吸器官或大脑负荷过重，着装不搭调\u003c/p>\u003cp>由于你的想法很多，想要实现的欲望也很强，但却没有能力具体化，因而造成你精神上的困扰；长期累积的结果会导致幻觉，精神分裂，或精神崩溃，严重的抑郁症或焦虑症。\u003c/p>"
+      }
+    ],
+    "otherHtml": "\u003cp>旅行计划取消，遭遇交通堵塞，因懦弱造成竞技失败，不听他人劝告。\u003c/p>",
+    "situation": {
+      "爱情运势": "魔术师逆位可能意味着在爱情中缺乏自信，无法有效沟通，可能会错过或破坏与伴侣的关系。你需要反思自己是否在爱情中过于被动或者不诚实。",
+      "财富运势": "在财务上可能出现错失良机或缺乏方向感。你可能不知道如何利用自己的资源或才能来获取财富。注意切勿投机取巧或过分自信导致财务损失。",
+      "当前情况": "目前你可能感到迷茫或缺乏方向，可能觉得自己没有足够的掌控力或能力来达成目标。魔术师逆位提醒你需要重新找回自信和动力。",
+      "过去": "过去可能存在过盲目自信或者错过了使用自己才华的机会，导致现在缺乏自信或不确定如何前进。",
+      "现在": "现在你可能感觉自己无法发挥潜力，或者无法将计划转化为行动。你可能在某些方面失去了自信。",
+      "未来": "如果持续这种状态，未来可能会继续遇到挑战和挫折。但如果能够解决目前的问题，重新找到自信，未来仍有改善的可能性。",
+      "挑战": "挑战可能是发现自我潜能，找到正确表达自己和利用资源的方式。需要克服内在的不确定感和缺乏自信。",
+      "障碍": "障碍可能是内外部的压力导致你的动力不足，或是因自我怀疑而无法真正采取行动。",
+      "环境": "你周围的环境可能缺乏支持或资源，或者你可能没有意识到环境中已有的机会。",
+      "支持": "可能缺乏外界支持，或者周围人不了解你真正需要的是什么。需要主动寻求帮助，以弥补这一缺陷。",
+      "建议": "建议你重新评估自己的技能和资源，清楚地了解自己的长处和短处，并采取切实可行的步骤来重建自信。",
+      "优势": "尽管当前可能有挑战，但你依旧有能力反思和调整自己的行为，这是克服困境的重要优势。",
+      "弱点": "弱点是可能缺乏必要的动力、自信和积极性，这会导致潜力无法得到充分发挥。",
+      "正面影响": "正面影响可能较少，但这张牌逆位也可以作为一个提醒，让你意识到需重新集中精力和自信。",
+      "负面影响": "负面影响可能包括迷失方向、浪费潜力、错过机会和缺乏自信。",
+      "希望发生": "你可能希望能重新找到方向和动力，克服困难，发挥自己的潜力。",
+      "害怕发生": "你可能害怕继续失去控制感，担心自己的才华和资源会被浪费。",
+      "你如何看对方": "可能认为对方未能充分发挥潜力，或者觉得对方缺乏主动性和自信。",
+      "对方如何看待你": "对方可能认为你失去了往日的光芒，变得犹豫不决，不再是那个能够把握机会的人。",
+      "关系当前状态": "这段关系可能正经历低潮，双方都在探索如何更好地沟通和发挥各自潜力。",
+      "关系未来发展": "如果不采取行动改变当前局面，关系可能会继续停滞不前。然而，通过共同努力，仍有机会重建信任和自信。",
+      "结果": "结果可能指向需要深入反思和改变，才能克服挑战并重新找回成功的道路。"
+    }
+  },
+  "spread": [
+    {
+      "title": "过去",
+      "text": "过去的你可能已经展现过创造力和机智，这些经历帮助你发展了现在的技能和自信。你可能已经在某些领域取得了成就，或者至少为未来奠定了基础。"
+    },
+    {
+      "title": "现在",
+      "text": "你现在正处于活力充沛、创造力爆棚的状态。魔术师鼓励你把握这一时刻，利用你的能力和意志力去形成你想要的现实。"
+    },
+    {
+      "title": "未来",
+      "text": "如果你继续积极地运用你的才能和资源，未来你将有很大的可能性达到当前设定的目标，并在多方面实现个人成长。"
+    }
+  ]
+}</script>
+<script defer src="../../assets/js/card-page.js"></script>
 </head>
 <body>
-
-<div class="topbar">
-  <div class="topbar-inner">
-    <div class="mark"><b>I</b> &nbsp;魔術師 · THE MAGICIAN</div>
-    <nav class="tnav">
-      <a href="#hero">卷首</a>
-      <a href="#narrative">牌面叙事</a>
-      <a href="#facts">牌面要素</a>
-      <a href="#symbols">象征图谱</a>
-      <a href="#numerology">塔罗灵数</a>
-      <a href="#reading">正逆位解读</a>
-      <a href="#spread">牌阵示意</a>
-    </nav>
-  </div>
-</div>
-
-<!-- ============ 卷首 ============ -->
-<header class="hero" id="hero">
-  <div class="wrap hero-grid">
-    <figure class="hero-figure">
-      <div class="plate">
-        <img src="../../assets/images/major/01-the-magician/the-magician.png" alt="塔罗牌魔术师主图"
-             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE I — 主图待上传&lt;br&gt;../../assets/images/major/01-the-magician/the-magician.png&lt;/div&gt;'">
-      </div>
-      <figcaption class="plate-cap">PLATE I · THE MAGICIAN · 大阿尔卡那第一号</figcaption>
-    </figure>
-    <div class="hero-text">
-      <div class="hero-num">I<small>Arcanum Primum</small></div>
-      <h1>魔術師<span class="en">The Magician</span></h1>
-      <div class="hero-keywords">
-        <div>创造力<span>CREATION</span></div>
-        <div>行动力<span>ACTION</span></div>
-        <div>掌控力<span>CONTROL</span></div>
-        <div>有意识<span>AWARENESS</span></div>
-      </div>
-      <p class="hero-lede">个人意识与宇宙能量的结合。他一手指天、一手指地，是联结天与地的桥梁——将灵感导入土地，把想法化为看得见、摸得着的成果。编号为一，意味着一切真正的开始。</p>
-      <a href="../../index.html" class="back-btn">← 返回大厅 / 选择其它卡牌</a>
-    </div>
-  </div>
-</header>
-
-<!-- ============ 牌面叙事 ============ -->
-<section class="chapter reveal" id="narrative">
-  <div class="wrap">
-    <div class="chapter-head">
-      <div class="idx">— 壹 · NARRATIVE</div>
-      <h2>牌面叙事<span class="en">The Image Speaks</span></h2>
-    </div>
-    <div class="prose drop">
-      <p>魔术师正在实行法术，他右手高举权杖指向天，召唤神奇的法力，左手食指指向地，象征他是联合天与地的桥梁，主宰着地上的一切。他身前的桌上放着权杖（火元素）、圣杯（水元素）、宝剑（风元素）和星币（土元素），既代表塔罗小阿尔卡那的四个牌组，也是四要素的象征。</p>
-      <p>他身穿的红袍代表热情与主动，白色亵服代表内在的纯洁与智慧。他具有无穷的创造能力与潜力，但需要坚强意志 and 纯洁内心的保证。腰间的蛇并非邪恶，而是象征智慧与启发；头上的横∞符号代表其法力的无穷。四周环绕鲜花——红玫瑰象征热情，白百合象征智慧，鲜黄的背景预示着未来的成功。</p>
-      <p class="pullquote">他从天空接受灵感，并将这些能量导入土地——把想法转化成我们看得见、摸得着的事物。</p>
-      <p>魔术师不是被生活的潮流推着走，而是在这些潮流中为自己行动，并做出具体的成果。背后的魔杖、圆盘、剑与杯，分别代表力量、财富、思想与情感；四者组合，意味着他拥有全面的能力与智慧，可以掌控所有局面与机遇。他自信而勇敢，是一个充满创造力与想象力的人。</p>
-      <p>由此可见，魔术师是个人意识与宇宙能量的结合，能够通过整合手中资源充分发挥主观能动性，最终达成目的。整体牌面充满希望的美好能量——只要你愿意付出努力，这件事就可以达成。</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 牌面要素 ============ -->
-<section class="chapter reveal" id="facts">
-  <div class="wrap">
-    <div class="chapter-head">
-      <div class="idx">— 貳 · CORRESPONDENCES</div>
-      <h2>牌面要素<span class="en">Esoteric Correspondences</span></h2>
-    </div>
-    <div class="facts">
-      <dl><dt>元素 Element</dt><dd>风<small>Air · 思想、沟通与心智的流动</small></dd></dl>
-      <dl><dt>星座 Zodiac</dt><dd>双子 · 处女<small>Gemini & Virgo · 灵巧、思辨与务实</small></dd></dl>
-      <dl><dt>行星 Planet</dt><dd>水星<small>Mercury · 主掌手臂、肺、呼吸道与神经系统</small></dd></dl>
-      <dl><dt>希伯来字母</dt><dd>Beth<small>第二个字母 ב · "房屋"，承载与创生之所</small></dd></dl>
-    </div>
-    <figure class="element-figure" style="margin-top:48px">
-      <div class="plate">
-        <img src="../../assets/images/major/01-the-magician/the-magician-elements.png" alt="桌上四元素——权杖、圣杯、宝剑、星币"
-             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE III — 四元素图待上传&lt;br&gt;../../assets/images/major/01-the-magician/the-magician-elements.png&lt;/div&gt;'">
-      </div>
-      <figcaption class="plate-cap">PLATE III · 桌上四元素——杖、杯、剑、币对应火、水、风、土</figcaption>
-    </figure>
-  </div>
-</section>
-
-<!-- ============ 象征要素图谱 ============ -->
-<section class="chapter reveal" id="symbols">
-  <div class="wrap">
-    <div class="chapter-head">
-      <div class="idx">— 叁 · ICONOGRAPHY</div>
-      <h2>象征要素图谱<span class="en">A Glossary of Symbols</span></h2>
-    </div>
-    <div class="symbol-layout">
-      <figure class="symbol-figure">
-        <div class="plate">
-          <img src="../../assets/images/major/01-the-magician/the-magician-symbols.png" alt="魔术师象征要素标注图"
-               onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE II — 象征标注图待上传&lt;br&gt;../../assets/images/major/01-the-magician/the-magician-symbols.png&lt;/div&gt;'">
-        </div>
-        <figcaption class="plate-cap">PLATE II · 十三处象征的位置标注</figcaption>
-      </figure>
-      <div class="symbol-list">
-        <div class="symbol-item" data-id="1"><div class="sym-no">01</div><div class="sym-body"><h4><span class="swatch" style="background:oklch(97% .01 90)"></span>白色内衣</h4><p>纯净与精神上的事务，象征纯洁的动机与行为。</p></div></div>
-        <div class="symbol-item" data-id="2"><div class="sym-no">02</div><div class="sym-body"><h4><span class="swatch" style="background:oklch(45% .15 25)"></span>红色斗篷</h4><p>激情、能量与力量；象征行动、意志力、热情与主动。</p></div></div>
-        <div class="symbol-item" data-id="3"><div class="sym-no">03</div><div class="sym-body"><h4><span class="swatch" style="background:oklch(97% .01 90)"></span>白色长袍</h4><p>纯洁与无瑕，代表内在的灵性与智慧。</p></div></div>
-        <div class="symbol-item" data-id="4"><div class="sym-no">04</div><div class="sym-body"><h4>上举的右手</h4><p>连接高等力量的手势，象征从宇宙中汲取能量。</p></div></div>
-        <div class="symbol-item" data-id="5"><div class="sym-no">05</div><div class="sym-body"><h4>左手指向地面</h4><p>接地的手势，意味着现实世界与精神世界的连接与平衡。</p></div></div>
-        <div class="symbol-item" data-id="6"><div class="sym-no">06</div><div class="sym-body"><h4>桌上的四样工具</h4><p>杯、剑、杖、币象征塔罗四元素——水、风、火、土，代表不同的层面与能力。</p></div></div>
-        <div class="symbol-item" data-id="7"><div class="sym-no">07</div><div class="sym-body"><h4>横向的无限符号</h4><p>无限可能与永恒，代表精神性与知识的无限流动。</p></div></div>
-        <div class="symbol-item" data-id="8"><div class="sym-no">08</div><div class="sym-body"><h4><span class="swatch" style="background:oklch(45% .15 25)"></span>红玫瑰 ·<span class="swatch" style="margin-left:6px;background:oklch(97% .01 90)"></span>白百合</h4><p>红玫瑰代表激情、欲望与行动的热情【生】；白百合代表纯洁、心灵与智慧【死】。</p></div></div>
-        <div class="symbol-item" data-id="9"><div class="sym-no">09</div><div class="sym-body"><h4>葡萄藤</h4><p>成长与连接自然的象征，表示生命力以及自然界的丰富与多产。</p></div></div>
-        <div class="symbol-item" data-id="10"><div class="sym-no">10</div><div class="sym-body"><h4><span class="swatch" style="background:oklch(82% .14 95)"></span>黄色背景</h4><p>快乐、知识与智慧之色，是正面能量、激情与活力的来源，预示未来的成功。</p></div></div>
-        <div class="symbol-item" data-id="11"><div class="sym-no">11</div><div class="sym-body"><h4>工具的布局</h4><p>排列有序，表明思考有组织、计划周密。</p></div></div>
-        <div class="symbol-item" data-id="12"><div class="sym-no">12</div><div class="sym-body"><h4>权杖 / 魔杖</h4><p>种下意图或行动的"种子"，象征开始行动、火、行动力、创造力与激情。</p></div></div>
-        <div class="symbol-item" data-id="13"><div class="sym-no">13</div><div class="sym-body"><h4><span class="swatch" style="background:oklch(45% .15 25)"></span>红色腰带（蛇）</h4><p>忠诚与责任的符号，也是能量与生命力的象征；蛇形则寓意智慧与启发。</p></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 塔罗灵数 ============ -->
-<section class="chapter reveal" id="numerology">
-  <div class="wrap">
-    <div class="chapter-head">
-      <div class="idx">— 肆 · NUMEROLOGY</div>
-      <h2>塔罗灵数<span class="en">The Number One</span></h2>
-    </div>
-    <div class="numero">
-      <div class="bignum">1<small>Unity · Origin</small></div>
-      <div class="numero-text">
-        <div class="numero-keys">
-          <span>开始</span><span>独立</span><span>自主</span><span>主动积极</span><span>领导力</span><span>创造力</span>
-        </div>
-        <p>数字 1 象征着开始、开端与新事物，是所有能量的源头，能提供驱策其他数字发挥活力的能量。1 越多越纯，表示活力旺盛、精明干练、自动自发，具备成功的所有条件。</p>
-        <p>在毕达哥拉斯学派中，1 是数字的开始，属阳性数字，代表创生与起源，也是万物之母与智能的象征，在图象上以"点"为代表。因此魔术师是一张阳性能量很强的牌，他最大的能量正来自创造力。</p>
-        <p>1 使人立志独立——数字越多，独立的意念越强；它同时代表领导权与创造力，若两者未能平衡发展，则可能显得武断、独裁，甚至自私专横。</p>
-        <div class="lesson"><b>1 号牌的课题：</b>如何与他人合作，听听别人的意见，不要钻牛角尖。在金钱上点子多、有小聪明；在感情上爱恨分明、立场清晰，不愿把时间浪费在无趣的情感上。</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 正逆位解读 ============ -->
-<section class="chapter reveal" id="reading">
-  <div class="wrap">
-    <div class="chapter-head">
-      <div class="idx">— 伍 · DIVINATORY MEANING</div>
-      <h2>正逆位解读<span class="en">Upright &amp; Reversed</span></h2>
-    </div>
-    <div class="pos-switch-wrapper">
-      <div class="pos-switch" role="tablist">
-        <button class="on" data-pos="up" role="tab" aria-selected="true">正位<span class="en">Upright</span></button>
-        <button data-pos="rev" role="tab" aria-selected="false">逆位<span class="en">Reversed</span></button>
-      </div>
-    </div>
-
-    <div class="pos-panel-container">
-      <!-- 正位 -->
-      <div class="pos-panel show" id="panel-up">
-      <figure class="pos-figure" style="margin-bottom:40px;max-width:480px">
-        <div class="plate">
-          <img src="../../assets/images/major/01-the-magician/the-magician-upright.png" alt="魔术师正位意象"
-               onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE IV — 正位意象图待上传&lt;br&gt;../../assets/images/major/01-the-magician/the-magician-upright.png&lt;/div&gt;'">
-        </div>
-        <figcaption class="plate-cap">PLATE IV · 正位意象——天地相连，灵感化为现实</figcaption>
-      </figure>
-      <div class="prose" style="max-width:62ch;margin-bottom:40px">
-        <p>这是个着手新事物的适当时机。对的时间、对的机会、对的动机，使你的努力值回票价。由于你已为实现计划扎下良好基础，新的冒险很可能会实现——清楚的方向感与意志力的贯彻，大大提升了成功的可能性。</p>
-      </div>
-      <div class="pos-summary">
-        <div class="kw"><span class="lab">核心关键词</span><p>受好奇心驱使展开调查研究 · 具独创性与发展潜力 · 显现 / 显化 / 表征 · 机智、足智多谋、丰富资源</p></div>
-        <div class="kw"><span class="lab">能量基调</span><p>控制力 · 影响力 · 操纵力 · 驱动、推动、迅速前进 · 灵感涌现，展开新计划并获得成功</p></div>
-      </div>
-      <div class="dim-grid">
-        <div class="dim">
-          <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
-          <p class="kw-line">心有灵犀 · 默契的伴侣 · 进入下一阶段 · 出现新的恋人 · 控制欲强、情绪变化快</p>
-          <p>将有一段新恋情展开，对方备受异性欢迎。两人都务实，性格互补，做事默契，会以不断变更约会方式来保持新鲜感。</p>
-          <ul>
-            <li><b>现况</b>充满热情，有主动表达与沟通的能力，动机单纯，是一段感情丰富的时期。</li>
-            <li><b>桃花</b>新恋情的对象其实已经出现，主动出击必有结果。</li>
-            <li><b>复合</b>完全没有复合可能，不要在旧情人身上浪费时间。</li>
-          </ul>
-        </div>
-        <div class="dim">
-          <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
-          <p class="kw-line">学习努力 · 工作高效 · 思维敏捷 · 调配资源、运筹帷幄 · 想象力丰富</p>
-          <p>头脑灵活、充满创意，处理事务得当，注重细节，能充分发挥所学，适合艺术、技术创新与大众传媒。学业上能以新方式读书并取得好成绩。</p>
-          <ul>
-            <li><b>现况</b>面对资源充足的新工作，把握机会即可得偿所愿。</li>
-            <li><b>建议</b>用新观念与方法处理问题，把握即将到来的机会突破困境。</li>
-            <li><b>发展</b>未来空间很大，可在其中创造更多自我价值。</li>
-          </ul>
-        </div>
-        <div class="dim">
-          <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
-          <p class="kw-line">人缘佳 · 善经营 · 人际焦点 · 计划完美 · 果断、好的开端</p>
-          <p>人缘不错，懂得与不同人交往，能寻得良师益友。很有经营头脑，会寻求性格互补之人合作，重视收入与产出，以公道代价获得想要的东西。</p>
-          <ul>
-            <li><b>现况</b>面对新的人际结构，仍有许多空间可参与创造。</li>
-            <li><b>建议</b>主动沟通化解误会，别让一时误会影响关系。</li>
-            <li><b>财运</b>仍在起步，按步就班完成才能得到应得的。</li>
-          </ul>
-        </div>
-        <div class="dim">
-          <div class="dim-head"><span class="ic">✚</span><h4>健康 / 生活</h4><span class="en">Health</span></div>
-          <p class="kw-line">精神状态稳定 · 适合知性装扮 · 知识丰富 · 养生有道</p>
-          <p>关于健康的问题都能解决。生病是一个警铃，告知生活缺少了某样东西——可能是休息，也可能是均衡饮食。只要倾听身体的需求，凭意志力与自然疗养，必能大有改善。</p>
-        </div>
-      </div>
-      <div class="dim-extra">
-        <span class="lab">其它牌意 · Other</span>
-        <p>喜欢阅读并从中获得知识与快乐，可能有短期的旅行；对语言学习颇有爱好，适合郊外野餐，拥有灵敏的运动神经，适合参加辩论会，善于模仿并从中获益，处事机灵善变，事事顺利。</p>
-      </div>
-    </div>
-
-    <!-- 逆位 -->
-    <div class="pos-panel" id="panel-rev">
-      <figure class="pos-figure" style="margin-bottom:40px;max-width:480px">
-        <div class="plate">
-          <img src="../../assets/images/major/01-the-magician/the-magician-reversed.png" alt="魔术师逆位意象"
-               onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE V — 逆位意象图待上传&lt;br&gt;../../assets/images/major/01-the-magician/the-magician-reversed.png&lt;/div&gt;'">
-        </div>
-        <figcaption class="plate-cap">PLATE V · 逆位意象——失衡、操控与迷失</figcaption>
-      </figure>
-      <div class="prose" style="max-width:62ch;margin-bottom:40px">
-        <p>对别人进行控制可能导致毁掉对方——暗中作梗，或以任何手段操控。可能变得不切实际，导致精神、情感或身体健康上出问题，会变得漫无目标且缺乏自律。怀才不遇，却仍有潜力未被发掘。</p>
-      </div>
-      <div class="pos-summary">
-        <div class="kw"><span class="lab">核心关键词</span><p>犹豫未定 · 因学艺不精而败北 · 看待事物过于消极 · 易受骗上当 · 遇事言而不行</p></div>
-        <div class="kw"><span class="lab">能量基调</span><p>操纵 / 操控 · 计划不周 · 人算不如天算 · 百密一疏 · 怀才不遇，有潜力</p></div>
-      </div>
-      <div class="dim-grid">
-        <div class="dim reversed">
-          <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
-          <p class="kw-line">不善表白 · 容易受骗 · 看不见优点 · 对未来消极 · 爱情没有进展</p>
-          <p>喜欢一个人时不善表白，缺乏爱情技巧，容易受甜言蜜语蒙骗而受伤。走入婚姻后不善经营，心情浮躁、难以专一；若不调整，可能变得冷酷，与另一半无法沟通。</p>
-          <ul>
-            <li><b>现况</b>充满热情却过于冲动，沟通不畅时易引发隐瞒与欺骗。</li>
-            <li><b>桃花</b>很可能发生新恋情，但条件不成熟，观察比行动更重要。</li>
-            <li><b>复合</b>没有任何复合可能，千万别再浪费时间。</li>
-          </ul>
-        </div>
-        <div class="dim reversed">
-          <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
-          <p class="kw-line">成绩不佳 · 工作无作为 · 专业技术不够 · 态度消极 · 优柔寡断</p>
-          <p>学业上因努力不够而考试失误、退步明显，需改变学习方法、投入更多精力。工作上易因一成不变而厌倦，陷入恶性循环，从而无所作为。</p>
-          <ul>
-            <li><b>现况</b>新工作资源不足、运行不规范，先掂量自己、做好分内事。</li>
-            <li><b>建议</b>专注本职，把困难据实以报；若无支持只能靠自己。</li>
-            <li><b>人际</b>易沟通不良，说话要小心，保持中立以求自保。</li>
-          </ul>
-        </div>
-        <div class="dim reversed">
-          <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
-          <p class="kw-line">待人欠真诚 · 花钱如流水 · 背人做事 · 没有判断力 · 没有创造力</p>
-          <p>不太懂人情世故，只为自己着想，待人接物欠真诚，容易失信于人。财运上不会理财、花钱大手大脚，内心贪财，易遭欺诈，也可能因好赌而倾家荡产。</p>
-          <ul>
-            <li><b>现况</b>以往的一切不再可靠，要把握机会和新朋友处好关系。</li>
-            <li><b>建议</b>更有技巧地沟通，倾听对方想法以助判断。</li>
-            <li><b>提防</b>身处起步阶段，小心陷阱与欺骗，验收时严格把关。</li>
-          </ul>
-        </div>
-        <div class="dim reversed">
-          <div class="dim-head"><span class="ic">✚</span><h4>健康 / 生活</h4><span class="en">Health</span></div>
-          <p class="kw-line">精神紧张需要休息 · 情绪急躁轻易激动 · 呼吸器官或大脑负荷过重</p>
-          <p>想法很多、欲望很强，却没有能力具体化，因而造成精神上的困扰。长期累积可能导致幻觉、精神分裂或精神崩溃，乃至严重的抑郁症或焦虑症——务必及时休息与疏导。</p>
-        </div>
-      </div>
-      <div class="dim-extra">
-        <span class="lab">其它牌意 · Other</span>
-        <p>旅行计划取消，遭遇交通堵塞，因懦弱造成竞技失败，不听他人劝告。</p>
-      </div>
-    </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 牌阵示意 ============ -->
-<section class="chapter reveal" id="spread">
-  <div class="wrap">
-    <div class="chapter-head">
-      <div class="idx">— 陸 · THE SPREAD</div>
-      <h2>三牌阵示意<span class="en">Past · Present · Future</span></h2>
-    </div>
-    <figure class="spread-figure" style="margin-bottom:40px;max-width:680px">
-      <div class="plate">
-        <img src="../../assets/images/major/01-the-magician/the-magician-spread.png" alt="三牌阵示意图"
-             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VI — 三牌阵示意图待上传&lt;br&gt;../../assets/images/major/01-the-magician/the-magician-spread.png&lt;/div&gt;'">
-      </div>
-      <figcaption class="plate-cap">PLATE VI · 三牌阵——过去 · 现在 · 未来</figcaption>
-    </figure>
-    <div class="prose" style="max-width:60ch;margin-bottom:38px">
-      <p>当魔术师落在三牌阵中，它强调的是"主观能动性"——你手中已握有四元素般的全部资源，关键在于是否以意志将其整合、化为成果。下方为三个位置的典型释义。点击下方卡牌揭示隐秘启示。</p>
-    </div>
-    <div class="spread">
-      <!-- 过去 -->
-      <div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')">
-        <div class="spread-card-back">
-          <div class="back-pattern">
-            <span>I</span>
-            <span style="font-size:16px; font-family:var(--sans); letter-spacing:0.1em;">过去 · PAST</span>
-          </div>
-          <div class="click-to-reveal">点击翻牌</div>
-        </div>
-        <div class="spread-card-front">
-          <div class="pos-no">I</div>
-          <span class="en">Past · 过去</span>
-          <h4>起心动念</h4>
-          <p>一个灵光一现的念头或一次自我意识 of 觉醒，构成了此事真正的开端。能量从天而降，等待被导入现实。</p>
-        </div>
-      </div>
-
-      <!-- 现在 -->
-      <div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')">
-        <div class="spread-card-back">
-          <div class="back-pattern">
-            <span>II</span>
-            <span style="font-size:16px; font-family:var(--sans); letter-spacing:0.1em;">现在 · PRESENT</span>
-          </div>
-          <div class="click-to-reveal">点击翻牌</div>
-        </div>
-        <div class="spread-card-front">
-          <div class="pos-no">II</div>
-          <span class="en">Present · 现在</span>
-          <h4>整合资源</h4>
-          <p>杯、剑、杖、币俱已在桌上。此刻正是着手行动的适当时机——以清楚的方向感与意志力，把想法转化为看得见的成果。</p>
-        </div>
-      </div>
-
-      <!-- 未来 -->
-      <div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')">
-        <div class="spread-card-back">
-          <div class="back-pattern">
-            <span>III</span>
-            <span style="font-size:16px; font-family:var(--sans); letter-spacing:0.1em;">未来 · FUTURE</span>
-          </div>
-          <div class="click-to-reveal">点击翻牌</div>
-        </div>
-        <div class="spread-card-front">
-          <div class="pos-no">III</div>
-          <span class="en">Future · 未来</span>
-          <h4>显化成功</h4>
-          <p>鲜黄的背景预示未来的成功。只要愿意付出努力，新的冒险很可能实现；但需警惕逆位的过度操控与不切实际。</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <hr class="rule-gold" style="margin-bottom:40px">
-    <p class="ornament">✦ ❖ ✦</p>
-    <p>ARCANUM I · THE MAGICIAN · AIR · MERCURY · BETH</p>
-    <p class="zh">「只要你愿意付出努力，那你这件事就可以达成。」</p>
-  </div>
-</footer>
-
-<script>
-(function(){
-  // 滚动显现机制 (Intersection Observer)
-  if ('IntersectionObserver' in window) {
-    var revealElems = document.querySelectorAll('.reveal');
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-    revealElems.forEach(function(el) {
-      observer.observe(el);
-    });
-  } else {
-    document.querySelectorAll('.reveal').forEach(function(el) {
-      el.classList.add('active');
-    });
-  }
-
-  // 正逆位切换 (带淡入滑动动画)
-  var btns = document.querySelectorAll('.pos-switch button');
-  var panels = {
-    up: document.getElementById('panel-up'),
-    rev: document.getElementById('panel-rev')
-  };
-  btns.forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var pos = btn.dataset.pos;
-
-      btns.forEach(function(b){
-        b.classList.toggle('on', b === btn);
-        b.setAttribute('aria-selected', b === btn);
-      });
-
-      Object.keys(panels).forEach(function(key){
-        var panel = panels[key];
-        if(key === pos){
-          panel.classList.add('show');
-        } else {
-          panel.classList.remove('show');
-        }
-      });
-    });
-  });
-
-  // 象征要素图谱点击高亮
-  var symbolItems = document.querySelectorAll('.symbol-item');
-  symbolItems.forEach(function(item) {
-    item.addEventListener('click', function() {
-      symbolItems.forEach(function(x) { x.classList.remove('highlight'); });
-      item.classList.add('highlight');
-      console.log("Focused symbol: ", item.dataset.id);
-    });
-  });
-
-  // 滚动高亮目录
-  var links = Array.prototype.slice.call(document.querySelectorAll('.tnav a'));
-  var secs = links.map(function(l){return document.querySelector(l.getAttribute('href'));});
-  function onScroll(){
-    var y = window.scrollY + 120, active = -1;
-    secs.forEach(function(s, i){if(s && s.offsetTop <= y) active = i;});
-    links.forEach(function(l, i){l.classList.toggle('active', i === active);});
-  }
-
-  // 顶栏滚动收缩
-  var lastScrollY = window.scrollY;
-  var topbar = document.querySelector('.topbar');
-  window.addEventListener('scroll', function() {
-    var currentScrollY = window.scrollY;
-    if (currentScrollY > lastScrollY && currentScrollY > 150) {
-      topbar.style.transform = 'translateY(-100%)';
-    } else {
-      topbar.style.transform = 'translateY(0)';
-    }
-    lastScrollY = currentScrollY;
-    onScroll();
-  }, { passive: true });
-
-  onScroll();
-})();
-</script>
-
+<noscript><main class="wrap" style="padding:80px 0"><h1>魔术师</h1><p>此页面使用共享模板渲染，请启用 JavaScript 阅读完整牌面解读。</p></main></noscript>
 </body>
 </html>
