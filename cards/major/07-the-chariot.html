@@ -199,6 +199,7 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
   padding:8px 14px 0 0;color:var(--wine);font-weight:400;
 }
 .prose p{margin-bottom:24px;text-align:justify}
+.pos-panel > .prose{margin-left:auto!important;margin-right:auto!important}
 .pullquote{
   margin:52px 0;padding:12px 0 12px 34px;border-left:3px solid var(--gold);
   font-family:var(--song);font-size:25px;line-height:1.6;color:var(--wine);font-style:normal;
@@ -212,6 +213,11 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
 .facts dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:14px}
 .facts dd{font-family:var(--serif);font-size:30px;line-height:1.1;color:var(--fg)}
 .facts dd small{display:block;font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:10px;line-height:1.6;letter-spacing:0}
+.fact-notes{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border);border-top:0;background:var(--surface)}
+.fact-notes div{padding:22px 26px;border-right:1px solid var(--border)}
+.fact-notes div:last-child{border-right:0}
+.fact-notes span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--gold-deep);text-transform:uppercase;margin-bottom:8px}
+.fact-notes p{font-family:var(--song);font-size:16px;line-height:1.65;color:var(--fg)}
 @media(max-width:860px){.facts{grid-template-columns:repeat(2,1fr)}.facts dl:nth-child(2){border-right:0}.facts dl:nth-child(-n+2){border-bottom:1px solid var(--border)}}
 
 /* ============ 象征要素图谱 ============ */
@@ -289,9 +295,27 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
 .dim-extra{margin-top:30px;padding:26px 30px;background:var(--paper);border:1px solid var(--border)}
 .dim-extra .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;color:var(--gold-deep);text-transform:uppercase;display:block;margin-bottom:12px}
 .dim-extra p{font-size:15.5px;line-height:1.8;color:var(--muted)}
+.reading-intro{
+  margin:0 0 44px;padding:28px 32px 28px 36px;background:var(--paper);
+  border:1px solid var(--border);position:relative;box-shadow:0 8px 22px oklch(24% .03 55 / .04);
+  --note-accent:var(--gold-deep);
+}
+#panel-rev .reading-intro{--note-accent:var(--wine)}
+.reading-intro::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:3px;background:var(--note-accent)}
+.reading-intro p{margin:0;font-size:17px;line-height:1.95;color:var(--fg);text-align:justify;text-wrap:pretty}
+.guidance{margin-top:22px;border:1px solid var(--border);background:var(--paper)}
+.guidance summary{cursor:pointer;padding:18px 24px;font-family:var(--song);font-size:18px;color:var(--fg);list-style:none;display:flex;justify-content:space-between;align-items:center}
+.guidance summary::after{content:"＋";font-family:var(--mono);color:var(--gold-deep)}
+.guidance[open] summary::after{content:"－"}
+.guidance summary::-webkit-details-marker{display:none}
+.guidance-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border-top:1px solid var(--border)}
+.guidance-grid div{padding:16px 20px;background:var(--bg)}
+.guidance-grid dt{font-family:var(--song);font-weight:600;font-size:14px;color:var(--wine);margin-bottom:5px}
+.guidance-grid dd{font-family:var(--sans);font-size:13.5px;line-height:1.7;color:var(--muted)}
 
 /* ============ 新增图版通用 ============ */
 .element-figure, .pos-figure, .spread-figure{margin:40px 0}
+.element-figure, .pos-figure, .spread-figure{margin-left:auto;margin-right:auto}
 .element-figure .plate, .pos-figure .plate, .spread-figure .plate{
   position:relative;border:1px solid var(--rule);padding:16px;background:var(--paper);
   box-shadow:0 10px 30px oklch(24% 0.03 55 / .08);
@@ -415,6 +439,9 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
 @media(max-width:680px){
   .wrap,.topbar-inner{padding:0 24px}
   body{font-size:16px}
+  .fact-notes,.guidance-grid{grid-template-columns:1fr}
+  .fact-notes div{border-right:0;border-bottom:1px solid var(--border)}
+  .fact-notes div:last-child{border-bottom:0}
   .tnav{display:none}
   .pos-summary{grid-template-columns:1fr}
   .pos-summary .kw{border-bottom:1px solid var(--border)!important}
@@ -497,9 +524,14 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
       <dl><dt>生命之树 Tree of Life</dt><dd>Cheth<small>第18条路径 · 联结理解 (Binah) 与严格 (Geburah)</small></dd></dl>
       <dl><dt>希伯来字母</dt><dd>Cheth<small>第八个字母 ח · "栅栏"，自律意志包围的战车</small></dd></dl>
     </div>
+    <div class="fact-notes">
+      <div><span>Astrology · 占星</span><p>巨蟹座的保护性外壳，把敏感的内在驱力转化为可持续的推进。</p></div>
+      <div><span>Path · 路径</span><p>Cheth 是一条把理解与严格联结起来的道路：方向感必须经过纪律的检验。</p></div>
+      <div><span>Core · 核心命题</span><p>战车的胜利不是速度，而是把对立力量收拢到同一条轴线上。</p></div>
+    </div>
         <figure class="element-figure" style="margin-top:48px">
       <div class="plate">
-        <img src="../../assets/images/major/07-the-chariot/the-chariot-elements.png" alt="塔罗牌战车对应要素"
+        <img src="../../assets/images/major/07-the-chariot/the-chariot-elements.png" alt="战车对应要素——战车轮、圣甲虫、黑白斯芬克斯、月亮与 Cheth 的莫奈风配图"
              onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE III — 要素图待上传&lt;br&gt;assets/images/major/07-the-chariot/the-chariot-elements.png&lt;/div&gt;'">
       </div>
       <figcaption class="plate-cap">PLATE IV · 生命之树 · Cheth 路径，第18条路径 · 联结理解 (Binah) 与严格 (Geburah)</figcaption>
@@ -517,7 +549,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
     <div class="symbol-layout">
       <figure class="symbol-figure">
         <div class="plate">
-          <img src="../../assets/images/major/07-the-chariot/the-chariot-symbols.png" alt="战车象征要素标注图"
+          <img src="../../assets/images/major/07-the-chariot/the-chariot-symbols.png" alt="战车象征图谱——星冠、月亮肩章、蓝色车篷、圣甲虫与黑白斯芬克斯的莫奈风配图"
                onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE II — 象征标注图待上传&lt;br&gt;assets/images/major/07-the-chariot/the-chariot-symbols.png&lt;/div&gt;'">
         </div>
         <figcaption class="plate-cap">PLATE II · 象征细节的位置标注与神秘学破译</figcaption>
@@ -579,17 +611,14 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
     <div class="pos-panel-container">
       <!-- 正位 -->
       <div class="pos-panel show" id="panel-up">
-        <figure class="pos-figure" style="margin-bottom:40px;max-width:480px">
+        <figure class="pos-figure" style="margin:0 auto 46px;max-width:min(860px,100%)">
           <div class="plate">
-            <img src="../../assets/images/major/07-the-chariot/the-chariot-upright.png" alt="战车正位意象"
+            <img src="../../assets/images/major/07-the-chariot/the-chariot-upright.png" alt="战车正位意象——意志坚定的战士驾车穿过城门走向胜利的莫奈风配图"
                  onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE V — 正位意象图待上传&lt;br&gt;assets/images/major/07-the-chariot/the-chariot-upright.png&lt;/div&gt;'">
           </div>
           <figcaption class="plate-cap">PLATE V · 正位意象 · 直觉与宇宙能量的显现</figcaption>
         </figure>
-        <div class="prose" style="max-width:62ch;margin-bottom:40px">
-          <p>**关键词**：胜利，前进，自律，控制，目标明确，竞争成功，旅行，突破，高效率，搬家，指挥，掌管，支配，限制，意志，成功，发财，成名，成功的人，决心，果断，坚定，决定，确定，查明，测定，计算，进步，自我控制，自我肯定，坚强的意志，以积极的心态面对事物，把握先机，取得驾照，必须要做，务必完成，坚定的决心</p>
-        <p>正位的战车说明：只要目标清楚并保持纪律，事情可以快速推进。这是一张鼓励你自我肯定、以坚强意志面对一切的牌——以积极的心态把握先机，主动出击、务必完成，胜利便会向你靠拢。但请记得，它给的是"可能成功"的承诺，而非"必然成功"的保证；能否兑现，取决于你是否拿得出与之相称的控制力与决心。</p>
-        </div>
+        <div class="reading-intro"><p>正位的战车把问题从“要不要走”改写为“能否稳住方向”。它允许你主动争取、快速推进，但这份胜利只在纪律仍然有效时成立：请把速度交给清晰的目标，把力量交给可持续的节奏。</p></div>
         <div class="pos-summary">
           <div class="kw"><span class="lab">核心关键词</span><p>胜利，前进，自律，控制，目标明确，竞争成功，旅行，突破，高效率，搬家，指挥，掌管，支配，限制，意志，成功，发财，成名，成功的人，决心，果断，坚定，决定，确定，查明，测定，计算，进步，自我控制，自我肯定，坚强的意志，以积极的心态面对事物，把握先机，取得驾照，必须要做，务必完成，坚定的决心</p></div>
           <div class="kw"><span class="lab">能量基调</span><p>水 元素 · 开启、滋养与自我调和</p></div>
@@ -630,21 +659,45 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           <span class="lab">其它牌意 · Other</span>
           <p>正位战车常代表旅行、车辆、搬迁、比赛、胜诉、突破阻碍，也适合一切需要主动出击、奋勇向前的户外与新鲜尝试——滑雪、兜风、骑马、踏青、考取驾照、对新事物布满热情，乃至以写日记的方式整理方向。若问结果，正位通常表示可以胜出，关键在于全程保持节奏、不中途松懈。</p>
         </div>
+        <details class="guidance">
+          <summary>情境指引 · Contextual guidance</summary>
+          <dl class="guidance-grid">
+            <div><dt>爱情运势</dt><dd>象征关系中的进展与动力，代表在感情里取得胜利、征服困难的勇气与决心；面对挑战时，两人可能携手共进，共同推动关系向前。</dd></div>
+            <div><dt>财富运势</dt><dd>果断决策并付诸行动将带来积极成果，可能指向投资或事业上的进展，表明你凭借努力与坚持终将实现财务目标。</dd></div>
+            <div><dt>当前情况</dt><dd>呈现出积极的前进态势，你拥有明确的目标，也准备好克服任何障碍，这是一个适合主动行动、维持掌控的时期。</dd></div>
+            <div><dt>过去</dt><dd>你可能经历过一段竞争激烈、需要高度自律的时光，早期的努力与奋斗为今日的成就奠定了根基。</dd></div>
+            <div><dt>现在</dt><dd>你或许正体验着成功驾驭、掌控生活的感觉，对自己的方向充满自信，正稳稳朝着目标前进。</dd></div>
+            <div><dt>未来</dt><dd>持续的努力将带来更多成就与胜利，不过你仍需保持自律与决心，不可松懈。</dd></div>
+            <div><dt>挑战</dt><dd>当前的课题是如何在达成目标的过程中保持平衡与控制，你可能需要妥善处理内在的冲突或外部的阻力。</dd></div>
+            <div><dt>障碍</dt><dd>潜在的障碍是过度自信或鲁莽行事，保持专注与谨慎，是越过它们的关键。</dd></div>
+            <div><dt>环境</dt><dd>你所处的环境或许充满竞争与挑战，但同时也为你的成长与成功提供了机会。</dd></div>
+            <div><dt>支持</dt><dd>支持多半来自认可你决心与能力的人，朋友、家人或导师都可能成为你的助力。</dd></div>
+            <div><dt>建议</dt><dd>保持自信与决心，同时随情势变化灵活调整策略；不要忽视细节，始终保持战略性的思考。</dd></div>
+            <div><dt>优势</dt><dd>你的优势在于坚强的意志与明确的目标，有能力驾驭局面，让自己的愿望成真。</dd></div>
+            <div><dt>弱点</dt><dd>弱点可能是过度自信或容易冲动，这会使计划偏离既定的轨道。</dd></div>
+            <div><dt>正面影响</dt><dd>增强了自我确立与达成目标的可能，鼓励你勇敢追求胜利与成就。</dd></div>
+            <div><dt>负面影响</dt><dd>可能带来压力与紧张，因为你或许会为了成功而过度鞭策自己。</dd></div>
+            <div><dt>希望发生</dt><dd>你希望自己的努力得到认可，能够克服一切障碍，最终取得成功。</dd></div>
+            <div><dt>害怕发生</dt><dd>你害怕失去控制或方向，或担心因错误的决策而导致失败。</dd></div>
+            <div><dt>你如何看对方</dt><dd>你看到对方有着坚定的决心与坚强的意志，他们的行动力与决断力令你敬佩，你认为他们目标清晰、方向明确，能够掌控自己的命运。</dd></div>
+            <div><dt>对方如何看待你</dt><dd>对方眼中的你肯定自我、决心强烈、毅力十足，他们认为你拥有强大的动力与明确的目标，能够冲破阻碍、达成所设定的目标。</dd></div>
+            <div><dt>关系当前状态</dt><dd>这段关系正处于积极的发展状态，双方都怀着坚定的决心与意志推动它前进，是一个充满活力与动力、彼此都积极求进的阶段。</dd></div>
+            <div><dt>关系未来发展</dt><dd>前景充满希望与可能，只要双方都能维持现有的动力与决心，便能跨越接下来可能遇到的所有困难，这段关系有着很大的发展潜力，前路一片光明。</dd></div>
+            <div><dt>结果</dt><dd>结果很可能是成功与成就，只要你继续保持专注、坚定，并适度调整，便很可能达成预期的目标。</dd></div>
+          </dl>
+        </details>
       </div>
 
       <!-- 逆位 -->
       <div class="pos-panel" id="panel-rev">
-        <figure class="pos-figure" style="margin-bottom:40px;max-width:480px">
+        <figure class="pos-figure" style="margin:0 auto 46px;max-width:min(860px,100%)">
           <div class="plate">
-            <img src="../../assets/images/major/07-the-chariot/the-chariot-reversed.png" alt="战车逆位意象"
+            <img src="../../assets/images/major/07-the-chariot/the-chariot-reversed.png" alt="战车逆位意象——空置战车、分叉道路与彼此拉扯的黑白斯芬克斯的莫奈风配图"
                  onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VI — 逆位意象图待上传&lt;br&gt;assets/images/major/07-the-chariot/the-chariot-reversed.png&lt;/div&gt;'">
           </div>
           <figcaption class="plate-cap">PLATE VI · 逆位意象 · 失衡与能量阻塞</figcaption>
         </figure>
-        <div class="prose" style="max-width:62ch;margin-bottom:40px">
-          <p>**关键词**：失控，方向混乱，冲动，停滞，失败，内耗，强行推进，发生意外，胡作非为，止步不前，固执己见，注意力散漫，遇突发事件而不知所措，自我约束缺失，方向感缺失，反对，反抗，对抗，对手，敌人，竞争者，没有方向，没有领导，挫败，不必要的冲突，目标不明确，行动无法果断，过于冒进，过于激进，混乱而不稳定</p>
-        <p>逆位的战车提醒你先统一方向，否则越用力越容易偏离目标。它常常意味着目标不明确、行动无法果断、方向感丧失，乃至陷入一种混乱而不稳定的状态——此时若仍一味冒进、激进，缺乏自我约束，便容易遭遇挫折，让局面滑向无法控制的境地，对未来的不确定感也会随之加剧。</p>
-        </div>
+        <div class="reading-intro"><p>逆位的战车不是简单的失败预言，而是方向尚未统一的诊断。若两股力量同时拉扯，继续加速只会扩大偏差；先减速、重新确认目标，再决定哪些控制必须放下，哪些承诺值得保留。</p></div>
         <div class="pos-summary">
           <div class="kw"><span class="lab">核心关键词</span><p>失控，方向混乱，冲动，停滞，失败，内耗，强行推进，发生意外，胡作非为，止步不前，固执己见，注意力散漫，遇突发事件而不知所措，自我约束缺失，方向感缺失，反对，反抗，对抗，对手，敌人，竞争者，没有方向，没有领导，挫败，不必要的冲突，目标不明确，行动无法果断，过于冒进，过于激进，混乱而不稳定</p></div>
           <div class="kw"><span class="lab">能量基调</span><p>水 元素 · 延迟、失控与过度自我沉溺</p></div>
@@ -685,6 +738,33 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           <span class="lab">其它牌意 · Other</span>
           <p>事情可能出现延误、交通问题、计划变更、竞争失利，也可能伴随固执己见、超速驾驶、注意力散漫、自得忘形，或因遭遇突发事件而措手不及。先检查自己是否同时朝两个方向用力，往往比责怪外部阻力更有效——把分裂的力量重新收拢到一条轴线上，比强行推进更接近转机。</p>
         </div>
+        <details class="guidance">
+          <summary>情境指引 · Contextual guidance</summary>
+          <dl class="guidance-grid">
+            <div><dt>爱情运势</dt><dd>可能表明关系中存在控制与方向上的问题，或一方过于强势导致双方关系紧张，建议放慢速度，共同寻找平衡点。</dd></div>
+            <div><dt>财富运势</dt><dd>象征计划中断或财务目标偏离轨道，可能因缺乏明确计划或决策失误而导致财务不稳，需要重新评估目标与方法。</dd></div>
+            <div><dt>当前情况</dt><dd>目前可能感到失去控制或方向，障碍与挑战使前进的道路不再清晰，需要重新找回正确的方向与策略。</dd></div>
+            <div><dt>过去</dt><dd>你过去或许曾试图掌控局面，却因各方缺乏协调而努力白费，这段经验可以成为重新审视当前问题的起点。</dd></div>
+            <div><dt>现在</dt><dd>你可能正面临困难，感到沮丧或难以推动事情前进，此刻需要冷静思考，避免冲动行事。</dd></div>
+            <div><dt>未来</dt><dd>未来可能遭遇更多挑战，若无法有效管理现有问题，新的障碍便会接踵而至，应注重策略而非速度。</dd></div>
+            <div><dt>挑战</dt><dd>当前的挑战是找回控制与平衡的方法，你可能需要放下固执，学习妥协，并适应所处的环境。</dd></div>
+            <div><dt>障碍</dt><dd>主要障碍可能来自内在的抵抗或外部的不利因素，或许需要放弃一些控制，以顺应不断变化的情势。</dd></div>
+            <div><dt>环境</dt><dd>所处环境可能充满变数，需要灵活适应；其中的混乱或不确定，要求你重新考量自己的立场与行动计划。</dd></div>
+            <div><dt>支持</dt><dd>支持可能来自愿意与你合作、帮你找回方向的人，亲近之人的理解与建议或许至关重要。</dd></div>
+            <div><dt>建议</dt><dd>建议是减慢速度，不要过分坚持自己的方法，而应考虑调整方向与策略，虚心听取他人的意见。</dd></div>
+            <div><dt>优势</dt><dd>优势在于停下来重新评估局面所带来的机会，这有助于避免未来更大的问题。</dd></div>
+            <div><dt>弱点</dt><dd>弱点可能是固执或缺乏适应性，它会阻碍进步与成功，你需要更开放、更灵活地处理问题。</dd></div>
+            <div><dt>正面影响</dt><dd>可能促使你重新考虑并调整行动计划，而这往往是走向成功的必要过程。</dd></div>
+            <div><dt>负面影响</dt><dd>可能包括失败感、挫败感或停滞不前，进而影响你的积极性与自信心。</dd></div>
+            <div><dt>希望发生</dt><dd>你希望能找到解决问题的新方法，平稳地让一切恢复正常运转。</dd></div>
+            <div><dt>害怕发生</dt><dd>你担心彻底失去控制，或害怕事情的结果远远低于预期。</dd></div>
+            <div><dt>你如何看对方</dt><dd>你可能觉得对方眼下的行动有些冲动，缺乏计划与方向，甚至怀疑他们是否有能力实现目标、是否能管住自己的行为。</dd></div>
+            <div><dt>对方如何看待你</dt><dd>对方可能觉得你目前有些混乱，在决策上犹豫不决，在行动上又显得过于冲动，因而对你的能力或意志有所怀疑。</dd></div>
+            <div><dt>关系当前状态</dt><dd>这段关系或许正处于一个艰难的阶段，存在着混乱与冲突，双方都在努力寻找正确的方向，却可能因冲动或犹豫而备感困扰。</dd></div>
+            <div><dt>关系未来发展</dt><dd>若无法改变现状，这段关系的未来恐怕会面临一些困难，唯有双方都能找回方向、克制冲动、做出明智的决策，关系才有望改善与发展。</dd></div>
+            <div><dt>结果</dt><dd>结果可能是在重新评估与调整之后，重新赢回的平衡与控制；虽然或许需要一些时间，但最终多半能找到更稳定、更有效的前进之路。</dd></div>
+          </dl>
+        </details>
       </div>
     </div>
   </div>
@@ -697,9 +777,9 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
       <div class="idx">— 陆 · THE SPREAD</div>
       <h2>三牌阵示意<span class="en">Past · Present · Future</span></h2>
     </div>
-    <figure class="spread-figure" style="margin-bottom:40px;max-width:680px">
+    <figure class="spread-figure" style="margin:0 auto 46px;max-width:min(960px,100%)">
       <div class="plate">
-        <img src="../../assets/images/major/07-the-chariot/the-chariot-spread.png" alt="三牌阵示意图"
+        <img src="../../assets/images/major/07-the-chariot/the-chariot-spread.png" alt="战车三牌阵示意——过去的城门、现在的战士与未来的山路三张牌的莫奈风配图"
              onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VII — 三牌阵示意图待上传&lt;br&gt;assets/images/major/07-the-chariot/the-chariot-spread.png&lt;/div&gt;'">
       </div>
       <figcaption class="plate-cap">PLATE VII · 三牌阵 · 过去 · 现在 · 未来（向内觉察的能量）</figcaption>

@@ -2,6 +2,7 @@
 .keyword-strip {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 8px;
   margin: 0 0 32px;
 }
@@ -15,6 +16,8 @@
   font-family: var(--sans);
   font-size: 13.5px;
   line-height: 1.4;
+  flex: 0 0 auto;
+  white-space: nowrap;
   transition: border-color .25s ease, color .25s ease, background-color .25s ease;
 }
 
