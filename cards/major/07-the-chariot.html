@@ -198,13 +198,30 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
   font-family:var(--serif);float:left;font-size:84px;line-height:.72;
   padding:8px 14px 0 0;color:var(--wine);font-weight:400;
 }
-.prose p{margin-bottom:24px;text-align:justify}
+.prose p{margin-bottom:24px;text-align:justify;text-justify:inter-ideograph}
 .pos-panel > .prose{margin-left:auto!important;margin-right:auto!important}
 .pullquote{
   margin:52px 0;padding:12px 0 12px 34px;border-left:3px solid var(--gold);
   font-family:var(--song);font-size:25px;line-height:1.6;color:var(--wine);font-style:normal;
   background:oklch(58% .12 70 / .03);
 }
+.archetype-head{margin:70px 0 30px;padding-top:34px;border-top:1px solid var(--rule)}
+.archetype-head .lab{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.28em;color:var(--gold-deep);text-transform:uppercase;margin-bottom:10px}
+.archetype-head h3{font-family:var(--song);font-size:clamp(25px,3vw,34px);font-weight:500;line-height:1.35;color:var(--fg)}
+.archetype-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.archetype-card{background:var(--paper);padding:30px 28px}
+.archetype-card .tradition{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--gold-deep);text-transform:uppercase;margin-bottom:13px}
+.archetype-card h4{font-family:var(--song);font-size:21px;font-weight:600;color:var(--wine);margin-bottom:13px}
+.archetype-card p{font-family:var(--serif);font-size:15.5px;line-height:1.85;color:var(--muted);text-align:justify}
+.history-list{display:grid;gap:14px}
+.history-list p{padding-bottom:14px;border-bottom:1px dashed var(--border)}
+.history-list p:last-child{padding-bottom:0;border-bottom:0}
+.history-list b{font-family:var(--song);color:var(--fg)}
+.stage-notes{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:30px}
+.stage-note{padding:28px 30px;background:var(--surface);border:1px solid var(--border)}
+.stage-note .lab{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--gold-deep);text-transform:uppercase;margin-bottom:12px}
+.stage-note p{font-size:15.8px;line-height:1.9;color:var(--muted);text-align:justify;text-justify:inter-ideograph}
+.stage-notes + .prose{width:100%;max-width:none;margin-left:auto;margin-right:auto}
 
 /* ============ 牌面要素 标签 ============ */
 .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--rule);background:var(--paper)}
@@ -218,6 +235,8 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
 .fact-notes div:last-child{border-right:0}
 .fact-notes span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--gold-deep);text-transform:uppercase;margin-bottom:8px}
 .fact-notes p{font-family:var(--song);font-size:16px;line-height:1.65;color:var(--fg)}
+.fact-thesis{padding:24px 28px;border:1px solid var(--border);border-top:0;background:var(--paper);font-size:16px;line-height:1.8;color:var(--muted)}
+.fact-thesis b{font-family:var(--song);color:var(--wine);margin-right:8px}
 @media(max-width:860px){.facts{grid-template-columns:repeat(2,1fr)}.facts dl:nth-child(2){border-right:0}.facts dl:nth-child(-n+2){border-bottom:1px solid var(--border)}}
 
 /* ============ 象征要素图谱 ============ */
@@ -238,20 +257,31 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
 .swatch{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:7px;vertical-align:baseline;border:1px solid oklch(40% .05 60 / .3)}
 
 /* ============ 塔罗灵数 ============ */
-.numero{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:center}
-.bignum{font-family:var(--serif);font-size:clamp(180px,26vw,340px);line-height:.74;color:var(--wine);text-align:center;position:relative}
+.numero{display:grid;gap:clamp(32px,4vw,56px)}
+.numero-top{display:grid;grid-template-columns:minmax(280px,.85fr) minmax(0,1.15fr);gap:clamp(34px,5vw,72px);align-items:center}
+.bignum{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100%;padding:34px 0 42px;font-family:var(--serif);font-size:clamp(160px,22vw,300px);line-height:.74;color:var(--wine);text-align:center;position:relative}
 .bignum::after{content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);width:60%;height:1px;background:var(--gold)}
-.bignum small{display:block;font-family:var(--mono);font-size:13px;letter-spacing:.4em;color:var(--gold-deep);margin-top:30px;text-transform:uppercase}
+.bignum small{display:block;font-family:var(--mono);font-size:13px;line-height:1.2;letter-spacing:.4em;color:var(--gold-deep);margin-top:30px;text-transform:uppercase}
 .numero-keys{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}
 .numero-keys span{font-family:var(--sans);font-size:13.5px;padding:6px 14px;border:1px solid var(--border);border-radius:999px;color:var(--muted);background:var(--paper)}
-.numero p{margin-bottom:18px;font-size:17.5px;line-height:1.85;color:var(--fg)}
+.numero p{margin-bottom:18px;font-size:17.5px;line-height:1.85;color:var(--fg);text-align:justify;text-justify:inter-ideograph}
 .numero .lesson{margin-top:22px;padding:22px 26px;background:var(--paper);border-left:3px solid var(--gold);box-shadow:0 4px 12px oklch(24% 0.03 55 / .02)}
 .numero .lesson b{color:var(--wine);font-family:var(--song)}
+.numero-profile{display:grid;grid-column:1/-1;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;margin:0;background:var(--border);border:1px solid var(--border)}
+.numero-profile div{display:flex;flex-direction:column;padding:20px 22px;background:var(--paper);min-height:126px}
+.numero-profile dt{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--gold-deep);text-transform:uppercase;margin-bottom:8px}
+.numero-profile dd{font-family:var(--sans);font-size:14px;line-height:1.75;color:var(--muted)}
+.numero-profile .wide{grid-column:1/-1}
+.numero-bottom{display:grid;gap:22px}
+.numero-bottom p:last-child{margin-bottom:0}
 
 /* ============ 正逆位切换 ============ */
 .pos-switch-wrapper{
   display:flex;justify-content:center;margin-bottom:50px;
 }
+.reading-focus{width:100%;max-width:none;box-sizing:border-box;margin:-8px auto 46px;padding:26px 32px;background:var(--surface);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);text-align:justify;text-justify:inter-ideograph}
+.reading-focus .lab{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.24em;color:var(--gold-deep);text-transform:uppercase;margin-bottom:10px}
+.reading-focus p{font-family:var(--song);font-size:17px;line-height:1.9;color:var(--fg);text-align:justify;text-justify:inter-ideograph}
 .pos-switch{display:inline-flex;border:1px solid var(--fg);background:var(--paper);border-radius:3px;overflow:hidden;padding:3px;box-shadow:0 4px 12px oklch(24% 0.03 55 / .04)}
 .pos-switch button{font-family:var(--song);font-size:17px;padding:12px 38px;background:transparent;border:0;cursor:pointer;color:var(--muted);position:relative;transition:all .3s ease;letter-spacing:.06em;border-radius:2px}
 .pos-switch button.on{background:var(--fg);color:var(--paper)}
@@ -301,7 +331,6 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
   --note-accent:var(--gold-deep);
 }
 #panel-rev .reading-intro{--note-accent:var(--wine)}
-.reading-intro::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:3px;background:var(--note-accent)}
 .reading-intro p{margin:0;font-size:17px;line-height:1.95;color:var(--fg);text-align:justify;text-wrap:pretty}
 .guidance{margin-top:22px;border:1px solid var(--border);background:var(--paper)}
 .guidance summary{cursor:pointer;padding:18px 24px;font-family:var(--song);font-size:18px;color:var(--fg);list-style:none;display:flex;justify-content:space-between;align-items:center}
@@ -431,7 +460,8 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
   .hero-grid{grid-template-columns:1fr;gap:44px}
   .symbol-layout{grid-template-columns:1fr;gap:38px}
   .symbol-figure{position:static}
-  .numero{grid-template-columns:1fr;gap:30px}
+  .numero-top{grid-template-columns:1fr;gap:30px}
+  .archetype-grid{grid-template-columns:1fr}
   .dim-grid{grid-template-columns:1fr}
   .spread{grid-template-columns:1fr;gap:24px}
   .spread-card-wrapper{height:300px}
@@ -440,6 +470,8 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
   .wrap,.topbar-inner{padding:0 24px}
   body{font-size:16px}
   .fact-notes,.guidance-grid{grid-template-columns:1fr}
+  .stage-notes,.numero-profile{grid-template-columns:1fr}
+  .numero-profile .wide{grid-column:auto}
   .fact-notes div{border-right:0;border-bottom:1px solid var(--border)}
   .fact-notes div:last-child{border-bottom:0}
   .tnav{display:none}
@@ -461,6 +493,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
     <nav class="tnav">
       <a href="#hero">卷首</a>
       <a href="#narrative">牌面叙事</a>
+      <a href="#archetypes">跨体系原型</a>
       <a href="#facts">牌面要素</a>
       <a href="#symbols">象征图谱</a>
       <a href="#numerology">塔罗灵数</a>
@@ -489,7 +522,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
         <div>自律<span>DISCIPLINE</span></div>
         <div>驾驭<span>CONTROL</span></div>
       </div>
-      <p class="hero-lede">战车把奔涌的情绪与未驯的欲望纳入方向感之中。它象征经由自律、专注与对立力量的整合而取得的推进——胜利从来不是天降的礼物，而是意志在阻力中辟出的一条道路。 当这张牌出现，说明目标已经明确，问题不在于"要不要走"，而在于你是否能稳住节奏，不被外界干扰拖走。走过了三分之一旅程的愚者，在这里蜕变成一名成熟、勇敢的战士，披荆斩棘地朝胜利奋勇前进。然而战车的出现并不意味着成功已经到手，它只是郑重地告诉你：成功是可能的。要把这份可能兑现成现实，你需要强大的控制力，因为眼前之事并不简单，而它的成败对你意义重大——无论是事业还是感情，战车始终带着"要自制，不可感情用事"的叮咛。</p>
+      <p class="hero-lede">当这张牌出现，说明目标已经明确，问题不在于“要不要走”，而在于你是否能稳住节奏，不被外界干扰拖走。走过了三分之一旅程的愚者，在这里蜕变成一名成熟、勇敢的战士，披荆斩棘地朝胜利奋勇前进。然而战车的出现并不意味着成功已经到手，它只是郑重地告诉你：成功是可能的。要把这份可能兑现成现实，你需要强大的控制力，因为眼前之事并不简单，而它的成败对你意义重大——无论是事业还是感情，战车始终带着“要自制，不可感情用事”的叮咛，因为它往往代表着能力越大，责任越大。</p>
       <a href="../../index.html" class="back-btn">← 返回大厅 / 选择其它卡牌</a>
     </div>
   </div>
@@ -503,10 +536,48 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
       <h2>牌面叙事<span class="en">The Image Speaks</span></h2>
     </div>
     <div class="prose drop">
+      <p>战车牌的背景是金黄色的，象征着辉煌与荣耀。战车牌的“强”并非表面所见：它所面临的困难与隐患重重，行驶之路并不轻松。战车部分停在水中，部分停在陆地，主要源自古罗马与其他地区的习俗——战胜的英雄乘着马车巡行过挤满欢呼民众的街道。武士前方一黑一白的两尊狮身人面兽，正好与女教皇牌上的柱子相呼应。战车对应巨蟹座，而巨蟹座的课题之一，便是学习运用理智来控制或锻炼感情。战车把奔涌的情绪与未驯的欲望纳入方向感之中，象征经由自律、专注与对立力量的整合而取得的推进——胜利从来不是天降的礼物，而是意志在阻力中辟出的一条道路。</p>
       <p class="prose drop">牌面中，一位头戴八芒星战盔、身着盔甲的勇士驾驶着一辆由两只狮身人面兽拉动的战车，向着胜利勇往直前，威风凛凛、无人可挡。战车左侧的黑色狮身人面兽代表严厉，右侧的白色狮身人面兽代表慈悲，二者并行象征阴阳的调和，也即追求胜利的根本条件——平衡。蓝色车篷由四根柱子支撑，对应火、水、风、土四大元素；篷上的六芒星图案象征天体对战士成功的影响，也预示着"希望"对获得胜利的重要。勇士右手紧握长矛，昭示内心对胜利的渴求；胸前的正方形代表土元素，象征意志的力量。车前一对翅膀相传是古埃及图腾，代表灵感；翅膀下的小盾牌则被认为是古印度预示阴阳结合的符号。</p>
       <p class="prose ">战士身后是城市，意味着他已将物质放在身后，转而展开心灵的旅程。他手上没有缰绳，狮身人面兽身上也没有束缚——真正的控制来自强大的内在意志，而非外部的强迫。这同时暗示着人类的意志与本能：黑与白的力量都被驾驭在车前，唯有方向统一，战车才能前进；倘若无法好好驾驭，它们便会彼此拉扯，让胜利从指缝间溜走。他站在城门外守望，既是守护者，也是防卫者。战车是一张既要劳力又要劳心的牌——它近似于钱币二与权杖骑士的混合体：钱币二"平衡双方"的主题在此被推到极致，黑白二兽明确点出这两端是相互对立的，因此即便是精于驾驭的英雄，也不得不倾尽全力去控制这两匹时刻想挣脱彼此的烈马；而权杖骑士的处境则提醒我们，英雄虽受人爱戴、一路风光，地位却并不稳固，他只能不停奔向下一个战场，靠持续的建功立业来守住自己的位置。</p>
-      <p class="prose ">战车所示并非"非对即错"的判断题，而是一道选择题。正位时，无论你选择哪一个，结果都不会差；逆位时，则提醒你——无论选择哪一个，结果都不太理想。差别不在于有没有答案，而在于此刻你的自我控制力，是否足以驾驭已经摆在面前的局面。</p>
       <p class="pullquote">勇士右手紧握长矛，昭示内心对胜利的渴求；胸前的正方形代表土元素，象征意志的力量。</p>
+    </div>
+    <div class="archetype-head" id="archetypes">
+      <span class="lab">Comparative traditions · 跨体系原型</span>
+      <h3>不同文明中的战车、胜利与意志焦点</h3>
+    </div>
+    <div class="archetype-grid">
+      <article class="archetype-card">
+        <span class="tradition">Greek mythology · 希腊神话</span>
+        <h4>阿瑞斯 · Ares</h4>
+        <p>这张牌对应希腊神话中的战神阿瑞斯，他的罗马名字是玛尔斯。阿瑞斯是十二主神之一，为宙斯与赫拉之子，主管战阵；在奥林匹斯诸神中，他是战争、战斗、魄力、民事秩序与暴乱之神，是力量、权力与人类兵灾的人格化。在古希腊艺术中，他常被描绘成头戴战盔、手持长矛的英俊青年。</p>
+      </article>
+      <article class="archetype-card">
+        <span class="tradition">Indian mythology · 印度神话</span>
+        <h4>湿婆与三重城</h4>
+        <p>印度神话述说了湿婆大神（Shiva）摧毁恶魔三重城的故事。轮子与车轴——称为“林迦”（lingam）与“尤尼”（yoni）——是象征阳具与阴户的符号，代表湿婆的阳性原则与其配偶帕瓦蒂（Parvati）的阴性原则。湿婆的故事讲述真正的胜利：精神找到了焦点，从而释放出它全副的力量。</p>
+      </article>
+      <article class="archetype-card">
+        <span class="tradition">Chinese history · 中国历史人物</span>
+        <h4>征战、守卫与不可阻挡之势</h4>
+        <div class="history-list">
+          <p><b>霍去病：</b>少年统帅，长途奔袭、封狼居胥，以极致行动力与必胜意志横扫匈奴，最契合“战车”的胜利与征服意象。</p>
+          <p><b>岳飞：</b>“驾长车，踏破贺兰山缺”，其抗金征战中的果敢推进与守护家国之志，呼应战车“向外征战、背城守卫”的双重特质。</p>
+          <p><b>项羽：</b>力拔山兮气盖世，巨鹿之战破釜沉舟，凭个人勇武与决断力击溃强敌，体现战车般的爆发与不可阻挡之势。</p>
+        </div>
+      </article>
+    </div>
+    <div class="stage-notes">
+      <div class="stage-note">
+        <span class="lab">Contrast · 与魔法师的区别</span>
+        <p>和魔法师一样，战车御者手中握着一支魔杖；不同的是，他并没有将它高举过头、指向天空。他的力量臣属于他的意志之下，双手没有握住缰绳，仅凭坚强的性格控制着生命中对立的力量。</p>
+      </div>
+      <div class="stage-note">
+        <span class="lab">First septenary · 第一阶段总结</span>
+        <p>魔杖和魔法标志暗示“魔法师”，水、人面狮身与帷幕象征“女祭司”，战车顶篷上的星星令人联想起“皇后”的皇冠，城市暗示“皇帝”，肩饰指涉“教皇”，而“林迦”与“尤尼”象征“恋人”。这些力量共同塑造出外在的人格。</p>
+      </div>
+    </div>
+    <div class="prose" style="margin-top:30px">
+      <p>第一阶段第一行的七张牌属于“显意识与身”的层次，主要表现世俗的一面，与日常生活和社会相关。愚人在这一层经历与他人的关系，包括自己的男性面与女性面、父母、师长、情人等；在七号战车牌中，他经验了与同伴的竞争。许多人终其一生把焦点放在爱情、社会威权与教育等事项上，一个人可以活过、死去，并被周围每个人视为成功人士，却从来不曾超越“战车”的层次——知行合一；事实上，许多人甚至未曾真正抵达这个层次。</p>
     </div>
   </div>
 </section>
@@ -520,15 +591,16 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
     </div>
     <div class="facts">
       <dl><dt>元素 Element</dt><dd>水<small>水 · 情感、直觉与深层潜意识</small></dd></dl>
-      <dl><dt>星座 Zodiac</dt><dd>巨蟹座<small>Cancer · 自我保护、内在情感与意志铠甲</small></dd></dl>
-      <dl><dt>生命之树 Tree of Life</dt><dd>Cheth<small>第18条路径 · 联结理解 (Binah) 与严格 (Geburah)</small></dd></dl>
-      <dl><dt>希伯来字母</dt><dd>Cheth<small>第八个字母 ח · "栅栏"，自律意志包围的战车</small></dd></dl>
+      <dl><dt>星座 / 行星</dt><dd>巨蟹座 / 月亮<small>Cancer / Moon · 理智控制与锻炼感情</small></dd></dl>
+      <dl><dt>生命之树 Tree of Life</dt><dd>第八条<small>联结力量 (Geburah) 与理解 (Binah) · 象征围篱或围墙</small></dd></dl>
+      <dl><dt>希伯来字母</dt><dd>Cheth<small>第八个字母 ח · Heth / Chet / Cheth</small></dd></dl>
     </div>
     <div class="fact-notes">
-      <div><span>Astrology · 占星</span><p>巨蟹座的保护性外壳，把敏感的内在驱力转化为可持续的推进。</p></div>
-      <div><span>Path · 路径</span><p>Cheth 是一条把理解与严格联结起来的道路：方向感必须经过纪律的检验。</p></div>
-      <div><span>Core · 核心命题</span><p>战车的胜利不是速度，而是把对立力量收拢到同一条轴线上。</p></div>
+      <div><span>Number · 数字编号</span><p>VII · 7 号牌</p></div>
+      <div><span>Core theme · 核心主题</span><p>意志、方向、胜利、自我控制</p></div>
+      <div><span>Chakra · 脉轮</span><p>喉轮 · 代表真相</p></div>
     </div>
+    <p class="fact-thesis"><b>代表意义</b>整合对立力量，以意志推动目标达成。</p>
         <figure class="element-figure" style="margin-top:48px">
       <div class="plate">
         <img src="../../assets/images/major/07-the-chariot/the-chariot-elements.png" alt="战车对应要素——战车轮、圣甲虫、黑白斯芬克斯、月亮与 Cheth 的莫奈风配图"
@@ -559,7 +631,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
         <div class="symbol-item" data-id="02"><div class="sym-no">02</div><div class="sym-body"><h4><span class="swatch" style="background:oklch(98.5% 0.005 230)"></span>黑白斯芬克斯（黑白柱子）</h4><p>对立力量、矛盾欲望与需要整合的方向；呼应康德的道德法则，是黑暗与光明的对立，也是必须克服的对立统一。</p></div></div>
         <div class="symbol-item" data-id="03"><div class="sym-no">03</div><div class="sym-body"><h4>动物（狮身人面兽）</h4><p>本能、动力，以及驾驭自然力量的需要。</p></div></div>
         <div class="symbol-item" data-id="04"><div class="sym-no">04</div><div class="sym-body"><h4>束带</h4><p>控制两只神兽的束带，象征以精神力量掌控物质世界。</p></div></div>
-        <div class="symbol-item" data-id="05"><div class="sym-no">05</div><div class="sym-body"><h4>铠甲</h4><p>自我保护与战斗准备。</p></div></div>
+        <div class="symbol-item" data-id="05"><div class="sym-no">05</div><div class="sym-body"><h4>铠甲</h4><p>自我保护与战斗准备。胸前的正方形代表土元素，象征着意志的力量。</p></div></div>
         <div class="symbol-item" data-id="06"><div class="sym-no">06</div><div class="sym-body"><h4>星冠 / 星星兜帽</h4><p>精神目标与胜利信念；星星象征精神向导与高尚追求，暗示与宇宙或更高知识的联系。</p></div></div>
         <div class="symbol-item" data-id="07"><div class="sym-no">07</div><div class="sym-body"><h4>月亮符号 / 月亮肩章</h4><p>情绪潮汐与内在驱动力，代表直觉、潜意识及对隐藏事物的感知。</p></div></div>
         <div class="symbol-item" data-id="08"><div class="sym-no">08</div><div class="sym-body"><h4>正义与魔法方块图案</h4><p>胸前装饰象征有秩序、有逻辑的思维，同时映照神秘与知识。</p></div></div>
@@ -570,7 +642,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
         <div class="symbol-item" data-id="13"><div class="sym-no">13</div><div class="sym-body"><h4>城市背景 / 城墙</h4><p>离开熟悉环境走向征服；基座后的城墙代表已被或即将被征服的文明，也是要面对的障碍。</p></div></div>
         <div class="symbol-item" data-id="14"><div class="sym-no">14</div><div class="sym-body"><h4>河流</h4><p>背景中的河流象征情感的流动、直觉与变革。</p></div></div>
         <div class="symbol-item" data-id="15"><div class="sym-no">15</div><div class="sym-body"><h4>背后的群山</h4><p>山脉代表挑战与未来的征程。</p></div></div>
-        <div class="symbol-item" data-id="16"><div class="sym-no">16</div><div class="sym-body"><h4>界轮及其上的符号</h4><p>车上的圣甲虫象征埃及太阳神，寓意生命、复兴与永恒的旅程。</p></div></div>
+        <div class="symbol-item" data-id="16"><div class="sym-no">16</div><div class="sym-body"><h4>界轮及其上的符号</h4><p>车上的圣甲虫象征埃及太阳神，寓意生命、复兴与永恒的旅程。蓝色车篷与六芒星图案象征天体对战士成功的影响，也预言希望对于获得胜利的重要性；翅膀下面的小盾牌则是古印度预示阴阳结合的图腾。</p></div></div>
         <div class="symbol-item" data-id="17"><div class="sym-no">17</div><div class="sym-body"><h4>荷花装饰</h4><p>荷花是东方文化中纯净与启蒙的象征，支撑车座，代表精神力量。</p></div></div>
       </div>
     </div>
@@ -585,10 +657,24 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
       <h2>塔罗灵数<span class="en">The Number VII</span></h2>
     </div>
     <div class="numero">
-      <div class="bignum">VII<small>The Chariot</small></div>
-      <div class="numero-text">
-        <p>数字 7 代表探索、专注、精神试炼，以及胜利前夕的自我约束。它要求人从混杂纷乱的能量中，辨认并走出一条明确的道路。</p>
-        <p>战车的 7 号能量说明了一件事：胜利来自阻力之中的方向感。当外界的拉扯越大，越需要一个清晰而不动摇的目标，把所有看似对立的力量收拢到同一条前进的轴线上。</p>
+      <div class="numero-top">
+        <div class="bignum">VII<small>The Chariot</small></div>
+        <div class="numero-intro">
+        <p>数字「7」在象征传统中有着悠长的历史：古典占星学中的七颗行星，「7」作为「3」与「4」的结合——它们本身也是原型的数字、智能的七柱、「生命之树」的七个较低的站、人头的七窍、七个脉轮，当然还有一星期的七天。「7」的意义多半衍生自这个事实：在望远镜发明前，人类能够看见天空中的七颗“行星”，也就是七个运转的天体——太阳、月亮、水星、金星、火星、木星和土星。尽管七天一周的概念来自以色列（可能是从巴比伦传来），每一天的欧洲名称，则来自这些行星拟人化后采用的罗马及北欧神祇名号。</p>
+        <div class="numero-keys"><span>真理</span><span>分析</span><span>理性</span></div>
+        </div>
+      </div>
+      <dl class="numero-profile">
+          <div><dt>Money · 金钱关键词</dt><dd>善于分析，有数字头脑，逻辑能力强，善于科学研究、侦探。</dd></div>
+          <div><dt>Emotion · 感情关键词</dt><dd>缺乏感情能量，太较真、纠结，喜欢刨根问底。</dd></div>
+          <div><dt>Personality · 数字 7 的人</dt><dd>善于规划策略，思考分析能力强，记性好，较敏感，喜欢探求神秘学；也是一个宗教数字，有两类人，一类喜欢研究，一类喜欢做具有挑战性的工作。感情上很理性，不喜欢按常理出牌。</dd></div>
+          <div><dt>Energy · 能量倾向特质</dt><dd>发掘真正的力量。</dd></div>
+          <div class="wide"><dt>Potential · 潜在能量</dt><dd>7 数的人特别了解万事万物的精义，因此好比持有“免死金牌”，麻烦危险从不上身，吉星高照，手气极佳。但守株待兔的心态令人懒散、不思振作；7 数也令人习于独处，以便“充电”。</dd></div>
+          <div class="wide"><dt>Control · 控制倾向</dt><dd>7 数的人喜欢宰制他人和事物，圈圈多的人会变得专横，令人受不了。不但要控制人，还不肯轻易放手，非常黏人，和他在一起好像是一生的承诺。</dd></div>
+      </dl>
+      <div class="numero-bottom">
+        <p class="lesson"><b>课题</b>如何让理性能量加上感性能量，不要让自己太有负担、太辛苦，学习如何妥协而不是讲道理。</p>
+        <p>数字 7 代表探索、专注、精神试炼，以及胜利前夕的自我约束。它要求人从混杂纷乱的能量中，辨认并走出一条明确的道路。战车的 7 号能量说明了一件事：胜利来自阻力之中的方向感。当外界的拉扯越大，越需要一个清晰而不动摇的目标，把所有看似对立的力量收拢到同一条前进的轴线上。</p>
       </div>
     </div>
   </div>
@@ -600,6 +686,10 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
     <div class="chapter-head">
       <div class="idx">— 伍 · DIVINATORY MEANING</div>
       <h2>正逆位解读<span class="en">Upright &amp; Reversed</span></h2>
+    </div>
+    <div class="reading-focus">
+      <span class="lab">Reading focus · 牌面解读重点</span>
+      <p>战车所示并非“非对即错”的判断题，而是一道选择题。正位时，无论你选择哪一个，结果都不会差；逆位时，则提醒你——无论选择哪一个，结果都不太理想。差别不在于有没有答案，而在于此刻你的自我控制力，是否足以驾驭已经摆在面前的局面。</p>
     </div>
     <div class="pos-switch-wrapper">
       <div class="pos-switch" role="tablist">
@@ -618,7 +708,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           </div>
           <figcaption class="plate-cap">PLATE V · 正位意象 · 直觉与宇宙能量的显现</figcaption>
         </figure>
-        <div class="reading-intro"><p>正位的战车把问题从“要不要走”改写为“能否稳住方向”。它允许你主动争取、快速推进，但这份胜利只在纪律仍然有效时成立：请把速度交给清晰的目标，把力量交给可持续的节奏。</p></div>
+        <div class="reading-intro"><p>正位的战车说明：只要目标清楚并保持纪律，事情可以快速推进。这是一张鼓励你自我肯定、以坚强意志面对一切的牌——以积极的心态把握先机，主动出击、务必完成，胜利便会向你靠拢。但请记得，它给的是“可能成功”的承诺，而非“必然成功”的保证；能否兑现，取决于你是否拿得出与之相称的控制力与决心。</p></div>
         <div class="pos-summary">
           <div class="kw"><span class="lab">核心关键词</span><p>胜利，前进，自律，控制，目标明确，竞争成功，旅行，突破，高效率，搬家，指挥，掌管，支配，限制，意志，成功，发财，成名，成功的人，决心，果断，坚定，决定，确定，查明，测定，计算，进步，自我控制，自我肯定，坚强的意志，以积极的心态面对事物，把握先机，取得驾照，必须要做，务必完成，坚定的决心</p></div>
           <div class="kw"><span class="lab">能量基调</span><p>水 元素 · 开启、滋养与自我调和</p></div>
@@ -626,6 +716,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
         <div class="dim-grid">
           <div class="dim">
             <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
+            <p>感情中，战车代表主动追求、关系推进与共同目标，是一段热烈、积极、充满决断力的爱情。单身者可能遇到行动力强、目标明确的人；有伴侣者适合一起面对距离、家庭、工作或现实安排，甚至展开一段共同的旅行或冒险。爱需要方向，也需要给彼此留下呼吸的余地——这是辛苦努力才换来的感情，正因来之不易，你会格外珍惜，愿意尽一切努力守护它。</p>
             <ul>
               <li><b>现况</b>眼下的感情里不可避免地会遇到某种冲突或竞争，这有赖于你主动、积极地去处理与改进，千万不要在此刻轻言放弃。</li>
             <li><b>桃花</b>现在应该会出现新的感情对象，但你身边也许有不少实力相当的情敌在竞争，宜先掂量自己的心意与能力，再决定如何行动。</li>
@@ -635,6 +726,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           </div>
           <div class="dim">
             <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
+            <p>事业学业上，战车非常有利于考试、竞赛、项目冲刺、升职争取、出差旅行与目标达成。它要求你集中火力、减少分心，把资源压在最关键的方向上。你目标明确、富有野心、握有指挥权，前进即可制胜，战果常常辉煌；这也可能意味着一个冒险的新项目，或一趟带着使命的商务旅行。</p>
             <ul>
               <li><b>现况</b>工作上正遇到一些困难和挑战，但对你而言都是力所能及之事，只要再击败竞争对手，最终的胜利便属于你。</li>
             <li><b>建议</b>此时应当采取强硬手段，绝不可因一时心软而坏了大局，即便引发正面冲突，也要不计代价地撑下去。</li>
@@ -644,6 +736,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           </div>
           <div class="dim">
             <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
+            <p>人际方面，战车适合主动沟通、争取位置与明确立场。你个性活泼、交友广泛、善于交际，独立自主，遇到挑战便勇往直前，凭着开拓精神击败对手。财富方面可通过纪律、规划与行动获得进展——这是一个很有收获的时候，你更要努力为自己争取最大利益；但不适合情绪化投资，也不该为了“赢”而盲目冒险。</p>
             <ul>
               <li><b>现况</b>你在人际关系中充满目的性，常对他人有所防备，反而难以放开心胸交朋友，有时也会觉得颇为孤独。</li>
             <li><b>建议</b>不要太过自以为是，也该听听朋友的说法，综合双方意见之后，或许能找到另一种更好的解决方案。</li>
@@ -697,7 +790,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           </div>
           <figcaption class="plate-cap">PLATE VI · 逆位意象 · 失衡与能量阻塞</figcaption>
         </figure>
-        <div class="reading-intro"><p>逆位的战车不是简单的失败预言，而是方向尚未统一的诊断。若两股力量同时拉扯，继续加速只会扩大偏差；先减速、重新确认目标，再决定哪些控制必须放下，哪些承诺值得保留。</p></div>
+        <div class="reading-intro"><p>逆位的战车提醒你先统一方向，否则越用力越容易偏离目标。它常常意味着目标不明确、行动无法果断、方向感丧失，乃至陷入一种混乱而不稳定的状态——此时若仍一味冒进、激进，缺乏自我约束，便容易遭遇挫折，让局面滑向无法控制的境地，对未来的不确定感也会随之加剧。</p></div>
         <div class="pos-summary">
           <div class="kw"><span class="lab">核心关键词</span><p>失控，方向混乱，冲动，停滞，失败，内耗，强行推进，发生意外，胡作非为，止步不前，固执己见，注意力散漫，遇突发事件而不知所措，自我约束缺失，方向感缺失，反对，反抗，对抗，对手，敌人，竞争者，没有方向，没有领导，挫败，不必要的冲突，目标不明确，行动无法果断，过于冒进，过于激进，混乱而不稳定</p></div>
           <div class="kw"><span class="lab">能量基调</span><p>水 元素 · 延迟、失控与过度自我沉溺</p></div>
@@ -705,6 +798,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
         <div class="dim-grid">
           <div class="dim reversed">
             <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
+            <p>感情中可能出现拉扯、控制、争强好胜，或双方目标不同却被强行绑在一起。也可能是一方推进太快，另一方还没准备好，导致关系压力骤增。逆位的战车常伴随过于鲁莽、话不投机、因言语直白伤人，或因怯懦而使恋情无法推进；有时还会遭遇强劲情敌、被拒绝、被辜负，从而对爱情采取逃避的态度，最终走向可能的分离。</p>
             <ul>
               <li><b>现况</b>眼下的感情正面对很大的危机，此时应以家庭与家人的意见作为权衡的基准，否则到头来可能是一场空。</li>
             <li><b>桃花</b>现在出现的对象都比你强势，甚至可能主动来追你，你主动出击的成功率并不高，不如在原地静候时机。</li>
@@ -714,6 +808,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           </div>
           <div class="dim reversed">
             <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
+            <p>事业学业上可能方向不清、计划失控、资源分散，或因太想赢而忽略细节。逆位战车也常对应注意力散漫、泄气、退缩、挂科、丧失斗志，因急性子而失败，或因兴趣缺失、决心与方向不足而招致商业上的失利与竞争中的挫败。此时宜先确认目标、方法和优先级，再重新推进。</p>
             <ul>
               <li><b>现况</b>工作上遇到一些困难与挑战，同时也牵连出人际关系的问题，须当心，否则自己可能沦为炮灰。</li>
             <li><b>建议</b>这个问题已非你一人能够解决，多去请教不同的人，把众人的意见综合起来，或许能从中悟出些什么。</li>
@@ -723,6 +818,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           </div>
           <div class="dim reversed">
             <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
+            <p>人际上容易陷入权力较量，也可能因率性妄为引起他人不满、待人冷淡、怯懦退缩，或面对强敌而争论不休。财富方面要小心损失金钱、不懂节制的花费、赌博失利，以及冲动消费、赛车式投资、借贷扩张或为了证明自己而承担过大的风险。</p>
             <ul>
               <li><b>现况</b>你在朋友之间处于较弱势的位置，常常无法主张自己的意见，反而被朋友的意见所支配，属于被动交友的人。</li>
             <li><b>建议</b>此时必须先退一步，才会有和解的空间，可以先向对方道一声歉，接下来的局面你或许便懂得如何处理了。</li>
