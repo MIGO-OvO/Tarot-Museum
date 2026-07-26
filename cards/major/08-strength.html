@@ -198,12 +198,24 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
   font-family:var(--serif);float:left;font-size:84px;line-height:.72;
   padding:8px 14px 0 0;color:var(--wine);font-weight:400;
 }
-.prose p{margin-bottom:24px;text-align:justify}
+.prose p{margin-bottom:24px;text-align:justify;text-justify:inter-ideograph}
 .pullquote{
   margin:52px 0;padding:12px 0 12px 34px;border-left:3px solid var(--gold);
   font-family:var(--song);font-size:25px;line-height:1.6;color:var(--wine);font-style:normal;
   background:oklch(58% .12 70 / .03);
 }
+.archetype-head{margin:70px 0 30px;padding-top:34px;border-top:1px solid var(--rule)}
+.archetype-head .lab{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.28em;color:var(--gold-deep);text-transform:uppercase;margin-bottom:10px}
+.archetype-head h3{font-family:var(--song);font-size:clamp(25px,3vw,34px);font-weight:500;line-height:1.35;color:var(--fg)}
+.archetype-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.archetype-card{background:var(--paper);padding:30px 28px}
+.archetype-card .tradition{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--gold-deep);text-transform:uppercase;margin-bottom:13px}
+.archetype-card h4{font-family:var(--song);font-size:21px;font-weight:600;color:var(--wine);margin-bottom:13px}
+.archetype-card p{font-family:var(--serif);font-size:15.5px;line-height:1.85;color:var(--muted);text-align:justify}
+.history-list{display:grid;gap:14px}
+.history-list p{padding-bottom:14px;border-bottom:1px dashed var(--border)}
+.history-list p:last-child{padding-bottom:0;border-bottom:0}
+.history-list b{font-family:var(--song);color:var(--fg)}
 
 /* ============ 牌面要素 标签 ============ */
 .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--rule);background:var(--paper)}
@@ -212,6 +224,13 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
 .facts dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:14px}
 .facts dd{font-family:var(--serif);font-size:30px;line-height:1.1;color:var(--fg)}
 .facts dd small{display:block;font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:10px;line-height:1.6;letter-spacing:0}
+.fact-notes{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border);border-top:0;background:var(--surface)}
+.fact-notes div{padding:22px 26px;border-right:1px solid var(--border)}
+.fact-notes div:last-child{border-right:0}
+.fact-notes span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--gold-deep);text-transform:uppercase;margin-bottom:8px}
+.fact-notes p{font-family:var(--song);font-size:16px;line-height:1.65;color:var(--fg)}
+.fact-thesis{padding:24px 28px;border:1px solid var(--border);border-top:0;background:var(--paper);font-size:16px;line-height:1.8;color:var(--muted)}
+.fact-thesis b{font-family:var(--song);color:var(--wine);margin-right:8px}
 @media(max-width:860px){.facts{grid-template-columns:repeat(2,1fr)}.facts dl:nth-child(2){border-right:0}.facts dl:nth-child(-n+2){border-bottom:1px solid var(--border)}}
 
 /* ============ 象征要素图谱 ============ */
@@ -232,15 +251,23 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
 .swatch{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:7px;vertical-align:baseline;border:1px solid oklch(40% .05 60 / .3)}
 
 /* ============ 塔罗灵数 ============ */
-.numero{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:center}
-.bignum{font-family:var(--serif);font-size:clamp(180px,26vw,340px);line-height:.74;color:var(--wine);text-align:center;position:relative}
+.numero{display:grid;gap:clamp(32px,4vw,56px)}
+.numero-top{display:grid;grid-template-columns:minmax(280px,.85fr) minmax(0,1.15fr);gap:clamp(34px,5vw,72px);align-items:center}
+.bignum{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100%;padding:34px 0 42px;font-family:var(--serif);font-size:clamp(160px,22vw,300px);line-height:.74;color:var(--wine);text-align:center;position:relative}
 .bignum::after{content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);width:60%;height:1px;background:var(--gold)}
-.bignum small{display:block;font-family:var(--mono);font-size:13px;letter-spacing:.4em;color:var(--gold-deep);margin-top:30px;text-transform:uppercase}
+.bignum small{display:block;font-family:var(--mono);font-size:13px;line-height:1.2;letter-spacing:.4em;color:var(--gold-deep);margin-top:30px;text-transform:uppercase}
 .numero-keys{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}
 .numero-keys span{font-family:var(--sans);font-size:13.5px;padding:6px 14px;border:1px solid var(--border);border-radius:999px;color:var(--muted);background:var(--paper)}
-.numero p{margin-bottom:18px;font-size:17.5px;line-height:1.85;color:var(--fg)}
+.numero p{margin-bottom:18px;font-size:17.5px;line-height:1.85;color:var(--fg);text-align:justify;text-justify:inter-ideograph}
 .numero .lesson{margin-top:22px;padding:22px 26px;background:var(--paper);border-left:3px solid var(--gold);box-shadow:0 4px 12px oklch(24% 0.03 55 / .02)}
 .numero .lesson b{color:var(--wine);font-family:var(--song)}
+.numero-profile{display:grid;grid-column:1/-1;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;margin:0;background:var(--border);border:1px solid var(--border)}
+.numero-profile div{display:flex;flex-direction:column;padding:20px 22px;background:var(--paper);min-height:126px}
+.numero-profile dt{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--gold-deep);text-transform:uppercase;margin-bottom:8px}
+.numero-profile dd{font-family:var(--sans);font-size:14px;line-height:1.75;color:var(--muted)}
+.numero-profile .wide{grid-column:1/-1}
+.numero-bottom{display:grid;gap:22px}
+.numero-bottom p:last-child{margin-bottom:0}
 
 /* ============ 正逆位切换 ============ */
 .pos-switch-wrapper{
@@ -289,9 +316,26 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
 .dim-extra{margin-top:30px;padding:26px 30px;background:var(--paper);border:1px solid var(--border)}
 .dim-extra .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;color:var(--gold-deep);text-transform:uppercase;display:block;margin-bottom:12px}
 .dim-extra p{font-size:15.5px;line-height:1.8;color:var(--muted)}
+.reading-focus{width:100%;max-width:none;box-sizing:border-box;margin:-8px auto 46px;padding:26px 32px;background:var(--surface);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.reading-focus .lab{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.24em;color:var(--gold-deep);text-transform:uppercase;margin-bottom:10px;text-align:center}
+.reading-focus p{font-family:var(--song);font-size:17px;line-height:1.9;color:var(--fg);text-align:justify;text-justify:inter-ideograph}
+.reading-intro{
+  margin:0 0 44px;padding:28px 32px 28px 36px;background:var(--paper);
+  border:1px solid var(--border);position:relative;box-shadow:0 8px 22px oklch(24% .03 55 / .04);
+}
+.reading-intro p{margin:0;font-size:17px;line-height:1.95;color:var(--fg);text-align:justify;text-wrap:pretty}
+.guidance{margin-top:22px;border:1px solid var(--border);background:var(--paper)}
+.guidance summary{cursor:pointer;padding:18px 24px;font-family:var(--song);font-size:18px;color:var(--fg);list-style:none;display:flex;justify-content:space-between;align-items:center}
+.guidance summary::after{content:"＋";font-family:var(--mono);color:var(--gold-deep)}
+.guidance[open] summary::after{content:"－"}
+.guidance summary::-webkit-details-marker{display:none}
+.guidance-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border-top:1px solid var(--border)}
+.guidance-grid div{padding:16px 20px;background:var(--bg)}
+.guidance-grid dt{font-family:var(--song);font-weight:600;font-size:14px;color:var(--wine);margin-bottom:5px}
+.guidance-grid dd{font-family:var(--sans);font-size:13.5px;line-height:1.7;color:var(--muted)}
 
 /* ============ 新增图版通用 ============ */
-.element-figure, .pos-figure, .spread-figure{margin:40px 0}
+.element-figure, .pos-figure, .spread-figure{margin:40px auto}
 .element-figure .plate, .pos-figure .plate, .spread-figure .plate{
   position:relative;border:1px solid var(--rule);padding:16px;background:var(--paper);
   box-shadow:0 10px 30px oklch(24% 0.03 55 / .08);
@@ -407,7 +451,8 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
   .hero-grid{grid-template-columns:1fr;gap:44px}
   .symbol-layout{grid-template-columns:1fr;gap:38px}
   .symbol-figure{position:static}
-  .numero{grid-template-columns:1fr;gap:30px}
+  .numero-top{grid-template-columns:1fr;gap:30px}
+  .archetype-grid{grid-template-columns:1fr}
   .dim-grid{grid-template-columns:1fr}
   .spread{grid-template-columns:1fr;gap:24px}
   .spread-card-wrapper{height:300px}
@@ -415,9 +460,14 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
 @media(max-width:680px){
   .wrap,.topbar-inner{padding:0 24px}
   body{font-size:16px}
+  .fact-notes,.guidance-grid{grid-template-columns:1fr}
+  .fact-notes div{border-right:0;border-bottom:1px solid var(--border)}
+  .fact-notes div:last-child{border-bottom:0}
   .tnav{display:none}
   .pos-summary{grid-template-columns:1fr}
   .pos-summary .kw{border-bottom:1px solid var(--border)!important}
+  .numero-profile{grid-template-columns:1fr}
+  .numero-profile .wide{grid-column:auto}
   .prose.drop::first-letter{font-size:64px}
 }
 *,*::before,*::after{box-sizing:border-box}
@@ -434,6 +484,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
     <nav class="tnav">
       <a href="#hero">卷首</a>
       <a href="#narrative">牌面叙事</a>
+      <a href="#archetypes">跨体系原型</a>
       <a href="#facts">牌面要素</a>
       <a href="#symbols">象征图谱</a>
       <a href="#numerology">塔罗灵数</a>
@@ -476,10 +527,32 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
       <h2>牌面叙事<span class="en">The Image Speaks</span></h2>
     </div>
     <div class="prose drop">
+      <p>力量是大阿尔卡纳第九号牌，编号为 VIII，对应狮子座与火元素。白衣女子徒手驯服狮子的图案传递以柔克刚的哲学：无限符号象征永恒力量，狮子象征人类动物性，驯服过程体现灵性成长与意志掌控，尾巴下垂则显示兽性已被安抚。花环与白色礼服分别代表爱的自然流露与纯洁特质。它位于大阿尔卡纳第二列，是愚人经历恋人牌的选择、战车牌的外在胜利后，转化为内在成长的关键节点。</p>
       <p class="prose drop">女性轻抚狮子，头上有无限符号，画面安静却充满力量。她头戴花环、腰束花带，象征高贵圣洁与温柔却坚韧的力量。她无所畏惧，拥有不可战胜的勇气、信心与耐心，散发着自信的光芒，温和中透出一股威仪。这画面提醒我们：要凭借这些优秀的品质去克服内心的野性、恐惧、愤怒与冲动。</p>
       <p class="prose ">力量虽可指身强体壮，但它更倾向于身心、尤其是内心的“强韧”。面对强权不低头、面对困难不退缩的人格力量，才是这张牌的真正意义。牌上的狮子代表人的动物本能，而力量所展示的，正是人对本能的掌控——这种掌控不是生硬的压制，而是因势利导、以柔克刚，颇有修行中“驾驭心性”的意味。对内，具备战士的精神，不畏怯懦与痛苦，不逃避应尽的责任；对外，怀着慈悲之心，待人友善、柔和有道。它与佛家的“行菩萨道”相似，是一种内外兼具的状态，兼有内在力量与无私之爱。此外，许多现代塔罗文献都提到力量牌与“蛇”相关，对应瑜伽中沉睡于脊椎底部的昆达里尼原始能量，它的出现也可能代表这股灵性能量的觉醒。</p>
       <p class="prose ">这里的力量并非自身固有的力量，而是自身所能控制的能量。在人事物中，它体现为主体对客体的掌握与否；在关系中，则是是否占据主导地位。力量牌也与四元素牌的特性相近：它表明能量的存在，却不指明能量的具体方向，因此这股能量可能尚未实现。正因如此，它更多揭示当事人的个性与内在选择，而非外在环境本身。其行事风格的关键在于以柔克刚——任何想凭蛮力强行推动事物发展的做法都会失败。值得一提的是，力量牌的能量是内向的、阴性的，因此它的出现常代表女性在关系中占据主导地位；若有其他暗示强势女性的牌相辅（如女皇，甚至女性一方出现国王牌），它甚至可能暗示女性过于强势、强求或强迫对方在一起，形成“女追男”或男方“柳下惠”的局面。</p>
       <p class="pullquote">女性轻抚狮子，头上有无限符号，画面安静却充满力量。</p>
+    </div>
+    <div class="archetype-head" id="archetypes">
+      <span class="lab">Comparative traditions · 跨体系原型</span>
+      <h3>不同文明中的英雄、驯服与内在意志</h3>
+    </div>
+    <div class="archetype-grid">
+      <article class="archetype-card">
+        <span class="tradition">Greek mythology · 希腊神话</span>
+        <h4>赫拉克勒斯 · Herakles</h4>
+        <p>赫拉克勒斯是希腊著名英雄，也是阿耳戈英雄之一。他依神喻完成十二件艰巨任务，包括斩杀九头蛇海德拉、清扫奥革阿斯牛圈、征服阿马宗女人并带回刻耳柏洛斯。赫拉克勒斯曾因癔症误杀亲友，后在翁法勒处服役三年，最终成为奥林匹斯山上的神。力量牌与他的对应，不只在于征服狮子，更在于把失控的本能转化为可承担的意志。</p>
+      </article>
+      <article class="archetype-card">
+        <span class="tradition">Chinese tradition · 中国体系</span>
+        <h4>花木兰 · Mulan</h4>
+        <p>花木兰替父从军，以孝道、勇气、智谋与毅力克服战场困境。她并非依靠蛮力取胜，而是在身份压力与现实挑战中保持判断、承担责任，正好呼应力量牌“温柔驯服狮子”的核心：以柔克刚、以内在坚韧驯服本能，而不是以暴力压制对方。</p>
+      </article>
+      <article class="archetype-card">
+        <span class="tradition">Inner transformation · 内在转化</span>
+        <h4>第二阶段 · 从外在胜利到内在成长</h4>
+        <p>力量位于大阿卡纳第二列，是愚人经历恋人的选择、战车的外在胜利后抵达的内在成长节点。小我的面具必须退场，情感与欲望不能再被表意识掩盖；真正的功课，是让精神力量胜过物理强制，让激情在慈悲与自律中找到新的形状。</p>
+      </article>
     </div>
   </div>
 </section>
@@ -494,10 +567,16 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
     <div class="facts">
       <dl><dt>元素 Element</dt><dd>火<small>火 · 行动、创造与热情的爆发</small></dd></dl>
       <dl><dt>星座 Zodiac</dt><dd>狮子座<small>Leo · 温柔掌控、内在勇气与精神力量</small></dd></dl>
-      <dl><dt>生命之树 Tree of Life</dt><dd>Teth<small>第19条路径 · 联结严格 (Geburah) 与仁慈 (Chesed)</small></dd></dl>
+      <dl><dt>生命之树 Tree of Life</dt><dd>第九条路径<small>联结力量（Geburah）与仁慈（Chesed）</small></dd></dl>
       <dl><dt>希伯来字母</dt><dd>Teth<small>第九个字母 ט · "蛇"，被驯服与转化的内在能量</small></dd></dl>
     </div>
-        <figure class="element-figure" style="margin-top:48px">
+    <div class="fact-notes">
+      <div><span>Number · 数字编号</span><p>VIII · 08 号牌</p></div>
+      <div><span>Chakra · 脉轮</span><p>太阳神经丛 · 掌管自我</p></div>
+      <div><span>Direction · 方位</span><p>北上 · 向内整合</p></div>
+    </div>
+    <p class="fact-thesis"><b>代表意义</b>通过温柔的勇气，理解当前阶段的命运功课。</p>
+        <figure class="element-figure" style="margin:48px auto 46px;max-width:min(960px,100%)">
       <div class="plate">
         <img src="../../assets/images/major/08-strength/strength-elements.png" alt="塔罗牌力量对应要素"
              onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE III — 要素图待上传&lt;br&gt;assets/images/major/08-strength/strength-elements.png&lt;/div&gt;'">
@@ -555,10 +634,25 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
       <h2>塔罗灵数<span class="en">The Number VIII</span></h2>
     </div>
     <div class="numero">
-      <div class="bignum">VIII<small>Strength</small></div>
-      <div class="numero-text">
-        <p>数字 8 象征循环、力量与自我掌控。它像一条回环的道路，让人学会把冲动炼成勇气，把欲望化为可被信任的生命力。</p>
-        <p>力量的课题在于柔中有骨。它让人明白，真正的强大常常安静无声，却能长久地托住关系、身体和人生选择。</p>
+      <div class="numero-top">
+        <div class="bignum">VIII<small>Strength</small></div>
+        <div class="numero-intro">
+          <p>数字 8 的关键词是掌控、善于把控全局与权衡利弊。它象征循环、力量与自我掌控，像一条回环的道路，让人学会把冲动炼成勇气，把欲望化为可被信任的生命力。</p>
+          <div class="numero-keys"><span>掌控</span><span>全局</span><span>权衡</span><span>成长</span></div>
+          <p>8 数有圈的人天生具备商业头脑与公关能力，能够看见人事物的潜能并全力开发；但权力欲与控制欲也可能令他们以手段博取名利。8 号的课题是：如何控制自己的欲望，并对自己诚实。</p>
+        </div>
+      </div>
+      <dl class="numero-profile">
+        <div><dt>Money · 金钱关键词</dt><dd>经营规划、理财企划、老板与主管格局；8 是最具金钱能量的数字，适合经营管理与理财。</dd></div>
+        <div><dt>Emotion · 感情关键词</dt><dd>有点霸道、格局很大，不计较小节，主要把控大方向；需要留意控制欲对关系的压力。</dd></div>
+        <div><dt>Personality · 数字 8 的人</dt><dd>具有 4 的双倍力量，野心加倍，善于经营与开发潜能，个性讨喜但不轻易说出真正想法；若失去边界，容易压制别人。</dd></div>
+        <div><dt>Energy · 能量倾向特质</dt><dd>展现成长，拥有商业头脑与公共能力，追求广结善缘、建立名望与影响力。</dd></div>
+        <div class="wide"><dt>Potential · 潜在能量</dt><dd>8 数的人看得出人事物的潜能与力量，能够把资源组织成可持续的成果；这股力量需要以诚信与自律为边界，否则会因追逐名利付出沉重代价。</dd></div>
+        <div class="wide"><dt>Control · 控制倾向</dt><dd>8 数喜欢掌控一切，容易压制别人；力量牌提醒我们，真正的控制不是强行支配，而是以温柔、耐心与内在坚韧托住关系和人生选择。</dd></div>
+      </dl>
+      <div class="numero-bottom">
+        <p class="lesson"><b>课题</b>如何控制自己的欲望，让强大的理性能量与感性能量共同工作，而不是把自己逼得过度辛苦。</p>
+        <p>力量的课题在于柔中有骨。真正的强大常常安静无声，却能长久地托住关系、身体和人生选择；它让人把本能转化为勇气，把权力转化为保护，把欲望转化为可被信任的生命力。</p>
       </div>
     </div>
   </div>
@@ -571,6 +665,10 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
       <div class="idx">— 伍 · DIVINATORY MEANING</div>
       <h2>正逆位解读<span class="en">Upright &amp; Reversed</span></h2>
     </div>
+    <div class="reading-focus">
+      <span class="lab">Reading focus · 牌面解读重点</span>
+      <p>这里的力量并非自身固有的蛮力，而是自身所能控制的能量。它表明能量已经存在，却不预设能量的方向，因此更强调当事人的个性与内在选择。其关键在于以柔克刚：任何试图凭强制推动局面的做法都容易失败；真正的力量，是以耐心、慈悲与自律，让本能成为可以被信任的生命力。</p>
+    </div>
     <div class="pos-switch-wrapper">
       <div class="pos-switch" role="tablist">
         <button class="on" data-pos="up" role="tab" aria-selected="true">正位<span class="en">Upright</span></button>
@@ -581,17 +679,14 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
     <div class="pos-panel-container">
       <!-- 正位 -->
       <div class="pos-panel show" id="panel-up">
-        <figure class="pos-figure" style="margin-bottom:40px;max-width:480px">
+        <figure class="pos-figure" style="margin:0 auto 46px;max-width:min(860px,100%)">
           <div class="plate">
             <img src="../../assets/images/major/08-strength/strength-upright.png" alt="力量正位意象"
                  onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE V — 正位意象图待上传&lt;br&gt;assets/images/major/08-strength/strength-upright.png&lt;/div&gt;'">
           </div>
           <figcaption class="plate-cap">PLATE V · 正位意象 · 直觉与宇宙能量的显现</figcaption>
         </figure>
-        <div class="prose" style="max-width:62ch;margin-bottom:40px">
-          <p>**关键词**：勇气，耐心，自信，疗愈，本能调和，柔性掌控，精神抖擞，不屈不挠，意志坚定，潜力十足，胆识过人，信念坚定，体力，力气，强度，毅力，坚强决心，意志力量，勇敢，无畏，胆量，说服力，劝说，影响力，同情，怜悯，控制，权力，坚韧，平衡</p>
-        <p>正位的力量表示内在能量正在被温柔地统合。你内心充满力量，有很强的自我控制力，充满决心与勇气，具备面对挑战的能力与坚持到底的毅力。你处事沉着冷静，善于理解和接纳他人，能以高度的忍耐力积极面对生活的困难，并拥有较强的恢复力。你可以用耐心化解紧张，用信任安抚本能，用稳定的心穿过挑战。</p>
-        </div>
+        <div class="reading-intro"><p>正位的力量表示内在能量正在被温柔地统合。你内心充满力量，有很强的自我控制力，充满决心与勇气，具备面对挑战的能力与坚持到底的毅力。你处事沉着冷静，善于理解和接纳他人，能以高度的忍耐力积极面对生活的困难，并拥有较强的恢复力。你可以用耐心化解紧张，用信任安抚本能，用稳定的心穿过挑战。</p></div>
         <div class="pos-summary">
           <div class="kw"><span class="lab">核心关键词</span><p>勇气，耐心，自信，疗愈，本能调和，柔性掌控，精神抖擞，不屈不挠，意志坚定，潜力十足，胆识过人，信念坚定，体力，力气，强度，毅力，坚强决心，意志力量，勇敢，无畏，胆量，说服力，劝说，影响力，同情，怜悯，控制，权力，坚韧，平衡</p></div>
           <div class="kw"><span class="lab">能量基调</span><p>火 元素 · 开启、滋养与自我调和</p></div>
@@ -599,6 +694,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
         <div class="dim-grid">
           <div class="dim">
             <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
+            <p>感情中，力量代表关系进入与“温柔的勇气、耐心、自我驯服”有关的阶段。这是一份稳定而深厚的关系，两人之间有很强的精神连接，都愿意为对方付出、接纳彼此的缺点，也能坦诚面对问题。无论是初次相遇还是已成情侣，这都是值得投入、可以做长远规划的关系。</p>
             <ul>
               <li><b>现况</b>感情状态还算稳定，但应主动付出更多的爱，才能让人感觉到这段关系的成长，为彼此带来更多欢乐。</li>
             <li><b>桃花</b>应该很快就会出现新的感情对象，关键只在于你主观上接不接受——这会是一段值得付出的感情，不妨试着去感受。</li>
@@ -608,6 +704,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           </div>
           <div class="dim">
             <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
+            <p>事业学业上，这张牌提示你用更高层次的眼光处理问题。你有很强的毅力与决心，能直面困难和挑战，具备出色的发展潜力与自我控制力；它可能带来转机、考验、成果或暂停，但核心都是要求你调整策略，学习攻坚与恢复。</p>
             <ul>
               <li><b>现况</b>工作状况其实还算顺利，也有不少可以表现的机会，应当把握各种彰显自己的机会，才能更上一层楼。</li>
             <li><b>建议</b>有些事情需要与人相互配合，也要顾及对方的立场，找到双方都能接受的方法，事情才能顺利推进。</li>
@@ -617,6 +714,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           </div>
           <div class="dim">
             <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
+            <p>人际关系中适合看清彼此的位置，减少表面维持。你拥有较强的沟通与社交能力，能够理解、接纳他人并保持冷静；财富方面则要结合现实条件与长期影响，做出清醒安排。</p>
             <ul>
               <li><b>现况</b>因待人友善，人际关系顺畅；付出越多，越能收获朋友的回馈与帮助。</li>
             <li><b>建议</b>试着站在对方立场想事情，也许就能找到两全其美的方法；若由你主动提出，很快便能化解僵局。</li>
@@ -632,21 +730,45 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           <span class="lab">其它牌意 · Other</span>
           <p>可能代表兼顾工作与爱好、向往刺激的人生、活跃于社团或派对。若问具体事件，正位多表示事情进入关键阶段。主动理解它的意义，会比单纯等待结果更有力量。</p>
         </div>
+        <details class="guidance">
+          <summary>情境指引 · Contextual guidance</summary>
+          <dl class="guidance-grid">
+            <div><dt>爱情运势</dt><dd>关系中存在强大的吸引力与深厚情感联系，两人可能共同克服障碍，关系充满激情与承诺。</dd></div>
+            <div><dt>财富运势</dt><dd>凭坚韧与毅力增强财务状态，通过努力与坚持实现稳定收入或投资回报。</dd></div>
+            <div><dt>当前情况</dt><dd>正依靠内在力量与勇气面对挑战，信念与决心提供稳步前进的支持。</dd></div>
+            <div><dt>过去</dt><dd>过去的经历已锻炼出你的内在力量与韧性，为现状打下基础。</dd></div>
+            <div><dt>现在</dt><dd>拥有稳定的能力处理生活困难，自信与冷静让你在压力下保持专注。</dd></div>
+            <div><dt>未来</dt><dd>内在力量将继续支持你克服障碍，引领你走向成功。</dd></div>
+            <div><dt>挑战</dt><dd>继续培养并运用内在力量，以面对外在压力与挑战。</dd></div>
+            <div><dt>障碍</dt><dd>障碍可能来自自我怀疑或外界压力，保持信心与勇气将帮助你越过它们。</dd></div>
+            <div><dt>环境</dt><dd>环境要求你展现力量与勇气，人们会依赖你的稳定性与决断力。</dd></div>
+            <div><dt>支持</dt><dd>支持来自认可你内在力量的人，团队合作与相互鼓励是后盾。</dd></div>
+            <div><dt>建议</dt><dd>保持自信与毅力，面对困难时冷静，相信直觉与能力。</dd></div>
+            <div><dt>优势</dt><dd>能控制情绪，并在面对挑战时展现坚强与耐心。</dd></div>
+            <div><dt>弱点</dt><dd>可能强压自己的情感；学会平衡力量与柔软。</dd></div>
+            <div><dt>正面影响</dt><dd>成为有力的角色，对周围人产生积极影响，给予他们力量与勇气。</dd></div>
+            <div><dt>负面影响</dt><dd>保持强大的过程中，可能疏远需要支持与同情的人。</dd></div>
+            <div><dt>希望发生</dt><dd>希望继续坚强、始终保持控制，无论面对怎样的挑战。</dd></div>
+            <div><dt>害怕发生</dt><dd>害怕失去控制，或担心内在力量不足以应对挑战。</dd></div>
+            <div><dt>你如何看对方</dt><dd>你感到对方有内在力量与决心，能克服困难，其吸引力与影响力能激励他人。</dd></div>
+            <div><dt>对方如何看待你</dt><dd>对方认为你内心坚强、自信而有勇气，能温和而坚定地面对挑战，并尊敬你的自律。</dd></div>
+            <div><dt>关系当前状态</dt><dd>关系中存在精神联系与相互尊重，双方以成熟、平衡的方式处理冲突，正处在增进信任与理解的阶段。</dd></div>
+            <div><dt>关系未来发展</dt><dd>双方将凭勇气、耐心与相互支持共同克服困难，使关系更坚固稳定。</dd></div>
+            <div><dt>结果</dt><dd>结果将是一个充满力量与控制的局面，你会展现出强大的影响力。</dd></div>
+          </dl>
+        </details>
       </div>
 
       <!-- 逆位 -->
       <div class="pos-panel" id="panel-rev">
-        <figure class="pos-figure" style="margin-bottom:40px;max-width:480px">
+        <figure class="pos-figure" style="margin:0 auto 46px;max-width:min(860px,100%)">
           <div class="plate">
             <img src="../../assets/images/major/08-strength/strength-reversed.png" alt="力量逆位意象"
                  onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VI — 逆位意象图待上传&lt;br&gt;assets/images/major/08-strength/strength-reversed.png&lt;/div&gt;'">
           </div>
           <figcaption class="plate-cap">PLATE VI · 逆位意象 · 失衡与能量阻塞</figcaption>
         </figure>
-        <div class="prose" style="max-width:62ch;margin-bottom:40px">
-          <p>**关键词**：胆怯，失控，自我怀疑，压抑，暴躁，意志薄弱，精力不足，急躁不安，丧失信心，忍耐力不足，自私自大，自我否定，不自信，精神不振，能力低下，兽性，原欲，靠本能处理问题，做事凭感觉，无力，恐惧，疑虑，软弱，失衡</p>
-        <p>逆位的力量表示这股能量受阻、失衡或被错误使用。此时你内心缺乏力量，自我控制力不强，缺乏决心与勇气，面对挑战的能力较弱，也缺乏坚持到底的毅力；忍耐力不足，处事容易冲动，理解与接纳他人的能力变弱，对生活的困难消极面对，恢复力也较差。最重要的是先看清自己是否正在抗拒这张牌所要求的功课。</p>
-        </div>
+        <div class="reading-intro"><p>逆位的力量表示这股能量受阻、失衡或被错误使用。此时你内心缺乏力量，自我控制力不强，缺乏决心与勇气，面对挑战的能力较弱，也缺乏坚持到底的毅力；忍耐力不足，处事容易冲动，理解与接纳他人的能力变弱，对生活的困难消极面对，恢复力也较差。最重要的是先看清自己是否正在抗拒这张牌所要求的功课。</p></div>
         <div class="pos-summary">
           <div class="kw"><span class="lab">核心关键词</span><p>胆怯，失控，自我怀疑，压抑，暴躁，意志薄弱，精力不足，急躁不安，丧失信心，忍耐力不足，自私自大，自我否定，不自信，精神不振，能力低下，兽性，原欲，靠本能处理问题，做事凭感觉，无力，恐惧，疑虑，软弱，失衡</p></div>
           <div class="kw"><span class="lab">能量基调</span><p>火 元素 · 延迟、失控与过度自我沉溺</p></div>
@@ -654,6 +776,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
         <div class="dim-grid">
           <div class="dim reversed">
             <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
+            <p>感情中容易出现误解、逃避、控制、冷淡或旧模式重复，也可能表现为对爱情失去信心、无法坚持或经不住诱惑。双方缺乏精神连接与真实付出，相互依赖变得不健康；关系若一直无法推进，需要回到彼此真实的需求。</p>
             <ul>
               <li><b>现况</b>感情状况有点失控，虽然两人都想让关系更亲密，却因某些变故无法配合而陷入僵局。</li>
             <li><b>桃花</b>未来出现的对象不在你的掌控之内，不如等别人主动追求，这样反而会遇到更合适的人。</li>
@@ -663,6 +786,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           </div>
           <div class="dim reversed">
             <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
+            <p>事业学业上可能有拖延、阻滞、判断偏差或权责不清，常表现为急于求成、缺乏耐心、实力不足，乃至做出危险的赌注。先修正方向、补足信息，再决定下一步，比凭冲动硬撑更重要。</p>
             <ul>
               <li><b>现况</b>工作中遇到比较专制的领导，光是每天应付他就很累；虽也有不少表现机会，却都是听命行事。</li>
             <li><b>建议</b>要鼓起勇气坚持自己的立场，不要因别人的闲言碎语而退缩；继续以自己的方法推进，终会得到被理解的结果。</li>
@@ -672,6 +796,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           </div>
           <div class="dim reversed">
             <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
+            <p>人际方面要小心投射与不公平交换。逆位常表现为任性、自大、蛮干或故弄玄虚，因而失去自信与他人的信任；财富方面适合回到理性评估和长期规划，避免被恐惧或虚荣推着走。</p>
             <ul>
               <li><b>现况</b>人际上要格外小心，可能有人想利用你去达成他的目的——未必对你有害，却一定会让你不舒服。</li>
             <li><b>建议</b>留意流言对你的伤害，当面把问题向对方讲清楚，不要透过第三方传话，否则事情可能越描越黑。</li>
@@ -687,6 +812,33 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           <span class="lab">其它牌意 · Other</span>
           <p>可能代表说服他人、目中无人、狂妄自私、不善配合而喜欢独来独往，或禁不住诱惑。事情可能延迟、反复或暴露隐藏问题。先修正模式，再谈结果。</p>
         </div>
+        <details class="guidance">
+          <summary>情境指引 · Contextual guidance</summary>
+          <dl class="guidance-grid">
+            <div><dt>爱情运势</dt><dd>可能缺乏自信或在关系中感到不安全，也可能出现控制欲或激烈争吵。</dd></div>
+            <div><dt>财富运势</dt><dd>财运可能遇到挫折，源于缺乏自律或资金管理不善，建议重新评估策略。</dd></div>
+            <div><dt>当前情况</dt><dd>可能感到无力或容易受到打击，内在恐惧与不确定正在影响行动与决定。</dd></div>
+            <div><dt>过去</dt><dd>过去可能有一段时间没有运用自己的力量，被动生活影响了现在的状态。</dd></div>
+            <div><dt>现在</dt><dd>正在经历自我怀疑、感到力不从心，需要重新找回勇气与信心。</dd></div>
+            <div><dt>未来</dt><dd>需要学会与内心的恐惧和不确定斗争，重新掌握主动权。</dd></div>
+            <div><dt>挑战</dt><dd>战胜内心软弱，找到重新获得力量与控制的途径。</dd></div>
+            <div><dt>障碍</dt><dd>情绪波动或外界负面影响，使你难以发挥真正的力量。</dd></div>
+            <div><dt>环境</dt><dd>环境可能不利于展示个人力量，存在压制或限制自信的因素。</dd></div>
+            <div><dt>支持</dt><dd>寻找能鼓励你克服无力感、帮你找回内在力量的支持系统。</dd></div>
+            <div><dt>建议</dt><dd>透过反思弱点增强决心，避免被情绪左右，重新获得控制感。</dd></div>
+            <div><dt>优势</dt><dd>自我反思能力强，有机会识别并解决阻碍你的内在问题。</dd></div>
+            <div><dt>弱点</dt><dd>缺乏自信与自我控制，面对挑战时可能无助、犹豫不决。</dd></div>
+            <div><dt>正面影响</dt><dd>经历逆境后的成长与自我提升，学习从失败中恢复并变得更强。</dd></div>
+            <div><dt>负面影响</dt><dd>感觉被生活控制而非主导生活，可能导致抑郁与失落。</dd></div>
+            <div><dt>希望发生</dt><dd>希望克服当前无力感，找回从前的力量与自信。</dd></div>
+            <div><dt>害怕发生</dt><dd>害怕弱点被人看穿，或在需要强大时显得脆弱。</dd></div>
+            <div><dt>你如何看对方</dt><dd>你在关系中缺乏信心或力量，担心没有足够内在能量处理问题，也可能因恐惧而过度依赖或施压。</dd></div>
+            <div><dt>对方如何看待你</dt><dd>对方认为你不够强大或自信，处理问题时犹豫、情绪化或有控制欲，需要时间与空间发展内在力量。</dd></div>
+            <div><dt>关系当前状态</dt><dd>关系中存在不平衡的力量动态，一方过强、另一方受压，缺乏自信与安全感影响稳定。</dd></div>
+            <div><dt>关系未来发展</dt><dd>若不解决力量不平衡，未来可能冲突、争执甚至分裂；双方需要恢复勇气、自律与改善关系的行动。</dd></div>
+            <div><dt>结果</dt><dd>需要一段时间重新发现自我与内在力量，这将是自我发现与成长的过程。</dd></div>
+          </dl>
+        </details>
       </div>
     </div>
   </div>
@@ -699,7 +851,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
       <div class="idx">— 陆 · THE SPREAD</div>
       <h2>三牌阵示意<span class="en">Past · Present · Future</span></h2>
     </div>
-    <figure class="spread-figure" style="margin-bottom:40px;max-width:680px">
+    <figure class="spread-figure" style="margin:0 auto 46px;max-width:min(960px,100%)">
       <div class="plate">
         <img src="../../assets/images/major/08-strength/strength-spread.png" alt="三牌阵示意图"
              onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VII — 三牌阵示意图待上传&lt;br&gt;assets/images/major/08-strength/strength-spread.png&lt;/div&gt;'">
