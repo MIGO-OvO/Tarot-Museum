@@ -205,14 +205,36 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
   background:oklch(58% .12 70 / .03);
 }
 
+/* 跨体系原型与前序牌对照 */
+.archetype-head{margin:70px 0 30px;padding-top:34px;border-top:1px solid var(--rule)}
+.archetype-head .lab,.stage-note .lab,.reading-focus .lab{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;color:var(--gold-deep);text-transform:uppercase;margin-bottom:10px}
+.archetype-head h3{font-family:var(--song);font-size:clamp(25px,3vw,34px);font-weight:500;line-height:1.35;color:var(--fg);text-wrap:balance}
+.archetype-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--border);border:1px solid var(--border)}
+.archetype-card{background:var(--paper);padding:30px 28px}
+.archetype-card .tradition{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--gold-deep);text-transform:uppercase;margin-bottom:13px}
+.archetype-card h4{font-family:var(--song);font-size:21px;font-weight:600;color:var(--wine);margin-bottom:13px}
+.archetype-card p{font-family:var(--serif);font-size:15.5px;line-height:1.85;color:var(--muted);text-align:justify;text-wrap:pretty}
+.history-list{display:grid;gap:10px}
+.stage-notes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:30px}
+.stage-note{padding:28px 30px;background:var(--surface);border:1px solid var(--border)}
+.stage-note p{font-size:15.8px;line-height:1.9;color:var(--muted);text-align:justify;text-wrap:pretty}
+.reading-focus{width:100%;margin:-8px auto 46px;padding:26px 32px;background:var(--surface);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.reading-focus p{font-family:var(--song);font-size:17px;line-height:1.9;color:var(--fg);text-align:justify;text-wrap:pretty}
+
 /* ============ 牌面要素 标签 ============ */
-.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--rule);background:var(--paper)}
-.facts dl{padding:30px 26px;border-right:1px solid var(--border);position:relative}
-.facts dl:last-child{border-right:0}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--rule);background:var(--paper)}
+.facts dl{padding:30px 26px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);position:relative}
+.facts dl:nth-child(3n){border-right:0}
+.facts dl:nth-last-child(-n+3){border-bottom:0}
 .facts dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:14px}
 .facts dd{font-family:var(--serif);font-size:30px;line-height:1.1;color:var(--fg)}
 .facts dd small{display:block;font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:10px;line-height:1.6;letter-spacing:0}
-@media(max-width:860px){.facts{grid-template-columns:repeat(2,1fr)}.facts dl:nth-child(2){border-right:0}.facts dl:nth-child(-n+2){border-bottom:1px solid var(--border)}}
+@media(max-width:860px){
+  .facts{grid-template-columns:repeat(2,1fr)}
+  .facts dl{border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .facts dl:nth-child(2n){border-right:0}
+  .facts dl:nth-last-child(-n+2){border-bottom:0}
+}
 
 /* ============ 象征要素图谱 ============ */
 .symbol-layout{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:start}
@@ -405,6 +427,8 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
 /* ============ 响应式 ============ */
 @media(max-width:980px){
   .hero-grid{grid-template-columns:1fr;gap:44px}
+  .archetype-grid{grid-template-columns:1fr}
+  .stage-notes{grid-template-columns:1fr}
   .symbol-layout{grid-template-columns:1fr;gap:38px}
   .symbol-figure{position:static}
   .numero{grid-template-columns:1fr;gap:30px}
@@ -419,6 +443,9 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
   .pos-summary{grid-template-columns:1fr}
   .pos-summary .kw{border-bottom:1px solid var(--border)!important}
   .prose.drop::first-letter{font-size:64px}
+  .facts{grid-template-columns:1fr}
+  .facts dl,.facts dl:nth-child(2n),.facts dl:nth-child(3n){border-right:0;border-bottom:1px solid var(--border)}
+  .facts dl:last-child{border-bottom:0}
 }
 *,*::before,*::after{box-sizing:border-box}
 .plate,.imgfallback{max-width:100%}
@@ -434,6 +461,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
     <nav class="tnav">
       <a href="#hero">卷首</a>
       <a href="#narrative">牌面叙事</a>
+      <a href="#archetypes">跨体系原型</a>
       <a href="#facts">牌面要素</a>
       <a href="#symbols">象征图谱</a>
       <a href="#numerology">塔罗灵数</a>
@@ -462,7 +490,10 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
         <div>指引<span>GUIDANCE</span></div>
         <div>内省<span>INTROSPECTION</span></div>
       </div>
-      <p class="hero-lede">隐士是一盏向内照的灯。他离开喧嚣，走向雪山深处，在孤独中保存判断，在沉默中寻找真理。 当这张牌出现，说明你正遇到“独处、内省、智慧、精神指引”的课题。它既可能表现为外部事件，也可能是内心正在成熟的一个阶段。隐士是一位年迈的智者，他的年龄象征着丰富的人生经验与智慧。他身披斗篷，立于雪地覆盖的山巅，低头沉思，右手高举一盏明灯象征真理，灯中闪烁着一颗六角星——所罗门的封印，其微弱的光芒象征潜意识。在荒凉的黑夜里，这点灯光看似无助，对智者而言却代表真理与希望。灯光并不照亮远处，而是照向脚边，提醒人：既要追求远方的梦想，也要关注身边的真相。</p>
+      <div class="hero-lede">
+        <p>隐士是一盏向内照的灯。他离开喧嚣，走向雪山深处，在孤独中保存判断，在沉默中寻找真理。灯笼里的六角星把这张牌同时指向两个方向：向内唤醒无意识，向外照亮脚边真实可见的一步。</p>
+        <p>当隐士出现，你正面对独处、内省、智慧与精神指引的课题。灯火不会一次照亮远方，却足以让判断在安静中成熟。</p>
+      </div>
       <a href="../../index.html" class="back-btn">← 返回大厅 / 选择其它卡牌</a>
     </div>
   </div>
@@ -476,10 +507,45 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
       <h2>牌面叙事<span class="en">The Image Speaks</span></h2>
     </div>
     <div class="prose drop">
-      <p class="prose drop">年长隐士立于雪山，手持灯与杖，灯中星光象征内在真理。他手中的拐杖，正是愚人用来戏弄的木棒、魔法师联系天地的法杖、战车手追求胜利的长矛——历经无知、热情与繁华之后，这根杖变得平凡，正如“返璞归真”所言。智者守着独处的孤寂，反思过去，跟随真理之灯的指引，这暗示了求真路上的艰辛与朴素：唯有以开阔的心态认知世事，以持续反思的态度探索真实的自我，才能抵达目标。</p>
-      <p class="prose ">隐士牌也代表你独自走出去、冒一些风险，放下平庸之物，去追寻真正想做的事。由于灯笼的光只能照亮短暂的距离，没有人能保证这是一条绝对正确的道路；它形容的是对眼前事物的匆匆一瞥，也是一张代表“内在成功”的牌，而这种成功往往需要独自去经历。</p>
-      <p class="prose ">成为隐士之前，人一定是入世的，且经历过世俗世界的种种。隐士所描述的主体，是主动远离世俗、出世到清静之地、对自己所经历的人事物进行反思——处在“去其糟粕、取其精华”的反思状态。正位表示对过往经历的思考使自身的优秀品质得到了提升；逆位则表示受过往经历影响，自己逐渐变成了曾经伤害过自己的那种人。</p>
-      <p class="pullquote">年长隐士立于雪山，手持灯与杖，灯中星光象征内在真理。</p>
+      <p>年长隐士身披灰白斗篷，立于雪地覆盖的山巅。他低头沉思，一手高举象征真理的灯笼，灯中闪烁着所罗门封印般的六角星；另一手执杖，把身体稳稳支撑在黑色岩地上。荒凉夜色中的光并不强烈，却恰好照亮脚边，提醒人既要追寻远方，也要承认眼前的真相。</p>
+      <p>他手中的拐杖，既是愚人出于本能挥舞的木棒，也是魔法师联系天地的法杖、战车手追求胜利的长矛。历经无知、热情与繁华之后，这根杖褪去炫目的力量，成为有意识的支柱——正如“返璞归真”所言，真正的教法不替人走路，只帮助人开启内在觉知。</p>
+      <p>隐士位于女祭司的正下方，与她的抽离原则相呼应。若想在自己身上下功夫，就必须暂时把注意力从外部世界撤回，走入内心并询问：“我究竟想要什么？”这种撤离未必是身体上的退隐，重要的是内在注意力的移转。</p>
+      <p>成为隐士之前，人一定曾经入世。正位把过往经验收束为智慧；逆位则警告人被旧伤塑形，逐渐成为自己曾经抗拒的样子。灯火所承诺的不是一条绝对正确的路，而是足够走好下一步的清醒。</p>
+      <p class="pullquote">灯光不必照亮远方；它只需把下一步，从黑暗中交还给你。</p>
+    </div>
+    <div class="archetype-head" id="archetypes">
+      <span class="lab">Comparative traditions · 跨体系原型</span>
+      <h3>时间、退隐与持灯寻真的不同面貌</h3>
+    </div>
+    <div class="archetype-grid">
+      <article class="archetype-card">
+        <span class="tradition">Greek mythology · 希腊神话</span>
+        <h4>克洛诺斯 · Chronos</h4>
+        <p>隐士从多重层面与时间相关。克洛诺斯吞下每一个新生的孩子，神话式地说明所有生命都必须屈从于时光；后来他被儿子宙斯推翻并放逐。隐士因此不只是年长的智者，也是时间沉淀、经验收束与退出旧秩序的象征。</p>
+      </article>
+      <article class="archetype-card">
+        <span class="tradition">Chinese tradition · 中国文化</span>
+        <h4>大隐 · 退处与守静</h4>
+        <div class="history-list">
+          <p>庄子的超脱、姜子牙的待时而出、诸葛亮的躬耕南阳与陶渊明的归隐田园，共同构成“功成身退、独善其身”的文化原型。</p>
+          <p>中国隐士常抚琴、垂钓、采菊或观云，强调顺应自然、天人合一与无为守静；与塔罗隐士主动持灯求索的姿态相映成趣。</p>
+        </div>
+      </article>
+      <article class="archetype-card">
+        <span class="tradition">Western esotericism · 西方神秘学</span>
+        <h4>Yod · 手中的智慧火种</h4>
+        <p>希伯来字母 Yod 意为“手”，形体微小，却被视为一切字母的种子。它对应隐士手中有限而真实的灯火：不提供宏大的全景，只把可被握持、可被实践的智慧交给求索者。</p>
+      </article>
+    </div>
+    <div class="stage-notes">
+      <div class="stage-note">
+        <span class="lab">Contrast · 与愚人、魔法师</span>
+        <p>愚人凭本能挥舞木棒，魔法师借法杖导引天地，隐士则把同一根杖化为经过选择的支撑。力量没有消失，而是从展示转为自觉。</p>
+      </div>
+      <div class="stage-note">
+        <span class="lab">Second row · 与女祭司、力量</span>
+        <p>隐士延续女祭司的抽离，却不再把直觉封存在神殿里；他也继承力量牌对本能的驯服，把刻意的心智努力变成一盏可以携带的灯。</p>
+      </div>
     </div>
   </div>
 </section>
@@ -492,17 +558,19 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
       <h2>对应要素<span class="en">Esoteric Correspondences</span></h2>
     </div>
     <div class="facts">
-      <dl><dt>元素 Element</dt><dd>土<small>土 · 物质、现实与稳固的基石</small></dd></dl>
-      <dl><dt>星座 Zodiac</dt><dd>处女座<small>Virgo · 细致、沉淀与精神孤寂的探索</small></dd></dl>
-      <dl><dt>生命之树 Tree of Life</dt><dd>Yod<small>第20条路径 · 联结严格 (Geburah) 与美丽 (Tiphareth)</small></dd></dl>
-      <dl><dt>希伯来字母</dt><dd>Yod<small>第十个字母 י · "手"，独立而微小的智慧火种</small></dd></dl>
+      <dl><dt>元素 Element</dt><dd>土<small>Earth · 现实、沉淀与坚实基础</small></dd></dl>
+      <dl><dt>星座 Zodiac</dt><dd>处女座<small>Virgo · 分辨、研究与内在秩序</small></dd></dl>
+      <dl><dt>希伯来字母 Hebrew</dt><dd>Yod<small>י · “手”，微小而可实践的智慧火种</small></dd></dl>
+      <dl><dt>生命之树 Tree of Life</dt><dd>第十路径<small>仁慈 Chesed 与美 Tiphareth 之间</small></dd></dl>
+      <dl><dt>别名 Epithets</dt><dd>老人<small>隐士 · 时间 · 可怜人</small></dd></dl>
+      <dl><dt>脉轮 Chakra</dt><dd>心之种子<small>灵魂记忆与向内回返</small></dd></dl>
     </div>
         <figure class="element-figure" style="margin-top:48px">
       <div class="plate">
-        <img src="../../assets/images/major/09-the-hermit/the-hermit-elements.png" alt="塔罗牌隐士对应要素"
-             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE III — 要素图待上传&lt;br&gt;assets/images/major/09-the-hermit/the-hermit-elements.png&lt;/div&gt;'">
+        <img src="../../assets/images/major/09-the-hermit/the-hermit-elements.png" alt="隐士对应要素——雪山、灯笼六角星、手杖、Yod 与数字九"
+             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE II — 要素图待上传&lt;br&gt;assets/images/major/09-the-hermit/the-hermit-elements.png&lt;/div&gt;'">
       </div>
-      <figcaption class="plate-cap">PLATE IV · 生命之树 · Yod 路径，第20条路径 · 联结严格 (Geburah) 与美丽 (Tiphareth)</figcaption>
+        <figcaption class="plate-cap">PLATE II · 对应要素 · 土 · 处女座 · Yod · 第十路径</figcaption>
     </figure>
   </div>
 </section>
@@ -517,10 +585,10 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
     <div class="symbol-layout">
       <figure class="symbol-figure">
         <div class="plate">
-          <img src="../../assets/images/major/09-the-hermit/the-hermit-symbols.png" alt="隐士象征要素标注图"
-               onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE II — 象征标注图待上传&lt;br&gt;assets/images/major/09-the-hermit/the-hermit-symbols.png&lt;/div&gt;'">
+          <img src="../../assets/images/major/09-the-hermit/the-hermit-symbols.png" alt="隐士象征图谱——老人、灰白长袍、灯笼六角星、手杖与雪山"
+               onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE III — 象征标注图待上传&lt;br&gt;assets/images/major/09-the-hermit/the-hermit-symbols.png&lt;/div&gt;'">
         </div>
-        <figcaption class="plate-cap">PLATE II · 象征细节的位置标注与神秘学破译</figcaption>
+        <figcaption class="plate-cap">PLATE III · 象征细节的位置标注与神秘学破译</figcaption>
       </figure>
       <div class="symbol-list">
         <div class="symbol-item" data-id="01"><div class="sym-no">01</div><div class="sym-body"><h4>核心画面</h4><p>年长隐士立于雪山，手持灯与杖，灯中星光象征内在真理。</p></div></div>
@@ -557,8 +625,11 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
     <div class="numero">
       <div class="bignum">IX<small>The Hermit</small></div>
       <div class="numero-text">
-        <p>数字 9 象征完成前的沉淀。它像夜色中的灯，提醒人把经验收束为智慧，把外求转化为内观。</p>
-        <p>隐士的课题在于独处中的清醒。远离喧闹，是为了给判断保留一片干净的空间。</p>
+        <div class="numero-keys"><span>完成</span><span>想象</span><span>人道</span><span>独处</span></div>
+        <p>数字 9 是个位数的最后一个整数，象征完成、实现与下一轮开始前的沉淀。它也是 3 的平方，因此承载着精神层面的完成：把分散的经验收束成智慧，把向外追逐的能量转为向内观看。</p>
+        <p>9 数的人往往敏感、直觉强、想象力丰富，重视精神交流与自然生活，也需要保留自己的世界。其优势是学习、理解与研究能力；阴影则是容易停留在空想，或用“不在乎”回避实际选择。</p>
+        <p>在金钱与事业上，9 指向宗教修行、技术研究、学术探索与照顾他人的工作；在感情中，它重视精神共鸣，同时要求双方尊重距离与边界。</p>
+        <p class="lesson"><b>九号课题</b>：在独处中保持清醒，在想象之后采取行动，并把个人智慧重新带回人群。</p>
       </div>
     </div>
   </div>
@@ -571,6 +642,10 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
       <div class="idx">— 伍 · DIVINATORY MEANING</div>
       <h2>正逆位解读<span class="en">Upright &amp; Reversed</span></h2>
     </div>
+    <div class="reading-focus">
+      <span class="lab">Reading focus · 牌面解读重点</span>
+      <p>成为隐士之前，人一定曾经入世。正位表示对过往经历的反思使优秀品质得到提升；逆位则提示旧伤、封闭与过度退缩正在塑造现在的你。两者的分界，不在于“是否独处”，而在于独处究竟让判断更清晰，还是让人与现实失去联系。</p>
+    </div>
     <div class="pos-switch-wrapper">
       <div class="pos-switch" role="tablist">
         <button class="on" data-pos="up" role="tab" aria-selected="true">正位<span class="en">Upright</span></button>
@@ -581,24 +656,25 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
     <div class="pos-panel-container">
       <!-- 正位 -->
       <div class="pos-panel show" id="panel-up">
-        <figure class="pos-figure" style="margin-bottom:40px;max-width:480px">
+        <figure class="pos-figure" style="margin:0 auto 46px;max-width:min(860px,100%)">
           <div class="plate">
-            <img src="../../assets/images/major/09-the-hermit/the-hermit-upright.png" alt="隐士正位意象"
-                 onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE V — 正位意象图待上传&lt;br&gt;assets/images/major/09-the-hermit/the-hermit-upright.png&lt;/div&gt;'">
+            <img src="../../assets/images/major/09-the-hermit/the-hermit-upright.png" alt="隐士正位意象——灯火照亮雪山道路上的下一步"
+                 onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE IV — 正位意象图待上传&lt;br&gt;assets/images/major/09-the-hermit/the-hermit-upright.png&lt;/div&gt;'">
           </div>
-          <figcaption class="plate-cap">PLATE V · 正位意象 · 直觉与宇宙能量的显现</figcaption>
+          <figcaption class="plate-cap">PLATE IV · 正位意象 · 在独处中收束经验，照亮下一步</figcaption>
         </figure>
-        <div class="prose" style="max-width:62ch;margin-bottom:40px">
-          <p>**关键词**：内省，独处，导师，研究，谨慎，精神成长，自信，理智，脚踏实地，不喜形于色，中肯的建议，坚持不懈，沉着冷静，闭门静思，养精蓄锐，深刻反省，自我检查，自我纠正，孤独，独立，单身，内在引导，谋定而后动，寻求真理，智慧，指引</p>
-        <p>正位的隐士表示你需要一段安静的时间。你正在寻求内在的智慧、生命的真谛，愿意独自沉思、追求精神的满足与内心的平静。你对生活有深入的理解，具备独立思考的能力，并积极寻找生活的真理。研究、反省、请教可信导师，都会帮助你看见更深层的答案。</p>
+        <div class="keyword-strip" aria-label="隐士正位关键词">
+          <span>内省</span><span>独处</span><span>导师</span><span>研究</span><span>谨慎</span><span>精神成长</span><span>理智</span><span>脚踏实地</span><span>沉着冷静</span><span>闭门静思</span><span>深刻反省</span><span>独立</span><span>内在引导</span><span>寻求真理</span><span>智慧</span>
         </div>
+        <div class="reading-intro"><p>正位的隐士表示你需要一段安静的时间。你正在寻求内在的智慧与生命的真谛，愿意独自沉思，追求精神满足和内心平静。研究、反省与请教可信导师，会帮助你看见更深层的答案；关键不是消失在人群之外，而是为判断留出不被喧嚣占据的空间。</p></div>
         <div class="pos-summary">
           <div class="kw"><span class="lab">核心关键词</span><p>内省，独处，导师，研究，谨慎，精神成长，自信，理智，脚踏实地，不喜形于色，中肯的建议，坚持不懈，沉着冷静，闭门静思，养精蓄锐，深刻反省，自我检查，自我纠正，孤独，独立，单身，内在引导，谋定而后动，寻求真理，智慧，指引</p></div>
-          <div class="kw"><span class="lab">能量基调</span><p>土 元素 · 开启、滋养与自我调和</p></div>
+          <div class="kw"><span class="lab">能量基调</span><p>土 元素 · 内省、沉淀与清醒指引</p></div>
         </div>
         <div class="dim-grid">
           <div class="dim">
             <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
+            <p>关系进入需要独处、内省与成熟沟通的阶段。它重视精神连接，也要求双方尊重边界、承诺和真实需求。</p>
             <ul>
               <li><b>现况</b>感情发展到了一个瓶颈阶段，即使两人在一起，仍会觉得有些无聊。</li>
             <li><b>桃花</b>眼下并没有发展新感情的机会，就算积极主动也不会有结果，不如趁机好好享受自由自在的生活。</li>
@@ -608,6 +684,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           </div>
           <div class="dim">
             <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
+            <p>适合个人探索、自我学习与专注钻研。先拟定长期计划、核对细节，再用更高层次的眼光做出选择。</p>
             <ul>
               <li><b>现况</b>你已达到工作的顶峰，但高处不胜寒，难免感到寂寞，应开始思考如何把工作传承下去。</li>
             <li><b>建议</b>不妨看看前人如何解决问题，谨慎处理；即使有点停滞也不要害怕，这件事一定可以独立完成。</li>
@@ -617,6 +694,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           </div>
           <div class="dim">
             <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
+            <p>减少表面维持，为自己保留安静时间；财务上宜开源节流、长期评估，不被眼前波动催促。</p>
             <ul>
               <li><b>现况</b>你属于有点孤僻的人，因此不会树立什么敌人，朋友也不算多，但别人遇到问题时常会想找你帮忙。</li>
             <li><b>建议</b>试着以包容的心情看待发生的事，你会发现这并非什么严重的事，等对方自己来把事情讲清楚就好。</li>
@@ -636,24 +714,25 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
 
       <!-- 逆位 -->
       <div class="pos-panel" id="panel-rev">
-        <figure class="pos-figure" style="margin-bottom:40px;max-width:480px">
+        <figure class="pos-figure" style="margin:0 auto 46px;max-width:min(860px,100%)">
           <div class="plate">
-            <img src="../../assets/images/major/09-the-hermit/the-hermit-reversed.png" alt="隐士逆位意象"
-                 onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VI — 逆位意象图待上传&lt;br&gt;assets/images/major/09-the-hermit/the-hermit-reversed.png&lt;/div&gt;'">
+            <img src="../../assets/images/major/09-the-hermit/the-hermit-reversed.png" alt="隐士逆位意象——雾中回环的足迹与渐暗灯火"
+                 onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE V — 逆位意象图待上传&lt;br&gt;assets/images/major/09-the-hermit/the-hermit-reversed.png&lt;/div&gt;'">
           </div>
-          <figcaption class="plate-cap">PLATE VI · 逆位意象 · 失衡与能量阻塞</figcaption>
+          <figcaption class="plate-cap">PLATE V · 逆位意象 · 过度退缩使灯火与道路失去联系</figcaption>
         </figure>
-        <div class="prose" style="max-width:62ch;margin-bottom:40px">
-          <p>**关键词**：孤立，逃避，闭塞，拒绝建议，过度退缩，迷失，口无遮拦，俗气，神经质，为人刻薄，行事不够理智，多疑，隔离，撤回，退出，过度内省，遗世独立，迷失方向</p>
-        <p>逆位的隐士表示这股能量受阻、失衡或被错误使用，常表现为过分的孤独、逃避现实、不愿与人沟通，或过度的自我反思而忽视外界观点，疏远他人、过于依赖内心想法、过分内向，乃至忽视他人感受、陷入偏执的自我。此时最重要的是先看清自己是否正在抗拒这张牌所要求的功课。</p>
+        <div class="keyword-strip" aria-label="隐士逆位关键词">
+          <span>孤立</span><span>逃避</span><span>闭塞</span><span>拒绝建议</span><span>过度退缩</span><span>迷失</span><span>多疑</span><span>隔离</span><span>撤回</span><span>退出</span><span>过度内省</span><span>遗世独立</span><span>迷失方向</span>
         </div>
+        <div class="reading-intro"><p>逆位的隐士表示这股能量受阻、失衡或被错误使用：孤独变成隔离，反省变成内耗，独立变成拒绝帮助。此时最重要的不是更深地退回自己，而是辨认哪些思考已经失去现实校验，并主动恢复与他人、身体和具体生活的连接。</p></div>
         <div class="pos-summary">
           <div class="kw"><span class="lab">核心关键词</span><p>孤立，逃避，闭塞，拒绝建议，过度退缩，迷失，口无遮拦，俗气，神经质，为人刻薄，行事不够理智，多疑，隔离，撤回，退出，过度内省，遗世独立，迷失方向</p></div>
-          <div class="kw"><span class="lab">能量基调</span><p>土 元素 · 延迟、失控与过度自我沉溺</p></div>
+          <div class="kw"><span class="lab">能量基调</span><p>土 元素 · 过度退缩、闭塞与迷失方向</p></div>
         </div>
         <div class="dim-grid">
           <div class="dim reversed">
             <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
+            <p>关系中容易出现误解、逃避与情感隔离。若一直无法推进，需要回到双方的真实需求，并恢复诚实沟通。</p>
             <ul>
               <li><b>现况</b>感情状况有点不明，究竟是何种关系也不确定；若不找机会谈清楚，两人就会渐行渐远。</li>
             <li><b>桃花</b>眼下没有任何新对象出现，即便你有新想法也是单相思，应渐渐习惯一个人生活。</li>
@@ -663,6 +742,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           </div>
           <div class="dim reversed">
             <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
+            <p>拖延、判断偏差或过度独立正在消耗推进力。先修正方向、补足信息，再决定是否继续独自承担。</p>
             <ul>
               <li><b>现况</b>是你该努力学习的时候了，但仍在摸索之中，没有人能指导你，常觉得是在孤身奋斗。</li>
             <li><b>建议</b>此时应自己深入研究问题，找出问题发生的原因才有可能解决——想靠别人是不会成功的。</li>
@@ -672,6 +752,7 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
           </div>
           <div class="dim reversed">
             <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
+            <p>小心把恐惧投射为猜疑，也避免无谓开销与极端决策。财务安排应重新接受事实与长期检验。</p>
             <ul>
               <li><b>现况</b>你在人际中较被动，因此朋友不多；若想改善，就要改掉自己过于胆小的习惯。</li>
             <li><b>建议</b>其实你和朋友之间没有什么误会，很多部分是你自己想象出来的，只要看清真相，就会知道你们之间没有问题。</li>
@@ -699,12 +780,12 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
       <div class="idx">— 陆 · THE SPREAD</div>
       <h2>三牌阵示意<span class="en">Past · Present · Future</span></h2>
     </div>
-    <figure class="spread-figure" style="margin-bottom:40px;max-width:680px">
+    <figure class="spread-figure" style="margin:0 auto 46px;max-width:min(980px,100%)">
       <div class="plate">
-        <img src="../../assets/images/major/09-the-hermit/the-hermit-spread.png" alt="三牌阵示意图"
-             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VII — 三牌阵示意图待上传&lt;br&gt;assets/images/major/09-the-hermit/the-hermit-spread.png&lt;/div&gt;'">
+        <img src="../../assets/images/major/09-the-hermit/the-hermit-spread.png" alt="隐士三牌阵——过去的足迹、现在的灯火与未来的晨光山路"
+             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VI — 三牌阵示意图待上传&lt;br&gt;assets/images/major/09-the-hermit/the-hermit-spread.png&lt;/div&gt;'">
       </div>
-      <figcaption class="plate-cap">PLATE VII · 三牌阵 · 过去 · 现在 · 未来（向内觉察的能量）</figcaption>
+      <figcaption class="plate-cap">PLATE VI · 三牌阵 · 经验沉淀 · 退隐内省 · 智慧之光</figcaption>
     </figure>
     <div class="prose" style="max-width:60ch;margin-bottom:38px">
       <p>当隐士出现在三牌阵中，它象征的是能量在时间维度上的显现。点击下方卡牌揭示隐秘启示。</p>
