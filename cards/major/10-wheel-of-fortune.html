@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="zh-CN">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<html lang="zh-CN" data-page-node-id="boaftw78F6oj0iCNZXhaEf">
+<head data-page-node-id="eaYLtg9nVLIzHR3SHusopc">
+<meta charset="utf-8" data-page-node-id="gV5KqUz252RiH5pJIapSAA" />
+<meta name="viewport" content="width=device-width, initial-scale=1" data-page-node-id="kJSZHQZ6PtRa5OQxq6IoYZ" />
 <title>命运之轮 · WHEEL OF FORTUNE — 塔罗牌深度专题</title>
 <style>
 :root{
@@ -205,14 +205,36 @@ section.chapter{padding:90px 0;border-bottom:1px solid var(--border)}
   background:oklch(58% .12 70 / .03);
 }
 
+/* 跨体系原型与前序牌对照 */
+.archetype-head{margin:70px 0 30px;padding-top:34px;border-top:1px solid var(--rule)}
+.archetype-head .lab,.stage-note .lab,.reading-focus .lab{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;color:var(--gold-deep);text-transform:uppercase;margin-bottom:10px}
+.archetype-head h3{font-family:var(--song);font-size:clamp(25px,3vw,34px);font-weight:500;line-height:1.35;color:var(--fg);text-wrap:balance}
+.archetype-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--border);border:1px solid var(--border)}
+.archetype-card{background:var(--paper);padding:30px 28px}
+.archetype-card .tradition{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--gold-deep);text-transform:uppercase;margin-bottom:13px}
+.archetype-card h4{font-family:var(--song);font-size:21px;font-weight:600;color:var(--wine);margin-bottom:13px}
+.archetype-card p{font-family:var(--serif);font-size:15.5px;line-height:1.85;color:var(--muted);text-align:justify;text-wrap:pretty}
+.history-list{display:grid;gap:10px}
+.stage-notes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:30px}
+.stage-note{padding:28px 30px;background:var(--surface);border:1px solid var(--border)}
+.stage-note p{font-size:15.8px;line-height:1.9;color:var(--muted);text-align:justify;text-wrap:pretty}
+.reading-focus{width:100%;margin:-8px auto 46px;padding:26px 32px;background:var(--surface);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.reading-focus p{font-family:var(--song);font-size:17px;line-height:1.9;color:var(--fg);text-align:justify;text-wrap:pretty}
+
 /* ============ 牌面要素 标签 ============ */
-.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--rule);background:var(--paper)}
-.facts dl{padding:30px 26px;border-right:1px solid var(--border);position:relative}
-.facts dl:last-child{border-right:0}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--rule);background:var(--paper)}
+.facts dl{padding:30px 26px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);position:relative}
+.facts dl:nth-child(3n){border-right:0}
+.facts dl:nth-last-child(-n+3){border-bottom:0}
 .facts dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:14px}
 .facts dd{font-family:var(--serif);font-size:30px;line-height:1.1;color:var(--fg)}
 .facts dd small{display:block;font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:10px;line-height:1.6;letter-spacing:0}
-@media(max-width:860px){.facts{grid-template-columns:repeat(2,1fr)}.facts dl:nth-child(2){border-right:0}.facts dl:nth-child(-n+2){border-bottom:1px solid var(--border)}}
+@media(max-width:860px){
+  .facts{grid-template-columns:repeat(2,1fr)}
+  .facts dl{border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .facts dl:nth-child(2n){border-right:0}
+  .facts dl:nth-last-child(-n+2){border-bottom:0}
+}
 
 /* ============ 象征要素图谱 ============ */
 .symbol-layout{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:start}
@@ -405,6 +427,8 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
 /* ============ 响应式 ============ */
 @media(max-width:980px){
   .hero-grid{grid-template-columns:1fr;gap:44px}
+  .archetype-grid{grid-template-columns:1fr}
+  .stage-notes{grid-template-columns:1fr}
   .symbol-layout{grid-template-columns:1fr;gap:38px}
   .symbol-figure{position:static}
   .numero{grid-template-columns:1fr;gap:30px}
@@ -419,274 +443,330 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
   .pos-summary{grid-template-columns:1fr}
   .pos-summary .kw{border-bottom:1px solid var(--border)!important}
   .prose.drop::first-letter{font-size:64px}
+  .facts{grid-template-columns:1fr}
+  .facts dl,.facts dl:nth-child(2n),.facts dl:nth-child(3n){border-right:0;border-bottom:1px solid var(--border)}
+  .facts dl:last-child{border-bottom:0}
 }
 *,*::before,*::after{box-sizing:border-box}
 .plate,.imgfallback{max-width:100%}
 </style>
-<link rel="stylesheet" href="../../assets/css/card-reading.css">
+<link rel="stylesheet" href="../../assets/css/card-reading.css" data-page-node-id="hpBEjGDZ2Mpzp9oUfUFT2T">
 <script src="../../assets/js/card-reading.js" defer></script>
 </head>
-<body>
+<body data-page-node-id="qagNkoLA6DmtIxG0LHAJoW">
 
-<div class="topbar">
-  <div class="topbar-inner">
-    <div class="mark"><b>X</b> &nbsp;命运之轮 · WHEEL OF FORTUNE</div>
-    <nav class="tnav">
-      <a href="#hero">卷首</a>
-      <a href="#narrative">牌面叙事</a>
-      <a href="#facts">牌面要素</a>
-      <a href="#symbols">象征图谱</a>
-      <a href="#numerology">塔罗灵数</a>
-      <a href="#reading">正逆位解读</a>
-      <a href="#spread">牌阵示意</a>
+<div class="topbar" data-page-node-id="dbyxBxeQKgodOtxWySuZr6">
+  <div class="topbar-inner" data-page-node-id="aPfRL2Pdu9UPBUq4EXuSBe">
+    <div class="mark" data-page-node-id="aOm1WsgcGnBvkwoOuVfTLR"><b data-page-node-id="OJxSGmFpWZtnEHvRyoWIqt">X</b> &nbsp;命运之轮 · WHEEL OF FORTUNE</div>
+    <nav class="tnav" data-page-node-id="EXWox00IxCAFvUHmJazne7">
+      <a href="#hero" data-page-node-id="zd8FI6spPORKCmDIpCbzX5">卷首</a>
+      <a href="#narrative" data-page-node-id="f11knvGrUNEbTyThjNSrIK">牌面叙事</a>
+      <a href="#archetypes" data-page-node-id="a2shmw2JZgHRDAsMz3CUU5">跨体系原型</a>
+      <a href="#facts" data-page-node-id="PkEmddrN0AxySnqEE26k6u">牌面要素</a>
+      <a href="#symbols" data-page-node-id="HhJwznsEGEixDnCQhTZA7f">象征图谱</a>
+      <a href="#numerology" data-page-node-id="8ORHyhkDw8o3XxTzbPKCbi">塔罗灵数</a>
+      <a href="#reading" data-page-node-id="TXaUm72F6OgWuQAA6KpuEm">正逆位解读</a>
+      <a href="#spread" data-page-node-id="4URCo1HPf1VSeezIWvgSRQ">牌阵示意</a>
     </nav>
   </div>
 </div>
 
 <!-- ============ 卷首 ============ -->
-<header class="hero" id="hero">
-  <div class="wrap hero-grid">
-    <figure class="hero-figure">
-      <div class="plate">
-        <img src="../../assets/images/major/10-wheel-of-fortune/wheel-of-fortune.png" alt="塔罗牌命运之轮主图"
-             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE I — 主图待上传&lt;br&gt;assets/images/major/10-wheel-of-fortune/wheel-of-fortune.png&lt;/div&gt;'">
+<header class="hero" id="hero" data-page-node-id="lnsZ0PUVH0R221gFyHpPuk">
+  <div class="wrap hero-grid" data-page-node-id="YPngIgHgwSsKoclwnzHl5a">
+    <figure class="hero-figure" data-page-node-id="K06tLWAFPGNsavpb8u7ErG">
+      <div class="plate" data-page-node-id="vTkYDPqdUCXpRFgYDM4S0D">
+        <img src="../../assets/images/major/10-wheel-of-fortune/wheel-of-fortune.png" alt="塔罗牌命运之轮主图——蔚蓝转轮、斯芬克斯、阿努比斯与四角圣兽"
+             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE I — 主图待上传&lt;br&gt;assets/images/major/10-wheel-of-fortune/wheel-of-fortune.png&lt;/div&gt;'" data-page-node-id="3lc8to5jl7ZKzFInT0KR51">
       </div>
-      <figcaption class="plate-cap">PLATE I · WHEEL OF FORTUNE · 大阿尔卡那第X号</figcaption>
+      <figcaption class="plate-cap" data-page-node-id="Ur3IhVkwsrSCJzXeJxgGla">PLATE I · WHEEL OF FORTUNE · 大阿尔卡那第X号</figcaption>
     </figure>
-    <div class="hero-text">
-      <div class="hero-num">X<small>Arcanum Decimum</small></div>
-      <h1>命运之轮<span class="en">Wheel of Fortune</span></h1>
-      <div class="hero-keywords">
-        <div>命运<span>FATE</span></div>
-        <div>转变<span>CHANGE</span></div>
-        <div>循环<span>CYCLES</span></div>
-        <div>机遇<span>OPPORTUNITY</span></div>
+    <div class="hero-text" data-page-node-id="pctfZdoIVG05xfWSgl14mC">
+      <div class="hero-num" data-page-node-id="pJ53YvQl0OKOCId310ebG8">X<small data-page-node-id="211LhchdUK66UHXg4LTL74">Arcanum Decimum</small></div>
+      <h1 data-page-node-id="zFv8dH3eWAC3YIiihfONlT">命运之轮<span class="en" data-page-node-id="BbbhEnEhn0l2ZAWSFtTJOn">Wheel of Fortune</span></h1>
+      <div class="hero-keywords" data-page-node-id="VNiodLUX6tMhDAYPrcwVcN">
+        <div data-page-node-id="0rhR1SmCgNkiYsvhFdm2JA">循环<span data-page-node-id="gXZiFwIFqhmwrCHDwkV3Tp">CYCLES</span></div>
+        <div data-page-node-id="vU5ewx7qTi08XPSTh3kjJg">转机<span data-page-node-id="CGqmJjQOTuyoC08WTrLYTi">TURNING POINT</span></div>
+        <div data-page-node-id="FwlAFzTtA426dd3zObYWmu">命运<span data-page-node-id="GeleMttDTcy8VrWaXGivEG">DESTINY</span></div>
+        <div data-page-node-id="9bb5YuCV2X49Z1JmQd70dj">变化<span data-page-node-id="KtGbvAEqHQZ0QcqVNCntKb">CHANGE</span></div>
       </div>
-      <p class="hero-lede">命运之轮缓缓转动，把人带过高处与低谷。它显示生命的周期，也显示时机在无声中更替。 当这张牌出现，说明你正遇到“循环、转机、命运、变化”的课题。它既可能表现为外部事件，也可能是内心正在成熟的一个阶段。命运之轮是大牌中少数几张没有人物的牌，牌面却丰富而寓意深刻：天空中悬着一架蔚蓝的命运之轮，与教皇的三层投管相似，它也由三层组成。最内层的圆空无一物，象征万物的创造；中间一层有四个炼金符号，代表西方物质的四要素，象征万物的形成；最外层是物质世界之圈，上、右、下、左四方分别是 T、A、R、O 四个字母，可拼读为 ROTA（轮）、ORAT（说）、TORA（律法）、ATOR（哈托尔女神），组成一句完整的话——“塔罗之轮诉说哈托尔女神的律法”。物质世界圈中另四个方位则是上帝最古老的名字 YHVH。</p>
-      <a href="../../index.html" class="back-btn">← 返回大厅 / 选择其它卡牌</a>
+      <div class="hero-lede" data-page-node-id="ba0GxWexpgmAbLcY0aSdMu">
+        <p data-page-node-id="wprbDFa223ujl82gkk6gTF">命运之轮缓缓转动，把人带过高处与低谷。它显示生命的周期，也显示时机在无声中更替。它别称宇宙，是大牌中少数几张没有人物的牌——无论当事人身处高潮还是低谷，主因都不在其自身。</p>
+        <p data-page-node-id="b4SM3nBLBMjZa8PWe1e8qP">当这张牌出现，你正面对循环、转机、命运与变化的课题。蔚蓝之轮由三层组成：最内层空无一物，象征万物的创造；中间一层刻有四个炼金符号，象征万物的形成；最外层物质世界之圈上写着 T、A、R、O 与上帝最古老的名字 YHVH——"塔罗之轮诉说哈托尔女神的律法"。</p>
+      </div>
+      <a href="../../index.html" class="back-btn" data-page-node-id="dpkyTGDUP0ihuAMFwh6cTj">← 返回大厅 / 选择其它卡牌</a>
     </div>
   </div>
 </header>
 
 <!-- ============ 牌面叙事 ============ -->
-<section class="chapter reveal" id="narrative">
-  <div class="wrap">
-    <div class="chapter-head">
-      <div class="idx">— 壹 · NARRATIVE</div>
-      <h2>牌面叙事<span class="en">The Image Speaks</span></h2>
+<section class="chapter reveal" id="narrative" data-page-node-id="6DHCNRqstXVND5m6Xozcdh">
+  <div class="wrap" data-page-node-id="TMBaoj4NirI4HjU7sURS9Q">
+    <div class="chapter-head" data-page-node-id="BBXMWWn7b7Nv3nG4kefEei">
+      <div class="idx" data-page-node-id="VqGzFOqNVhK3otHs0xRiDG">— 壹 · NARRATIVE</div>
+      <h2 data-page-node-id="DPdh0JcGC6SodVjUhJGBc6">牌面叙事<span class="en" data-page-node-id="rp5raGEXzRpmtDvpN3TpkT">The Image Speaks</span></h2>
     </div>
-    <div class="prose drop">
-      <p class="prose drop">轮子周围有四圣兽、斯芬克斯与升降的神秘生物，象征宇宙循环。轮盘左侧是埃及神话中的邪恶之神，蛇头朝下预示人生的沉沦；背负命运之轮的阿努比斯预示着背负命运的渴望；顶端的狮身人面像是智慧的象征，其手中的宝剑代表思考——面对人生，思考真谛或许正是获取顺境的方法。牌的四角分别是狮子、飞鹰、天使与神牛，对应四个固定星座与四元素：鹰为天蝎座属水、狮为狮子座属火、牛为金牛座属土、人为水瓶座属风。它们都在读书、汲取智慧，而翅膀赋予它们在变动中保持稳定的能力。</p>
-      <p class="prose ">正因这张牌上没有人物，它说到底与个人无关——无论当事人此刻经历高潮还是低谷，主因都不在当事人本身，因此既无需洋洋自得，也不必自我否定，却也无法靠主动行动改变当下。命运之轮展现的是塔罗中少有的“不可抗力”：相信因果者可视之为业报的显现，不信者可视之为上帝掷骰子恰好掷到某个数字。由于它表现的是不可抗拒的天道轮回与自然节律，其影响极为长久。</p>
-      <p class="prose ">人事物不以个人意志为转移，既充满偶然性，又拥有必然性。轮子转到何处并非当事人所能左右，因此真正的智慧在于顺势识时、坦然接纳起落，而非执着于“我能否掌控结果”。</p>
-      <p class="pullquote">轮子周围有四圣兽、斯芬克斯与升降的神秘生物，象征宇宙循环。</p>
+    <div class="prose drop" data-page-node-id="36fgoxSJCqTzdGZl2xJdlR">
+      <p data-page-node-id="A002nzH5pX8K3Cnx8yVG2P">天空中悬着一架蔚蓝的命运之轮。它与大主教的三层冠冕相似，也由三层组成：最内层的圆空无一物，象征万物的创造；中间一层刻有四个炼金符号，代表西方物质的四要素，象征万物的形成；最外层是物质世界之圈，上、右、下、左四方分别是 T、A、R、O 四个字母——可拼读为 ROTA（轮）、ORAT（说）、TORA（律法）、ATOR（哈托尔女神），组成一句完整的话："塔罗之轮诉说哈托尔女神的律法"。物质世界圈的另外四个方位，则写着上帝最古老的名字 YHVH。</p>
+      <p data-page-node-id="NFDXDzWbJtclqjKFza8Kl8">轮子周围有四圣兽、斯芬克斯与升降的神秘生物，象征宇宙循环。轮盘左侧是埃及神话中的邪恶之神赛特，蛇头朝下预示人生的沉沦；背负命运之轮的阿努比斯预示着背负命运的渴望；顶端的狮身人面像是智慧的象征，其手中的宝剑代表思考——面对人生，思考真谛或许正是获取顺境的方法。牌的四角分别是狮子、飞鹰、天使与神牛，对应四个固定星座与四元素：鹰为天蝎座属水、狮为狮子座属火、牛为金牛座属土、人为水瓶座属风。它们都在读书、汲取智慧，而翅膀赋予它们在变动中保持稳定的能力。这四个形象最早是巴比伦占星术中的四个固定星座，〈启示录〉第四章第七节也曾提到它们；早期的基督徒用它们象征四位福音圣徒，这正是它们手上都拿着书的原因，因此它们有时被称为"天堂的守护者"。民间由此还流传一句著名的夜间符咒："马太、马可、路加、约翰，保佑我睡觉的床。"而四个古神的名字——赛因代表老人，尼格拉斯代表鹰，纳盖尔代表狮子，沙玛什代表公牛——恰好与这张牌的图案吻合。</p>
+      <p data-page-node-id="zcfGl0vl2uVqZXRS89JEkS">正因这张牌上没有人物，它说到底与个人无关——无论当事人此刻经历高潮还是低谷，主因都不在当事人本身，因此既无需洋洋自得，也不必自我否定，却也无法靠主动行动改变当下。命运之轮展现的是塔罗中少有的"不可抗力"：相信因果者可视之为业报的显现，不信者可视之为上帝掷骰子恰好掷到某个数字。由于它表现的是不可抗拒的天道轮回与自然节律，其影响极为长久。</p>
+      <p class="pullquote" data-page-node-id="Gx6BBQQp5Mykk8cP8jFBQM">好运与阻滞都只是轮上的一刻；清醒的人，会在变化中调整自己的姿态。</p>
+    </div>
+    <div class="archetype-head" id="archetypes" data-page-node-id="w5HOj0WqXRdz5CwxF9fNcr">
+      <span class="lab" data-page-node-id="crZ81ygMpYQcgc7UDlUyIW">Comparative traditions · 跨体系原型</span>
+      <h3 data-page-node-id="t7xSwN7lZBFdAHMDDFiZj7">转轮、命运女神与四活物的不同面貌</h3>
+    </div>
+    <div class="archetype-grid" data-page-node-id="K0WGpH7oSusUuUugrzfjFa">
+      <article class="archetype-card" data-page-node-id="SBoQOmTSCgRKLWcbWjiwl2">
+        <span class="tradition" data-page-node-id="yiBDcJPA6PVEkbC3AJ7eUs">Arthurian legend · 阿瑟王传说</span>
+        <h4 data-page-node-id="ZyuH668VSMlm6VbxdzAasc">轮上的国王 · 佛图娜转轮</h4>
+        <p data-page-node-id="2RM9CJsgm7S3Eq5P1GACbV">在许多版本的阿瑟王传奇中，阿瑟在最后战役的前夕，梦见一位富有而强大的国王坐在巨轮顶端；突然之间，命运女神佛图娜（Fortuna）转动了轮子，国王便被碾碎在轮子底下。清醒后的阿瑟明白：无论我们累积了多少俗世的权力，我们的命运永远操纵在上帝手中。</p>
+      </article>
+      <article class="archetype-card" data-page-node-id="AesqBfOr1O6etEmG93xIpT">
+        <span class="tradition" data-page-node-id="FAZ3NzoSNx4ZCXm9r8UYaI">Medieval · 中世纪</span>
+        <h4 data-page-node-id="rDPUWLO1aaq2O68FIrE68J">仲冬献祭 · 伟大的母神</h4>
+        <div class="history-list" data-page-node-id="THN9lEwAsKEUCswLGgH58k">
+          <p data-page-node-id="GPnFJOWfATQ3laDhHMScHt">中世纪的意象起源于更古老的时代：佛图娜代表着「至上女神」，被毁灭的王则真有其人。每年仲冬，女祭司们以国王献祭，藉由模拟这一年的死亡在女神面前谦卑俯首，再选出一位新王，暗示她再一次从冬季之中创造出春天。</p>
+          <p data-page-node-id="uO9z4tsEwsXuqSaqC0IyxG">这轮子最初象征自然的奥秘，以及人类透过仪式性献祭参与这份奥秘的能力。请留意这张牌位于「皇后」牌的正下方——那正是伟大母神的象征。</p>
+        </div>
+      </article>
+      <article class="archetype-card" data-page-node-id="DAsp4voV2F9NzQbQoETEFq">
+        <span class="tradition" data-page-node-id="7wtDxpWZFudSTVnbU7QaKF">Bible · 圣经</span>
+        <h4 data-page-node-id="2i0xFT30POD3owAXs629xp">四活物 · 天堂的守护者</h4>
+        <p data-page-node-id="qrfvxdgEbrLYfQUmLjZgYP">牌角四生物的异象见于〈启示录〉第四章第七节。它们最早代表巴比伦占星术中的四个「固定」星座：狮子、天蝎、水瓶和金牛。早期的基督徒用它们象征四位福音圣徒——这就是它们手上都拿着书的原因；后来它们也被拿来象征古代和中世纪科学的四种基本元素。</p>
+      </article>
+    </div>
+    <div class="stage-notes" data-page-node-id="fDv2eY1JPSM0jOLZLjG56L">
+      <div class="stage-note" data-page-node-id="Yre0L4hg6cVIBSU5SEckXP">
+        <span class="lab" data-page-node-id="OBpo1THCFAYJaIBCEeDokN">Contrast · 与教皇</span>
+        <p data-page-node-id="wpG4rkCWAd2j7JwOSyBMVB">蔚蓝之轮与大主教的三层冠冕同构：从空无一物的创造，到四要素的形成，再到物质世界之圈，三层递进。教皇把天上的律法带到人间，命运之轮则把这套秩序铸成一座会转动的宇宙时钟。</p>
+      </div>
+      <div class="stage-note" data-page-node-id="0c2amewU4DYWNovevp2iLV">
+        <span class="lab" data-page-node-id="Kbqu6OLErFsvGZLLBmo970">Placement · 与皇后</span>
+        <p data-page-node-id="v8bJNMlUHl0k2QwvZSYsOS">这张牌在牌序上位于「皇后」的正下方，而皇后正是伟大母神的象征——中世纪仲冬献祭与轮立新王的仪式，正对应着母神从冬季之中再创造春天的奥秘。</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ============ 牌面要素 ============ -->
-<section class="chapter reveal" id="facts">
-  <div class="wrap">
-    <div class="chapter-head">
-      <div class="idx">— 貳 · CORRESPONDENCES</div>
-      <h2>对应要素<span class="en">Esoteric Correspondences</span></h2>
+<section class="chapter reveal" id="facts" data-page-node-id="8ho2CU1Z4kluRiXHWruV4x">
+  <div class="wrap" data-page-node-id="YHXgG0Qh98MEyIxqJD9yBq">
+    <div class="chapter-head" data-page-node-id="n6C0JzdDZoGCOsECiHFxp2">
+      <div class="idx" data-page-node-id="ABpa16hCsN8B4C598roafv">— 貳 · CORRESPONDENCES</div>
+      <h2 data-page-node-id="xHiRMgXcwfgtuewJXsO4W6">对应要素<span class="en" data-page-node-id="B8XisZ8aFR3JHwdkovfDBU">Esoteric Correspondences</span></h2>
     </div>
-    <div class="facts">
-      <dl><dt>元素 Element</dt><dd>火<small>火 · 行动、创造与热情的爆发</small></dd></dl>
-      <dl><dt>天体 Celestial</dt><dd>木星<small>Jupiter · 机遇、扩张与命运循环的转折</small></dd></dl>
-      <dl><dt>生命之树 Tree of Life</dt><dd>Kaph<small>第21条路径 · 联结严格 (Geburah) 与胜利 (Netzach)</small></dd></dl>
-      <dl><dt>希伯来字母</dt><dd>Kaph<small>第十一个字母 כ · "手掌"，温和握住并转动命运之轮</small></dd></dl>
+    <div class="facts" data-page-node-id="0IJ8qywkFoAPqs2wd5z6OS">
+      <dl data-page-node-id="pwAlTF3ghh9mti6fQnE1XX"><dt data-page-node-id="4jsEJvUkRK1FdNJjIDUeN9">元素 Element</dt><dd data-page-node-id="4dR9yKZtYPoXLPcdi1m406">火<small data-page-node-id="8oQiICUn36O3Z1i3Pj6SIX">Fire · 转机、扩张与顺势的行动能量</small></dd></dl>
+      <dl data-page-node-id="kiWpG3uSS0LvvF1SE3osRz"><dt data-page-node-id="LChCOanNKSyIymtfaSgGyj">星座 / 行星 Zodiac</dt><dd data-page-node-id="7zbxF8N0i9IUFEN3UD3RdV">射手座 · 木星<small data-page-node-id="Cpu3xz4Jd2I3KBAlrq0fdv">Sagittarius · Jupiter 吉星 · 机遇与命运的扩张</small></dd></dl>
+      <dl data-page-node-id="nExl444zCpslKpExaYHtVS"><dt data-page-node-id="cWUsZrnZwBusRgmhyFWHn0">希伯来字母 Hebrew</dt><dd data-page-node-id="1YVPqnAhUmoTMj0PC21rtZ">Kaph<small data-page-node-id="0kDhG11eE5IeIM1Ipz8Rhr">כ · "手掌"，温和握住并转动命运之轮</small></dd></dl>
+      <dl data-page-node-id="KXFyDtqShaT56Ro9pLXqmD"><dt data-page-node-id="6pfCO0qjtNKbSEVI1c0bbP">生命之树 Tree of Life</dt><dd data-page-node-id="PHj0OZ6H45MJ0BhoT5dDNE">第廿二路径<small data-page-node-id="bQFDh6vsGCysQOQxTTkNRq">基础 Yesod 与王国 Malkuth 之间</small></dd></dl>
+      <dl data-page-node-id="f0MSGbgGjGO1ySeGgxKzxF"><dt data-page-node-id="QIulFhVwscmsL9ftXmnlGr">别名 Epithets</dt><dd data-page-node-id="Fg1wxGFQx9YVbY5Wiw5wYZ">宇宙<small data-page-node-id="BirUYZtoeDtm5KfCcJJgdD">别称宇宙 · 象征宇宙终点与动态平衡</small></dd></dl>
+      <dl data-page-node-id="MCvdQlgbwq6B5kcJ99D8xg"><dt data-page-node-id="7rJJ3DRMQITv4FABBdT4Zf">脉轮 Chakra</dt><dd data-page-node-id="cDTR45ggDEcNyc2Mk7nBXR">星际门户<small data-page-node-id="42X8gwodW35GxvyGDh65OB">Stellar Gateway · 代表宇宙门户</small></dd></dl>
     </div>
-        <figure class="element-figure" style="margin-top:48px">
-      <div class="plate">
-        <img src="../../assets/images/major/10-wheel-of-fortune/wheel-of-fortune-elements.png" alt="塔罗牌命运之轮对应要素"
-             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE III — 要素图待上传&lt;br&gt;assets/images/major/10-wheel-of-fortune/wheel-of-fortune-elements.png&lt;/div&gt;'">
+        <figure class="element-figure" style="margin-top:48px" data-page-node-id="cni4ppMCzYGmlKAGsOUXvg">
+      <div class="plate" data-page-node-id="B2k53Zu6XX47IGwLXfbfvr">
+        <img src="../../assets/images/major/10-wheel-of-fortune/wheel-of-fortune-elements.png" alt="命运之轮对应要素——火元素、射手座与木星、Kaph、生命之树第廿二路径"
+             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE II — 要素图待上传&lt;br&gt;assets/images/major/10-wheel-of-fortune/wheel-of-fortune-elements.png&lt;/div&gt;'" data-page-node-id="bLXDK3lzrDIz5EaEnFOAtJ">
       </div>
-      <figcaption class="plate-cap">PLATE IV · 生命之树 · Kaph 路径，第21条路径 · 联结严格 (Geburah) 与胜利 (Netzach)</figcaption>
+        <figcaption class="plate-cap" data-page-node-id="3mNOEGV2LbfvFrfrQ8O7hD">PLATE II · 对应要素 · 火 · 射手座 · 木星 · Kaph · 第廿二路径</figcaption>
     </figure>
   </div>
 </section>
 
 <!-- ============ 象征要素图谱 ============ -->
-<section class="chapter reveal" id="symbols">
-  <div class="wrap">
-    <div class="chapter-head">
-      <div class="idx">— 叁 · ICONOGRAPHY</div>
-      <h2>象征要素图谱<span class="en">A Glossary of Symbols</span></h2>
+<section class="chapter reveal" id="symbols" data-page-node-id="KE5ktdqTIhC6XQLPefrEua">
+  <div class="wrap" data-page-node-id="mdv4FCoybhIvBrzLUOCrpC">
+    <div class="chapter-head" data-page-node-id="SHL99KsAyJPMcCh5SDcQ5O">
+      <div class="idx" data-page-node-id="Cdo6vzi4H1KjZuYJcLp46y">— 叁 · ICONOGRAPHY</div>
+      <h2 data-page-node-id="MN15A6IBvPBKUzmbXkQMXp">象征要素图谱<span class="en" data-page-node-id="i2JkwTAfnDunMNesQXZsDj">A Glossary of Symbols</span></h2>
     </div>
-    <div class="symbol-layout">
-      <figure class="symbol-figure">
-        <div class="plate">
-          <img src="../../assets/images/major/10-wheel-of-fortune/wheel-of-fortune-symbols.png" alt="命运之轮象征要素标注图"
-               onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE II — 象征标注图待上传&lt;br&gt;assets/images/major/10-wheel-of-fortune/wheel-of-fortune-symbols.png&lt;/div&gt;'">
+    <div class="symbol-layout" data-page-node-id="hVNZhnLmE3JrYtwZQeXoNr">
+      <figure class="symbol-figure" data-page-node-id="K0m8NZrxX79bcn3aDIAk0F">
+        <div class="plate" data-page-node-id="alpr4u7tEfJOD2d8ZxSyGu">
+          <img src="../../assets/images/major/10-wheel-of-fortune/wheel-of-fortune-symbols.png" alt="命运之轮象征图谱——三层转轮、TARO 字母、YHVH、斯芬克斯、阿努比斯与四角圣兽"
+               onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE III — 象征标注图待上传&lt;br&gt;assets/images/major/10-wheel-of-fortune/wheel-of-fortune-symbols.png&lt;/div&gt;'" data-page-node-id="zrL9Uj31k6Di6MOTsiLPZT">
         </div>
-        <figcaption class="plate-cap">PLATE II · 象征细节的位置标注与神秘学破译</figcaption>
+        <figcaption class="plate-cap" data-page-node-id="kzQRhcIBgb8EfgQVQboCsZ">PLATE III · 象征细节的位置标注与神秘学破译</figcaption>
       </figure>
-      <div class="symbol-list">
-        <div class="symbol-item" data-id="01"><div class="sym-no">01</div><div class="sym-body"><h4>核心画面</h4><p>轮子周围有四圣兽、斯芬克斯与升降的神秘生物，象征宇宙循环。</p></div></div>
-        <div class="symbol-item" data-id="02"><div class="sym-no">02</div><div class="sym-body"><h4>人物姿态</h4><p>表现当事人面对课题时的心理位置。</p></div></div>
-        <div class="symbol-item" data-id="03"><div class="sym-no">03</div><div class="sym-body"><h4>背景环境</h4><p>提示事件发生的精神气候与现实压力。</p></div></div>
-        <div class="symbol-item" data-id="04"><div class="sym-no">04</div><div class="sym-body"><h4>主要器物</h4><p>象征这张牌运作能量的工具或门槛。</p></div></div>
-        <div class="symbol-item" data-id="05"><div class="sym-no">05</div><div class="sym-body"><h4>光线色彩</h4><p>显示意识清晰度、希望或阴影。</p></div></div>
-        <div class="symbol-item" data-id="06"><div class="sym-no">06</div><div class="sym-body"><h4>编号</h4><p>对应此阶段在人生旅程中的功课。</p></div></div>
-        <div class="symbol-item" data-id="07"><div class="sym-no">07</div><div class="sym-body"><h4>转轮</h4><p>象征生命的周期性、命运与机遇的变化。</p></div></div>
-        <div class="symbol-item" data-id="08"><div class="sym-no">08</div><div class="sym-body"><h4>法老的头像</h4><p>中心的图像代表权力与知识的结合。</p></div></div>
-        <div class="symbol-item" data-id="09"><div class="sym-no">09</div><div class="sym-body"><h4>四个生物</h4><p>四角的四个生物分别代表四福音书的作者，象征智慧、力量、美与速度。</p></div></div>
-        <div class="symbol-item" data-id="10"><div class="sym-no">10</div><div class="sym-body"><h4>TORA／תורה</h4><p>旋转中的文字可读作“TORA”，意味着占星术或犹太人的律法。</p></div></div>
-        <div class="symbol-item" data-id="11"><div class="sym-no">11</div><div class="sym-body"><h4>狮子</h4><p>与圣马可相应，象征勇气与力量。</p></div></div>
-        <div class="symbol-item" data-id="12"><div class="sym-no">12</div><div class="sym-body"><h4>牛</h4><p>象征耐心与牺牲。</p></div></div>
-        <div class="symbol-item" data-id="13"><div class="sym-no">13</div><div class="sym-body"><h4>人</h4><p>代表圣马太，象征智力与知识。</p></div></div>
-        <div class="symbol-item" data-id="14"><div class="sym-no">14</div><div class="sym-body"><h4>鹰</h4><p>代表圣约翰，象征高飞与灵视。</p></div></div>
-        <div class="symbol-item" data-id="15"><div class="sym-no">15</div><div class="sym-body"><h4>化学符号</h4><p>转轮边缘的符号象征炼金术与元素转化的过程。</p></div></div>
-        <div class="symbol-item" data-id="16"><div class="sym-no">16</div><div class="sym-body"><h4>同心圆</h4><p>转轮中心的同心圆象征目标与精神的集中。</p></div></div>
-        <div class="symbol-item" data-id="17"><div class="sym-no">17</div><div class="sym-body"><h4>云彩</h4><p>四角的云象征超自然的力量与神秘。</p></div></div>
-        <div class="symbol-item" data-id="18"><div class="sym-no">18</div><div class="sym-body"><h4><span class="swatch" style="background:oklch(40% 0.13 25)"></span>红色的生物</h4><p>可能代表赛特，古埃及的混沌与风暴之神。</p></div></div>
-        <div class="symbol-item" data-id="19"><div class="sym-no">19</div><div class="sym-body"><h4><span class="swatch" style="background:oklch(38% 0.06 250)"></span>蓝色的生物</h4><p>可能象征智慧与知识。</p></div></div>
-        <div class="symbol-item" data-id="20"><div class="sym-no">20</div><div class="sym-body"><h4><span class="swatch" style="background:oklch(58% 0.12 70)"></span>金色的转轮</h4><p>金色象征高贵、繁荣与直觉的灵光。</p></div></div>
+      <div class="symbol-list" data-page-node-id="w1enuPfiSBm92sTnO9B3MF">
+        <div class="symbol-item" data-id="01" data-page-node-id="ewEEqaQeAADoBx2QhPD40P"><div class="sym-no" data-page-node-id="t9zfQGR5TAzzU2oda4FRno">01</div><div class="sym-body" data-page-node-id="pvc4gcOEUPF2H96wTLtlWo"><h4 data-page-node-id="GFYA1ShmrDoa3X0PmcPINk">核心画面</h4><p data-page-node-id="ls3RhliIhoEAJAv3XtD5JG">轮子周围有四圣兽、斯芬克斯与升降的神秘生物，象征宇宙循环。</p></div></div>
+        <div class="symbol-item" data-id="02" data-page-node-id="s6H5sAIAdbSH1aNnCxY5Ln"><div class="sym-no" data-page-node-id="cbywRqaShkp5Bwo66HZtMn">02</div><div class="sym-body" data-page-node-id="fP7zzKFLFMBM1XoMrW8D6X"><h4 data-page-node-id="K3hCkVphdNtA5OnEDs5uC7">人物姿态</h4><p data-page-node-id="1aQ6v6iXu4M0VNEyMnEFnQ">表现当事人面对课题时的心理位置。</p></div></div>
+        <div class="symbol-item" data-id="03" data-page-node-id="gN4bFglshQrSFVGiRDxPvD"><div class="sym-no" data-page-node-id="FIW9Mv0EOI6AdVqDBHJJRG">03</div><div class="sym-body" data-page-node-id="brifOVm1cwkq2upBioTyyl"><h4 data-page-node-id="7StEBmUcWdF7Y1DpyvWhPA">背景环境</h4><p data-page-node-id="sYvYjUFLil3Bhxw7kVxEwO">提示事件发生的精神气候与现实压力。</p></div></div>
+        <div class="symbol-item" data-id="04" data-page-node-id="ibVhMHl6vd6RZl0ZYJxQZN"><div class="sym-no" data-page-node-id="uajkH1VSZoBV3UMrZCXWJf">04</div><div class="sym-body" data-page-node-id="eJYnRy90WvsfT12DkA6yZP"><h4 data-page-node-id="KCUrwbhYtsTFTgPS3AZBZh">主要器物</h4><p data-page-node-id="3mVWhAyq4s4MZtNBxGIALF">象征这张牌运作能量的工具或门槛。</p></div></div>
+        <div class="symbol-item" data-id="05" data-page-node-id="S6pQCTDFBKnESFNrz4bEVG"><div class="sym-no" data-page-node-id="NOp2MkJGojBKXqCBlSNglN">05</div><div class="sym-body" data-page-node-id="YYjBPGc86GTSEtmSS31bOO"><h4 data-page-node-id="l9B8Gvojqpuyls34Uoimyh">光线色彩</h4><p data-page-node-id="VwCVyURafw3gJcsRL4ib6F">显示意识清晰度、希望或阴影。</p></div></div>
+        <div class="symbol-item" data-id="06" data-page-node-id="jMQgp0IpEXg0FQzMd7I9fN"><div class="sym-no" data-page-node-id="FBnPVpuFHFokDUTLP9ONwR">06</div><div class="sym-body" data-page-node-id="VDhuq77ID3zORSLBmGegC2"><h4 data-page-node-id="ycibucXHi7TNrCVDH2KGw0">编号</h4><p data-page-node-id="e0BOBHwpdYSepzTO0BiAjH">对应此阶段在人生旅程中的功课。</p></div></div>
+        <div class="symbol-item" data-id="07" data-page-node-id="xu2nQHzKAkdIgDseawRxgw"><div class="sym-no" data-page-node-id="A5RW6qWavuQiS6HJjRC2d4">07</div><div class="sym-body" data-page-node-id="fzoaRNoAs7pMBXRWRfCkES"><h4 data-page-node-id="0OUoErIE1sLYqAJSep6FDW">转轮</h4><p data-page-node-id="t2nS9Ev852U2hD1txaU3BQ">象征生命的周期性、命运与机遇的变化。</p></div></div>
+        <div class="symbol-item" data-id="08" data-page-node-id="TG0adaoI6qIk8RO0Uqotut"><div class="sym-no" data-page-node-id="sHAEDY6Y5TDzterokd6nDt">08</div><div class="sym-body" data-page-node-id="GE0IJ49uRr23M8QiVuGcwN"><h4 data-page-node-id="znHSgftLAWFX54z7bFgX8B">法老的头像</h4><p data-page-node-id="kkuNGJ9hWQOOZrU2EAThGU">中心的图像代表权力与知识的结合。</p></div></div>
+        <div class="symbol-item" data-id="09" data-page-node-id="Wr9GpRULFAzyGuTmxt5JyQ"><div class="sym-no" data-page-node-id="01jKpB4wTQagqmAYrHj8fP">09</div><div class="sym-body" data-page-node-id="qrhQzlgOqSbPwuqL5KHRCJ"><h4 data-page-node-id="heoSOihRkWlGGQwC2QdxaD">四个生物</h4><p data-page-node-id="FPDn2BhFbihUmrS11qfnaW">四角的四个生物分别代表四福音书的作者，象征智慧、力量、美与速度。</p></div></div>
+        <div class="symbol-item" data-id="10" data-page-node-id="Zj9USFcwiRtF9an5fbPg9C"><div class="sym-no" data-page-node-id="xKfTsisgzZSiH2KsnheIo5">10</div><div class="sym-body" data-page-node-id="HAhsjtRXHnaz8YdngDpW1W"><h4 data-page-node-id="ROcyyuUK9qbnZtBSmyl2rk">TORA／תורה</h4><p data-page-node-id="ykgAhumUooA22ZmyQVUowf">旋转中的文字可读作"TORA"，意味着占星术或犹太人的律法。</p></div></div>
+        <div class="symbol-item" data-id="11" data-page-node-id="15zAMnJJZ7QUiYBf8q8MPX"><div class="sym-no" data-page-node-id="AM4EFwBDebno6g2KLjBikv">11</div><div class="sym-body" data-page-node-id="ZoEUHH1DPt8sljV67EWrKo"><h4 data-page-node-id="rViKUbiXmJ0M8B2YSHvLAf">狮子</h4><p data-page-node-id="i3d4EQHGdk4m8VJIBiIhjj">与圣马可相应，象征勇气与力量。</p></div></div>
+        <div class="symbol-item" data-id="12" data-page-node-id="gBHOPWMkR8IO0buPhiRjcI"><div class="sym-no" data-page-node-id="OJ24HJCiLjR4Ce1R9b9i4k">12</div><div class="sym-body" data-page-node-id="NI8bVEyA4FeWhxzHrk4LnP"><h4 data-page-node-id="6LzPo7vkR2Gimcl8lP5KhF">牛</h4><p data-page-node-id="L13bwcIdMkXXcOwA1GgUcN">象征耐心与牺牲。</p></div></div>
+        <div class="symbol-item" data-id="13" data-page-node-id="MV3uUFfnkHEpNnNUez4W9Q"><div class="sym-no" data-page-node-id="IhhVgShf7Ip0RmXbfoeCJT">13</div><div class="sym-body" data-page-node-id="No4GJWzcDYZG0wqA96mLmO"><h4 data-page-node-id="hj1uJGDbf1WF4gsG0GyTAZ">人</h4><p data-page-node-id="qtnh9UTy9vXJrUX4tEpqA1">代表圣马太，象征智力与知识。</p></div></div>
+        <div class="symbol-item" data-id="14" data-page-node-id="kYU9txGC1fEQ8EvBYWkFwy"><div class="sym-no" data-page-node-id="BDxeAQ9j8r0mbSnLUkDuuy">14</div><div class="sym-body" data-page-node-id="B77kAxX1AIoxnHNupEcclQ"><h4 data-page-node-id="HAdEtEWPEamHtd80CNEvTu">鹰</h4><p data-page-node-id="BFU86cckNMDlO6AvieqmMB">代表圣约翰，象征高飞与灵视。</p></div></div>
+        <div class="symbol-item" data-id="15" data-page-node-id="1eDBfm9pHZxTlRwWAuWEFG"><div class="sym-no" data-page-node-id="OfZPd27emHEsYmiLi0CRcj">15</div><div class="sym-body" data-page-node-id="yxJ9E9JchLnfdkCnMUw5QF"><h4 data-page-node-id="wEGGtIIprCkEMHcPnJTopx">化学符号</h4><p data-page-node-id="1ZdAreVFLGOh2iMNadw6K6">转轮边缘的符号象征炼金术与元素转化的过程。</p></div></div>
+        <div class="symbol-item" data-id="16" data-page-node-id="W9M5SgvgVuu0OXsCB735x1"><div class="sym-no" data-page-node-id="8WW2ADGwzvukiXnGNZQY4b">16</div><div class="sym-body" data-page-node-id="TQo8uLa08bjtON9clKGkJ9"><h4 data-page-node-id="2w5r0PH94FAR20JCqo0OAy">同心圆</h4><p data-page-node-id="11USRVVJlvbjTgnLAo7ARt">转轮中心的同心圆象征目标与精神的集中。</p></div></div>
+        <div class="symbol-item" data-id="17" data-page-node-id="b1DFNWmFGvxiKZowCGUpiV"><div class="sym-no" data-page-node-id="9qLu4u1icMCvNF4YkMyRvS">17</div><div class="sym-body" data-page-node-id="LGrTgD4bGcu6yCpK9dIlax"><h4 data-page-node-id="3ujW28tAybIPE0aOOClaCo">云彩</h4><p data-page-node-id="GygnapH56IQQjoFX3wMQ0H">四角的云象征超自然的力量与神秘。</p></div></div>
+        <div class="symbol-item" data-id="18" data-page-node-id="bZtwAZ9wa4yV1UN3alVy2N"><div class="sym-no" data-page-node-id="XaySbFFwJP0mkZAIBBp1Uo">18</div><div class="sym-body" data-page-node-id="unvxQWJQ0nLu01WO8Rxg7v"><h4 data-page-node-id="5p5DeFFVeP5cBKoll28EFb"><span class="swatch" style="background:oklch(40% 0.13 25)" data-page-node-id="GaaJli4AFHJVA8p4fqE6G6"></span>红色的生物</h4><p data-page-node-id="ItRg77gVaBOgi1dosinwAG">可能代表赛特，古埃及的混沌与风暴之神。</p></div></div>
+        <div class="symbol-item" data-id="19" data-page-node-id="ziaYJ5kKqsKvVA1oA5pnCH"><div class="sym-no" data-page-node-id="5mCjVvaqGXw9ay1FILMTLq">19</div><div class="sym-body" data-page-node-id="PRIHxjEucQ9VtVDCQXOlm0"><h4 data-page-node-id="L1T6wmHXU9HLEXxLC5y2Z0"><span class="swatch" style="background:oklch(38% 0.06 250)" data-page-node-id="dBjqyjefneQMLfibBasA03"></span>蓝色的生物</h4><p data-page-node-id="qCiXwnyiyFPfxknLUKHuUt">可能象征智慧与知识。</p></div></div>
+        <div class="symbol-item" data-id="20" data-page-node-id="VzWHhGXN0OouMcydZ3UFYj"><div class="sym-no" data-page-node-id="ebJQB3mHbCBiFlDHBCsenn">20</div><div class="sym-body" data-page-node-id="zHwgjXsIIXGwTz7szFTIOk"><h4 data-page-node-id="AEzuNDeV4RtUdGHNh0alqV"><span class="swatch" style="background:oklch(58% 0.12 70)" data-page-node-id="mJ4X5HzWVL1utSh9N6N55D"></span>金色的转轮</h4><p data-page-node-id="fBKmGbHmJAfVCJ3qBjZoaY">金色象征高贵、繁荣与直觉的灵光。</p></div></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ 塔罗灵数 ============ -->
-<section class="chapter reveal" id="numerology">
-  <div class="wrap">
-    <div class="chapter-head">
-      <div class="idx">— 肆 · NUMEROLOGY</div>
-      <h2>塔罗灵数<span class="en">The Number X</span></h2>
+<section class="chapter reveal" id="numerology" data-page-node-id="Ymr45BCpmTCIOsQTsTSp7b">
+  <div class="wrap" data-page-node-id="GU98bU3f5Sf2HjaK0BChxf">
+    <div class="chapter-head" data-page-node-id="7dCqefwN9EunpOU747jpnL">
+      <div class="idx" data-page-node-id="FU8AcZnZ4Z7oYFqEnvmVH2">— 肆 · NUMEROLOGY</div>
+      <h2 data-page-node-id="4y3mATuJPaWIaMnq6zYfgn">塔罗灵数<span class="en" data-page-node-id="XYGZqYHDCBkb0uUfRAwGwN">The Number X</span></h2>
     </div>
-    <div class="numero">
-      <div class="bignum">X<small>Wheel of Fortune</small></div>
-      <div class="numero-text">
-        <p>数字 10 象征一个循环的完成，也孕育下一轮开始。它把 1 的开端与 0 的无限相连，提示命运正在换档。</p>
-        <p>命运之轮的课题在于识时。好运与阻滞都只是轮上的一刻，清醒的人会在变化中调整姿态。</p>
+    <div class="numero" data-page-node-id="ZZ4xeiaDqtFASkpfPIQcfZ">
+      <div class="bignum" data-page-node-id="mINWHWVNTz5mn4JLfZnLhE">X<small data-page-node-id="nGxdWZFGdhy2dWjZ7odtTt">Wheel of Fortune</small></div>
+      <div class="numero-text" data-page-node-id="BTE442uAl6ZwbrfRnIDp1H">
+        <div class="numero-keys" data-page-node-id="kganFC0UPzlfmooVLRNZlq"><span data-page-node-id="QZ9gdR8nWQ0eHro8m6GMR7">完成</span><span data-page-node-id="PfQO7Ns1fg8JHIlH5JmEdY">循环</span><span data-page-node-id="QUHEWoRD73XVAL6MJ4ieIF">因果</span><span data-page-node-id="EHVamjBtmfUUdcmtKvRH0w">新的开始</span></div>
+        <p data-page-node-id="ZdkNyAFqHQt9AHj0G1jG07">数字 10 的核心是完成、循环、转折、因果与新的开始。因为 10 = 1 + 0，它既有"一个周期结束"的意味，也回到数字 1 的"重新出发、创造、独立"——它的表象能量是无限的可能性，取决于自身的环境和能量。</p>
+        <p data-page-node-id="GovH3Ka5H6K6ZJXdWupQww">数字「10」暗示着「0」：「愚人」是「无物」，也没有人格，但就像数字「0」一样，他同时也是一切事物，因为他能直接感受到生命的能量。数字 1 独立自主、强势主动、热情直接；数字 0 则从无到无限大，不被约束和定义，是神性的数字。</p>
+        <p data-page-node-id="Dplt37zhylaC0rULuAMVpf">10 把 1 的开端与 0 的无限相连，象征一个循环的完成，也孕育下一轮开始，提示命运正在换档。它代表独立、领导、开创与行动力强，但人生常伴随命运起伏与周期课题，需要学会顺应变化，而不是硬抗命运之轮。</p>
+        <p class="lesson" data-page-node-id="r0RfnX1ss7WER3D50g1db5"><b data-page-node-id="TIqHU4u9M3kmOzkguKwMbR">十号课题</b>：顺势而为，控制欲与占有欲不要太强——好运与阻滞都只是轮上的一刻，识时者顺其自然，在变化中调整姿态。</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ 正逆位解读 ============ -->
-<section class="chapter reveal" id="reading">
-  <div class="wrap">
-    <div class="chapter-head">
-      <div class="idx">— 伍 · DIVINATORY MEANING</div>
-      <h2>正逆位解读<span class="en">Upright &amp; Reversed</span></h2>
+<section class="chapter reveal" id="reading" data-page-node-id="Rc6X6VaOfNltb8fOus1ITl">
+  <div class="wrap" data-page-node-id="pHw1wetNPfa7V4s1PWqEMC">
+    <div class="chapter-head" data-page-node-id="crmyFxqqKcx1yKvJjfHKOQ">
+      <div class="idx" data-page-node-id="ew5ESkffVYoqdaaV8YjuoW">— 伍 · DIVINATORY MEANING</div>
+      <h2 data-page-node-id="EqEKEme3TZ0xyPDUBUBKdo">正逆位解读<span class="en" data-page-node-id="U3jv3XDpVbXSKYAqXMmv9X">Upright &amp; Reversed</span></h2>
     </div>
-    <div class="pos-switch-wrapper">
-      <div class="pos-switch" role="tablist">
-        <button class="on" data-pos="up" role="tab" aria-selected="true">正位<span class="en">Upright</span></button>
-        <button data-pos="rev" role="tab" aria-selected="false">逆位<span class="en">Reversed</span></button>
+    <div class="reading-focus" data-page-node-id="mPF6hPIuwR8GPDOOPRo3df">
+      <span class="lab" data-page-node-id="52tKaoFebsdn0rqRwLZVeO">Reading focus · 牌面解读重点</span>
+      <p data-page-node-id="SGjVHBFkTiNPADWMQiLIVN">人事物不以个人意志为转移，既充满偶然性，又拥有必然性。轮子转到何处并非当事人所能左右，因此真正的智慧在于顺势识时、坦然接纳起落，而非执着于"我能否掌控结果"。</p>
+    </div>
+    <div class="pos-switch-wrapper" data-page-node-id="XR4FkDpJnbosZuwVEd4857">
+      <div class="pos-switch" role="tablist" data-page-node-id="3YJm8Eb3tn1EIyL2WF0G7j">
+        <button class="on" data-pos="up" role="tab" aria-selected="true" data-page-node-id="ELw9IBNwWVEYBnUMEpW5AM">正位<span class="en" data-page-node-id="GGoYILojXqqD1d80AgfiZs">Upright</span></button>
+        <button data-pos="rev" role="tab" aria-selected="false" data-page-node-id="Wv2UzSTR9lf4wBI9FSecGq">逆位<span class="en" data-page-node-id="PwVAtY9QSroG7PxRSfSn4C">Reversed</span></button>
       </div>
     </div>
 
-    <div class="pos-panel-container">
+    <div class="pos-panel-container" data-page-node-id="DnxQNi2y7rbcIDEAHAry8z">
       <!-- 正位 -->
-      <div class="pos-panel show" id="panel-up">
-        <figure class="pos-figure" style="margin-bottom:40px;max-width:480px">
-          <div class="plate">
-            <img src="../../assets/images/major/10-wheel-of-fortune/wheel-of-fortune-upright.png" alt="命运之轮正位意象"
-                 onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE V — 正位意象图待上传&lt;br&gt;assets/images/major/10-wheel-of-fortune/wheel-of-fortune-upright.png&lt;/div&gt;'">
+      <div class="pos-panel show" id="panel-up" data-page-node-id="0SX6VjLc5eRc1F68qr5ilD">
+        <figure class="pos-figure" style="margin:0 auto 46px;max-width:min(860px,100%)" data-page-node-id="PLwq5mmGuE4xGFNvH4vqsP">
+          <div class="plate" data-page-node-id="U7ZhqoQJeOppAqb5QPeQtD">
+            <img src="../../assets/images/major/10-wheel-of-fortune/wheel-of-fortune-upright.png" alt="命运之轮正位意象——轮盘上行、斯芬克斯执剑与幸运转动的时刻"
+                 onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE IV — 正位意象图待上传&lt;br&gt;assets/images/major/10-wheel-of-fortune/wheel-of-fortune-upright.png&lt;/div&gt;'" data-page-node-id="TqUInopaITIkyiyiCfifJF">
           </div>
-          <figcaption class="plate-cap">PLATE V · 正位意象 · 直觉与宇宙能量的显现</figcaption>
+          <figcaption class="plate-cap" data-page-node-id="r1yMWVfUU9smz8r1gLwubp">PLATE IV · 正位意象 · 转机临近，命运的轮盘开始转动</figcaption>
         </figure>
-        <div class="prose" style="max-width:62ch;margin-bottom:40px">
-          <p>**关键词**：转机，好运，变化，机遇，周期，顺势而为，把控时机，机会降临，转变期，意外的收获，当机立断，幸运降临，恢复原状，因果报应，善恶有报，生命周期，命运，天理，天命，转折点，运势上升</p>
-        <p>正位的命运之轮表示转机临近。好运来临，事情有所改变，命运正迎来转折——你可能交上好运、走向成功、得到喜讯，事情逐渐好转、机会随之而来，命运的轮盘开始转动，幸运之神正眷顾着你。机会可能来自外部环境、偶然相遇、政策变化或一段旧循环的自然结束。</p>
+        <div class="keyword-strip" aria-label="命运之轮正位关键词" data-page-node-id="QUvyVI0WPMxXNuHVyhVUR0">
+          <span data-page-node-id="ZjDpJKHHSNc8WbUzaNHvCg">转机</span><span data-page-node-id="vsPokZD1k8IVxcVExI8ndr">好运</span><span data-page-node-id="yGrW3icE1lNCV6agtVGYlC">变化</span><span data-page-node-id="jK7xIwx2yhRgsdTHetWyyc">机遇</span><span data-page-node-id="8goVSF4oNHmLsOyKSXxTtO">周期</span><span data-page-node-id="R6fV29J4hhezJJotFJhHrF">顺势而为</span><span data-page-node-id="lAIQnwsLJ3Gis3CjLeDhtR">把控时机</span><span data-page-node-id="DaSUrLxjGHZlIaU3MXdU6c">机会降临</span><span data-page-node-id="HSZ2CzDIwM8iIDH2lXPJ18">转变期</span><span data-page-node-id="TcvTD3LDIZHYoLAZhsHmMZ">意外的收获</span><span data-page-node-id="JjgaFlMVdjgh8t6CARDqFH">当机立断</span><span data-page-node-id="zu5R9WSNbzFYs5zBMAG4n4">幸运降临</span><span data-page-node-id="pqb9uMHpyUlg70wNcrpaEc">因果报应</span><span data-page-node-id="MXdzRAa1QRaHFyP8gxZJTd">转折点</span><span data-page-node-id="KOxsSi51ANw5lQzdYMZXm4">运势上升</span>
         </div>
-        <div class="pos-summary">
-          <div class="kw"><span class="lab">核心关键词</span><p>转机，好运，变化，机遇，周期，顺势而为，把控时机，机会降临，转变期，意外的收获，当机立断，幸运降临，恢复原状，因果报应，善恶有报，生命周期，命运，天理，天命，转折点，运势上升</p></div>
-          <div class="kw"><span class="lab">能量基调</span><p>火 元素 · 开启、滋养与自我调和</p></div>
+        <div class="reading-intro" data-page-node-id="BHZw8LXH0wz32n5iXU6wMM"><p data-page-node-id="yeir6zlM6MObij0Wab7fyg">正位的命运之轮表示转机临近。好运来临，事情有所改变，命运正迎来转折——你可能交上好运、走向成功、得到喜讯，事情逐渐好转、机会随之而来，幸运之神正眷顾着你。机会可能来自外部环境、偶然相遇、政策变化或一段旧循环的自然结束。</p></div>
+        <div class="pos-summary" data-page-node-id="gHjHxO8tp7kITUN4kwTA84">
+          <div class="kw" data-page-node-id="LAuTBJAI75tLct48NjFwMv"><span class="lab" data-page-node-id="P5tviVii5LBfMvfucBdo7L">核心关键词</span><p data-page-node-id="Kw1ydTPhv8rWMzLJwgtL6K">转机，好运，变化，机遇，周期，顺势而为，把控时机，机会降临，转变期，意外的收获，当机立断，幸运降临，恢复原状，因果报应，善恶有报，生命周期，命运，天理，天命，转折点，运势上升</p></div>
+          <div class="kw" data-page-node-id="EbG8bTHeEPQj0sAjZBlsnK"><span class="lab" data-page-node-id="0AeauyaciAtqujdIHrSlEX">能量基调</span><p data-page-node-id="104KmVuc7E2iO9fB60O9pL">火 元素 · 转机、扩张与顺势识时</p></div>
         </div>
-        <div class="dim-grid">
-          <div class="dim">
-            <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
-            <ul>
-              <li><b>现况</b>感情发展即将进入下一个阶段，应放下不必要的顾虑与担心，与对方一起去面对接下来要发生的事。</li>
-            <li><b>桃花</b>也许会出现一见钟情的爱情；若想谈恋爱，不妨每天把自己打扮得美美的，时刻准备好彼此相遇。</li>
-            <li><b>看法</b>这是命中注定的一段感情，无论如何都想和对方在一起；即便经历风风雨雨，仍很珍惜两人的情分。</li>
-            <li><b>复合</b>两人复合其实是意料之中的事，即使当时撕破了脸，仍有很大机会复合——一切冥冥之中早已注定。</li>
+        <div class="dim-grid" data-page-node-id="fKcdD4zcBsoOtcecQ7lMvF">
+          <div class="dim" data-page-node-id="fM50lqJAf5Wv9PveQhD9VH">
+            <div class="dim-head" data-page-node-id="qrZOghKysf75HhxmG3Vxaw"><span class="ic" data-page-node-id="E3ZZvKMBgnnAEkNsEsWMbE">❤</span><h4 data-page-node-id="vPkA2g2hOVP8XpcvoWuV4z">爱情 / 婚姻</h4><span class="en" data-page-node-id="xH3MdNnfbP1G3OgBko64Jz">Love</span></div>
+            <p data-page-node-id="JQf0ByaushXot4m04xgJFS">感情进入与循环、转机、命运、变化有关的阶段：它常意味着命运的邂逅、一见钟情或突然的告白，恋情进展顺利，可能迎来婚姻的机会，整体爱情运势上升。单身者会被相应气质的人或关系吸引；有伴侣者则需要围绕信任、边界、承诺、成长或真实需求进行更成熟的沟通。</p>
+            <ul data-page-node-id="2LQzuVoqmdpfQE8EbYAHoR">
+              <li data-page-node-id="69QQ1M9RcEq2r4dIZcUaxf"><b data-page-node-id="Xt6bLvShlTOhNQgLCpdm3m">现况</b>感情发展即将进入下一个阶段，应放下不必要的顾虑与担心，与对方一起去面对接下来要发生的事。</li>
+            <li data-page-node-id="p6rkAPEkOpc7UHZCCx9r0P"><b data-page-node-id="Wnx8CLlLHa4Rk8LzCLsU6h">桃花</b>也许会出现一见钟情的爱情；若想谈恋爱，不妨每天把自己打扮得美美的，时刻准备好彼此相遇。</li>
+            <li data-page-node-id="d1GhM7CgDe1TVa5i8CJec0"><b data-page-node-id="z0pTMJpabdF3yiBE6E4OM3">看法</b>这是命中注定的一段感情，无论如何都想和对方在一起；即便经历风风雨雨，仍很珍惜两人的情分。</li>
+            <li data-page-node-id="ZvcV2799aZXb89ryLnrx1N"><b data-page-node-id="oSqUhnQnMZQ9SNOpEZMVcX">复合</b>两人复合其实是意料之中的事，即使当时撕破了脸，仍有很大机会复合——一切冥冥之中早已注定。</li>
             </ul>
           </div>
-          <div class="dim">
-            <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
-            <ul>
-              <li><b>现况</b>目前处在非常幸运的时期，即使你不是很努力，工作上也很得心应手。</li>
-            <li><b>建议</b>很多事情应顺势而为，不要与时代潮流作对；面对问题保持镇定，只要把握正确方向，事情就会自然解决。</li>
-            <li><b>关系</b>你在这份工作中的人际关系不错，也能因此结识许多新朋友，应把握机会，好好建立自己的人脉。</li>
-            <li><b>发展</b>这份工作有不错的发展前景，但除了乐观应对之外仍要努力工作，否则可能错过升迁或调动的机会。</li>
+          <div class="dim" data-page-node-id="D82gPIWsIzIceCRfElTidJ">
+            <div class="dim-head" data-page-node-id="VGt9DEPqf2637Q4tP381R2"><span class="ic" data-page-node-id="JvTEWIeVZw45IpHsPYn3uJ">✦</span><h4 data-page-node-id="DFVhBhtVJ48yJzxcvgVCo3">事业 / 学业</h4><span class="en" data-page-node-id="e4sIQGVkbmv9RcsA7asp9t">Work</span></div>
+            <p data-page-node-id="BqmaCSAegixBRfU5cJ8ekL">这张牌提示你用更高层次的眼光处理问题，常带来好运、确定前途、意外的好消息与他人援助；考运佳、升职有望、学业进步，伴随有利的变动。它可能带来转机、考验、成果或暂停，但核心都是要求你顺势调整策略、把握机遇。</p>
+            <ul data-page-node-id="XAb5bQAxUB6zzlfjtM1DjB">
+              <li data-page-node-id="1eGEXC9qGKuPaLnozehlEC"><b data-page-node-id="qrjWHU4tZu7yEBhuSoNIJn">现况</b>目前处在非常幸运的时期，即使你不是很努力，工作上也很得心应手。</li>
+            <li data-page-node-id="DImqRQH83P0pMqBH8hyFxm"><b data-page-node-id="vOsiEVb6oQX3OhsFPMKCCZ">建议</b>很多事情应顺势而为，不要与时代潮流作对；面对问题保持镇定，只要把握正确方向，事情就会自然解决。</li>
+            <li data-page-node-id="NjvV12sC2jWc6m4ZhSaHjC"><b data-page-node-id="SHiqdGTY9T6CH3jReq0LIZ">关系</b>你在这份工作中的人际关系不错，也能因此结识许多新朋友，应把握机会，好好建立自己的人脉。</li>
+            <li data-page-node-id="ZGaxFR17CAoxXSBDFIlBbO"><b data-page-node-id="DRexi3ARfQNatWzdgMyfTC">发展</b>这份工作有不错的发展前景，但除了乐观应对之外仍要努力工作，否则可能错过升迁或调动的机会。</li>
             </ul>
           </div>
-          <div class="dim">
-            <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
-            <ul>
-              <li><b>现况</b>你属于朋友很多的人，每换一次环境就有新朋友出现，久而久之积累许多好友，成为你的贵人。</li>
-            <li><b>建议</b>很多事是机缘巧合，若真觉得两人缘分已尽，那就不必强求。</li>
-            <li><b>财运</b>现在财运很好，也会有一些偏财，可以赚到不少钱，应把握时机做好长期发展的打算。此刻正是投资可获利之时，若之前没有投资，可以开始试试，但也要留意投资变化的时机。</li>
+          <div class="dim" data-page-node-id="UXyRs8gbhaJbWYcCwTW8U3">
+            <div class="dim-head" data-page-node-id="Tysaw7zFU6lSitC4lQioN2"><span class="ic" data-page-node-id="snmRmcrXJ2EFkqV4cYdCSr">◈</span><h4 data-page-node-id="ANV0kB1co7kiAF05AxUMHS">人际 / 财富</h4><span class="en" data-page-node-id="t3E4b384ydBR7iJmxtXZAA">Wealth</span></div>
+            <p data-page-node-id="X9AHaghVOkq2U0CzLvcmTu">人际关系中适合看清彼此的位置，减少表面维持。命运之轮带来临时的收入、意外之财，以及意外的贵人相助；你善于随机应变、社交环境有利、人缘佳、朋友运好。财富方面要结合现实条件与长期影响，做出清醒安排。</p>
+            <ul data-page-node-id="v48gKg2IYVzclYXjozAtEH">
+              <li data-page-node-id="Zb42cLASDITZhltsksEIk3"><b data-page-node-id="7EvjNYRBSS9SGPJeHYVCEl">现况</b>你属于朋友很多的人，每换一次环境就有新朋友出现，久而久之积累许多好友，成为你的贵人。</li>
+            <li data-page-node-id="oackqYfVgIHi1MBiP3DMNV"><b data-page-node-id="cHguG73s32mWI7EhNCW0f1">建议</b>很多事是机缘巧合，若真觉得两人缘分已尽，那就不必强求。</li>
+            <li data-page-node-id="C2C43coZUSpmb8ZWtxPD25"><b data-page-node-id="boEPH0nMSrl73X09Cwswv1">财运</b>现在财运很好，也会有一些偏财，可以赚到不少钱，应把握时机做好长期发展的打算。此刻正是投资可获利之时，若之前没有投资，可以开始试试，但也要留意投资变化的时机。</li>
             </ul>
           </div>
-          <div class="dim">
-            <div class="dim-head"><span class="ic">✚</span><h4>健康 / 生活</h4><span class="en">Health</span></div>
-            <p>健康生活上，命运之轮提示身心状态与当前心理课题相连。适合检查压力来源、作息习惯和身体信号，并以更稳定的方式照顾自己。身体也有自己的周期与节律，顺应它的起落、在状态好时积蓄、在低谷时休养，会比强行对抗更有益。</p>
+          <div class="dim" data-page-node-id="rRBJKq6H4c7GLuEuSHb2DP">
+            <div class="dim-head" data-page-node-id="FGEzTI4rLTHNb06goSY8pG"><span class="ic" data-page-node-id="wkYcl7dO01Pgj4oxa3nCLN">✚</span><h4 data-page-node-id="GnSImcR4a4Kr84ldJCqmam">健康 / 生活</h4><span class="en" data-page-node-id="aCURy3bKfQgXxHT5DhoIT8">Health</span></div>
+            <p data-page-node-id="aMQsCJuSxeMpe0BmHGwwQr">健康生活上，命运之轮提示身心状态与当前心理课题相连。适合检查压力来源、作息习惯和身体信号，并以更稳定的方式照顾自己。身体也有自己的周期与节律，顺应它的起落、在状态好时积蓄、在低谷时休养，会比强行对抗更有益。</p>
           </div>
         </div>
-        <div class="dim-extra">
-          <span class="lab">其它牌意 · Other</span>
-          <p>可能代表摄影、绘画等受爱好影响较大的事物，也意味着获得机会、立即行动。若问具体事件，正位多表示事情进入关键阶段。主动理解它的意义，会比单纯等待结果更有力量。</p>
+        <div class="dim-extra" data-page-node-id="VYnSpsfTdnGvkgWcYv5kcn">
+          <span class="lab" data-page-node-id="l9r1eemnG0L4ur6AV1fq4E">其它牌意 · Other</span>
+          <p data-page-node-id="O6iKuJ6EZqZc3bT5YAZUNV">可能代表摄影、绘画等受爱好影响较大的事物，也意味着获得机会、立即行动。若问具体事件，正位多表示事情进入关键阶段。主动理解它的意义，会比单纯等待结果更有力量。</p>
         </div>
       </div>
 
       <!-- 逆位 -->
-      <div class="pos-panel" id="panel-rev">
-        <figure class="pos-figure" style="margin-bottom:40px;max-width:480px">
-          <div class="plate">
-            <img src="../../assets/images/major/10-wheel-of-fortune/wheel-of-fortune-reversed.png" alt="命运之轮逆位意象"
-                 onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VI — 逆位意象图待上传&lt;br&gt;assets/images/major/10-wheel-of-fortune/wheel-of-fortune-reversed.png&lt;/div&gt;'">
+      <div class="pos-panel" id="panel-rev" data-page-node-id="U0sJoUSwSrYTWcGGdMCqRy">
+        <figure class="pos-figure" style="margin:0 auto 46px;max-width:min(860px,100%)" data-page-node-id="dn7hxGfExUd2Quu4OL34p4">
+          <div class="plate" data-page-node-id="XyWhAhhw0YC0Ejc3ChoG9v">
+            <img src="../../assets/images/major/10-wheel-of-fortune/wheel-of-fortune-reversed.png" alt="命运之轮逆位意象——停滞的轮盘与蛇头朝下的沉沦"
+                 onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE V — 逆位意象图待上传&lt;br&gt;assets/images/major/10-wheel-of-fortune/wheel-of-fortune-reversed.png&lt;/div&gt;'" data-page-node-id="rcadXQkq8VBMH9ALYT4DFj">
           </div>
-          <figcaption class="plate-cap">PLATE VI · 逆位意象 · 失衡与能量阻塞</figcaption>
+          <figcaption class="plate-cap" data-page-node-id="w9QVH44mMzZQGC356OFtuM">PLATE V · 逆位意象 · 轮盘受阻，抗拒变化使时机流失</figcaption>
         </figure>
-        <div class="prose" style="max-width:62ch;margin-bottom:40px">
-          <p>**关键词**：停滞，坏运，抗拒变化，反复，失控感，时机不佳，判定错误，情绪低落，运气不佳，左右为难，一时的幸福，倒霉，霉运，拒绝改变，循环终止，循环断裂，运势下降，不顺，挫折，困难，不利的变化</p>
-        <p>逆位的命运之轮表示这股能量受阻、失衡或被错误使用：运气不佳，事情可能发生逆转，遭遇命运的挫折，发展不顺、失去机会，命运的轮盘仿佛停止转动。此时最重要的是先看清自己是否正在抗拒这张牌所要求的功课。</p>
+        <div class="keyword-strip" aria-label="命运之轮逆位关键词" data-page-node-id="GNiuvA6qJaf9evq1WyVv93">
+          <span data-page-node-id="35XXrtdEFIcJEOZGbpkzb0">停滞</span><span data-page-node-id="nAjEAktlsfLBU3q77ISCpV">坏运</span><span data-page-node-id="1hktnrGhiQow8MpH2Qw0I6">抗拒变化</span><span data-page-node-id="YjnirAIsHcMEqjksonbk6W">反复</span><span data-page-node-id="F6d5Blct0yGmknp4CcvwBc">失控感</span><span data-page-node-id="cwD29fb3wXgzkqgL4FDykD">时机不佳</span><span data-page-node-id="wFwQkUiJR8J4xDQpvgRU5n">判定错误</span><span data-page-node-id="MJCOEpSLcr8u6HwVnaUrbY">情绪低落</span><span data-page-node-id="zTC6Qvpxd5P2H2G7kbt023">运气不佳</span><span data-page-node-id="Ma5PPGuSq52p26AmZoDV5C">左右为难</span><span data-page-node-id="UHBU0SIW0AYYA570cClEde">倒霉</span><span data-page-node-id="2NDtZ6V36um7uo3fjwE9jD">拒绝改变</span><span data-page-node-id="1tHMHg0F16se9HJZQhW8D9">循环断裂</span><span data-page-node-id="Fk623zJW3BoetYUCSNpGvC">运势下降</span><span data-page-node-id="jxAcl4ZrtDEQyIDNWsADUN">挫折</span>
         </div>
-        <div class="pos-summary">
-          <div class="kw"><span class="lab">核心关键词</span><p>停滞，坏运，抗拒变化，反复，失控感，时机不佳，判定错误，情绪低落，运气不佳，左右为难，一时的幸福，倒霉，霉运，拒绝改变，循环终止，循环断裂，运势下降，不顺，挫折，困难，不利的变化</p></div>
-          <div class="kw"><span class="lab">能量基调</span><p>火 元素 · 延迟、失控与过度自我沉溺</p></div>
+        <div class="reading-intro" data-page-node-id="fd6XvHDK4u9OJ2xqKsp2EH"><p data-page-node-id="PfUSjhLxfW6QB35Rxapiuu">逆位的命运之轮表示这股能量受阻、失衡或被错误使用：运气不佳，事情可能发生逆转，遭遇命运的挫折，发展不顺、失去机会，命运的轮盘仿佛停止转动。此时最重要的是先看清自己是否正在抗拒这张牌所要求的功课。</p></div>
+        <div class="pos-summary" data-page-node-id="G5O5SJDgwnk49c82VEcjeG">
+          <div class="kw" data-page-node-id="hvp9v3JEuoVEB31oE6YFGH"><span class="lab" data-page-node-id="PsShson6sIGNZkIbXuh5UG">核心关键词</span><p data-page-node-id="CWcsGPw4u8dS3gVPmHZy3S">停滞，坏运，抗拒变化，反复，失控感，时机不佳，判定错误，情绪低落，运气不佳，左右为难，一时的幸福，倒霉，霉运，拒绝改变，循环终止，循环断裂，运势下降，不顺，挫折，困难，不利的变化</p></div>
+          <div class="kw" data-page-node-id="gJ0TUHnQBR9mnv9CW8eUHB"><span class="lab" data-page-node-id="GLZBFUEE2QmDD4d6ESUG9d">能量基调</span><p data-page-node-id="7SjkCigPB8s4iPGF9MwjO5">火 元素 · 停滞、失衡与抗拒变化</p></div>
         </div>
-        <div class="dim-grid">
-          <div class="dim reversed">
-            <div class="dim-head"><span class="ic">❤</span><h4>爱情 / 婚姻</h4><span class="en">Love</span></div>
-            <ul>
-              <li><b>现况</b>在感情上面对很大的变化，你觉得自己两面不是人，也很难抉择，而此刻的决定会对未来产生很大影响。</li>
-            <li><b>桃花</b>现在会出现新的感情，但未必是你理想中的模样，你可以试着接受对方，或选择放弃、再等一等。</li>
-            <li><b>看法</b>这段感情走到现在是一种因缘际会，但接下来怎么办尚无具体想法，虽能感觉到两人的关系正在变化。</li>
-            <li><b>复合</b>两人的关系总是分分合合，即使再复合也很难稳定下来，应想清楚问题之后再做最后决定。</li>
+        <div class="dim-grid" data-page-node-id="0cuOvzVr5CfhDb9uMZV1zo">
+          <div class="dim reversed" data-page-node-id="kHRIex1QxgBBbgBtgmIoTz">
+            <div class="dim-head" data-page-node-id="AKU76lPy0BSE5LVVjrEH5x"><span class="ic" data-page-node-id="LJ0x7rI0cQ1CUjGLbrx2Vy">❤</span><h4 data-page-node-id="UegCJhUg3vTE9SKTQNLj93">爱情 / 婚姻</h4><span class="en" data-page-node-id="KG4MUYN4sf9lvPz6fveZGm">Love</span></div>
+            <p data-page-node-id="C0rjl5lk3B2mUmnXC9kqo1">感情中容易出现误解、逃避、控制、冷淡或旧模式重复，常表现为缺乏要领的交往、不稳定的恋情、激情冷却，乃至失恋、错失良机、感情破裂。关系若一直无法推进，需要回到双方真实需求。</p>
+            <ul data-page-node-id="uFSrbwee0ilRECbfPGFiXs">
+              <li data-page-node-id="yxCMCuGiF2FFihfCEcS9Pk"><b data-page-node-id="1AIoMaHdax2G25jjkWg5Uf">现况</b>在感情上面对很大的变化，你觉得自己两面不是人，也很难抉择，而此刻的决定会对未来产生很大影响。</li>
+            <li data-page-node-id="JUEa9yPMNnTOLr2JVVEm1h"><b data-page-node-id="iX05J8bFJ8O1zlikhSthB7">桃花</b>现在会出现新的感情，但未必是你理想中的模样，你可以试着接受对方，或选择放弃、再等一等。</li>
+            <li data-page-node-id="RRcNzKhoReqEh9hrkPD8E9"><b data-page-node-id="hHgEDYLVcOGrHjpGfqOFLE">看法</b>这段感情走到现在是一种因缘际会，但接下来怎么办尚无具体想法，虽能感觉到两人的关系正在变化。</li>
+            <li data-page-node-id="3vRUt23EV7GlEWQZoek6BF"><b data-page-node-id="4KCpjruHFHQMc4kIPBgEmk">复合</b>两人的关系总是分分合合，即使再复合也很难稳定下来，应想清楚问题之后再做最后决定。</li>
             </ul>
           </div>
-          <div class="dim reversed">
-            <div class="dim-head"><span class="ic">✦</span><h4>事业 / 学业</h4><span class="en">Work</span></div>
-            <ul>
-              <li><b>现况</b>目前工作上遇到重大变化，这不是你能控制的事，保持镇定、不必慌乱。</li>
-            <li><b>建议</b>面对必然发生的重大变化，千万不要原地不动；若能跟上变革的脚步，也许就能化危机为转机。</li>
-            <li><b>关系</b>这份工作中的人际关系相当重要，即便彼此不合作也会互相影响，若处不好，会被人在背后使绊子。</li>
-            <li><b>发展</b>这份工作接下来还有很大变化，届时也许会有大麻烦出现，你要先想好是接招还是遁走。</li>
+          <div class="dim reversed" data-page-node-id="nEwhICFemQNFqy2qUyDBr8">
+            <div class="dim-head" data-page-node-id="usiPiOkvfH9HLG73TCVbgb"><span class="ic" data-page-node-id="Mt0OCxeRH1Nn4ycHpeFhPe">✦</span><h4 data-page-node-id="XjtmXtOZeEPyGA8JQYwks1">事业 / 学业</h4><span class="en" data-page-node-id="oBPGBvc5UECzfxDEAi03Y6">Work</span></div>
+            <p data-page-node-id="uttVI9u7T9KfRbAPUHugHm">事业学业上可能有拖延、阻滞、判断偏差或权责不清，常表现为竭尽全力却无功而返、效率低下、被同事或领导误解、希望落空、成绩低落、工作易出错。先修正方向、补足信息，再决定下一步。</p>
+            <ul data-page-node-id="qtZkLnoRBekenNQed10Hbq">
+              <li data-page-node-id="fWcMe81uyTuCbVmcmte3yA"><b data-page-node-id="si0kLdP6On8MzmUJWUB0CD">现况</b>目前工作上遇到重大变化，这不是你能控制的事，保持镇定、不必慌乱。</li>
+            <li data-page-node-id="GT15pI5XCvZiSUFFyqLatw"><b data-page-node-id="gvSMP6bfYzZhGPW0sRwRHo">建议</b>面对必然发生的重大变化，千万不要原地不动；若能跟上变革的脚步，也许就能化危机为转机。</li>
+            <li data-page-node-id="io0iYiQowxCM4Gz2h8ShDA"><b data-page-node-id="Rw3cnxFiaERymUFNlp9ZtB">关系</b>这份工作中的人际关系相当重要，即便彼此不合作也会互相影响，若处不好，会被人在背后使绊子。</li>
+            <li data-page-node-id="VLkf4QVWP8fZ6FJccBtSyA"><b data-page-node-id="sQ5med2q5dwco9VfbGxgEu">发展</b>这份工作接下来还有很大变化，届时也许会有大麻烦出现，你要先想好是接招还是遁走。</li>
             </ul>
           </div>
-          <div class="dim reversed">
-            <div class="dim-head"><span class="ic">◈</span><h4>人际 / 财富</h4><span class="en">Wealth</span></div>
-            <ul>
-              <li><b>现况</b>人际关系情况复杂，有些朋友看似不那么熟识，却仍会找你出来玩乐或帮忙，让你有点难以应付。</li>
-            <li><b>建议</b>不要急着下判断，先找其他朋友商量，有时需要的是集思广益，要有解决问题的耐性。</li>
-            <li><b>财运</b>你的财运正发生结构性变化，把握得好将带来巨大收益，发生错误也可能不可挽回。不要过度乐观地评估投资，必要时应向专业人士求助，若自己胡来，必定血本无归。</li>
+          <div class="dim reversed" data-page-node-id="DCN7h7AGP4YYJb19baHqWV">
+            <div class="dim-head" data-page-node-id="rYPUkQb8KCQVHK93WM0bbf"><span class="ic" data-page-node-id="NP4BTnpO83sEeywoL0UbzW">◈</span><h4 data-page-node-id="hv6N9lBftgbfpWuyB4pmwB">人际 / 财富</h4><span class="en" data-page-node-id="mDw1EYmyZFuSPWqdAsFhqQ">Wealth</span></div>
+            <p data-page-node-id="r9DOLUjpzU0CMIDzwAhll9">人际方面要小心投射和不公平交换，逆位常表现为超支、上当受骗、误解较多、人际关系不稳定，竭尽全力却往往白忙一场。财富方面适合回到理性评估与长期规划，避免被恐惧推着走。</p>
+            <ul data-page-node-id="CbEGOG8cGk2i1V55S4qVFi">
+              <li data-page-node-id="8D3fdhCrT4tNyyDxVVRT59"><b data-page-node-id="2Jg9C998AHzHOSXZGrWdsS">现况</b>人际关系情况复杂，有些朋友看似不那么熟识，却仍会找你出来玩乐或帮忙，让你有点难以应付。</li>
+            <li data-page-node-id="HkQuV2Lp0zqmt1uuWkH0cr"><b data-page-node-id="EUN5qa4J77TaA8Z7EwNV7Y">建议</b>不要急着下判断，先找其他朋友商量，有时需要的是集思广益，要有解决问题的耐性。</li>
+            <li data-page-node-id="kAh0fpQaefsDA2Q78HRwfA"><b data-page-node-id="3gXjzGieqpROrH4HG0Ryex">财运</b>你的财运正发生结构性变化，把握得好将带来巨大收益，发生错误也可能不可挽回。不要过度乐观地评估投资，必要时应向专业人士求助，若自己胡来，必定血本无归。</li>
             </ul>
           </div>
-          <div class="dim reversed">
-            <div class="dim-head"><span class="ic">✚</span><h4>健康 / 生活</h4><span class="en">Health</span></div>
-            <p>健康上，逆位常提示压力累积、情绪压抑、作息失衡或身体警讯被忽略。当人抗拒变化、被失控感裹挟，情绪低落与节律紊乱便容易显现。建议减少极端做法，接纳无法掌控之事，重新建立可持续的生活节奏。</p>
+          <div class="dim reversed" data-page-node-id="3MFxlCb0qwqES6qQnGSk6t">
+            <div class="dim-head" data-page-node-id="Fgx5HYtD0Dp8Y3DvDgZpDH"><span class="ic" data-page-node-id="6GFrWcsPdB09wLJ9nP62IC">✚</span><h4 data-page-node-id="QN692eJt5HugTUYzUHmsAP">健康 / 生活</h4><span class="en" data-page-node-id="DHpXU9NlFHuMudCJgimR6X">Health</span></div>
+            <p data-page-node-id="ZH1kjis56B9RK6gKkse1aq">健康上，逆位常提示压力累积、情绪压抑、作息失衡或身体警讯被忽略。当人抗拒变化、被失控感裹挟，情绪低落与节律紊乱便容易显现。建议减少极端做法，接纳无法掌控之事，重新建立可持续的生活节奏。</p>
           </div>
         </div>
-        <div class="dim-extra">
-          <span class="lab">其它牌意 · Other</span>
-          <p>可能代表暂时的好运、爽约，对事物感到乏味，或生活单一无趣。事情可能延迟、反复或暴露隐藏问题。先修正模式，再谈结果。</p>
+        <div class="dim-extra" data-page-node-id="siBEPRcOUjq38xunV9lLoZ">
+          <span class="lab" data-page-node-id="sLZkmh5vn9buwURnTFRNGG">其它牌意 · Other</span>
+          <p data-page-node-id="Ym72wMEzF0t4z8djTj27Un">可能代表暂时的好运、爽约，对事物感到乏味，或生活单一无趣。事情可能延迟、反复或暴露隐藏问题。先修正模式，再谈结果。</p>
         </div>
       </div>
     </div>
@@ -694,83 +774,83 @@ footer .zh{font-family:var(--song);font-size:14px;letter-spacing:.1em;color:var(
 </section>
 
 <!-- ============ 牌阵示意 ============ -->
-<section class="chapter reveal" id="spread">
-  <div class="wrap">
-    <div class="chapter-head">
-      <div class="idx">— 陆 · THE SPREAD</div>
-      <h2>三牌阵示意<span class="en">Past · Present · Future</span></h2>
+<section class="chapter reveal" id="spread" data-page-node-id="GNeIM6Y0epRBdQdcAtOKix">
+  <div class="wrap" data-page-node-id="cHQ34ZnMg8EalhhOLjuSn7">
+    <div class="chapter-head" data-page-node-id="WDoXsgXCDNXJmAFyoEPFwI">
+      <div class="idx" data-page-node-id="ADdFAChz9YtAZTQVlWR8tP">— 陆 · THE SPREAD</div>
+      <h2 data-page-node-id="C976obOxYYorihBuOTtz2s">三牌阵示意<span class="en" data-page-node-id="0PxpV5AUrJUb3fXdokfxgX">Past · Present · Future</span></h2>
     </div>
-    <figure class="spread-figure" style="margin-bottom:40px;max-width:680px">
-      <div class="plate">
-        <img src="../../assets/images/major/10-wheel-of-fortune/wheel-of-fortune-spread.png" alt="三牌阵示意图"
-             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VII — 三牌阵示意图待上传&lt;br&gt;assets/images/major/10-wheel-of-fortune/wheel-of-fortune-spread.png&lt;/div&gt;'">
+    <figure class="spread-figure" style="margin:0 auto 46px;max-width:min(980px,100%)" data-page-node-id="T4MxxkDq50GzR30yVeWdQy">
+      <div class="plate" data-page-node-id="qVYdQwzy0HAYDfnioRDF0j">
+        <img src="../../assets/images/major/10-wheel-of-fortune/wheel-of-fortune-spread.png" alt="命运之轮三牌阵——过去的机缘、现在的转折与未来的轮回"
+             onerror="this.outerHTML='&lt;div class=&quot;imgfallback&quot;&gt;PLATE VI — 三牌阵示意图待上传&lt;br&gt;assets/images/major/10-wheel-of-fortune/wheel-of-fortune-spread.png&lt;/div&gt;'" data-page-node-id="5gNxokzcJLoSNim8RvhuoJ">
       </div>
-      <figcaption class="plate-cap">PLATE VII · 三牌阵 · 过去 · 现在 · 未来（向内觉察的能量）</figcaption>
+      <figcaption class="plate-cap" data-page-node-id="5pyehUqnRETy7Pwfs4KwCG">PLATE VI · 三牌阵 · 机缘萌动 · 转折变化 · 命运轮回</figcaption>
     </figure>
-    <div class="prose" style="max-width:60ch;margin-bottom:38px">
-      <p>当命运之轮出现在三牌阵中，它象征的是能量在时间维度上的显现。点击下方卡牌揭示隐秘启示。</p>
+    <div class="prose" style="max-width:60ch;margin-bottom:38px" data-page-node-id="VDNbSCrc9N9lWYqM1pOraR">
+      <p data-page-node-id="giCwhXUdwNVKzVupvmV21y">当命运之轮出现在三牌阵中，它象征的是能量在时间维度上的显现。点击下方卡牌揭示隐秘启示。</p>
     </div>
-    <div class="spread">
+    <div class="spread" data-page-node-id="qgLH7wBi8HY7SnGe8hHHzL">
       <!-- 过去 -->
-      <div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')">
-        <div class="spread-card-back">
-          <div class="back-pattern">
-            <span>I</span>
-            <span style="font-size:16px; font-family:var(--sans); letter-spacing:0.1em;">过去 · PAST</span>
+      <div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')" data-page-node-id="Lz6Fq9JUoSzrLfCqnvS75t">
+        <div class="spread-card-back" data-page-node-id="jfn3clVV9qctZ59uDMt28w">
+          <div class="back-pattern" data-page-node-id="tX6otZcqrbFCTNyc75b6Hl">
+            <span data-page-node-id="JgFeSeDMs17IlCP7KD76W0">I</span>
+            <span style="font-size:16px; font-family:var(--sans); letter-spacing:0.1em;" data-page-node-id="9DtRHaMTETIgWdagUPau3r">过去 · PAST</span>
           </div>
-          <div class="click-to-reveal">点击翻牌</div>
+          <div class="click-to-reveal" data-page-node-id="kWQFk0weSDEfBElSKuoC9Z">点击翻牌</div>
         </div>
-        <div class="spread-card-front">
-          <div class="pos-no">I</div>
-          <span class="en">Past · 过去</span>
-          <h4>机缘萌动</h4>
-          <p>过去的行动与决定开始显现其结果，无论好坏，都是生活循环与变化的一部分。</p>
+        <div class="spread-card-front" data-page-node-id="4cFpcN6velW4Jw766PWKvy">
+          <div class="pos-no" data-page-node-id="Kx09Oza1RH9q3WLNaxuBnt">I</div>
+          <span class="en" data-page-node-id="F4vf9HyEgtjlHOFuTdW5a5">Past · 过去</span>
+          <h4 data-page-node-id="E2vxtHo0ZWwnyn5ZnO3KLa">机缘萌动</h4>
+          <p data-page-node-id="w0ISwB0jAzlk4H13HU1Syx">过去的行动与决定开始显现其结果，无论好坏，都是生活循环与变化的一部分。</p>
         </div>
       </div>
 
       <!-- 现在 -->
-      <div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')">
-        <div class="spread-card-back">
-          <div class="back-pattern">
-            <span>II</span>
-            <span style="font-size:16px; font-family:var(--sans); letter-spacing:0.1em;">现在 · PRESENT</span>
+      <div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')" data-page-node-id="kV4BvSja43cWia91EcvP7d">
+        <div class="spread-card-back" data-page-node-id="ElkldDDyX28q1MR06bBPLu">
+          <div class="back-pattern" data-page-node-id="t8UjL0c6uxpwMVY2DEkE9n">
+            <span data-page-node-id="bVWmBkYoDbCnubGHCvD8Fw">II</span>
+            <span style="font-size:16px; font-family:var(--sans); letter-spacing:0.1em;" data-page-node-id="aLO4Xn86Y1SNIyAFofhBGZ">现在 · PRESENT</span>
           </div>
-          <div class="click-to-reveal">点击翻牌</div>
+          <div class="click-to-reveal" data-page-node-id="GlCHFvXYsoTjmBoI3W9lig">点击翻牌</div>
         </div>
-        <div class="spread-card-front">
-          <div class="pos-no">II</div>
-          <span class="en">Present · 现在</span>
-          <h4>转折变化</h4>
-          <p>正是转折点，命运之轮正为你展开新的篇章，你可能感到事业或个人生活的动态变化。</p>
+        <div class="spread-card-front" data-page-node-id="ZGvsR6vpKlhxfBKxTfiN9c">
+          <div class="pos-no" data-page-node-id="YJz2c10lpvZynZ2EZ8hfne">II</div>
+          <span class="en" data-page-node-id="pOYGIEeSYEKOCbAJhKONFv">Present · 现在</span>
+          <h4 data-page-node-id="DzrMoXL0whxLY6wG4QTnhi">转折变化</h4>
+          <p data-page-node-id="imnB6CPHSzLvrvCdiBEIEC">正是转折点，命运之轮正为你展开新的篇章，你可能感到事业或个人生活的动态变化。</p>
         </div>
       </div>
 
       <!-- 未来 -->
-      <div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')">
-        <div class="spread-card-back">
-          <div class="back-pattern">
-            <span>III</span>
-            <span style="font-size:16px; font-family:var(--sans); letter-spacing:0.1em;">未来 · FUTURE</span>
+      <div class="spread-card-wrapper" onclick="this.classList.toggle('flipped')" data-page-node-id="CV04abtGPfipHRAb7BD1XC">
+        <div class="spread-card-back" data-page-node-id="oO0vq1G4Qs8WktSIkDI56z">
+          <div class="back-pattern" data-page-node-id="K2SNslY3mBrJiSQlyK6Y6W">
+            <span data-page-node-id="v72PZG1foAdfFW8CnjwM5q">III</span>
+            <span style="font-size:16px; font-family:var(--sans); letter-spacing:0.1em;" data-page-node-id="qxnzUlehGW2Wf6BvgE3Pml">未来 · FUTURE</span>
           </div>
-          <div class="click-to-reveal">点击翻牌</div>
+          <div class="click-to-reveal" data-page-node-id="ImyzOD7DWmlOqkhulNTqjv">点击翻牌</div>
         </div>
-        <div class="spread-card-front">
-          <div class="pos-no">III</div>
-          <span class="en">Future · 未来</span>
-          <h4>命运轮回</h4>
-          <p>未来将有更多机遇与挑战，重要的是保持开放与适应性，以充分利用即将到来的新局面。</p>
+        <div class="spread-card-front" data-page-node-id="UClURLPkhMwyEgVArH7Smu">
+          <div class="pos-no" data-page-node-id="OamOC6yR2RdxG8Rb1CgsGN">III</div>
+          <span class="en" data-page-node-id="xFXZsOd8AlDwYWSGoGa7Vr">Future · 未来</span>
+          <h4 data-page-node-id="WkQtYRHbnIJHw1r4BDaSSD">命运轮回</h4>
+          <p data-page-node-id="9Is9RlSU9UQK66Gz1WPvAb">未来将有更多机遇与挑战，重要的是保持开放与适应性，以充分利用即将到来的新局面。</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<footer>
-  <div class="wrap">
-    <hr class="rule-gold" style="margin-bottom:40px">
-    <p class="ornament">✦ ❖ ✦</p>
-    <p>ARCANUM X · WHEEL OF FORTUNE · 火  · 木星</p>
-    <p class="zh">「观牌如观画，读意如读经。」</p>
+<footer data-page-node-id="9qR8pn5TWNEzMJruLL3hOg">
+  <div class="wrap" data-page-node-id="RirIhnPUu74lRwfa6dlRMh">
+    <hr class="rule-gold" style="margin-bottom:40px" data-page-node-id="PCXapDTZEydUlRreBqPx0u">
+    <p class="ornament" data-page-node-id="1xWmwhka15SBYKFTWL5JSQ">✦ ❖ ✦</p>
+    <p data-page-node-id="W5piv8y684sBeiAdIiHB60">ARCANUM X · WHEEL OF FORTUNE · 火 · 射手座 · 木星</p>
+    <p class="zh" data-page-node-id="GPyX0BDZQ39M9fZLI1FvrG">「观牌如观画，读意如读经。」</p>
   </div>
 </footer>
 
